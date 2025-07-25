@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { generateCustomerAccessToken } from "@/lib/integration-token";
 import connectDB from "@/lib/mongodb";
 import { syncRecords } from "./sync-records";
 
@@ -8,6 +7,7 @@ import { z } from "zod";
 import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
 import { IntegrationAppClient } from "@integration-app/sdk";
+import { createSyncActivity } from "@/lib/sync-activity-utils";
 
 const schema = z.object({
   integrationKey: z.string(),
@@ -25,16 +25,11 @@ export async function POST(
   try {
     await connectDB();
 
-    const { dbUserId, fullName } = await ensureUser();
+    const { dbUserId, membraneAccessToken } = await ensureUser();
 
     if (!dbUserId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-
-    const token = await generateCustomerAccessToken({
-      id: dbUserId,
-      name: fullName || `$user-${dbUserId}`,
-    });
 
     const requestBody = schema.safeParse(await request.json());
 
@@ -48,7 +43,7 @@ export async function POST(
     const { integrationKey, dataSourceKey, instanceKey } = requestBody.data;
 
     const membrane = new IntegrationAppClient({
-      token,
+      token: membraneAccessToken!,
     });
 
     /**
@@ -117,6 +112,24 @@ export async function POST(
       collectionEventDetails,
       instanceKey,
       syncCount: 0,
+
+      /**
+       * Other useful info to have, so you don't have to fetch it all the time
+       */
+      integrationName: datasource.integration?.name,
+      integrationLogoUri: datasource.integration?.logoUri,
+    });
+
+    // Track sync creation activity
+    await createSyncActivity({
+      syncId: sync._id.toString(),
+      userId: dbUserId,
+      type: "sync_created",
+      metadata: {
+        integrationName: datasource.integration?.name,
+        dataSourceKey,
+        instanceKey,
+      },
     });
 
     // Respond early after creating the sync
@@ -124,7 +137,7 @@ export async function POST(
 
     // Fire-and-forget syncRecords
     syncRecords({
-      token,
+      token: membraneAccessToken!,
       userId: dbUserId,
       integrationKey,
       actionId: action.id,

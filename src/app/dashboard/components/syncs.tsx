@@ -3,14 +3,12 @@ import { useAuth } from "@clerk/nextjs";
 import type { ISync } from "@/models/types";
 import Link from "next/link";
 import Image from "next/image";
-import { useIntegrations } from "@integration-app/react";
+import { Loader } from "@/components/ui/loader";
+
 import {
   ListTree,
   FileText,
   Image as ImageIcon,
-  CheckIcon,
-  Loader2Icon,
-  XIcon,
   HashIcon,
   ClockIcon,
   ChevronRight,
@@ -18,8 +16,8 @@ import {
 } from "lucide-react";
 import type { FC } from "react";
 import { formatDistanceToNow } from "date-fns";
+import { StatusBadge } from "@/components/ui/status-badge";
 
-// Fetcher with authorization header
 const fetcher = async (url: string, token: string) => {
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${token}` },
@@ -28,7 +26,6 @@ const fetcher = async (url: string, token: string) => {
   return res.json();
 };
 
-// Map datasource keys to icons
 const datasourceKeyToIcon: Record<string, FC<React.SVGProps<SVGSVGElement>>> = {
   "content-items": ListTree,
   documents: FileText,
@@ -41,24 +38,8 @@ interface SyncItemProps {
   integrationName?: string;
 }
 
-// Renders a single sync item row
 function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
   const Icon = datasourceKeyToIcon[sync.dataSourceKey];
-
-  // Helper to render sync status icon
-  const renderStatusIcon = () => {
-    switch (sync.status) {
-      case "completed":
-        return <CheckIcon className="w-4 h-4 text-green-500" />;
-      case "pending":
-      case "in_progress":
-        return <Loader2Icon className="w-4 h-4 animate-spin text-blue-500" />;
-      case "failed":
-        return <XIcon className="w-4 h-4 text-red-500" />;
-      default:
-        return null;
-    }
-  };
 
   return (
     <Link
@@ -66,9 +47,8 @@ function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
       href={`/dashboard/sync/${sync._id}`}
       className="block group"
     >
-      <div className="flex flex-row items-center gap-2 border-b border-gray-200 hover:bg-muted/70 cursor-pointer transition-colors py-4 px-2">
-        {/* Integration logo or fallback */}
-        <div className="flex-shrink-0">
+      <div className="flex items-center flex-row gap-2 border-b border-gray-200 hover:bg-muted/70 cursor-pointer transition-colors py-4 px-2">
+        <div className="flex-shrink-0 self-start">
           {logoUri ? (
             <Image
               src={logoUri}
@@ -88,10 +68,7 @@ function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
             <span className="text font-semibold truncate">
               {integrationName || sync.integrationKey}
             </span>
-            <span className="ml-2 px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600 capitalize flex items-center gap-1">
-              {renderStatusIcon()}
-              {sync.status}
-            </span>
+            <StatusBadge status={sync.status} />
           </div>
           <div className="flex flex-row items-center gap-2 mt-1">
             {/* Data Source Key Badge */}
@@ -141,7 +118,6 @@ function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
             )}
           </div>
         </div>
-        {/* Animated arrow on hover */}
         <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:translate-x-1 pr-4">
           <ChevronRight className="w-5 h-5 text-gray-400" />
         </div>
@@ -152,9 +128,7 @@ function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
 
 export function Syncs() {
   const { getToken } = useAuth();
-  const { integrations } = useIntegrations();
 
-  // SWR fetch with polling and auth
   const { data, error, isLoading } = useSWR<{ data: (ISync & { _id: string, recordCount: number })[] }>(
     ["/api/sync", "token"],
     async ([url]) => {
@@ -162,26 +136,23 @@ export function Syncs() {
       return fetcher(url, token!);
     },
     {
-      refreshInterval: 5000, // Poll every 5 seconds
+      refreshInterval: 5000,
     }
   );
 
-  if (isLoading) return <div>Loading syncs...</div>;
+  if (isLoading) return <Loader message="Loading syncs..." />;
   if (error) return <div className="text-red-500">Failed to load syncs</div>;
   if (!data?.data?.length) return <div>No syncs found.</div>;
 
   return (
     <div className="flex flex-col">
       {data.data.map((sync) => {
-        const integration = integrations.find(
-          (i) => i.key === sync.integrationKey
-        );
         return (
           <SyncItem
             key={sync.integrationKey + sync.dataSourceKey + sync._id}
             sync={sync}
-            logoUri={integration?.logoUri}
-            integrationName={integration?.name}
+            logoUri={sync.integrationLogoUri}
+            integrationName={sync.integrationName}
           />
         );
       })}

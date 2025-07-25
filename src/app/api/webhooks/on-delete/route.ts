@@ -4,6 +4,7 @@ import { Record } from "@/models/record";
 import connectDB from "@/lib/mongodb";
 import { Sync } from "@/models/sync";
 import { verifyIntegrationAppToken } from "@/lib/integration-app-auth";
+import { createSyncActivity } from "@/lib/sync-activity-utils";
 
 const webhookSchema = z.object({
   externalRecordId: z.string(),
@@ -34,16 +35,42 @@ export async function POST(request: NextRequest) {
 
     const payload = result.data;
 
+    const userId = tokenVerificationResult.sub;
+
+    if (!userId) {
+      return NextResponse.json({ error: "Invalid user ID" }, { status: 401 });
+    }
+
     const sync = await Sync.findOne({
       instanceKey: payload.instanceKey,
-      userId: tokenVerificationResult.sub,
+      userId,
     });
 
     if (!sync) {
       return NextResponse.json({ error: "Sync not found" }, { status: 404 });
     }
 
+    // Find the record before deleting to get its ID for activity tracking
+    const recordToDelete = await Record.findOne({
+      id: payload.externalRecordId,
+      syncId: sync._id,
+    });
+
     await Record.deleteOne({ id: payload.externalRecordId, syncId: sync._id });
+
+    // Track the record deletion activity
+    if (recordToDelete) {
+      await createSyncActivity({
+        syncId: sync._id.toString(),
+        userId,
+        type: "event_record_deleted",
+        recordId: recordToDelete._id.toString(),
+        metadata: {
+          recordId: payload.externalRecordId,
+          recordExisted: true,
+        },
+      });
+    }
 
     return NextResponse.json({ message: "ok" });
   } catch (error) {

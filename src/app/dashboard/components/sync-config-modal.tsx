@@ -35,9 +35,10 @@ import {
 import "@integration-app/react/styles.css";
 import Image from "next/image";
 import { Checkbox } from "@/components/ui/checkbox";
+import { FormLabel } from "@/components/ui/form-label";
 
 
-import { Integration, DataSource } from "@integration-app/sdk";
+import { Integration, DataSource, DataSourceInstance } from "@integration-app/sdk";
 
 // SectionWithStatus component
 function SectionWithStatus({
@@ -66,12 +67,16 @@ function CustomDataSourceConfiguration({
   integrationKey,
   dataSourceKey,
   connectionId,
+  onDataSourceInstanceChange,
 }: {
   instanceKey: string;
   integrationKey?: string;
   dataSourceKey: string;
   connectionId: string;
+  onDataSourceInstanceChange: (dataSourceInstance: DataSourceInstance) => void;
 }) {
+  const client = useIntegrationApp();
+
   const { dataSourceInstance, loading, error, patch } = useDataSourceInstance({
     integrationKey: integrationKey,
     dataSourceKey: dataSourceKey,
@@ -79,7 +84,12 @@ function CustomDataSourceConfiguration({
     autoCreate: true,
   });
 
-  const client = useIntegrationApp();
+  useEffect(() => {
+    if (dataSourceInstance) {
+      onDataSourceInstanceChange(dataSourceInstance);
+    }
+  }, [dataSourceInstance]);
+
 
   if (loading) return <Skeleton className="h-10 w-2/3" />;
   if (error) return <div>Error: {error.message}</div>;
@@ -98,9 +108,12 @@ function CustomDataSourceConfiguration({
         <SectionWithStatus done={hasRequiredParameters ? requiredFieldsAreFilled : true}>
           <div className="flex flex-col gap-1">
             <div className="flex justify-between">
-              <span className="text-xs font-semibold text-gray-500 mb-1">
-                Configure Data Source
-              </span>
+              <FormLabel
+                label="Configure Data Source"
+                tooltip="Configure any required parameters for the selected data source."
+                size="sm"
+                className="mb-1"
+              />
               {hasRequiredParameters && (
                 <span className="text-xs font-semibold text-amber-500 mb-1 ">
                   Has Required Parameters
@@ -151,7 +164,11 @@ function CustomFieldMappingConfiguration({
     <SectionWithStatus done={true}>
       <div className="flex flex-col gap-1">
         <div className="flex items-center justify-between mb-1">
-          <span className="text-xs font-semibold text-gray-500">Configure Field Mapping</span>
+          <FormLabel
+            label="Configure Field Mapping"
+            tooltip="Customize how fields from the data source map to your local schema."
+            size="sm"
+          />
           <label className="flex items-center gap-1 text-xs font-medium cursor-pointer select-none">
             <Checkbox
               checked={showConfig}
@@ -190,6 +207,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
   const integrationApp = useIntegrationApp();
   const [open, setOpen] = useState(false);
   const [syncing, setSyncing] = useState(false);
+  const [dataSourceInstance, setDataSourceInstance] = useState<DataSourceInstance | null>(null);
 
   const instanceKey = useRef(uuidv4());
 
@@ -272,7 +290,9 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="h-[600px] flex flex-col pb-0">
-        <DialogTitle>Configure Sync</DialogTitle>
+        <DialogTitle className="flex items-center gap-2">
+          Configure Sync
+        </DialogTitle>
         <div className="p-3 flex-1 overflow-y-auto">
           <form
             className="flex flex-col gap-4 w-full max-w-xl mt-4 overflow-y-auto"
@@ -281,6 +301,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
               startSync();
             }}
           >
+
             {/* section 1: Integration Select (Always visible) */}
             <SectionWithStatus done={!!selectedIntegration}>
               <IntegrationSelect
@@ -294,9 +315,12 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
             {!!selectedIntegration && !connection && (
               <SectionWithStatus done={false}>
                 <div className="flex flex-col gap-1 w-full">
-                  <span className="text-xs font-semibold text-gray-500 mb-1">
-                    Connect Integration
-                  </span>
+                  <FormLabel
+                    label="Connect Integration"
+                    tooltip="Connect your account to the selected integration to enable data syncing."
+                    size="sm"
+                    className="mb-1"
+                  />
                   <Button
                     type="button"
                     className="mt-2 self-start"
@@ -335,9 +359,12 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
             {!!connection && (
               <SectionWithStatus done={!!selectedDataSource}>
                 <div className="flex flex-col w-full max-w-xs">
-                  <span className="text-xs font-semibold text-gray-500 mb-1">
-                    Select Data Source
-                  </span>
+                  <FormLabel
+                    label="Select Object"
+                    tooltip="Choose which data source to sync from the selected integration."
+                    size="sm"
+                    className="mb-1"
+                  />
                   <div className="flex flex-col gap-1 w-full">
                     {!dataSourcesLoading ? (
                       <Select
@@ -378,6 +405,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
             {/* section 4: Configure Data Source Button (Visible if data source selected) */}
             {!!selectedDataSource && !!connection?.id && (
               <CustomDataSourceConfiguration
+                onDataSourceInstanceChange={(dataSourceInstance) => setDataSourceInstance(dataSourceInstance)}
                 instanceKey={instanceKey.current}
                 integrationKey={selectedIntegration?.key}
                 dataSourceKey={selectedDataSource}
@@ -386,7 +414,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
             )}
 
             {/* section 5: Configure Field Mapping Button (Visible if data source selected) */}
-            {!!selectedDataSource && !!connection?.id && (
+            {!!selectedDataSource && !!connection?.id && !!dataSourceInstance && (
               <CustomFieldMappingConfiguration
                 instanceKey={instanceKey.current}
                 integrationKey={selectedIntegration?.key}

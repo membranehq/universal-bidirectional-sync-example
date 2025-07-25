@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import { z } from "zod";
 import { Sync } from "@/models/sync";
+import { createSyncActivity } from "@/lib/sync-activity-utils";
 
 const webhookSchema = z.object({
   externalRecordId: z.string(),
@@ -33,6 +34,10 @@ export async function POST(request: NextRequest) {
   }
 
   const userId = tokenVerificationResult.sub;
+
+  if (!userId) {
+    return NextResponse.json({ error: "Invalid user ID" }, { status: 401 });
+  }
 
   try {
     await connectDB();
@@ -69,6 +74,34 @@ export async function POST(request: NextRequest) {
     await existingRecord.updateOne({
       $set: {
         ...data.fields,
+      },
+    });
+
+    // Calculate differences between old and new data
+    const oldData = existingRecord.data;
+    const newData = data.fields;
+    const differences: Record<string, { old: unknown; new: unknown }> = {};
+
+    // Find changed fields
+    for (const [key, newValue] of Object.entries(newData)) {
+      if (JSON.stringify(oldData[key]) !== JSON.stringify(newValue)) {
+        differences[key] = {
+          old: oldData[key],
+          new: newValue,
+        };
+      }
+    }
+
+    // Track the record update activity
+    await createSyncActivity({
+      syncId: sync._id.toString(),
+      userId,
+      type: "event_record_updated",
+      recordId: existingRecord._id.toString(),
+      metadata: {
+        recordId: externalRecordId,
+        fieldsCount: Object.keys(data.fields).length,
+        differences,
       },
     });
 

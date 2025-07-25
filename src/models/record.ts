@@ -9,6 +9,13 @@ const RecordSchema: Schema = new Schema(
     data: { type: Schema.Types.Mixed, required: false },
     syncId: { type: String, required: true },
     id: { type: String, required: true },
+
+    /**
+     * Derived from the record UDM
+     */
+    name: { type: String, required: false },
+    createdAt: { type: Date, required: true },
+    updatedAt: { type: Date, required: true },
   },
   { timestamps: true }
 );

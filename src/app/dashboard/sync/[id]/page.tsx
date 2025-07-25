@@ -2,20 +2,52 @@
 
 import useSWR from "swr";
 import { useAuth } from "@clerk/nextjs";
-import { Card } from "@/components/ui/card";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import type { IRecord } from "@/models/types";
-import { toast } from "sonner";
-import useSWRMutation from "swr/mutation";
-import { fetchWithAuth } from "@/lib/utils";
+import type { IRecord, ISync } from "@/models/types";
+import { fetchWithAuth } from "@/lib/fetch-utils";
+import { Loader } from "@/components/ui/loader";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  ArrowLeft,
+  AlertTriangle,
+  Database,
+  Plus,
+} from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { SyncActivities } from "./components/SyncActivities";
+import { Record } from "./components/Record";
+import { SyncDetails } from "./components/SyncDetails";
+import { ExternalEventSubscription } from "@integration-app/sdk";
 
 export default function SyncDetailsPage() {
   const { id } = useParams();
   const { getToken } = useAuth();
 
-  // SWR for sync details
-  const { data, error, isLoading, mutate } = useSWR(
+  const { data, error, isLoading } = useSWR<{
+    data: {
+      sync: ISync; subscriptions: {
+        "data-record-created": ExternalEventSubscription | null;
+        "data-record-updated": ExternalEventSubscription | null;
+        "data-record-deleted": ExternalEventSubscription | null;
+      }
+    };
+  }>(
     id ? [`/api/sync/${id}`, "token"] : null,
     async ([url]) => fetchWithAuth(url, getToken),
     {
@@ -23,91 +55,142 @@ export default function SyncDetailsPage() {
     }
   );
 
-  // SWR mutation for resync
-  const { trigger: triggerResync, isMutating: resyncing } = useSWRMutation(
-    id ? `/api/sync/${id}/resync` : null,
-    async (url: string) =>
-      fetchWithAuth(url, getToken, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      })
+  const {
+    data: recordsData,
+    mutate: mutateRecords,
+    isLoading: recordsLoading,
+  } = useSWR(
+    id ? [`/api/sync/${id}/records`, "token"] : null,
+    async ([url]) => fetchWithAuth(url, getToken),
+    {
+      refreshInterval: 3000,
+    }
   );
 
-  if (isLoading) return <div>Loading sync details...</div>;
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  if (isLoading) return <Loader message="Loading sync details..." />;
   if (error)
-    return <div className="text-red-500">Failed to load sync details</div>;
-  if (!data?.data?.sync) return <div>Sync not found.</div>;
+    return (
+      <div className="flex flex-col items-center justify-center h-64 text-destructive">
+        <AlertTriangle className="w-8 h-8 mb-2" />
+        <span>Failed to load sync details</span>
+      </div>
+    );
+  if (!data?.data?.sync)
+    return (
+      <div className="flex flex-col items-center justify-center h-64 text-muted-foreground">
+        <Database className="w-8 h-8 mb-2" />
+        <span>Sync not found.</span>
+      </div>
+    );
 
-  const { sync, records } = data.data;
-
-  const handleResync = async () => {
-    try {
-      const result = await triggerResync();
-      toast.success(`Resynced! ${result.totalDocumentsSynced} records synced.`);
-      await mutate();
-    } catch (err: unknown) {
-      let message = "Failed to resync";
-      if (err instanceof Error) message = err.message;
-      toast.error(message);
-    }
-  };
+  const { sync } = data.data;
+  const records = recordsData?.data || [];
 
   return (
-    <div className="w-full mt-8 max-w-2xl mx-auto">
-      <Link href="/dashboard" className="inline-block mb-4">
-        <button className="px-4 py-2 rounded bg-muted border border-border hover:bg-accent transition-colors text-sm font-medium">
-          ← Back to Dashboard
-        </button>
+    <div className="w-full">
+      <Link
+        href="/dashboard"
+        className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
+      >
+        <ArrowLeft className="w-4 h-4" /> Syncs
       </Link>
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold">Sync Details</h2>
-        <button
-          className="px-4 py-2 rounded bg-primary text-white hover:bg-primary/90 transition-colors text-sm font-medium disabled:opacity-60"
-          onClick={handleResync}
-          disabled={resyncing}
-        >
-          {resyncing ? "Resyncing..." : "Resync"}
-        </button>
-      </div>
-      <Card className="p-4 mb-6">
-        <div>
-          <span className="font-medium">Integration:</span>{" "}
-          {sync.integrationKey}
-        </div>
-        <div>
-          <span className="font-medium">Data Source:</span> {sync.dataSourceKey}
-        </div>
-        <div>
-          <span className="font-medium">Status:</span> {sync.status}
-        </div>
-        <div>
-          <span className="font-medium">Created:</span>{" "}
-          {sync.createdAt ? new Date(sync.createdAt).toLocaleString() : "N/A"}
-        </div>
-        <div>
-          <span className="font-medium">Updated:</span>{" "}
-          {sync.updatedAt ? new Date(sync.updatedAt).toLocaleString() : "N/A"}
-        </div>
-        {sync.error && (
-          <div className="text-red-500">
-            <span className="font-medium">Error:</span> {sync.error}
+
+      <SyncDetails syncId={id as string} />
+
+      {/* Records and Events Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Records Column */}
+        <div className="lg:col-span-2 space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-gray-900">Records</h2>
+            {records.length > 0 && (
+              <Dialog
+                open={isCreateModalOpen}
+                onOpenChange={setIsCreateModalOpen}
+              >
+                <DialogTrigger asChild>
+                  <Button size="sm" className="flex items-center gap-2">
+                    <Plus className="w-4 h-4" />
+                    Create {sync.dataSourceKey}
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Create {sync.dataSourceKey}</DialogTitle>
+                  </DialogHeader>
+                  <div className="py-4">
+                    <p className="text-sm text-muted-foreground">
+                      Create form will be implemented here.
+                    </p>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            )}
           </div>
-        )}
-      </Card>
-      <h3 className="text-md font-semibold mb-2">Records</h3>
-      {records.length === 0 ? (
-        <div>No records found for this sync.</div>
-      ) : (
-        <div className="flex flex-col gap-2">
-          {records.map((record: IRecord & { _id: string }, idx: number) => (
-            <Card key={record._id || idx} className="p-3 text-sm">
-              <pre className="whitespace-pre-wrap break-all">
-                {JSON.stringify(record.data, null, 2)}
-              </pre>
-            </Card>
-          ))}
+
+          {recordsLoading ? (
+            <div className="space-y-2">
+              {Array.from({ length: 3 }).map((_, idx) => (
+                <Skeleton key={idx} className="h-16 w-full" />
+              ))}
+            </div>
+          ) : records.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
+              <div className="w-24 h-24 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-full flex items-center justify-center mb-6">
+                <Database className="w-12 h-12 text-blue-500" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                No records yet
+              </h3>
+              <p className="text-gray-600 mb-6 max-w-md">
+                This sync hasn&apos;t pulled any {sync.dataSourceKey} records
+                yet. Records will appear here once the sync completes
+                successfully.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button
+                  variant="outline"
+                  onClick={() => setIsCreateModalOpen(true)}
+                  className="flex items-center gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  Create {sync.dataSourceKey}
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="border rounded-lg">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>ID</TableHead>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Created</TableHead>
+                    <TableHead>Updated</TableHead>
+                    <TableHead className="text-right sticky right-0 bg-background"></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {records.map((record: IRecord & { _id: string }, idx: number) => (
+                    <Record
+                      key={record._id || idx}
+                      record={record}
+                      index={idx}
+                      syncId={id as string}
+                      onRecordDeleted={() => mutateRecords()}
+                    />
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          )}
         </div>
-      )}
+        <div className="lg:col-span-1">
+          <SyncActivities sync={sync} />
+        </div>
+      </div>
     </div>
   );
 }

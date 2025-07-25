@@ -4,7 +4,7 @@ import { ensureUser } from "@/lib/ensureUser";
 import { Record } from "@/models/record";
 import { Sync } from "@/models/sync";
 import { syncRecords } from "@/app/api/sync/sync-records";
-import { generateCustomerAccessToken } from "@/lib/integration-token";
+import { createSyncActivity } from "@/lib/sync-activity-utils";
 
 export async function POST(
   request: Request,
@@ -12,16 +12,15 @@ export async function POST(
 ) {
   try {
     await connectDB();
-    const { dbUserId, fullName } = await ensureUser();
+
+    const { dbUserId, membraneAccessToken } = await ensureUser();
 
     if (!dbUserId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    // Await params as per Next.js 15 dynamic API migration
     const { id } = await params;
 
-    // Find the sync config
     const sync = await Sync.findOne({
       _id: id,
       userId: dbUserId,
@@ -34,20 +33,19 @@ export async function POST(
       );
     }
 
-    // Update sync status to in_progress and increment syncCount
-    await Sync.updateOne(
-      { _id: id },
-      { $set: { status: "in_progress"} }
-    );
+    await Sync.updateOne({ _id: id }, { $set: { status: "in_progress" } });
 
-    // Delete all records for this syncId and userId
-    await Record.deleteMany({ syncId: id, userId: dbUserId });
-
-    // Generate token for integration
-    const token = await generateCustomerAccessToken({
-      id: dbUserId,
-      name: fullName || `$user-${dbUserId}`,
+    // Track resync started activity
+    await createSyncActivity({
+      syncId: id.toString(),
+      userId: dbUserId,
+      type: "sync_resync_triggered",
+      metadata: {
+        previousSyncCount: sync.syncCount || 0,
+      },
     });
+
+    await Record.deleteMany({ syncId: id, userId: dbUserId });
 
     // Respond early after creating the sync
     const response = NextResponse.json({ success: true });
@@ -55,7 +53,7 @@ export async function POST(
     // Pull in records using syncRecords
     await syncRecords({
       userId: dbUserId,
-      token,
+      token: membraneAccessToken!,
       integrationKey: sync.integrationKey,
       actionId: `get-${sync.dataSourceKey}`,
       syncId: id,

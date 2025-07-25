@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 interface MongooseCache {
   conn: typeof mongoose | null;
@@ -13,7 +13,9 @@ declare global {
 const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
-  throw new Error('MONGODB_URI environment variable is not defined. Please set it in your .env file.');
+  throw new Error(
+    "MONGODB_URI environment variable is not defined. Please set it in your .env file."
+  );
 }
 
 const cached: MongooseCache = global.mongoose || { conn: null, promise: null };
@@ -45,4 +47,4 @@ async function connectDB(): Promise<typeof mongoose> {
   return cached.conn;
 }
 
-export default connectDB; 
+export default connectDB;

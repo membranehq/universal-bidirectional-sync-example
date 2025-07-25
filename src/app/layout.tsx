@@ -12,8 +12,8 @@ const instrumentSans = Instrument_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "Content Import Example",
-    template: "%s | Content Import Example",
+    default: "Bidirectional Sync Example",
+    template: "%s | Bidirectional Sync Example",
   },
 };
 

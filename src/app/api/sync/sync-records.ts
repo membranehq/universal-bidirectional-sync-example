@@ -2,6 +2,7 @@ import { IntegrationAppClient } from "@integration-app/sdk";
 import { Record } from "@/models/record";
 import connectDB from "@/lib/mongodb";
 import { Sync } from "@/models/sync";
+import { createSyncActivity } from "@/lib/sync-activity-utils";
 
 export async function syncRecords(props: {
   userId: string;
@@ -22,6 +23,16 @@ export async function syncRecords(props: {
   let cursor: string | undefined;
 
   try {
+    // Track sync syncing activity
+    await createSyncActivity({
+      syncId,
+      userId,
+      type: "sync_syncing",
+      metadata: {
+        maxDocuments: MAX_DOCUMENTS,
+      },
+    });
+
     // Sync all documents in batches
     while (true) {
       console.info("Fetching records batch");
@@ -33,6 +44,9 @@ export async function syncRecords(props: {
 
       const records = (result.output?.records ?? []) as {
         fields: Record<string, unknown>;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
       }[];
 
       // Check if adding these documents would exceed our limit
@@ -43,13 +57,16 @@ export async function syncRecords(props: {
 
       if (records.length) {
         await Record.bulkWrite(
-          records.map((doc) => ({
+          records.map((record) => ({
             insertOne: {
               document: {
-                data: doc.fields,
-                id: doc.fields.id,
                 userId,
                 syncId,
+                data: record.fields,
+                id: record.fields.id,
+                name: record.name,
+                createdAt: record.createdAt,
+                updatedAt: record.updatedAt,
               },
             },
           }))
@@ -77,6 +94,17 @@ export async function syncRecords(props: {
       }
     );
 
+    // Track sync completed activity
+    await createSyncActivity({
+      syncId,
+      userId,
+      type: "sync_completed",
+      metadata: {
+        totalDocumentsSynced,
+        maxDocuments: MAX_DOCUMENTS,
+      },
+    });
+
     return { success: true, totalDocumentsSynced };
   } catch (error) {
     console.error("Error in syncRecords:", error);
@@ -84,6 +112,18 @@ export async function syncRecords(props: {
       status: "failed",
       error: error instanceof Error ? error.message : "Unknown error",
     });
+
+    // Track sync failed activity
+    await createSyncActivity({
+      syncId,
+      userId,
+      type: "sync_completed",
+      metadata: {
+        totalDocumentsSynced,
+        error: error instanceof Error ? error.message : "Unknown error",
+      },
+    });
+
     return { success: false, totalDocumentsSynced };
   }
 }

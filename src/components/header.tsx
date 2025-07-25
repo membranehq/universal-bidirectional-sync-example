@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { SignedIn, UserButton } from "@clerk/nextjs";
-import { ArrowRight, X, Blocks } from "lucide-react";
+import { ArrowRight, X, Blocks, Github } from "lucide-react";
 import { useState } from "react";
 
 export function Header() {
@@ -27,7 +27,7 @@ export function Header() {
                 href="https://integration.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 underline underline-offset-2 hover:text-[var(--primary-foreground)] transition-colors font-bold"
+                className="inline-flex items-center gap-1 underline underline-offset-2 hover:text-[var(--primary-foreground)] transition-colors font-bold ml-1"
               >
                 Membrane
                 <ArrowRight className="w-4 h-4 ml-1 inline" aria-hidden="true" />
@@ -36,15 +36,25 @@ export function Header() {
           </div>
         </div>
       )}
-      <header className="w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <nav className="container mx-auto px-4 sm:pl-6 lg:pl-8">
           <div className="flex justify-between h-16">
-            <div className="flex">
+            <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
                 <Image src="/logo.svg" alt="Logo" width={32} height={32} />
               </div>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center space-x-4">
+              <a
+                href="https://github.com/membranehq/membrane-biderectional-sync"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors duration-200"
+                aria-label="View on GitHub"
+              >
+                <Github className="w-4 h-4" />
+                <span className="hidden sm:inline">GitHub</span>
+              </a>
               <SignedIn>
                 <UserButton />
               </SignedIn>

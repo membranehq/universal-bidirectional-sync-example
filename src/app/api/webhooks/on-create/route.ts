@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import { z } from "zod";
 import { Sync } from "@/models/sync";
+import { createSyncActivity } from "@/lib/sync-activity-utils";
 
 const webhookSchema = z.object({
   externalRecordId: z.string(),
@@ -34,6 +35,10 @@ export async function POST(request: NextRequest) {
 
   const userId = tokenVerificationResult.sub;
 
+  if (!userId) {
+    return NextResponse.json({ error: "Invalid user ID" }, { status: 401 });
+  }
+
   try {
     await connectDB();
 
@@ -56,11 +61,23 @@ export async function POST(request: NextRequest) {
     });
 
     if (!existingRecord) {
-      await Record.create({
+      const newRecord = await Record.create({
         id: externalRecordId,
         userId,
         data: data.fields,
         syncId: sync._id,
+      });
+
+      // Track the record creation activity
+      await createSyncActivity({
+        syncId: sync._id.toString(),
+        userId,
+        type: "event_record_created",
+        recordId: newRecord._id.toString(),
+        metadata: {
+          recordId: externalRecordId,
+          fieldsCount: Object.keys(data.fields).length,
+        },
       });
     } else {
       console.log(
