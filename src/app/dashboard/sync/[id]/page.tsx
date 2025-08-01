@@ -66,8 +66,8 @@ export default function SyncDetailsPage() {
     {
       refreshInterval: 3000,
     }
-    );
-  
+  );
+
   const objectType = getSingularForm(data?.data?.sync?.dataSourceKey || "");
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -117,8 +117,7 @@ export default function SyncDetailsPage() {
               >
                 <DialogTrigger asChild>
                   <Button size="sm" className="flex items-center gap-2">
-                    <Plus className="w-4 h-4" />
-                    Create {objectType}
+                    Create {objectType} <Plus className="w-4 h-4" />
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">

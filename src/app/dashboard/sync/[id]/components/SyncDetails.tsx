@@ -41,6 +41,8 @@ import { ExternalEventSubscription } from "@integration-app/sdk";
 import { PullCountdown } from "@/app/dashboard/sync/[id]/components/PullCountdown";
 import { useState } from "react";
 import { integrationAppClient } from "@/lib/integration-app-client";
+import { singularize } from '../../../../../lib/pluralize-utils';
+import { capitalize } from "@/lib/string-utils";
 
 interface SyncDetailsProps {
   syncId: string;
@@ -48,8 +50,10 @@ interface SyncDetailsProps {
 
 // Component to render subscription details
 function SubscriptionDetails({
-  subscriptions
+  subscriptions,
+  objectType
 }: {
+  objectType: string;
   subscriptions: {
     "data-record-created": ExternalEventSubscription | null;
     "data-record-updated": ExternalEventSubscription | null;
@@ -59,9 +63,9 @@ function SubscriptionDetails({
   const [isMinimized, setIsMinimized] = useState(false);
   const [pullingSubscriptions, setPullingSubscriptions] = useState<Set<string>>(new Set());
   const eventTypes = [
-    { key: "data-record-created", label: "Record Created" },
-    { key: "data-record-updated", label: "Record Updated" },
-    { key: "data-record-deleted", label: "Record Deleted" },
+    { key: "data-record-created", label: `${objectType} Created` },
+    { key: "data-record-updated", label: `${objectType} Updated` },
+    { key: "data-record-deleted", label: `${objectType} Deleted` },
   ] as const;
 
   const handlePull = async (subscriptionId: string) => {
@@ -88,7 +92,7 @@ function SubscriptionDetails({
     <TooltipProvider>
       <div className="space-y-4">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-900">Event Subscriptions</h3>
+          <h3 className=" font-semibold text-gray-900">Event Subscriptions</h3>
           <Button
             variant="ghost"
             size="sm"
@@ -463,7 +467,9 @@ export function SyncDetails({ syncId }: SyncDetailsProps) {
       {/* Subscription Details */}
       {syncData?.data?.subscriptions && (
         <div className="mt-8 mb-8">
-          <SubscriptionDetails subscriptions={syncData.data.subscriptions} />
+          <SubscriptionDetails
+            objectType={capitalize(singularize(sync.dataSourceKey))}
+            subscriptions={syncData.data.subscriptions} />
         </div>
       )}
     </>
