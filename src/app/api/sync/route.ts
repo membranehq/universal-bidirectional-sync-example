@@ -8,14 +8,11 @@ import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
 import { IntegrationAppClient } from "@integration-app/sdk";
 import { createSyncActivity } from "@/lib/sync-activity-utils";
+import { getSingularForm } from "@/lib/pluralize-utils";
 
 const schema = z.object({
   integrationKey: z.string(),
   dataSourceKey: z.string(),
-
-  /**
-   * Instance key of elements: dataSource, fieldMapping
-   */
   instanceKey: z.string(),
 });
 
@@ -52,12 +49,18 @@ export async function POST(
      * and allowed users user to configure them.
      *
      * Now, we'll create other instances using the instanceKey from the client:
-     * - Action Instance for listing records should be in get-<data-source-key> format
-     * - Flow Instance for receiving events should be in receive-<unpluralized-data-source-key>-events format
+     * - Action Instances for
+     *   - listing records
+     *   - creating records
+     *   - deleting records
+     *   - updating records
+     *
+     * - Flow Instance for receiving events
      */
 
-    const unpluralizedDataSourceKey = dataSourceKey.replace(/s$/, "");
+    const unpluralizedDataSourceKey = getSingularForm(dataSourceKey);
 
+    // Create flow instance for receiving events
     await membrane
       .connection(integrationKey)
       .flow(`receive-${unpluralizedDataSourceKey}-events`, {
@@ -67,9 +70,40 @@ export async function POST(
         autoCreate: true,
       });
 
+    // Create action instance for listing records
     const action = await membrane
       .connection(integrationKey)
       .action(`get-${dataSourceKey}`, { instanceKey: instanceKey })
+      .get({
+        autoCreate: true,
+      });
+
+    // Create action instance for creating records
+    // await membrane
+    //   .connection(integrationKey)
+    //   .action(`create-${unpluralizedDataSourceKey}`, {
+    //     instanceKey: instanceKey,
+    //   })
+    //   .get({
+    //     autoCreate: true,
+    //   });
+
+    // // Create action instance for updating records
+    // await membrane
+    //   .connection(integrationKey)
+    //   .action(`update-${unpluralizedDataSourceKey}`, {
+    //     instanceKey: instanceKey,
+    //   })
+    //   .get({
+    //     autoCreate: true,
+    //   });
+
+    // Create action instance for deleting records
+    await membrane
+      .connection(integrationKey)
+      .action(`delete-${unpluralizedDataSourceKey}`, {
+        instanceKey: instanceKey,
+      })
       .get({
         autoCreate: true,
       });
@@ -108,9 +142,10 @@ export async function POST(
     const sync = await Sync.create({
       integrationKey,
       dataSourceKey,
+      instanceKey,
+
       userId: dbUserId,
       collectionEventDetails,
-      instanceKey,
       syncCount: 0,
 
       /**

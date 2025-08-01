@@ -16,9 +16,10 @@ interface RecordProps {
   index: number;
   onRecordDeleted?: (recordId: string) => void;
   syncId: string;
+  objectType: string;
 }
 
-export function Record({ record, onRecordDeleted, syncId }: RecordProps) {
+export function Record({ record, onRecordDeleted, syncId, objectType }: RecordProps) {
   const [expanded, setExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -43,7 +44,7 @@ export function Record({ record, onRecordDeleted, syncId }: RecordProps) {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to delete record');
+        throw new Error(errorData.message || errorData.error || 'Failed to delete record');
       }
 
       toast.success('Record deleted successfully');
@@ -60,7 +61,7 @@ export function Record({ record, onRecordDeleted, syncId }: RecordProps) {
   return (
     <>
       <TableRow>
-        <TableCell>
+        <TableCell className="whitespace-nowrap">
           <div className="flex items-center gap-2">
             <button
               className="p-1 rounded hover:bg-gray-200 transition-colors"
@@ -79,13 +80,13 @@ export function Record({ record, onRecordDeleted, syncId }: RecordProps) {
             </Badge>
           </div>
         </TableCell>
-        <TableCell>
+        <TableCell className="whitespace-nowrap">
           {record.name || "N/A"}
         </TableCell>
-        <TableCell>
+        <TableCell className="whitespace-nowrap">
           {record.createdAt ? new Date(record.createdAt).toLocaleDateString() : "N/A"}
         </TableCell>
-        <TableCell>
+        <TableCell className="whitespace-nowrap">
           {record.updatedAt ? new Date(record.updatedAt).toLocaleDateString() : "N/A"}
         </TableCell>
         <TableCell className="text-right sticky right-0 bg-background">
@@ -119,7 +120,7 @@ export function Record({ record, onRecordDeleted, syncId }: RecordProps) {
                   className="text-red-600 focus:text-red-600"
                 >
                   <Trash2 className="w-4 h-4 mr-2" />
-                  Delete Record
+                  Delete {objectType}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

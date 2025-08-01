@@ -4,6 +4,11 @@ import { ensureUser } from "@/lib/ensureUser";
 import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
 import { createSyncActivity } from "@/lib/sync-activity-utils";
+import {
+  ActionRunError,
+  IntegrationAppClient as Membrane,
+} from "@integration-app/sdk";
+import { getSingularForm } from "@/lib/pluralize-utils";
 
 export async function DELETE(
   request: Request,
@@ -11,7 +16,7 @@ export async function DELETE(
 ) {
   try {
     await connectDB();
-    const { dbUserId } = await ensureUser();
+    const { dbUserId, membraneAccessToken } = await ensureUser();
 
     if (!dbUserId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -28,7 +33,6 @@ export async function DELETE(
       );
     }
 
-    // Verify the sync exists and belongs to the user
     const sync = await Sync.findOne({
       _id: syncId,
       userId: dbUserId,
@@ -41,8 +45,7 @@ export async function DELETE(
       );
     }
 
-    // Find and delete the record
-    const record = await Record.findOneAndDelete({
+    const record = await Record.findOne({
       _id: recordId,
       syncId: syncId,
       userId: dbUserId,
@@ -55,7 +58,36 @@ export async function DELETE(
       );
     }
 
-    // Log the record deletion activity
+    const membrane = new Membrane({
+      token: membraneAccessToken!,
+    });
+
+    try {
+      await membrane
+        .connection(sync.integrationKey)
+        .action(`delete-${getSingularForm(sync.dataSourceKey)}`, {
+          instanceKey: sync.instanceKey,
+        })
+        .run({
+          id: record.id,
+        });
+    } catch (error) {
+      if (error instanceof ActionRunError) {
+        throw new Error(error.data.message);
+      }
+
+      throw error;
+    }
+
+    await record.deleteOne();
+
+    if (!record) {
+      return NextResponse.json(
+        { success: false, message: "Record not found" },
+        { status: 404 }
+      );
+    }
+
     await createSyncActivity({
       syncId,
       userId: dbUserId,
@@ -75,7 +107,12 @@ export async function DELETE(
   } catch (error) {
     console.error("Failed to delete record:", error);
     return NextResponse.json(
-      { success: false, message: "Failed to delete record" },
+      {
+        success: false,
+        message: `Failed to delete record: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`,
+      },
       { status: 500 }
     );
   }

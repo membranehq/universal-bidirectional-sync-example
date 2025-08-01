@@ -38,52 +38,12 @@ import { fetchWithAuth } from "@/lib/fetch-utils";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { ExternalEventSubscription } from "@integration-app/sdk";
-import { useState, useEffect } from "react";
+import { PullCountdown } from "@/app/dashboard/sync/[id]/components/PullCountdown";
+import { useState } from "react";
+import { integrationAppClient } from "@/lib/integration-app-client";
 
 interface SyncDetailsProps {
   syncId: string;
-}
-
-// Countdown component for next pull time
-function PullCountdown({
-  nextPullTime,
-  pullInterval
-}: {
-  nextPullTime: number;
-  pullInterval: number;
-}) {
-  const [timeLeft, setTimeLeft] = useState<number>(0);
-  const [nextPull, setNextPull] = useState<number>(nextPullTime);
-
-  useEffect(() => {
-    const calculateTimeLeft = () => {
-      const now = Date.now();
-      const diff = nextPull - now;
-
-      if (diff <= 0) {
-        // Time has passed, update to next interval
-        const newNextPull = nextPull + (pullInterval * 1000);
-        setNextPull(newNextPull);
-        setTimeLeft(pullInterval * 1000);
-      } else {
-        setTimeLeft(diff);
-      }
-    };
-
-    calculateTimeLeft();
-    const interval = setInterval(calculateTimeLeft, 1000);
-
-    return () => clearInterval(interval);
-  }, [nextPull, pullInterval]);
-
-  const minutes = Math.floor(timeLeft / 60000);
-  const seconds = Math.floor((timeLeft % 60000) / 1000);
-
-  return (
-    <span className="font-medium">
-      {minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}
-    </span>
-  );
 }
 
 // Component to render subscription details
@@ -97,11 +57,32 @@ function SubscriptionDetails({
   }
 }) {
   const [isMinimized, setIsMinimized] = useState(false);
+  const [pullingSubscriptions, setPullingSubscriptions] = useState<Set<string>>(new Set());
   const eventTypes = [
     { key: "data-record-created", label: "Record Created" },
     { key: "data-record-updated", label: "Record Updated" },
     { key: "data-record-deleted", label: "Record Deleted" },
   ] as const;
+
+  const handlePull = async (subscriptionId: string) => {
+    if (!subscriptionId) return;
+
+    setPullingSubscriptions(prev => new Set(prev).add(subscriptionId));
+
+    try {
+      await integrationAppClient.triggerPullEvents(subscriptionId);
+      toast.success("Pull events triggered successfully!");
+    } catch (error) {
+      console.error("Failed to trigger pull events:", error);
+      toast.error(error instanceof Error ? error.message : "Failed to trigger pull events");
+    } finally {
+      setPullingSubscriptions(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(subscriptionId);
+        return newSet;
+      });
+    }
+  };
 
   return (
     <TooltipProvider>
@@ -175,6 +156,24 @@ function SubscriptionDetails({
                         )}
                       </div>
                     </div>
+
+                    {/* Pull Button - Top Right Corner */}
+                    {(requiresPull || requiresFullSync) && subscription?.id && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handlePull(subscription.id!)}
+                        disabled={pullingSubscriptions.has(subscription.id)}
+                        className="flex items-center gap-2"
+                      >
+                        {pullingSubscriptions.has(subscription.id) ? (
+                          <Loader2 className="w-3 h-3 animate-spin" />
+                        ) : (
+                          <RefreshCw className="w-3 h-3" />
+                        )}
+                        {pullingSubscriptions.has(subscription.id) ? "Pulling..." : "Pull"}
+                      </Button>
+                    )}
                   </div>
 
                   {subscription && (
@@ -439,9 +438,25 @@ export function SyncDetails({ syncId }: SyncDetailsProps) {
 
       {/* Error Display */}
       {sync.error && (
-        <div className="flex items-center gap-2 text-red-600 mb-6 p-3 bg-red-50 rounded-lg border border-red-200">
-          <AlertTriangle className="w-4 h-4" />
-          <span className="font-medium">Error:</span> {sync.error}
+        <div className="flex items-center justify-between mb-6 p-3 bg-red-50 rounded-lg border border-red-200">
+          <div className="flex items-center gap-2 text-red-600 text-sm">
+            <AlertTriangle className="w-4 h-4" />
+            <span className="font-medium">Sync Error:</span> {sync.error}
+          </div>
+          <Button
+            onClick={handleResync}
+            disabled={resyncing}
+            variant="outline"
+            size="sm"
+            className="flex items-center gap-2 text-red-600 border-red-200 hover:bg-red-100 hover:text-red-700"
+          >
+            {resyncing ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <RefreshCw className="w-4 h-4" />
+            )}
+            {resyncing ? "Resyncing..." : "Resync"}
+          </Button>
         </div>
       )}
 

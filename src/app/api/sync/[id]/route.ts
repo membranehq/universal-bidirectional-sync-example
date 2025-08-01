@@ -8,6 +8,7 @@ import {
   IntegrationAppClient,
 } from "@integration-app/sdk";
 import { ISync } from "@/models/types";
+import { getSingularForm } from "@/lib/pluralize-utils";
 
 async function getSubscriptionsForSync(
   sync: ISync,
@@ -18,7 +19,7 @@ async function getSubscriptionsForSync(
       token: membraneAccessToken!,
     });
 
-    const unpluralizedDataSourceKey = sync.dataSourceKey.replace(/s$/, "");
+    const unpluralizedDataSourceKey = getSingularForm(sync.dataSourceKey);
 
     const flowInstance = await membrane
       .connection(sync.integrationKey)
@@ -78,33 +79,60 @@ async function archiveSyncDependencies(
    * - Field Mapping Instance
    * - Data Source Instance
    */
-  const unpluralizedDataSourceKey = sync.dataSourceKey.replace(/s$/, "");
+  const unpluralizedDataSourceKey = getSingularForm(sync.dataSourceKey);
 
   const { integrationKey, instanceKey, dataSourceKey } = sync;
 
-  await membrane
-    .connection(integrationKey)
-    .flow(`receive-${unpluralizedDataSourceKey}-events`, {
-      instanceKey: instanceKey,
-    })
-    .archive();
+  const archiveOperations = [
+    {
+      name: "Flow Instance",
+      operation: () =>
+        membrane
+          .connection(integrationKey)
+          .flow(`receive-${unpluralizedDataSourceKey}-events`, {
+            instanceKey: instanceKey,
+          })
+          .archive(),
+    },
+    {
+      name: "Field Mapping Instance",
+      operation: () =>
+        membrane
+          .connection(integrationKey)
+          .fieldMapping(`${dataSourceKey}`, { instanceKey: instanceKey })
+          .archive(),
+    },
+    {
+      name: "Data Source",
+      operation: () =>
+        membrane.connection(integrationKey).dataSource(dataSourceKey).archive(),
+    },
+    {
+      name: "Action Instance",
+      operation: () =>
+        membrane
+          .connection(integrationKey)
+          .action(`get-${dataSourceKey}`, { instanceKey: instanceKey })
+          .archive(),
+    },
+    {
+      name: "Field Mapping",
+      operation: () =>
+        membrane
+          .connection(integrationKey)
+          .fieldMapping(dataSourceKey)
+          .archive(),
+    },
+  ];
 
-  await membrane
-    .connection(integrationKey)
-    .action(`get-${dataSourceKey}`, { instanceKey: instanceKey })
-    .archive();
-
-  await membrane
-    .connection(integrationKey)
-    .fieldMapping(`${dataSourceKey}`, { instanceKey: instanceKey })
-    .archive();
-
-  await membrane.connection(integrationKey).dataSource(dataSourceKey).archive();
-
-  await membrane
-    .connection(integrationKey)
-    .fieldMapping(dataSourceKey)
-    .archive();
+  for (const { name, operation } of archiveOperations) {
+    try {
+      await operation();
+      console.log(`Successfully archived ${name}`);
+    } catch (error) {
+      console.error(`Failed to archive ${name}:`, error);
+    }
+  }
 }
 
 export async function GET(

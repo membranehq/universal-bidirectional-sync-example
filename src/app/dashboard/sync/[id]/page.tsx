@@ -34,6 +34,7 @@ import { SyncActivities } from "./components/SyncActivities";
 import { Record } from "./components/Record";
 import { SyncDetails } from "./components/SyncDetails";
 import { ExternalEventSubscription } from "@integration-app/sdk";
+import { getSingularForm } from '@/lib/pluralize-utils';
 
 export default function SyncDetailsPage() {
   const { id } = useParams();
@@ -65,7 +66,9 @@ export default function SyncDetailsPage() {
     {
       refreshInterval: 3000,
     }
-  );
+    );
+  
+  const objectType = getSingularForm(data?.data?.sync?.dataSourceKey || "");
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
@@ -104,7 +107,9 @@ export default function SyncDetailsPage() {
         {/* Records Column */}
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">Records</h2>
+            <h2 className="text-lg font-semibold text-gray-900">
+              {sync.dataSourceKey.charAt(0).toUpperCase() + sync.dataSourceKey.slice(1)}
+            </h2>
             {records.length > 0 && (
               <Dialog
                 open={isCreateModalOpen}
@@ -113,12 +118,12 @@ export default function SyncDetailsPage() {
                 <DialogTrigger asChild>
                   <Button size="sm" className="flex items-center gap-2">
                     <Plus className="w-4 h-4" />
-                    Create {sync.dataSourceKey}
+                    Create {objectType}
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                   <DialogHeader>
-                    <DialogTitle>Create {sync.dataSourceKey}</DialogTitle>
+                    <DialogTitle>Create {objectType}</DialogTitle>
                   </DialogHeader>
                   <div className="py-4">
                     <p className="text-sm text-muted-foreground">
@@ -156,7 +161,7 @@ export default function SyncDetailsPage() {
                   className="flex items-center gap-2"
                 >
                   <Plus className="w-4 h-4" />
-                  Create {sync.dataSourceKey}
+                  Create {objectType}
                 </Button>
               </div>
             </div>
@@ -180,6 +185,7 @@ export default function SyncDetailsPage() {
                       index={idx}
                       syncId={id as string}
                       onRecordDeleted={() => mutateRecords()}
+                      objectType={getSingularForm(sync.dataSourceKey)}
                     />
                   ))}
                 </TableBody>

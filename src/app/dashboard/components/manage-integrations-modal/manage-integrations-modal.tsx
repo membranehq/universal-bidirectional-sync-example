@@ -15,7 +15,6 @@ import {
 } from '@/components/ui/dialog';
 import { UnconnectedIntegrations } from './unconnected-integrations';
 import { ConnectedIntegrations } from './connected-integrations';
-import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/ui/tooltip';
 
 export function ManageIntegrationsModal() {
   const [open, setOpen] = useState(false);

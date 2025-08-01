@@ -1,6 +1,5 @@
 'use client';
 
-'use client';
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -22,9 +21,7 @@ function UnconnectedIntegrationItem({
     try {
       setIsConnecting(true);
 
-      const connection = await integrationApp
-        .integration(integration.key)
-        .openNewConnection();
+      const connection = await integrationApp.integration(integration.key).openNewConnection();
 
       if (!connection?.id) {
         throw new Error('Connection was not successful');
@@ -181,3 +178,4 @@ export function UnconnectedIntegrations() {
     </div>
   );
 }
+

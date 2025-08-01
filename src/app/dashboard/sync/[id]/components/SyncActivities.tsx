@@ -149,26 +149,26 @@ export function SyncActivities({ sync }: SyncActivitiesProps) {
                     </span>
                   </div>
 
-                  <div className="text-xs text-muted-foreground mt-1 flex items-center gap-2">
+                  <div className="text-xs text-muted-foreground mt-1 space-y-1">
                     {activity.metadata && typeof activity.metadata === 'object' && 'recordId' in activity.metadata && (
-                      <span className="flex items-center gap-1">
+                      <div className="flex items-center gap-1">
                         <Hash className="w-3 h-3" />
                         {String(activity.metadata.recordId)}
-                      </span>
+                      </div>
                     )}
                     {activity.metadata && (
                       <>
                         {typeof activity.metadata.totalDocumentsSynced === 'number' && (
-                          <span>{activity.metadata.totalDocumentsSynced} records</span>
+                          <div>{activity.metadata.totalDocumentsSynced} records</div>
                         )}
                         {typeof activity.metadata.fieldsCount === 'number' && (
-                          <span>{activity.metadata.fieldsCount} fields</span>
+                          <div>{activity.metadata.fieldsCount} fields</div>
                         )}
                         {typeof activity.metadata.error === 'string' && (
-                          <span>Error: {activity.metadata.error}</span>
+                          <div>Error: {activity.metadata.error}</div>
                         )}
                         {typeof activity.metadata.differences === 'object' && (
-                          <span>Changes detected</span>
+                          <div>Changes detected</div>
                         )}
                       </>
                     )}
