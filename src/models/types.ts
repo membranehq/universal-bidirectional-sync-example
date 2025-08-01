@@ -1,3 +1,5 @@
+import { ExternalEventSubscription } from "@integration-app/sdk";
+
 export interface IRecord {
   _id: string;
   id: string;
@@ -54,3 +56,9 @@ export interface ISyncActivity {
   createdAt: Date;
   updatedAt: Date;
 }
+
+type EventType = "created" | "updated" | "deleted";
+
+export type Subscriptions = {
+  [K in `data-record-${EventType}`]: ExternalEventSubscription | null;
+};

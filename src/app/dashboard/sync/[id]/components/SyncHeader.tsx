@@ -30,37 +30,30 @@ import {
 } from "@/components/ui/tooltip";
 import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
-import type { ISync } from "@/models/types";
+
 import { useAuth } from "@clerk/nextjs";
-import useSWR from "swr";
+
 import useSWRMutation from "swr/mutation";
 import { fetchWithAuth } from "@/lib/fetch-utils";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { ExternalEventSubscription } from "@integration-app/sdk";
 import { PullCountdown } from "@/app/dashboard/sync/[id]/components/PullCountdown";
 import { useState } from "react";
 import { integrationAppClient } from "@/lib/integration-app-client";
 import { capitalize } from "@/lib/string-utils";
+import { ISync, Subscriptions } from "@/models/types";
 
-interface SyncDetailsProps {
-  syncId: string;
-}
-
-// Component to render subscription details
-function SubscriptionDetails({
+function SyncSubscriptions({
   subscriptions,
-  recordType
+  recordType,
 }: {
   recordType: string;
-  subscriptions: {
-    "data-record-created": ExternalEventSubscription | null;
-    "data-record-updated": ExternalEventSubscription | null;
-    "data-record-deleted": ExternalEventSubscription | null;
-  }
+  subscriptions: Subscriptions;
 }) {
   const [isMinimized, setIsMinimized] = useState(false);
-  const [pullingSubscriptions, setPullingSubscriptions] = useState<Set<string>>(new Set());
+  const [pullingSubscriptions, setPullingSubscriptions] = useState<Set<string>>(
+    new Set()
+  );
   const eventTypes = [
     { key: "data-record-created", label: `${recordType} Created` },
     { key: "data-record-updated", label: `${recordType} Updated` },
@@ -70,16 +63,18 @@ function SubscriptionDetails({
   const handlePull = async (subscriptionId: string) => {
     if (!subscriptionId) return;
 
-    setPullingSubscriptions(prev => new Set(prev).add(subscriptionId));
+    setPullingSubscriptions((prev) => new Set(prev).add(subscriptionId));
 
     try {
       await integrationAppClient.triggerPullEvents(subscriptionId);
       toast.success("Pull events triggered successfully!");
     } catch (error) {
       console.error("Failed to trigger pull events:", error);
-      toast.error(error instanceof Error ? error.message : "Failed to trigger pull events");
+      toast.error(
+        error instanceof Error ? error.message : "Failed to trigger pull events"
+      );
     } finally {
-      setPullingSubscriptions(prev => {
+      setPullingSubscriptions((prev) => {
         const newSet = new Set(prev);
         newSet.delete(subscriptionId);
         return newSet;
@@ -112,7 +107,7 @@ function SubscriptionDetails({
           </Button>
         </div>
         <div
-          className={`overflow-hidden transition-all duration-300 ease-in-out ${isMinimized ? 'max-h-0 opacity-0' : 'max-h-[1000px] opacity-100'
+          className={`overflow-hidden transition-all duration-300 ease-in-out ${isMinimized ? "max-h-0 opacity-0" : "max-h-[1000px] opacity-100"
             }`}
         >
           <div className="grid grid-cols-3 gap-4">
@@ -128,14 +123,14 @@ function SubscriptionDetails({
                 <div key={key} className="border rounded-lg p-4 bg-gray-50">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-gray-700">{label}</span>
+                      <span className="text-sm font-medium text-gray-700">
+                        {label}
+                      </span>
                       <div className="flex items-center gap-2">
                         {hasError && subscription?.error ? (
                           <Tooltip delayDuration={100}>
                             <TooltipTrigger asChild>
-                              <div
-                                className="w-3 h-3 rounded-full bg-red-500 cursor-help"
-                              />
+                              <div className="w-3 h-3 rounded-full bg-red-500 cursor-help" />
                             </TooltipTrigger>
                             <TooltipContent className="max-w-xs">
                               <div className="flex items-center gap-2">
@@ -143,7 +138,8 @@ function SubscriptionDetails({
                                 <span className="font-medium">Error:</span>
                               </div>
                               <p className="mt-1 text-sm">
-                                {typeof subscription.error === 'object' && subscription.error.message
+                                {typeof subscription.error === "object" &&
+                                  subscription.error.message
                                   ? subscription.error.message
                                   : String(subscription.error)}
                               </p>
@@ -151,9 +147,7 @@ function SubscriptionDetails({
                           </Tooltip>
                         ) : (
                           <div
-                            className={`w-3 h-3 rounded-full ${isActive
-                              ? "bg-green-500"
-                              : "bg-gray-400"
+                            className={`w-3 h-3 rounded-full ${isActive ? "bg-green-500" : "bg-gray-400"
                               }`}
                           />
                         )}
@@ -174,7 +168,9 @@ function SubscriptionDetails({
                         ) : (
                           <RefreshCw className="w-3 h-3" />
                         )}
-                        {pullingSubscriptions.has(subscription.id) ? "Pulling..." : "Pull"}
+                        {pullingSubscriptions.has(subscription.id)
+                          ? "Pulling..."
+                          : "Pull"}
                       </Button>
                     )}
                   </div>
@@ -200,7 +196,9 @@ function SubscriptionDetails({
                                 </div>
                               </a>
                             </>
-                          ) : requiresPull && subscription.pullUpdatesIntervalSeconds && subscription.nextPullEventsTimestamp ? (
+                          ) : requiresPull &&
+                            subscription.pullUpdatesIntervalSeconds &&
+                            subscription.nextPullEventsTimestamp ? (
                             <>
                               <Hash className="w-4 h-4 text-gray-500" />
                               <span className="text-gray-600">Detection:</span>
@@ -226,7 +224,6 @@ function SubscriptionDetails({
                                 rel="noopener noreferrer"
                                 className="hover:underline"
                               >
-
                                 <div className="text-xs cursor-pointer flex items-center gap-1">
                                   Full Scan
                                   <ExternalLink className="w-3 h-3" />
@@ -237,31 +234,39 @@ function SubscriptionDetails({
                         </div>
 
                         {/* Next Pull Time Countdown */}
-                        {requiresPull && subscription.pullUpdatesIntervalSeconds && subscription.nextPullEventsTimestamp && (
-                          <div className="flex items-center gap-2">
-                            <Clock className="w-4 h-4 text-gray-500" />
-                            <span className="text-gray-600">Next Pull:</span>
-                            <span className="font-medium">
-                              <PullCountdown
-                                nextPullTime={subscription.nextPullEventsTimestamp}
-                                pullInterval={subscription.pullUpdatesIntervalSeconds}
-                              />
-                            </span>
-                          </div>
-                        )}
+                        {requiresPull &&
+                          subscription.pullUpdatesIntervalSeconds &&
+                          subscription.nextPullEventsTimestamp && (
+                            <div className="flex items-center gap-2">
+                              <Clock className="w-4 h-4 text-gray-500" />
+                              <span className="text-gray-600">Next Pull:</span>
+                              <span className="font-medium">
+                                <PullCountdown
+                                  nextPullTime={
+                                    subscription.nextPullEventsTimestamp
+                                  }
+                                  pullInterval={
+                                    subscription.pullUpdatesIntervalSeconds
+                                  }
+                                />
+                              </span>
+                            </div>
+                          )}
                       </div>
 
                       {/* Full Sync Interval */}
-                      {requiresFullSync && subscription.fullSyncIntervalSeconds && (
-                        <div className="flex items-center gap-2 text-sm">
-                          <RotateCcw className="w-4 h-4 text-gray-500" />
-                          <span className="text-gray-600">Full Sync Interval:</span>
-                          <span className="font-medium">
-                            {subscription.fullSyncIntervalSeconds} seconds
-                          </span>
-                        </div>
-                      )}
-
+                      {requiresFullSync &&
+                        subscription.fullSyncIntervalSeconds && (
+                          <div className="flex items-center gap-2 text-sm">
+                            <RotateCcw className="w-4 h-4 text-gray-500" />
+                            <span className="text-gray-600">
+                              Full Sync Interval:
+                            </span>
+                            <span className="font-medium">
+                              {subscription.fullSyncIntervalSeconds} seconds
+                            </span>
+                          </div>
+                        )}
                     </div>
                   )}
                 </div>
@@ -274,30 +279,18 @@ function SubscriptionDetails({
   );
 }
 
-export function SyncDetails({ syncId }: SyncDetailsProps) {
+export function SyncHeader({
+  sync,
+  subscriptions,
+}: {
+  sync: ISync;
+  subscriptions: Subscriptions;
+}) {
   const { getToken } = useAuth();
   const router = useRouter();
 
-  const { data: syncData, error: syncError, mutate: mutateSync } = useSWR<{
-    data: {
-      sync: ISync, subscriptions: {
-        "data-record-created": ExternalEventSubscription | null;
-        "data-record-updated": ExternalEventSubscription | null;
-        "data-record-deleted": ExternalEventSubscription | null;
-      }
-    };
-  }>(
-    [`/api/sync/${syncId}`, "token"],
-    async ([url]) => fetchWithAuth(url, getToken),
-    {
-      refreshInterval: 3000,
-    }
-  );
-
-
-
   const { trigger: triggerResync, isMutating: resyncing } = useSWRMutation(
-    `/api/sync/${syncId}/resync`,
+    `/api/sync/${sync._id}/resync`,
     async (url: string) =>
       fetchWithAuth(url, getToken, {
         method: "POST",
@@ -309,7 +302,6 @@ export function SyncDetails({ syncId }: SyncDetailsProps) {
     try {
       await triggerResync();
       toast.success("Resync triggered!");
-      await mutateSync();
     } catch (err: unknown) {
       let message = "Failed to resync";
       if (err instanceof Error) message = err.message;
@@ -320,7 +312,7 @@ export function SyncDetails({ syncId }: SyncDetailsProps) {
   const handleDelete = async () => {
     try {
       const token = await getToken();
-      const res = await fetch(`/api/sync/${syncId}`, {
+      const res = await fetch(`/api/sync/${sync._id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -336,23 +328,6 @@ export function SyncDetails({ syncId }: SyncDetailsProps) {
     }
   };
 
-  if (syncError) {
-    return (
-      <div className="flex flex-col items-center justify-center h-64 text-destructive">
-        <span>Failed to load sync details</span>
-      </div>
-    );
-  }
-
-  if (!syncData?.data?.sync) {
-    return (
-      <div className="flex flex-col items-center justify-center h-64 text-muted-foreground">
-        <span>Sync not found.</span>
-      </div>
-    );
-  }
-
-  const sync = syncData.data.sync;
   const recordsCount = sync.recordCount || 0;
 
   return (
@@ -439,38 +414,15 @@ export function SyncDetails({ syncId }: SyncDetailsProps) {
         </div>
       </div>
 
-      {/* Error Display */}
-      {sync.error && (
-        <div className="flex items-center justify-between mb-6 p-3 bg-red-50 rounded-lg border border-red-200">
-          <div className="flex items-center gap-2 text-red-600 text-sm">
-            <AlertTriangle className="w-4 h-4" />
-            <span className="font-medium">Sync Error:</span> {sync.error}
-          </div>
-          <Button
-            onClick={handleResync}
-            disabled={resyncing}
-            variant="outline"
-            size="sm"
-            className="flex items-center gap-2 text-red-600 border-red-200 hover:bg-red-100 hover:text-red-700"
-          >
-            {resyncing ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
-            ) : (
-              <RefreshCw className="w-4 h-4" />
-            )}
-            {resyncing ? "Resyncing..." : "Resync"}
-          </Button>
-        </div>
-      )}
-
       {/* Subscription Details */}
-      {syncData?.data?.subscriptions && (
+      {subscriptions && (
         <div className="mt-8 mb-8">
-          <SubscriptionDetails
+          <SyncSubscriptions
             recordType={capitalize(sync.recordType)}
-            subscriptions={syncData.data.subscriptions} />
+            subscriptions={subscriptions}
+          />
         </div>
       )}
     </>
   );
-} 
+}

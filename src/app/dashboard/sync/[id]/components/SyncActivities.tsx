@@ -1,7 +1,8 @@
 "use client";
 
+import { memo } from "react";
 import { Plus, Edit, Trash2, RefreshCw, Database, Hash } from "lucide-react";
-import type { IRecord, ISync, ISyncActivity, SyncActivityType } from "@/models/types";
+import type { IRecord, ISyncActivity, SyncActivityType } from "@/models/types";
 import useSWR from "swr";
 import { useAuth } from "@clerk/nextjs";
 import { fetchWithAuth } from "@/lib/fetch-utils";
@@ -10,20 +11,21 @@ import { cn } from "@/lib/fetch-utils";
 
 interface SyncActivitiesProps {
   records?: (IRecord & { _id: string })[];
-  sync: ISync & { _id: string };
+  syncId: string;
 }
 
-export function SyncActivities({ sync }: SyncActivitiesProps) {
+export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActivitiesProps) {
   const { getToken } = useAuth();
-  
+
   const { data: activitiesData, error: activitiesError, isLoading: activitiesLoading } = useSWR(
-    `/api/sync/${sync._id}/activities`,
+    `/api/sync/${syncId}/activities`,
     async (url) => {
       const token = await getToken();
       return fetchWithAuth(url, () => Promise.resolve(token));
     },
     {
-      refreshInterval: 5000
+      refreshInterval: 5000,
+      revalidateOnFocus: false,
     }
   );
 
@@ -180,4 +182,4 @@ export function SyncActivities({ sync }: SyncActivitiesProps) {
       )}
     </div>
   );
-} 
+}); 

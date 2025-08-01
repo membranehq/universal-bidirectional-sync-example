@@ -1,30 +1,17 @@
 "use client";
 
+import { useMemo } from "react";
 import useSWR from "swr";
 import { useAuth } from "@clerk/nextjs";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import type { IRecord, ISync } from "@/models/types";
+import type { ISync, Subscriptions } from "@/models/types";
 import { fetchWithAuth } from "@/lib/fetch-utils";
 import { Loader } from "@/components/ui/loader";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowLeft, AlertTriangle, Database, Plus } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { ArrowLeft, AlertTriangle, Database } from "lucide-react";
 import { SyncActivities } from "./components/SyncActivities";
-import { Record } from "./components/Record";
-import { SyncDetails } from "./components/SyncDetails";
-import { CreateRecordModal } from "./components/CreateRecordModal";
-import { ExternalEventSubscription } from "@integration-app/sdk";
-import { capitalize } from "@/lib/string-utils";
+import { SyncHeader } from "./components/SyncHeader";
+import { SyncRecords } from "./components/SyncRecords";
 
 export default function SyncPage() {
   const { id } = useParams();
@@ -33,33 +20,28 @@ export default function SyncPage() {
   const { data, error, isLoading } = useSWR<{
     data: {
       sync: ISync;
-      subscriptions: {
-        "data-record-created": ExternalEventSubscription | null;
-        "data-record-updated": ExternalEventSubscription | null;
-        "data-record-deleted": ExternalEventSubscription | null;
-      };
+      subscriptions: Subscriptions;
     };
   }>(
     id ? [`/api/sync/${id}`, "token"] : null,
     async ([url]) => fetchWithAuth(url, getToken),
     {
       refreshInterval: 3000,
+      revalidateOnFocus: false,
     }
   );
 
-  const {
-    data: recordsData,
-    mutate: mutateRecords,
-    isLoading: recordsLoading,
-  } = useSWR(
-    id ? [`/api/sync/${id}/records`, "token"] : null,
-    async ([url]) => fetchWithAuth(url, getToken),
-    {
-      refreshInterval: 3000,
-    }
-  );
+  const syncRecordsProps = useMemo(() => ({
+    recordType: data?.data?.sync?.recordType || "",
+    syncId: data?.data?.sync?._id || "",
+  }), [data?.data?.sync?.recordType, data?.data?.sync?._id]);
+
+  const syncActivitiesProps = useMemo(() => ({
+    syncId: data?.data?.sync?._id || "",
+  }), [data?.data?.sync?._id]);
 
   if (isLoading) return <Loader message="Loading sync details..." />;
+
   if (error)
     return (
       <div className="flex flex-col items-center justify-center h-64 text-destructive">
@@ -67,6 +49,7 @@ export default function SyncPage() {
         <span>Failed to load sync details</span>
       </div>
     );
+
   if (!data?.data?.sync)
     return (
       <div className="flex flex-col items-center justify-center h-64 text-muted-foreground">
@@ -76,7 +59,9 @@ export default function SyncPage() {
     );
 
   const { sync } = data.data;
-  const records = recordsData?.data || [];
+
+
+  console.log("sync", sync);
 
   return (
     <div className="w-full">
@@ -86,92 +71,13 @@ export default function SyncPage() {
       >
         <ArrowLeft className="w-4 h-4" /> Syncs
       </Link>
-
-      <SyncDetails syncId={id as string} />
-
-      {/* Records and Events Section */}
+      <SyncHeader sync={sync} subscriptions={data.data.subscriptions} />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Records Column */}
-        <div className="lg:col-span-2 space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">
-              {capitalize(sync.recordType)}
-            </h2>
-            {records.length > 0 && (
-              <CreateRecordModal
-                recordType={sync.recordType}
-                syncId={id as string}
-              />
-            )}
-          </div>
-
-          {recordsLoading ? (
-            <div className="space-y-2">
-              {Array.from({ length: 3 }).map((_, idx) => (
-                <Skeleton key={idx} className="h-16 w-full" />
-              ))}
-            </div>
-          ) : records.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
-              <div className="w-24 h-24 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-full flex items-center justify-center mb-6">
-                <Database className="w-12 h-12 text-blue-500" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                No records yet
-              </h3>
-              <p className="text-gray-600 mb-6 max-w-md">
-                This sync hasn&apos;t pulled any {sync.recordType} records yet.
-                Records will appear here once the sync completes successfully.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <CreateRecordModal
-                  recordType={sync.recordType}
-                  syncId={id as string}
-                  trigger={
-                    <Button
-                      variant="outline"
-                      className="flex items-center gap-2"
-                    >
-                      <Plus className="w-4 h-4" />
-                      Create {sync.recordType}
-                    </Button>
-                  }
-                />
-              </div>
-            </div>
-          ) : (
-            <div className="border rounded-lg">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>ID</TableHead>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Created</TableHead>
-                    <TableHead>Updated</TableHead>
-                    <TableHead className="text-right sticky right-0 bg-background"></TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {records.map(
-                    (record: IRecord & { _id: string }, idx: number) => (
-                      <Record
-                        key={record._id || idx}
-                        record={record}
-                        index={idx}
-                        syncId={id as string}
-                        onRecordDeleted={() => mutateRecords()}
-                        onRecordUpdated={() => mutateRecords()}
-                        recordType={sync.recordType}
-                      />
-                    )
-                  )}
-                </TableBody>
-              </Table>
-            </div>
-          )}
+        <div className="lg:col-span-2">
+          <SyncRecords {...syncRecordsProps} />
         </div>
         <div className="lg:col-span-1">
-          <SyncActivities sync={sync} />
+          <SyncActivities {...syncActivitiesProps} />
         </div>
       </div>
     </div>
