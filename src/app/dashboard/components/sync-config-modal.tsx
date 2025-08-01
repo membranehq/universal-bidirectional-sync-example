@@ -39,6 +39,7 @@ import { FormLabel } from "@/components/ui/form-label";
 
 
 import { Integration, DataSource, DataSourceInstance } from "@integration-app/sdk";
+import { getSingularForm } from "@/lib/pluralize-utils";
 
 // SectionWithStatus component
 function SectionWithStatus({
@@ -188,6 +189,7 @@ function CustomFieldMappingConfiguration({
               variablesSchema={fieldMappingInstance.externalSchema}
               onChange={(importValue: unknown) => patch({ importValue })}
             />
+
           )}
         </div>
       </div>
@@ -200,7 +202,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
     useState<Integration | null>(null);
   const [dataSources, setDataSources] = useState<DataSource[]>([]);
   const [dataSourcesLoading, setDataSourcesLoading] = useState(false);
-  const [selectedDataSource, setSelectedDataSource] = useState<string>("");
+  const [selectedDataSourceKey, setSelectedDataSourceKey] = useState<string>("");
   const [connection, setConnection] = useState<Connection | null>(null);
   const [connecting, setConnecting] = useState(false);
   const { getToken } = useAuth();
@@ -239,7 +241,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
             integrationId: selectedIntegration.id,
           });
           setDataSources(sources);
-          setSelectedDataSource("");
+          setSelectedDataSourceKey("");
         } catch (err) {
           console.error(err);
         } finally {
@@ -247,7 +249,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
         }
       } else {
         setDataSources([]);
-        setSelectedDataSource("");
+        setSelectedDataSourceKey("");
         setDataSourcesLoading(false);
       }
     };
@@ -258,7 +260,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
     setSyncing(true);
     try {
       const token = await getToken();
-      if (!selectedDataSource) {
+      if (!selectedDataSourceKey) {
         toast.error("No data source selected");
         setSyncing(false);
         return;
@@ -271,7 +273,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
         },
         body: JSON.stringify({
           integrationKey: selectedIntegration?.key,
-          dataSourceKey: selectedDataSource,
+          recordType: getSingularForm(selectedDataSourceKey),
           instanceKey: instanceKey.current,
         }),
       });
@@ -357,7 +359,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
 
             {/* section 3: Data Source Select (Visible if connection exists) */}
             {!!connection && (
-              <SectionWithStatus done={!!selectedDataSource}>
+              <SectionWithStatus done={!!selectedDataSourceKey}>
                 <div className="flex flex-col w-full max-w-xs">
                   <FormLabel
                     label="Select Object"
@@ -368,18 +370,18 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                   <div className="flex flex-col gap-1 w-full">
                     {!dataSourcesLoading ? (
                       <Select
-                        value={selectedDataSource}
-                        onValueChange={setSelectedDataSource}
+                        value={selectedDataSourceKey}
+                        onValueChange={setSelectedDataSourceKey}
                       >
                         <SelectTrigger
                           id="data-source-select"
                           className="min-w-[200px]"
                         >
                           <SelectValue placeholder="Choose a data source">
-                            {selectedDataSource &&
+                            {selectedDataSourceKey &&
                               (() => {
                                 const ds = dataSources.find(
-                                  (d) => d.key === selectedDataSource
+                                  (d) => d.key === selectedDataSourceKey
                                 );
                                 if (!ds) return null;
                                 return <span>{ds.name}</span>;
@@ -403,22 +405,22 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
             )}
 
             {/* section 4: Configure Data Source Button (Visible if data source selected) */}
-            {!!selectedDataSource && !!connection?.id && (
+            {!!selectedDataSourceKey && !!connection?.id && (
               <CustomDataSourceConfiguration
                 onDataSourceInstanceChange={(dataSourceInstance) => setDataSourceInstance(dataSourceInstance)}
                 instanceKey={instanceKey.current}
                 integrationKey={selectedIntegration?.key}
-                dataSourceKey={selectedDataSource}
+                dataSourceKey={selectedDataSourceKey}
                 connectionId={connection.id}
               />
             )}
 
             {/* section 5: Configure Field Mapping Button (Visible if data source selected) */}
-            {!!selectedDataSource && !!connection?.id && !!dataSourceInstance && (
+            {!!selectedDataSourceKey && !!connection?.id && !!dataSourceInstance && (
               <CustomFieldMappingConfiguration
                 instanceKey={instanceKey.current}
                 integrationKey={selectedIntegration?.key}
-                fieldMappingKey={selectedDataSource}
+                fieldMappingKey={selectedDataSourceKey}
               />
             )}
           </form>
@@ -428,7 +430,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
           <Button
             type="button"
             className="bg-primary text-white font-semibold hover:bg-primary/90 transition"
-            disabled={!selectedIntegration || !selectedDataSource || syncing}
+            disabled={!selectedIntegration || !selectedDataSourceKey || syncing}
             onClick={startSync}
           >
             {syncing ? (

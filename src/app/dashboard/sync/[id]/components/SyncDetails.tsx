@@ -41,7 +41,6 @@ import { ExternalEventSubscription } from "@integration-app/sdk";
 import { PullCountdown } from "@/app/dashboard/sync/[id]/components/PullCountdown";
 import { useState } from "react";
 import { integrationAppClient } from "@/lib/integration-app-client";
-import { singularize } from '../../../../../lib/pluralize-utils';
 import { capitalize } from "@/lib/string-utils";
 
 interface SyncDetailsProps {
@@ -382,7 +381,7 @@ export function SyncDetails({ syncId }: SyncDetailsProps) {
                 {sync.integrationKey}
               </Badge>
               <Badge variant="outline" className="text-xs">
-                {sync.dataSourceKey}
+                {sync.recordType}
               </Badge>
               <StatusBadge status={sync.status} />
             </div>
@@ -468,7 +467,7 @@ export function SyncDetails({ syncId }: SyncDetailsProps) {
       {syncData?.data?.subscriptions && (
         <div className="mt-8 mb-8">
           <SubscriptionDetails
-            recordType={capitalize(singularize(sync.dataSourceKey))}
+            recordType={capitalize(sync.recordType)}
             subscriptions={syncData.data.subscriptions} />
         </div>
       )}

@@ -8,7 +8,6 @@ import {
   ActionRunError,
   IntegrationAppClient as Membrane,
 } from "@integration-app/sdk";
-import { getSingularForm } from "@/lib/pluralize-utils";
 
 export async function DELETE(
   request: Request,
@@ -65,7 +64,7 @@ export async function DELETE(
     try {
       await membrane
         .connection(sync.integrationKey)
-        .action(`delete-${getSingularForm(sync.dataSourceKey)}`, {
+        .action(`delete-${sync.recordType}`, {
           instanceKey: sync.instanceKey,
         })
         .run({
@@ -96,7 +95,7 @@ export async function DELETE(
       metadata: {
         recordId: record.id,
         integrationKey: sync.integrationKey,
-        dataSourceKey: sync.dataSourceKey,
+        recordType: sync.recordType,
       },
     });
 

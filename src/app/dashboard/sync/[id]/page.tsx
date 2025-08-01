@@ -34,7 +34,7 @@ import { SyncActivities } from "./components/SyncActivities";
 import { Record } from "./components/Record";
 import { SyncDetails } from "./components/SyncDetails";
 import { ExternalEventSubscription } from "@integration-app/sdk";
-import { getSingularForm } from '@/lib/pluralize-utils';
+import { capitalize } from "@/lib/string-utils";
 
 export default function SyncDetailsPage() {
   const { id } = useParams();
@@ -68,7 +68,6 @@ export default function SyncDetailsPage() {
     }
   );
 
-  const recordType = getSingularForm(data?.data?.sync?.dataSourceKey || "");
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
@@ -108,7 +107,7 @@ export default function SyncDetailsPage() {
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-900">
-              {sync.dataSourceKey.charAt(0).toUpperCase() + sync.dataSourceKey.slice(1)}
+              {capitalize(sync.recordType)}
             </h2>
             {records.length > 0 && (
               <Dialog
@@ -117,12 +116,12 @@ export default function SyncDetailsPage() {
               >
                 <DialogTrigger asChild>
                   <Button size="sm" className="flex items-center gap-2">
-                    Create {recordType} <Plus className="w-4 h-4" />
+                    Create {sync.recordType} <Plus className="w-4 h-4" />
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                   <DialogHeader>
-                    <DialogTitle>Create {recordType}</DialogTitle>
+                    <DialogTitle>Create {sync.recordType}</DialogTitle>
                   </DialogHeader>
                   <div className="py-4">
                     <p className="text-sm text-muted-foreground">
@@ -149,7 +148,7 @@ export default function SyncDetailsPage() {
                 No records yet
               </h3>
               <p className="text-gray-600 mb-6 max-w-md">
-                This sync hasn&apos;t pulled any {sync.dataSourceKey} records
+                This sync hasn&apos;t pulled any {sync.recordType} records
                 yet. Records will appear here once the sync completes
                 successfully.
               </p>
@@ -160,7 +159,7 @@ export default function SyncDetailsPage() {
                   className="flex items-center gap-2"
                 >
                   <Plus className="w-4 h-4" />
-                  Create {recordType}
+                  Create {sync.recordType}
                 </Button>
               </div>
             </div>
@@ -184,7 +183,7 @@ export default function SyncDetailsPage() {
                       index={idx}
                       syncId={id as string}
                       onRecordDeleted={() => mutateRecords()}
-                      recordType={getSingularForm(sync.dataSourceKey)}
+                      recordType={sync.recordType}
                     />
                   ))}
                 </TableBody>

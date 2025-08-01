@@ -11,13 +11,15 @@ export interface IRecord {
 
 export type SyncStatus = "pending" | "in_progress" | "completed" | "failed";
 
+export type RecordType = "email" | "file" | "user";
+
 export interface ISync {
   _id: string;
   integrationKey: string;
   instanceKey: string;
   status: SyncStatus;
   userId: string;
-  dataSourceKey: string;
+  recordType: RecordType;
   createdAt: Date;
   updatedAt: Date;
   error?: string;

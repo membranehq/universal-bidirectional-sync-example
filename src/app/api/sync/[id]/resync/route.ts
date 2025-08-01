@@ -55,7 +55,7 @@ export async function POST(
       userId: dbUserId,
       token: membraneAccessToken!,
       integrationKey: sync.integrationKey,
-      actionId: `get-${sync.dataSourceKey}`,
+      actionId: `get-${sync.recordType}`,
       syncId: id,
     });
 

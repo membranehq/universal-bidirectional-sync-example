@@ -8,11 +8,12 @@ import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
 import { IntegrationAppClient } from "@integration-app/sdk";
 import { createSyncActivity } from "@/lib/sync-activity-utils";
-import { getSingularForm } from "@/lib/pluralize-utils";
+import { getElementKey } from "@/lib/record-type-config";
+
 
 const schema = z.object({
   integrationKey: z.string(),
-  dataSourceKey: z.string(),
+  recordType: z.string(),
   instanceKey: z.string(),
 });
 
@@ -37,7 +38,7 @@ export async function POST(
       );
     }
 
-    const { integrationKey, dataSourceKey, instanceKey } = requestBody.data;
+    const { integrationKey, recordType, instanceKey } = requestBody.data;
 
     const membrane = new IntegrationAppClient({
       token: membraneAccessToken!,
@@ -58,12 +59,10 @@ export async function POST(
      * - Flow Instance for receiving events
      */
 
-    const unpluralizedDataSourceKey = getSingularForm(dataSourceKey);
-
     // Create flow instance for receiving events
     await membrane
       .connection(integrationKey)
-      .flow(`receive-${unpluralizedDataSourceKey}-events`, {
+      .flow(`receive-${recordType}-events`, {
         instanceKey: instanceKey,
       })
       .get({
@@ -73,7 +72,7 @@ export async function POST(
     // Create action instance for listing records
     const action = await membrane
       .connection(integrationKey)
-      .action(`get-${dataSourceKey}`, { instanceKey: instanceKey })
+      .action(getElementKey(recordType, "list-action"), { instanceKey: instanceKey })
       .get({
         autoCreate: true,
       });
@@ -81,7 +80,7 @@ export async function POST(
     // Create action instance for creating records
     // await membrane
     //   .connection(integrationKey)
-    //   .action(`create-${unpluralizedDataSourceKey}`, {
+    //   .action(`create-${recordType}`, {
     //     instanceKey: instanceKey,
     //   })
     //   .get({
@@ -91,7 +90,7 @@ export async function POST(
     // // Create action instance for updating records
     // await membrane
     //   .connection(integrationKey)
-    //   .action(`update-${unpluralizedDataSourceKey}`, {
+    //   .action(`update-${recordType}`, {
     //     instanceKey: instanceKey,
     //   })
     //   .get({
@@ -101,7 +100,7 @@ export async function POST(
     // Create action instance for deleting records
     await membrane
       .connection(integrationKey)
-      .action(`delete-${unpluralizedDataSourceKey}`, {
+      .action(`delete-${recordType}`, {
         instanceKey: instanceKey,
       })
       .get({
@@ -113,14 +112,14 @@ export async function POST(
      */
     const datasource = await membrane
       .connection(integrationKey)
-      .dataSource(dataSourceKey, {
+      .dataSource(getElementKey(recordType, "data-source"), {
         instanceKey: instanceKey,
       })
       .get();
 
     const sync = await Sync.create({
       integrationKey,
-      dataSourceKey,
+      recordType,
       instanceKey,
       userId: dbUserId,
       /**
@@ -137,7 +136,7 @@ export async function POST(
       type: "sync_created",
       metadata: {
         integrationName: datasource.integration?.name,
-        dataSourceKey,
+        recordType,
         instanceKey,
       },
     });

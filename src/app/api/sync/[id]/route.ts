@@ -8,7 +8,7 @@ import {
   IntegrationAppClient,
 } from "@integration-app/sdk";
 import { ISync } from "@/models/types";
-import { getSingularForm } from "@/lib/pluralize-utils";
+import { getElementKey } from "@/lib/record-type-config";
 
 async function getSubscriptionsForSync(
   sync: ISync,
@@ -19,11 +19,9 @@ async function getSubscriptionsForSync(
       token: membraneAccessToken!,
     });
 
-    const unpluralizedDataSourceKey = getSingularForm(sync.dataSourceKey);
-
     const flowInstance = await membrane
       .connection(sync.integrationKey)
-      .flow(`receive-${unpluralizedDataSourceKey}-events`, {
+      .flow(getElementKey(sync.recordType, "flow"), {
         instanceKey: sync.instanceKey,
       })
       .get();
@@ -79,9 +77,9 @@ async function archiveSyncDependencies(
    * - Field Mapping Instance
    * - Data Source Instance
    */
-  const unpluralizedDataSourceKey = getSingularForm(sync.dataSourceKey);
+ 
 
-  const { integrationKey, instanceKey, dataSourceKey } = sync;
+  const { integrationKey, instanceKey, recordType } = sync;
 
   const archiveOperations = [
     {
@@ -89,7 +87,7 @@ async function archiveSyncDependencies(
       operation: () =>
         membrane
           .connection(integrationKey)
-          .flow(`receive-${unpluralizedDataSourceKey}-events`, {
+          .flow(getElementKey(recordType, "flow"), {
             instanceKey: instanceKey,
           })
           .archive(),
@@ -99,20 +97,20 @@ async function archiveSyncDependencies(
       operation: () =>
         membrane
           .connection(integrationKey)
-          .fieldMapping(`${dataSourceKey}`, { instanceKey: instanceKey })
+          .fieldMapping(getElementKey(recordType, "field-mapping"), { instanceKey: instanceKey })
           .archive(),
     },
     {
       name: "Data Source",
       operation: () =>
-        membrane.connection(integrationKey).dataSource(dataSourceKey).archive(),
+        membrane.connection(integrationKey).dataSource(getElementKey(recordType, "data-source")).archive(),
     },
     {
       name: "Action Instance",
       operation: () =>
         membrane
           .connection(integrationKey)
-          .action(`get-${dataSourceKey}`, { instanceKey: instanceKey })
+          .action(getElementKey(recordType, "list-action"), { instanceKey: instanceKey })
           .archive(),
     },
     {
@@ -120,7 +118,7 @@ async function archiveSyncDependencies(
       operation: () =>
         membrane
           .connection(integrationKey)
-          .fieldMapping(dataSourceKey)
+          .fieldMapping(getElementKey(recordType, "field-mapping"), { instanceKey: instanceKey })
           .archive(),
     },
   ];

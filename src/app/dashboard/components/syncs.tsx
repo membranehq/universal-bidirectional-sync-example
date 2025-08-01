@@ -27,7 +27,7 @@ const fetcher = async (url: string, token: string) => {
   return res.json();
 };
 
-const datasourceKeyToIcon: Record<string, FC<React.SVGProps<SVGSVGElement>>> = {
+const recordTypeToIcon: Record<string, FC<React.SVGProps<SVGSVGElement>>> = {
   "content-items": ListTree,
   documents: FileText,
   images: ImageIcon,
@@ -40,11 +40,11 @@ interface SyncItemProps {
 }
 
 function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
-  const Icon = datasourceKeyToIcon[sync.dataSourceKey];
+  const Icon = recordTypeToIcon[sync.recordType];
 
   return (
     <Link
-      key={sync.integrationKey + sync.dataSourceKey + sync._id}
+      key={sync.integrationKey + sync.recordType + sync._id}
       href={`/dashboard/sync/${sync._id}`}
       className="block group"
     >
@@ -81,7 +81,7 @@ function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
                   className="text-muted-foreground"
                 />
               )}
-              {sync.dataSourceKey}
+              {sync.recordType}
             </span>
             {/* Record Count Badge */}
             <span className="flex items-center gap-1 bg-gray-100 text-gray-700 rounded-full px-2 py-0.5 text-xs font-medium">
@@ -163,7 +163,7 @@ export function Syncs() {
       {data.data.map((sync) => {
         return (
           <SyncItem
-            key={sync.integrationKey + sync.dataSourceKey + sync._id}
+            key={sync.integrationKey + sync.recordType + sync._id}
             sync={sync}
             logoUri={sync.integrationLogoUri}
             integrationName={sync.integrationName}

@@ -14,7 +14,7 @@ const SyncSchema: Schema = new Schema(
       required: true,
     },
     userId: { type: String, required: true },
-    dataSourceKey: { type: String, required: true },
+    recordType: { type: String, required: true },
     error: { type: String, required: false },
     syncCount: { type: Number, required: false, default: 0 },
     integrationName: { type: String, required: false },

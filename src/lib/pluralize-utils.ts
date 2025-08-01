@@ -1,4 +1,4 @@
-import pluralize from "pluralize";
+import pluralize, { isPlural } from "pluralize";
 
 /**
  * Utility functions for handling pluralization and singularization
@@ -33,4 +33,11 @@ export function getSingularForm(word: string): string {
     return word;
   }
   return singularize(word);
+}
+
+export function getPluralForm(word: string): string {
+  if (isPlural(word)) {
+    return word;
+  }
+  return pluralize(word);
 }
