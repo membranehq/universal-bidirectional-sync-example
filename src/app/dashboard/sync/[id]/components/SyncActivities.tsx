@@ -15,8 +15,7 @@ interface SyncActivitiesProps {
 
 export function SyncActivities({ sync }: SyncActivitiesProps) {
   const { getToken } = useAuth();
-
-  // Fetch sync activities
+  
   const { data: activitiesData, error: activitiesError, isLoading: activitiesLoading } = useSWR(
     `/api/sync/${sync._id}/activities`,
     async (url) => {

@@ -51,9 +51,9 @@ interface SyncDetailsProps {
 // Component to render subscription details
 function SubscriptionDetails({
   subscriptions,
-  objectType
+  recordType
 }: {
-  objectType: string;
+  recordType: string;
   subscriptions: {
     "data-record-created": ExternalEventSubscription | null;
     "data-record-updated": ExternalEventSubscription | null;
@@ -63,9 +63,9 @@ function SubscriptionDetails({
   const [isMinimized, setIsMinimized] = useState(false);
   const [pullingSubscriptions, setPullingSubscriptions] = useState<Set<string>>(new Set());
   const eventTypes = [
-    { key: "data-record-created", label: `${objectType} Created` },
-    { key: "data-record-updated", label: `${objectType} Updated` },
-    { key: "data-record-deleted", label: `${objectType} Deleted` },
+    { key: "data-record-created", label: `${recordType} Created` },
+    { key: "data-record-updated", label: `${recordType} Updated` },
+    { key: "data-record-deleted", label: `${recordType} Deleted` },
   ] as const;
 
   const handlePull = async (subscriptionId: string) => {
@@ -468,7 +468,7 @@ export function SyncDetails({ syncId }: SyncDetailsProps) {
       {syncData?.data?.subscriptions && (
         <div className="mt-8 mb-8">
           <SubscriptionDetails
-            objectType={capitalize(singularize(sync.dataSourceKey))}
+            recordType={capitalize(singularize(sync.dataSourceKey))}
             subscriptions={syncData.data.subscriptions} />
         </div>
       )}

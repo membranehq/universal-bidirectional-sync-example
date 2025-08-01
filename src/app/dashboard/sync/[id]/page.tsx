@@ -68,7 +68,7 @@ export default function SyncDetailsPage() {
     }
   );
 
-  const objectType = getSingularForm(data?.data?.sync?.dataSourceKey || "");
+  const recordType = getSingularForm(data?.data?.sync?.dataSourceKey || "");
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
@@ -117,12 +117,12 @@ export default function SyncDetailsPage() {
               >
                 <DialogTrigger asChild>
                   <Button size="sm" className="flex items-center gap-2">
-                    Create {objectType} <Plus className="w-4 h-4" />
+                    Create {recordType} <Plus className="w-4 h-4" />
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                   <DialogHeader>
-                    <DialogTitle>Create {objectType}</DialogTitle>
+                    <DialogTitle>Create {recordType}</DialogTitle>
                   </DialogHeader>
                   <div className="py-4">
                     <p className="text-sm text-muted-foreground">
@@ -160,7 +160,7 @@ export default function SyncDetailsPage() {
                   className="flex items-center gap-2"
                 >
                   <Plus className="w-4 h-4" />
-                  Create {objectType}
+                  Create {recordType}
                 </Button>
               </div>
             </div>
@@ -184,7 +184,7 @@ export default function SyncDetailsPage() {
                       index={idx}
                       syncId={id as string}
                       onRecordDeleted={() => mutateRecords()}
-                      objectType={getSingularForm(sync.dataSourceKey)}
+                      recordType={getSingularForm(sync.dataSourceKey)}
                     />
                   ))}
                 </TableBody>

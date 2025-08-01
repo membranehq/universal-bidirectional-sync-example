@@ -16,10 +16,10 @@ interface RecordProps {
   index: number;
   onRecordDeleted?: (recordId: string) => void;
   syncId: string;
-  objectType: string;
+  recordType: string;
 }
 
-export function Record({ record, onRecordDeleted, syncId, objectType }: RecordProps) {
+export function Record({ record, onRecordDeleted, syncId, recordType }: RecordProps) {
   const [expanded, setExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -120,7 +120,7 @@ export function Record({ record, onRecordDeleted, syncId, objectType }: RecordPr
                   className="text-red-600 focus:text-red-600"
                 >
                   <Trash2 className="w-4 h-4 mr-2" />
-                  Delete {objectType}
+                  Delete {recordType}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
