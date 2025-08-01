@@ -59,6 +59,8 @@ export const syncRecordsFunction = inngest.createFunction(
 
     // Track sync syncing activity
     await step.run("track-sync-start", async () => {
+      await Sync.updateOne({ _id: syncId }, { $set: { error: "" } });
+
       await createSyncActivity({
         syncId,
         userId,

@@ -16,7 +16,6 @@ const SyncSchema: Schema = new Schema(
     userId: { type: String, required: true },
     dataSourceKey: { type: String, required: true },
     error: { type: String, required: false },
-    collectionEventDetails: { type: Schema.Types.Mixed, required: false },
     syncCount: { type: Number, required: false, default: 0 },
     integrationName: { type: String, required: false },
     integrationLogoUri: { type: String, required: false },

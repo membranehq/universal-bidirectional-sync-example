@@ -118,36 +118,11 @@ export async function POST(
       })
       .get();
 
-    const collectionEventDetails = (
-      (await datasource) as unknown as {
-        collectionSpec: {
-          events: {
-            created: {
-              type: string;
-              isFullScan: boolean;
-            };
-            updated: {
-              type: string;
-              isFullScan: boolean;
-            };
-            deleted: {
-              type: string;
-              isFullScan: boolean;
-            };
-          };
-        };
-      }
-    ).collectionSpec.events;
-
     const sync = await Sync.create({
       integrationKey,
       dataSourceKey,
       instanceKey,
-
       userId: dbUserId,
-      collectionEventDetails,
-      syncCount: 0,
-
       /**
        * Other useful info to have, so you don't have to fetch it all the time
        */

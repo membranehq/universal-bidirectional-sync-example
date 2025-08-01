@@ -21,7 +21,6 @@ export interface ISync {
   createdAt: Date;
   updatedAt: Date;
   error?: string;
-  collectionEventDetails: Record<string, unknown>;
   syncCount: number;
   integrationName: string;
   integrationLogoUri: string;
