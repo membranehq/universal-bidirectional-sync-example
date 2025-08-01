@@ -8,21 +8,10 @@ import type { IRecord, ISync } from "@/models/types";
 import { fetchWithAuth } from "@/lib/fetch-utils";
 import { Loader } from "@/components/ui/loader";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  ArrowLeft,
-  AlertTriangle,
-  Database,
-  Plus,
-} from "lucide-react";
-import { useState } from "react";
+import { ArrowLeft, AlertTriangle, Database, Plus } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+
 import {
   Table,
   TableBody,
@@ -33,9 +22,9 @@ import {
 import { SyncActivities } from "./components/SyncActivities";
 import { Record } from "./components/Record";
 import { SyncDetails } from "./components/SyncDetails";
+import { CreateRecordModal } from "./components/CreateRecordModal";
 import { ExternalEventSubscription } from "@integration-app/sdk";
 import { capitalize } from "@/lib/string-utils";
-import recordTypesConfig from "@/lib/record-type-config";
 
 export default function SyncDetailsPage() {
   const { id } = useParams();
@@ -43,11 +32,12 @@ export default function SyncDetailsPage() {
 
   const { data, error, isLoading } = useSWR<{
     data: {
-      sync: ISync; subscriptions: {
+      sync: ISync;
+      subscriptions: {
         "data-record-created": ExternalEventSubscription | null;
         "data-record-updated": ExternalEventSubscription | null;
         "data-record-deleted": ExternalEventSubscription | null;
-      }
+      };
     };
   }>(
     id ? [`/api/sync/${id}`, "token"] : null,
@@ -68,9 +58,6 @@ export default function SyncDetailsPage() {
       refreshInterval: 3000,
     }
   );
-
-
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   if (isLoading) return <Loader message="Loading sync details..." />;
   if (error)
@@ -111,30 +98,10 @@ export default function SyncDetailsPage() {
               {capitalize(sync.recordType)}
             </h2>
             {records.length > 0 && (
-              <Dialog
-                open={isCreateModalOpen}
-                onOpenChange={setIsCreateModalOpen}
-              >
-                <DialogTrigger asChild>
-                  <Button size="sm" className="flex items-center gap-2">
-                    Create {sync.recordType}
-                    {(() => {
-                      const IconComponent = recordTypesConfig[sync.recordType as keyof typeof recordTypesConfig]?.icon;
-                      return IconComponent ? <IconComponent className="w-4 h-4" /> : <Plus className="w-4 h-4" />;
-                    })()}
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                  <DialogHeader>
-                    <DialogTitle>Create {sync.recordType}</DialogTitle>
-                  </DialogHeader>
-                  <div className="py-4">
-                    <p className="text-sm text-muted-foreground">
-                      Create form will be implemented here.
-                    </p>
-                  </div>
-                </DialogContent>
-              </Dialog>
+              <CreateRecordModal
+                recordType={sync.recordType}
+                syncId={id as string}
+              />
             )}
           </div>
 
@@ -153,22 +120,23 @@ export default function SyncDetailsPage() {
                 No records yet
               </h3>
               <p className="text-gray-600 mb-6 max-w-md">
-                This sync hasn&apos;t pulled any {sync.recordType} records
-                yet. Records will appear here once the sync completes
-                successfully.
+                This sync hasn&apos;t pulled any {sync.recordType} records yet.
+                Records will appear here once the sync completes successfully.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <Button
-                  variant="outline"
-                  onClick={() => setIsCreateModalOpen(true)}
-                  className="flex items-center gap-2"
-                >
-                  {(() => {
-                    const IconComponent = recordTypesConfig[sync.recordType as keyof typeof recordTypesConfig]?.icon;
-                    return IconComponent ? <IconComponent className="w-4 h-4" /> : <Plus className="w-4 h-4" />;
-                  })()}
-                  Create {sync.recordType}
-                </Button>
+                <CreateRecordModal
+                  recordType={sync.recordType}
+                  syncId={id as string}
+                  trigger={
+                    <Button
+                      variant="outline"
+                      className="flex items-center gap-2"
+                    >
+                      <Plus className="w-4 h-4" />
+                      Create {sync.recordType}
+                    </Button>
+                  }
+                />
               </div>
             </div>
           ) : (
@@ -184,16 +152,18 @@ export default function SyncDetailsPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {records.map((record: IRecord & { _id: string }, idx: number) => (
-                    <Record
-                      key={record._id || idx}
-                      record={record}
-                      index={idx}
-                      syncId={id as string}
-                      onRecordDeleted={() => mutateRecords()}
-                      recordType={sync.recordType}
-                    />
-                  ))}
+                  {records.map(
+                    (record: IRecord & { _id: string }, idx: number) => (
+                      <Record
+                        key={record._id || idx}
+                        record={record}
+                        index={idx}
+                        syncId={id as string}
+                        onRecordDeleted={() => mutateRecords()}
+                        recordType={sync.recordType}
+                      />
+                    )
+                  )}
                 </TableBody>
               </Table>
             </div>
