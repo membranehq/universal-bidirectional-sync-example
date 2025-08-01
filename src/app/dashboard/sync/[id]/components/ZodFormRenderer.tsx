@@ -26,7 +26,7 @@ export function ZodFormRenderer({
 
   const renderField = (fieldName: string, fieldSchema: z.ZodTypeAny) => {
     const isRequired = !fieldSchema.isOptional();
-    const fieldValue = (formData[fieldName] as string) || "";
+    const fieldValue = formData[fieldName];
     const fieldError = errors[fieldName];
 
     if (fieldSchema instanceof z.ZodArray) {
@@ -93,13 +93,14 @@ export function ZodFormRenderer({
 
     if (fieldSchema instanceof z.ZodEnum) {
       // Handle enum fields (like status in user)
+      const enumValue = (fieldValue as string) || "";
       return (
         <div key={fieldName} className="space-y-2">
           <Label htmlFor={fieldName} className="text-sm font-medium">
             {fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}
             {isRequired && <span className="text-red-500 ml-1">*</span>}
           </Label>
-          <Select value={fieldValue} onValueChange={(value) => onFieldChange(fieldName, value)}>
+          <Select value={enumValue} onValueChange={(value) => onFieldChange(fieldName, value)}>
             <SelectTrigger className={fieldError ? "border-red-500" : ""}>
               <SelectValue placeholder={`Select ${fieldName}`} />
             </SelectTrigger>
@@ -136,6 +137,7 @@ export function ZodFormRenderer({
 
     if (fieldSchema instanceof z.ZodNumber) {
       // Handle number fields
+      const numberValue = (fieldValue as number) || "";
       return (
         <div key={fieldName} className="space-y-2">
           <Label htmlFor={fieldName} className="text-sm font-medium">
@@ -146,7 +148,7 @@ export function ZodFormRenderer({
             id={fieldName}
             type="number"
             placeholder={`Enter ${fieldName}`}
-            value={fieldValue}
+            value={numberValue}
             onChange={(e) => onFieldChange(fieldName, Number(e.target.value))}
             className={fieldError ? "border-red-500" : ""}
           />
@@ -157,6 +159,17 @@ export function ZodFormRenderer({
 
     if (fieldSchema instanceof z.ZodDate) {
       // Handle date fields
+      let dateValue = '';
+      if (fieldValue && typeof fieldValue === 'object' && 'toISOString' in fieldValue) {
+        dateValue = (fieldValue as Date).toISOString().slice(0, 16);
+      } else if (typeof fieldValue === 'string') {
+        try {
+          dateValue = new Date(fieldValue).toISOString().slice(0, 16);
+        } catch {
+          dateValue = '';
+        }
+      }
+
       return (
         <div key={fieldName} className="space-y-2">
           <Label htmlFor={fieldName} className="text-sm font-medium">
@@ -166,7 +179,7 @@ export function ZodFormRenderer({
           <Input
             id={fieldName}
             type="datetime-local"
-            value={fieldValue}
+            value={dateValue}
             onChange={(e) => onFieldChange(fieldName, new Date(e.target.value))}
             className={fieldError ? "border-red-500" : ""}
           />
@@ -177,6 +190,7 @@ export function ZodFormRenderer({
 
     // Default to text input for string fields
     const isTextArea = fieldName === "body" || fieldName === "htmlBody" || fieldName === "content";
+    const stringValue = (fieldValue as string) || "";
 
     if (isTextArea) {
       return (
@@ -188,7 +202,7 @@ export function ZodFormRenderer({
           <Textarea
             id={fieldName}
             placeholder={`Enter ${fieldName}`}
-            value={fieldValue}
+            value={stringValue}
             onChange={(e) => onFieldChange(fieldName, e.target.value)}
             className={fieldError ? "border-red-500" : ""}
             rows={4}
@@ -208,7 +222,7 @@ export function ZodFormRenderer({
           id={fieldName}
           type={fieldName === "email" ? "email" : "text"}
           placeholder={`Enter ${fieldName}`}
-          value={fieldValue}
+          value={stringValue}
           onChange={(e) => onFieldChange(fieldName, e.target.value)}
           className={fieldError ? "border-red-500" : ""}
         />

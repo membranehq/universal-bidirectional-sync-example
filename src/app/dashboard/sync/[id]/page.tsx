@@ -26,7 +26,7 @@ import { CreateRecordModal } from "./components/CreateRecordModal";
 import { ExternalEventSubscription } from "@integration-app/sdk";
 import { capitalize } from "@/lib/string-utils";
 
-export default function SyncDetailsPage() {
+export default function SyncPage() {
   const { id } = useParams();
   const { getToken } = useAuth();
 
@@ -160,6 +160,7 @@ export default function SyncDetailsPage() {
                         index={idx}
                         syncId={id as string}
                         onRecordDeleted={() => mutateRecords()}
+                        onRecordUpdated={() => mutateRecords()}
                         recordType={sync.recordType}
                       />
                     )

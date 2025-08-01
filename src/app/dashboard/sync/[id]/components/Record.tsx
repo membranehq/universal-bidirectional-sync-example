@@ -5,24 +5,28 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Copy, ChevronDown, ChevronRight, Hash, Trash2, Loader2, MoreHorizontal } from "lucide-react";
+import { Copy, ChevronDown, ChevronRight, Hash, Trash2, Loader2, MoreHorizontal, Edit } from "lucide-react";
 import type { IRecord } from "@/models/types";
 import { toast } from "sonner";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { TableCell, TableRow } from "@/components/ui/table";
+import { EditRecordModal } from "./EditRecordModal";
 
 interface RecordProps {
   record: IRecord,
   index: number;
   onRecordDeleted?: (recordId: string) => void;
+  onRecordUpdated?: () => void;
+
   syncId: string;
   recordType: string;
 }
 
-export function Record({ record, onRecordDeleted, syncId, recordType }: RecordProps) {
+export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recordType }: RecordProps) {
   const [expanded, setExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
   const handleCopy = async () => {
@@ -116,6 +120,14 @@ export function Record({ record, onRecordDeleted, syncId, recordType }: RecordPr
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem
+                  onClick={() => setEditDialogOpen(true)}
+                  className="flex items-center"
+                >
+                  <Edit className="w-4 h-4 mr-2" />
+                  Edit {recordType}
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
                   onClick={() => setDeleteDialogOpen(true)}
                   className="text-red-600 focus:text-red-600"
                 >
@@ -148,6 +160,16 @@ export function Record({ record, onRecordDeleted, syncId, recordType }: RecordPr
           </TableCell>
         </TableRow>
       )}
+
+      {/* Edit Record Modal */}
+      <EditRecordModal
+        record={record}
+        recordType={recordType}
+        syncId={syncId}
+        onRecordUpdated={onRecordUpdated}
+        open={editDialogOpen}
+        onOpenChange={setEditDialogOpen}
+      />
 
       {/* Delete confirmation dialog */}
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
