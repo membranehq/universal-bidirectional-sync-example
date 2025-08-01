@@ -35,6 +35,7 @@ import { Record } from "./components/Record";
 import { SyncDetails } from "./components/SyncDetails";
 import { ExternalEventSubscription } from "@integration-app/sdk";
 import { capitalize } from "@/lib/string-utils";
+import recordTypesConfig from "@/lib/record-type-config";
 
 export default function SyncDetailsPage() {
   const { id } = useParams();
@@ -116,7 +117,11 @@ export default function SyncDetailsPage() {
               >
                 <DialogTrigger asChild>
                   <Button size="sm" className="flex items-center gap-2">
-                    Create {sync.recordType} <Plus className="w-4 h-4" />
+                    Create {sync.recordType}
+                    {(() => {
+                      const IconComponent = recordTypesConfig[sync.recordType as keyof typeof recordTypesConfig]?.icon;
+                      return IconComponent ? <IconComponent className="w-4 h-4" /> : <Plus className="w-4 h-4" />;
+                    })()}
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
@@ -158,7 +163,10 @@ export default function SyncDetailsPage() {
                   onClick={() => setIsCreateModalOpen(true)}
                   className="flex items-center gap-2"
                 >
-                  <Plus className="w-4 h-4" />
+                  {(() => {
+                    const IconComponent = recordTypesConfig[sync.recordType as keyof typeof recordTypesConfig]?.icon;
+                    return IconComponent ? <IconComponent className="w-4 h-4" /> : <Plus className="w-4 h-4" />;
+                  })()}
                   Create {sync.recordType}
                 </Button>
               </div>

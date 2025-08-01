@@ -6,18 +6,15 @@ import Image from "next/image";
 import { Loader } from "@/components/ui/loader";
 
 import {
-  ListTree,
-  FileText,
-  Image as ImageIcon,
   HashIcon,
   ClockIcon,
   ChevronRight,
   AlertCircle,
   Database,
 } from "lucide-react";
-import type { FC } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { StatusBadge } from "@/components/ui/status-badge";
+import recordTypesConfig from "@/lib/record-type-config";
 
 const fetcher = async (url: string, token: string) => {
   const res = await fetch(url, {
@@ -27,12 +24,6 @@ const fetcher = async (url: string, token: string) => {
   return res.json();
 };
 
-const recordTypeToIcon: Record<string, FC<React.SVGProps<SVGSVGElement>>> = {
-  "content-items": ListTree,
-  documents: FileText,
-  images: ImageIcon,
-};
-
 interface SyncItemProps {
   sync: ISync & { _id: string, recordCount: number };
   logoUri?: string;
@@ -40,7 +31,7 @@ interface SyncItemProps {
 }
 
 function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
-  const Icon = recordTypeToIcon[sync.recordType];
+  const Icon = recordTypesConfig[sync.recordType as keyof typeof recordTypesConfig]?.icon;
 
   return (
     <Link
@@ -75,11 +66,7 @@ function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
             {/* Data Source Key Badge */}
             <span className="flex items-center gap-1 bg-gray-100 text-gray-700 rounded-full px-2 py-0.5 text-xs font-medium">
               {Icon && (
-                <Icon
-                  width={14}
-                  height={14}
-                  className="text-muted-foreground"
-                />
+                <Icon className="w-3.5 h-3.5 text-muted-foreground" />
               )}
               {sync.recordType}
             </span>

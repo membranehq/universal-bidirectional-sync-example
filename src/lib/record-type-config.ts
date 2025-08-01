@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { RecordType } from "@/models/types";
 import { getPluralForm } from "./pluralize-utils";
+import { Mail, User, File } from "lucide-react";
 
 /**
  * Define the schema for each record type
@@ -55,6 +56,7 @@ const recordTypesConfig: Record<
     allowDelete: boolean;
     allowUpdate: boolean;
     allowCreate: boolean;
+    icon: React.ComponentType<{ className?: string }>;
   }
 > = {
   email: {
@@ -62,18 +64,21 @@ const recordTypesConfig: Record<
     allowDelete: true,
     allowUpdate: false,
     allowCreate: true,
+    icon: Mail,
   },
   user: {
     schema: userSchema,
     allowDelete: true,
     allowUpdate: true,
     allowCreate: true,
+    icon: User,
   },
   file: {
     schema: fileSchema,
     allowDelete: true,
     allowUpdate: true,
     allowCreate: true,
+    icon: File,
   },
 };
 
