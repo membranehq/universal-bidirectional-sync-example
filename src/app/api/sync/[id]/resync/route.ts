@@ -3,7 +3,7 @@ import connectDB from "@/lib/mongodb";
 import { ensureUser } from "@/lib/ensureUser";
 import { Record } from "@/models/record";
 import { Sync } from "@/models/sync";
-import { syncRecords } from "@/app/api/sync/sync-records";
+import { triggerSyncRecords } from "@/inngest/trigger-sync-records";
 import { createSyncActivity } from "@/lib/sync-activity-utils";
 
 export async function POST(
@@ -50,8 +50,8 @@ export async function POST(
     // Respond early after creating the sync
     const response = NextResponse.json({ success: true });
 
-    // Pull in records using syncRecords
-    await syncRecords({
+    // Trigger sync records using Inngest
+    await triggerSyncRecords({
       userId: dbUserId,
       token: membraneAccessToken!,
       integrationKey: sync.integrationKey,
