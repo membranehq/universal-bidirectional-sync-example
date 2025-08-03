@@ -60,9 +60,6 @@ export default function SyncPage() {
 
   const { sync } = data.data;
 
-
-  console.log("sync", sync);
-
   return (
     <div className="w-full">
       <Link

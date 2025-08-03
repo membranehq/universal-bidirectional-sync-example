@@ -1,15 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Edit, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import recordTypesConfig from "@/lib/record-type-config";
 import { ZodFormRenderer } from "./ZodFormRenderer";
 import { z } from "zod";
@@ -22,50 +21,36 @@ interface EditRecordModalProps {
   record: IRecord;
   recordType: string;
   syncId: string;
-  trigger?: React.ReactNode;
   onRecordUpdated?: () => void;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
 
-export function EditRecordModal({
+export function EditRecordDialog({
   record,
   recordType,
   syncId,
-  trigger,
   onRecordUpdated,
   open,
   onOpenChange,
 }: EditRecordModalProps) {
-  const [internalIsOpen, setInternalIsOpen] = useState(false);
-  const isOpen = open !== undefined ? open : internalIsOpen;
-  const setIsOpen = onOpenChange || setInternalIsOpen;
   const [formData, setFormData] = useState<Record<string, unknown>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { getToken } = useAuth();
 
-
-  console.log("record", record);
-
-  const config = recordTypesConfig[recordType as keyof typeof recordTypesConfig];
-
-  // Initialize form data with existing record data when modal opens
-  useEffect(() => {
-    if (isOpen && record.data) {
-      setFormData(record.data);
-    }
-  }, [isOpen, record.data]);
+  const config =
+    recordTypesConfig[recordType as keyof typeof recordTypesConfig];
 
   if (!config || !config.allowUpdate) {
     return null;
   }
 
   const handleFieldChange = (field: string, value: unknown) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear error when user starts typing
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: "" }));
+      setErrors((prev) => ({ ...prev, [field]: "" }));
     }
   };
 
@@ -79,17 +64,21 @@ export function EditRecordModal({
       console.log("Validated data:", validatedData);
 
       // Submit the data to the API
-      await fetchWithAuth(`/api/sync/${syncId}/records/${record._id}`, getToken, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(validatedData),
-      });
+      await fetchWithAuth(
+        `/api/sync/${syncId}/records/${record._id}`,
+        getToken,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(validatedData),
+        }
+      );
 
-      toast.success('Record updated successfully');
+      toast.success("Record updated successfully");
       onRecordUpdated?.();
-      setIsOpen(false);
+      onOpenChange?.(false);
       setFormData({});
       setErrors({});
     } catch (error) {
@@ -101,8 +90,10 @@ export function EditRecordModal({
         });
         setErrors(newErrors);
       } else {
-        console.error('Failed to update record:', error);
-        toast.error(error instanceof Error ? error.message : 'Failed to update record');
+        console.error("Failed to update record:", error);
+        toast.error(
+          error instanceof Error ? error.message : "Failed to update record"
+        );
       }
     } finally {
       setIsSubmitting(false);
@@ -110,26 +101,21 @@ export function EditRecordModal({
   };
 
   const handleCancel = () => {
-    setIsOpen(false);
+    onOpenChange?.(false);
     setFormData({});
     setErrors({});
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        {trigger || (
-          <Button size="sm" variant="outline" className="flex items-center gap-2">
-            <Edit className="w-4 h-4" />
-            Edit {recordType}
-          </Button>
-        )}
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px] max-h-[80vh] flex flex-col p-0">
         <DialogHeader className="flex-shrink-0 border-b px-6 py-4">
           <DialogTitle>Edit {recordType}</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 p-3">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col flex-1 min-h-0 p-3"
+        >
           <div className="flex-1 overflow-y-auto px-6 py-4">
             <ZodFormRenderer
               schema={config.schema}
@@ -147,10 +133,7 @@ export function EditRecordModal({
             >
               Cancel
             </Button>
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-            >
+            <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin mr-2" />
@@ -165,4 +148,4 @@ export function EditRecordModal({
       </DialogContent>
     </Dialog>
   );
-} 
+}

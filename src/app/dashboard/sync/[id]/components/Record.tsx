@@ -10,7 +10,7 @@ import type { IRecord } from "@/models/types";
 import { toast } from "sonner";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { EditRecordModal } from "./EditRecordModal";
+import { EditRecordDialog } from "./EditRecordDialog";
 
 interface RecordProps {
   record: IRecord,
@@ -161,8 +161,7 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
         </TableRow>
       )}
 
-      {/* Edit Record Modal */}
-      <EditRecordModal
+      <EditRecordDialog
         record={record}
         recordType={recordType}
         syncId={syncId}
@@ -171,7 +170,6 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
         onOpenChange={setEditDialogOpen}
       />
 
-      {/* Delete confirmation dialog */}
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <DialogContent className="sm:max-w-[400px]">
           <DialogHeader>
