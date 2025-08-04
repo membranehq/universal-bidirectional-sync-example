@@ -59,7 +59,7 @@ const recordTypesConfig: Record<
   email: {
     schema: emailSchema,
     allowDelete: true,
-    allowUpdate: false,
+    allowUpdate: true,
     allowCreate: true,
     icon: Mail,
   },

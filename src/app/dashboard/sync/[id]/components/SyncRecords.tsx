@@ -12,6 +12,7 @@ import { SyncStatusObject } from "@/models/types";
 import { fetchWithAuth } from "@/lib/fetch-utils";
 import { capitalize } from "@/lib/string-utils";
 import { getPluralForm } from "@/lib/pluralize-utils";
+import recordTypesConfig from "@/lib/record-type-config";
 import {
   Table,
   TableBody,
@@ -87,7 +88,7 @@ export const SyncRecords = memo(function SyncRecords({ recordType, syncId, syncS
               : `This sync hasn't pulled any ${recordType} records yet.`
             }
           </p>
-          {!isSyncInProgress && (
+          {!isSyncInProgress && recordTypesConfig[recordType as keyof typeof recordTypesConfig]?.allowCreate && (
             <div className="flex flex-col sm:flex-row gap-3">
               <CreateRecordModal
                 recordType={recordType}
@@ -116,10 +117,12 @@ export const SyncRecords = memo(function SyncRecords({ recordType, syncId, syncS
           {capitalize(getPluralForm(recordType))}
           <span className="text-sm text-gray-500">({records.length})</span>
         </h2>
-        <CreateRecordModal
-          recordType={recordType}
-          syncId={syncId}
-        />
+        {recordTypesConfig[recordType as keyof typeof recordTypesConfig]?.allowCreate && (
+          <CreateRecordModal
+            recordType={recordType}
+            syncId={syncId}
+          />
+        )}
       </div>
 
       <div className="border rounded-lg">
@@ -130,7 +133,7 @@ export const SyncRecords = memo(function SyncRecords({ recordType, syncId, syncS
               <TableHead>Name</TableHead>
               <TableHead>Created</TableHead>
               <TableHead>Updated</TableHead>
-              <TableHead className="text-right sticky right-0 bg-background"></TableHead>
+              <TableHead className="text-right sticky right-0 bg-background rounded-tr-md"></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
