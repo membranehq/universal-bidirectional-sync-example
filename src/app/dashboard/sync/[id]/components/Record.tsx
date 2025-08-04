@@ -5,8 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Copy, ChevronDown, ChevronRight, Hash, Trash2, Loader2, MoreHorizontal, Edit } from "lucide-react";
+import { Copy, ChevronDown, ChevronRight, Hash, Trash2, Loader2, MoreHorizontal, Edit, CheckCircle, XCircle, Clock, AlertCircle } from "lucide-react";
 import type { IRecord } from "@/models/types";
+import { SyncStatusObject } from "@/models/types";
 import { toast } from "sonner";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { TableCell, TableRow } from "@/components/ui/table";
@@ -21,6 +22,36 @@ interface RecordProps {
   syncId: string;
   recordType: string;
 }
+
+const getSyncStatusIcon = (status: string) => {
+  switch (status) {
+    case SyncStatusObject.COMPLETED:
+      return <CheckCircle className="w-4 h-4 text-green-500" />;
+    case SyncStatusObject.FAILED:
+      return <XCircle className="w-4 h-4 text-red-500" />;
+    case SyncStatusObject.IN_PROGRESS:
+      return <Loader2 className="w-4 h-4 animate-spin text-blue-500" />;
+    case SyncStatusObject.PENDING:
+      return <Clock className="w-4 h-4 text-gray-500" />;
+    default:
+      return <AlertCircle className="w-4 h-4 text-gray-500" />;
+  }
+};
+
+const getSyncStatusColor = (status: string) => {
+  switch (status) {
+    case SyncStatusObject.COMPLETED:
+      return "bg-green-100 text-green-800 border-green-200";
+    case SyncStatusObject.FAILED:
+      return "bg-red-100 text-red-800 border-red-200";
+    case SyncStatusObject.IN_PROGRESS:
+      return "bg-blue-100 text-blue-800 border-blue-200";
+    case SyncStatusObject.PENDING:
+      return "bg-gray-100 text-gray-800 border-gray-200";
+    default:
+      return "bg-gray-100 text-gray-800 border-gray-200";
+  }
+};
 
 export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recordType }: RecordProps) {
   const [expanded, setExpanded] = useState(false);
@@ -80,7 +111,7 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
             </button>
             <Badge variant="outline" className="flex items-center gap-1 font-mono text-xs px-2 py-1">
               <Hash className="w-3 h-3 mr-1" />
-              {record.externalId}
+              {record.id}
             </Badge>
           </div>
         </TableCell>
@@ -92,6 +123,26 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
         </TableCell>
         <TableCell className="whitespace-nowrap">
           {record.updatedAt ? new Date(record.updatedAt).toLocaleDateString() : "N/A"}
+        </TableCell>
+        <TableCell className="whitespace-nowrap">
+          <div className="flex items-center gap-2">
+            {getSyncStatusIcon(record.syncStatus)}
+            {record.syncError && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <AlertCircle className="w-4 h-4 text-red-500 cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <div className="max-w-xs">
+                      <p className="font-semibold">Sync Error:</p>
+                      <p className="text-xs">{record.syncError}</p>
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+          </div>
         </TableCell>
         <TableCell className="text-right sticky right-0 bg-background">
           <div className="flex items-center justify-end gap-1">
@@ -142,7 +193,7 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
 
       {expanded && (
         <TableRow>
-          <TableCell colSpan={5}>
+          <TableCell colSpan={6}>
             <div className="space-y-3">
               <pre className="whitespace-pre-wrap break-all bg-gray-100 rounded p-3 text-xs border">
                 {JSON.stringify(record.data, null, 2)}
@@ -155,6 +206,11 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
                   <span>Updated:</span>
                   <span>{record.updatedAt ? new Date(record.updatedAt).toLocaleString() : "N/A"}</span>
                 </div>
+                {record.syncError && (
+                  <div className="text-red-500">
+                    <span className="font-semibold">Sync Error:</span> {record.syncError}
+                  </div>
+                )}
               </div>
             </div>
           </TableCell>

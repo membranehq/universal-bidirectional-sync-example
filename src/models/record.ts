@@ -1,7 +1,7 @@
 import "server-only";
 
 import mongoose, { Schema, Model } from "mongoose";
-import { IRecord } from "./types";
+import { IRecord, SyncStatusObject } from "./types";
 
 const RecordSchema: Schema = new Schema(
   {
@@ -16,6 +16,13 @@ const RecordSchema: Schema = new Schema(
     name: { type: String, required: false },
     createdAt: { type: Date, required: true },
     updatedAt: { type: Date, required: true },
+    syncStatus: {
+      type: String,
+      required: true,
+      default: SyncStatusObject.PENDING,
+      enum: Object.values(SyncStatusObject),
+    },
+    syncError: { type: String, required: false },
   },
   { timestamps: true }
 );

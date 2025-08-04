@@ -1,5 +1,15 @@
 import { ExternalEventSubscription } from "@integration-app/sdk";
 
+export const SyncStatusObject = {
+  PENDING: "pending",
+  IN_PROGRESS: "in_progress",
+  COMPLETED: "completed",
+  FAILED: "failed",
+} as const;
+
+export type SyncStatus =
+  (typeof SyncStatusObject)[keyof typeof SyncStatusObject];
+
 export interface IRecord {
   _id: string;
   externalId: string;
@@ -9,9 +19,9 @@ export interface IRecord {
   userId: string;
   data: Record<string, unknown>;
   syncId: string;
+  syncStatus: SyncStatus;
+  syncError?: string;
 }
-
-export type SyncStatus = "pending" | "in_progress" | "completed" | "failed";
 
 export type RecordType = "email" | "file" | "user";
 
@@ -24,8 +34,8 @@ export interface ISync {
   recordType: RecordType;
   createdAt: Date;
   updatedAt: Date;
-  error?: string;
-  syncCount: number;
+  pullError?: string;
+  pullCount: number;
   integrationName: string;
   integrationLogoUri: string;
   recordCount?: number;
@@ -40,9 +50,9 @@ export interface IUser {
 
 export type SyncActivityType =
   | "sync_created"
-  | "sync_syncing"
-  | "sync_completed"
-  | "sync_resync_triggered"
+  | "sync_pulling"
+  | "sync_pull_completed"
+  | "sync_pull_failed"
   | "event_record_created"
   | "event_record_updated"
   | "event_record_deleted";

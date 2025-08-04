@@ -9,6 +9,7 @@ import {
   IntegrationAppClient as Membrane,
 } from "@integration-app/sdk";
 import { getElementKey } from "@/lib/record-type-config";
+import { SyncStatusObject } from "@/models/types";
 
 export async function PUT(
   request: Request,
@@ -55,6 +56,11 @@ export async function PUT(
     });
 
     try {
+      // Update status to in_progress
+      record.syncStatus = SyncStatusObject.IN_PROGRESS;
+      record.syncError = undefined;
+      await record.save();
+
       // Update the record in the integration
       await membrane
         .connection(sync.integrationKey)
@@ -66,8 +72,9 @@ export async function PUT(
           ...body,
         });
 
-      // Update the record in our database
+      // Update the record in our database and mark as completed
       record.data = body;
+      record.syncStatus = SyncStatusObject.COMPLETED;
       record.updatedAt = new Date();
       await record.save();
 
@@ -80,6 +87,7 @@ export async function PUT(
           recordId: record.externalId,
           integrationKey: sync.integrationKey,
           recordType: sync.recordType,
+          syncStatus: record.syncStatus,
         },
       });
 
@@ -89,6 +97,17 @@ export async function PUT(
         data: record,
       });
     } catch (error) {
+      // Mark sync as failed
+      record.syncStatus = SyncStatusObject.FAILED;
+      record.syncError =
+        error instanceof ActionRunError
+          ? error.data.message
+          : error instanceof Error
+          ? error.message
+          : "Unknown error occurred";
+      record.updatedAt = new Date();
+      await record.save();
+
       if (error instanceof ActionRunError) {
         throw new Error(error.data.message);
       }
@@ -106,4 +125,4 @@ export async function PUT(
       { status: 500 }
     );
   }
-} 
+}

@@ -5,12 +5,12 @@ import { Sync } from "@/models/sync";
 import { createSyncActivity } from "@/lib/sync-activity-utils";
 import { withTimeout } from "@/lib/timeout";
 import connectDB from "@/lib/mongodb";
+import { SyncStatusObject } from "@/models/types";
 
-// Define the event type for sync records
-export const syncRecordsEvent = "sync/records" as const;
 
-// Helper function to handle sync failure
-const handleSyncFailure = async ({
+export const pullRecordsEvent = "pull/records" as const;
+
+const handlePullFailure = async ({
   eventData,
   errorMessage,
 }: {
@@ -22,7 +22,7 @@ const handleSyncFailure = async ({
 
   // Update sync status to failed
   await Sync.findByIdAndUpdate(syncId, {
-    status: "failed",
+    status: SyncStatusObject.FAILED,
     error: errorMessage,
   });
 
@@ -30,7 +30,7 @@ const handleSyncFailure = async ({
   await createSyncActivity({
     syncId,
     userId,
-    type: "sync_completed",
+    type: "sync_pull_failed",
     metadata: {
       error: errorMessage,
       failed: true,
@@ -47,27 +47,27 @@ export const syncRecordsFunction = inngest.createFunction(
       const errorMessage = event.error.message;
       const eventData = event.event.data;
 
-      await handleSyncFailure({ eventData, errorMessage });
+      await handlePullFailure({ eventData, errorMessage });
     },
   },
-  { event: syncRecordsEvent },
+  { event: pullRecordsEvent },
   async ({ event, step, logger }) => {
     const { userId, token, integrationKey, actionKey, syncId } = event.data;
     let totalDocumentsSynced = 0;
 
-    const FETCH_PAGE_TIMEOUT = 60000; // 60 seconds timeout
-    const MAX_DOCUMENTS = 1000; // Maximum number of documents to sync
+    const FETCH_PAGE_TIMEOUT = 60000;
+    const MAX_DOCUMENTS = 1000; 
 
     await connectDB();
 
     // Track sync syncing activity
-    await step.run("track-sync-start", async () => {
+    await step.run("track-pull-start", async () => {
       await Sync.updateOne({ _id: syncId }, { $set: { error: "" } });
 
       await createSyncActivity({
         syncId,
         userId,
-        type: "sync_syncing",
+        type: "sync_pulling",
         metadata: {
           maxDocuments: MAX_DOCUMENTS,
         },
@@ -118,6 +118,7 @@ export const syncRecordsFunction = inngest.createFunction(
                     syncId,
                     data: record.fields,
                     externalId: record.fields.id,
+                    syncStatus: SyncStatusObject.COMPLETED,
                     name: record.name,
                     createdAt: record.createdAt,
                     updatedAt: record.updatedAt,
@@ -154,7 +155,7 @@ export const syncRecordsFunction = inngest.createFunction(
       await Sync.findByIdAndUpdate(
         syncId,
         {
-          status: "completed",
+          status: SyncStatusObject.COMPLETED,
           error: "",
           $inc: { syncCount: 1 },
           isTruncated: totalDocumentsSynced >= MAX_DOCUMENTS,
@@ -168,7 +169,7 @@ export const syncRecordsFunction = inngest.createFunction(
       await createSyncActivity({
         syncId,
         userId,
-        type: "sync_completed",
+        type: "sync_pull_completed",
         metadata: {
           totalDocumentsSynced,
           maxDocuments: MAX_DOCUMENTS,

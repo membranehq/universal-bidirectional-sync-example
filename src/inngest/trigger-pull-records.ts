@@ -1,7 +1,7 @@
 import { inngest } from "@/inngest/inngest";
-import { syncRecordsEvent } from "@/inngest/functions/sync-records";
+import { pullRecordsEvent } from "@/inngest/functions/pull-records";
 
-export async function triggerSyncRecords(props: {
+export async function triggerPullRecords(props: {
   userId: string;
   token: string;
   integrationKey: string;
@@ -9,7 +9,7 @@ export async function triggerSyncRecords(props: {
   syncId: string;
 }) {
   return await inngest.send({
-    name: syncRecordsEvent,
+    name: pullRecordsEvent,
     data: props,
   });
 }

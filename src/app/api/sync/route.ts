@@ -8,7 +8,7 @@ import { Record } from "@/models/record";
 import { IntegrationAppClient } from "@integration-app/sdk";
 import { createSyncActivity } from "@/lib/sync-activity-utils";
 import recordTypesConfig, { getElementKey } from "@/lib/record-type-config";
-import { triggerSyncRecords } from "@/inngest/trigger-sync-records";
+import { triggerPullRecords } from "@/inngest/trigger-pull-records";
 import { RecordType } from "@/models/types";
 
 const schema = z.object({
@@ -148,7 +148,7 @@ export async function POST(
       },
     });
 
-    await triggerSyncRecords({
+    await triggerPullRecords({
       userId: dbUserId,
       token: membraneAccessToken!,
       integrationKey: sync.integrationKey,

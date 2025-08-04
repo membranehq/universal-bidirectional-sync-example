@@ -9,6 +9,7 @@ import {
   IntegrationAppClient as Membrane,
 } from "@integration-app/sdk";
 import { getElementKey } from "@/lib/record-type-config";
+import { SyncStatusObject } from "@/models/types";
 
 export async function DELETE(
   request: Request,
@@ -153,36 +154,57 @@ export async function POST(
         { status: 404 }
       );
     }
+
     const record = new Record({
       userId: dbUserId,
       syncId: syncId,
       data: data,
+      syncStatus: SyncStatusObject.PENDING,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
 
     await record.save();
 
+    const response = NextResponse.json({
+      success: true,
+      data: record,
+      message: "Record created successfully",
+    });
+
+    // After response
     const membrane = new Membrane({
       token: membraneAccessToken!,
     });
 
     try {
+      // Update status to in_progress
+      record.syncStatus = SyncStatusObject.IN_PROGRESS;
+      await record.save();
+
       // Create the record in the integration
+      const actionKey = getElementKey(sync.recordType, "create-action");
+
       const result = await membrane
         .connection(sync.integrationKey)
-        .action(getElementKey(sync.recordType, "create-action"), {
+        .action(actionKey, {
           instanceKey: sync.instanceKey,
         })
         .run(data);
 
-      // Update the record with the integration data
+      // Update the record with the integration data and mark as completed
       record.externalId = result.output.id;
-
+      record.syncStatus = SyncStatusObject.COMPLETED;
+      record.updatedAt = new Date();
       await record.save();
     } catch (e) {
       // Mark sync of record as failed
       console.error("Failed to create record:", e);
+      record.syncStatus = SyncStatusObject.FAILED;
+      record.syncError =
+        e instanceof Error ? e.message : "Unknown error occurred";
+      record.updatedAt = new Date();
+      await record.save();
     }
 
     // Create sync activity
@@ -195,15 +217,12 @@ export async function POST(
         recordId: record.externalId,
         integrationKey: sync.integrationKey,
         recordType: sync.recordType,
-        integrationStatus: record.data.integrationStatus || "success",
+        syncStatus: record.syncStatus,
+        syncError: record.syncError,
       },
     });
 
-    return NextResponse.json({
-      success: true,
-      data: record,
-      message: "Record created successfully",
-    });
+    return response;
   } catch (error) {
     console.error("Failed to create record:", error);
     return NextResponse.json(
@@ -245,11 +264,13 @@ export async function GET(
       );
     }
 
-    // Get all records for this sync
+    // Get all records for this sync, sorted by creation date (newest first)
     const records = await Record.find({
       syncId: syncId,
       userId: dbUserId,
-    }).lean();
+    })
+      .sort({ createdAt: -1 })
+      .lean();
 
     return NextResponse.json({
       success: true,

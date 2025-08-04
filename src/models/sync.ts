@@ -1,7 +1,7 @@
 import "server-only";
 
 import mongoose, { Schema, Model } from "mongoose";
-import { ISync } from "./types";
+import { ISync, SyncStatusObject } from "./types";
 
 const SyncSchema: Schema = new Schema(
   {
@@ -9,14 +9,18 @@ const SyncSchema: Schema = new Schema(
     instanceKey: { type: String, required: true },
     status: {
       type: String,
-      enum: ["in_progress", "completed", "failed"],
-      default: "in_progress",
+      enum: [
+        SyncStatusObject.IN_PROGRESS,
+        SyncStatusObject.COMPLETED,
+        SyncStatusObject.FAILED,
+      ],
+      default: SyncStatusObject.IN_PROGRESS,
       required: true,
     },
     userId: { type: String, required: true },
     recordType: { type: String, required: true },
-    error: { type: String, required: false },
-    syncCount: { type: Number, required: false, default: 0 },
+    pullError: { type: String, required: false },
+    pullCount: { type: Number, required: false, default: 0 },
     integrationName: { type: String, required: false },
     integrationLogoUri: { type: String, required: false },
   },
@@ -32,7 +36,6 @@ SyncSchema.pre(
     const { Record } = await import("./record");
     const { SyncActivity } = await import("./sync-activity");
 
-    // Delete all related records and activities
     await Promise.all([
       Record.deleteMany({ syncId: sync._id.toString() }),
       SyncActivity.deleteMany({ syncId: sync._id.toString() }),

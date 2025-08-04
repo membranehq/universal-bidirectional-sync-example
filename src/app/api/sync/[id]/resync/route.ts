@@ -3,9 +3,10 @@ import connectDB from "@/lib/mongodb";
 import { ensureUser } from "@/lib/ensureUser";
 import { Record } from "@/models/record";
 import { Sync } from "@/models/sync";
-import { triggerSyncRecords } from "@/inngest/trigger-sync-records";
+import { triggerPullRecords } from "@/inngest/trigger-pull-records";
 import { createSyncActivity } from "@/lib/sync-activity-utils";
 import { getElementKey } from "@/lib/record-type-config";
+import { SyncStatusObject } from "@/models/types";
 
 export async function POST(
   request: Request,
@@ -34,20 +35,23 @@ export async function POST(
       );
     }
 
-    await Sync.updateOne({ _id: id }, { $set: { status: "in_progress" } });
+    await Sync.updateOne(
+      { _id: id },
+      { $set: { status: SyncStatusObject.IN_PROGRESS } }
+    );
 
     await createSyncActivity({
       syncId: id.toString(),
       userId: dbUserId,
-      type: "sync_resync_triggered",
+      type: "sync_pulling",
       metadata: {
-        previousSyncCount: sync.syncCount || 0,
+        previousPullCount: sync.pullCount || 0,
       },
     });
 
     await Record.deleteMany({ syncId: id, userId: dbUserId });
 
-    await triggerSyncRecords({
+    await triggerPullRecords({
       userId: dbUserId,
       token: membraneAccessToken!,
       integrationKey: sync.integrationKey,

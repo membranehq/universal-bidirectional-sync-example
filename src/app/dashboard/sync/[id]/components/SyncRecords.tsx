@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Database, Plus } from "lucide-react";
 import type { IRecord, SyncStatus } from "@/models/types";
+import { SyncStatusObject } from "@/models/types";
 import { fetchWithAuth } from "@/lib/fetch-utils";
 import { capitalize } from "@/lib/string-utils";
 import { getPluralForm } from "@/lib/pluralize-utils";
@@ -64,7 +65,7 @@ export const SyncRecords = memo(function SyncRecords({ recordType, syncId, syncS
   }
 
   if (records.length === 0) {
-    const isSyncInProgress = syncStatus === "in_progress";
+    const isSyncInProgress = syncStatus === SyncStatusObject.IN_PROGRESS;
 
     return (
       <div className="space-y-4">
@@ -125,10 +126,11 @@ export const SyncRecords = memo(function SyncRecords({ recordType, syncId, syncS
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>ID</TableHead>
+              <TableHead>External ID</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Created</TableHead>
               <TableHead>Updated</TableHead>
+              <TableHead>Sync Status</TableHead>
               <TableHead className="text-right sticky right-0 bg-background"></TableHead>
             </TableRow>
           </TableHeader>

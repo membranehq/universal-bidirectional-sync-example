@@ -1,4 +1,5 @@
 import { CheckIcon, XIcon, Loader2 } from "lucide-react";
+import { SyncStatusObject } from "@/models/types";
 
 interface StatusBadgeProps {
   status: string;
@@ -9,12 +10,12 @@ export function StatusBadge({ status, className = "" }: StatusBadgeProps) {
   // Helper to render sync status icon
   const renderStatusIcon = () => {
     switch (status) {
-      case "completed":
+      case SyncStatusObject.COMPLETED:
         return <CheckIcon className="w-4 h-4 text-green-500" />;
-      case "pending":
-      case "in_progress":
+      case SyncStatusObject.PENDING:
+      case SyncStatusObject.IN_PROGRESS:
         return <Loader2 className="w-4 h-4 animate-spin text-blue-500" />;
-      case "failed":
+      case SyncStatusObject.FAILED:
         return <XIcon className="w-4 h-4 text-red-500" />;
       default:
         return null;
