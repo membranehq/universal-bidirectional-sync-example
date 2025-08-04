@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
-import { syncRecords } from "./sync-records";
 
 import { ensureUser } from "@/lib/ensureUser";
 import { z } from "zod";
@@ -8,14 +7,82 @@ import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
 import { IntegrationAppClient } from "@integration-app/sdk";
 import { createSyncActivity } from "@/lib/sync-activity-utils";
-import { getElementKey } from "@/lib/record-type-config";
-
+import recordTypesConfig, { getElementKey } from "@/lib/record-type-config";
+import { triggerSyncRecords } from "@/inngest/trigger-sync-records";
+import { RecordType } from "@/models/types";
 
 const schema = z.object({
   integrationKey: z.string(),
   recordType: z.string(),
   instanceKey: z.string(),
 });
+
+/**
+ * Create other instances using the instanceKey from the client
+ *  Field mapping & datasource have been created on the client
+ *
+ * Now, we'll create other instances using the instanceKey from the client:
+ * - Action Instances for
+ *   - listing records
+ *   - creating records
+ *   - deleting records
+ *   - updating records
+ *
+ * - Flow Instance for receiving events
+ */
+
+async function createElementDependencies(
+  membrane: IntegrationAppClient,
+  integrationKey: string,
+  recordType: RecordType,
+  instanceKey: string
+) {
+  await membrane
+    .connection(integrationKey)
+    .flow(getElementKey(recordType, "flow"), {
+      instanceKey: instanceKey,
+    })
+    .get({
+      autoCreate: true,
+    });
+
+  await membrane
+    .connection(integrationKey)
+    .action(getElementKey(recordType, "list-action"), {
+      instanceKey: instanceKey,
+    })
+    .create();
+
+  const { allowCreate, allowUpdate, allowDelete } =
+    recordTypesConfig[recordType];
+
+  if (allowCreate) {
+    await membrane
+      .connection(integrationKey)
+      .action(getElementKey(recordType, "create-action"), {
+        instanceKey: instanceKey,
+      })
+      .create();
+  }
+
+  if (allowUpdate) {
+    await membrane
+      .connection(integrationKey)
+      .action(getElementKey(recordType, "update-action"), {
+        instanceKey: instanceKey,
+      })
+      .create();
+  }
+
+  if (allowDelete) {
+    await membrane
+      .connection(integrationKey)
+      .action(getElementKey(recordType, "delete-action"), {
+        instanceKey: instanceKey,
+      })
+      .create();
+  }
+}
 
 export async function POST(
   request: Request
@@ -45,69 +112,6 @@ export async function POST(
     });
 
     /**
-     * Create other instances using the instanceKey from the client
-     * Before now, we created fieldMapping and dataSource instances on the client
-     * and allowed users user to configure them.
-     *
-     * Now, we'll create other instances using the instanceKey from the client:
-     * - Action Instances for
-     *   - listing records
-     *   - creating records
-     *   - deleting records
-     *   - updating records
-     *
-     * - Flow Instance for receiving events
-     */
-
-    // Create flow instance for receiving events
-    await membrane
-      .connection(integrationKey)
-      .flow(`receive-${recordType}-events`, {
-        instanceKey: instanceKey,
-      })
-      .get({
-        autoCreate: true,
-      });
-
-    // Create action instance for listing records
-    const action = await membrane
-      .connection(integrationKey)
-      .action(getElementKey(recordType, "list-action"), { instanceKey: instanceKey })
-      .get({
-        autoCreate: true,
-      });
-
-    // Create action instance for creating records
-    // await membrane
-    //   .connection(integrationKey)
-    //   .action(`create-${recordType}`, {
-    //     instanceKey: instanceKey,
-    //   })
-    //   .get({
-    //     autoCreate: true,
-    //   });
-
-    // // Create action instance for updating records
-    // await membrane
-    //   .connection(integrationKey)
-    //   .action(`update-${recordType}`, {
-    //     instanceKey: instanceKey,
-    //   })
-    //   .get({
-    //     autoCreate: true,
-    //   });
-
-    // Create action instance for deleting records
-    await membrane
-      .connection(integrationKey)
-      .action(`delete-${recordType}`, {
-        instanceKey: instanceKey,
-      })
-      .get({
-        autoCreate: true,
-      });
-
-    /**
      * Get some details about how the collection handles events in dataSource.collectionSpec
      */
     const datasource = await membrane
@@ -117,19 +121,22 @@ export async function POST(
       })
       .get();
 
+    await createElementDependencies(
+      membrane,
+      integrationKey,
+      recordType as RecordType,
+      instanceKey
+    );
+
     const sync = await Sync.create({
       integrationKey,
       recordType,
       instanceKey,
       userId: dbUserId,
-      /**
-       * Other useful info to have, so you don't have to fetch it all the time
-       */
       integrationName: datasource.integration?.name,
       integrationLogoUri: datasource.integration?.logoUri,
     });
 
-    // Track sync creation activity
     await createSyncActivity({
       syncId: sync._id.toString(),
       userId: dbUserId,
@@ -141,21 +148,15 @@ export async function POST(
       },
     });
 
-    // Respond early after creating the sync
-    const response = NextResponse.json({ success: true, data: sync });
-
-    // Fire-and-forget syncRecords
-    syncRecords({
-      token: membraneAccessToken!,
+    await triggerSyncRecords({
       userId: dbUserId,
-      integrationKey,
-      actionId: action.id,
+      token: membraneAccessToken!,
+      integrationKey: sync.integrationKey,
+      actionKey: getElementKey(sync.recordType, "list-action"),
       syncId: sync._id.toString(),
-    }).catch((err) => {
-      console.error("syncRecords failed:", err);
     });
 
-    return response;
+    return NextResponse.json({ success: true, data: sync });
   } catch (error) {
     console.error("Failed to start sync:", error);
     return NextResponse.json(

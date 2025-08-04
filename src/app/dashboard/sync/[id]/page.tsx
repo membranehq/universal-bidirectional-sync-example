@@ -34,7 +34,8 @@ export default function SyncPage() {
   const syncRecordsProps = useMemo(() => ({
     recordType: data?.data?.sync?.recordType || "",
     syncId: data?.data?.sync?._id || "",
-  }), [data?.data?.sync?.recordType, data?.data?.sync?._id]);
+    syncStatus: data?.data?.sync?.status,
+  }), [data?.data?.sync?.recordType, data?.data?.sync?._id, data?.data?.sync?.status]);
 
   const syncActivitiesProps = useMemo(() => ({
     syncId: data?.data?.sync?._id || "",

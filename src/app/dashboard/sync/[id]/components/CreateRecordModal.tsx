@@ -13,6 +13,8 @@ import { Plus } from "lucide-react";
 import recordTypesConfig from "@/lib/record-type-config";
 import { ZodFormRenderer } from "./ZodFormRenderer";
 import { z } from "zod";
+import { fetchWithAuth } from "@/lib/fetch-utils";
+import { useAuth } from "@clerk/nextjs";
 
 interface CreateRecordModalProps {
   recordType: string;
@@ -29,6 +31,7 @@ export function CreateRecordModal({
   const [formData, setFormData] = useState<Record<string, unknown>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { getToken } = useAuth();
 
   const config = recordTypesConfig[recordType as keyof typeof recordTypesConfig];
   const IconComponent = config?.icon;
@@ -56,12 +59,23 @@ export function CreateRecordModal({
       const validatedData = config.schema.parse(formData);
       console.log("Validated data:", validatedData);
 
-      // TODO: Submit the data to your API
-      // await createRecord(syncId, recordType, validatedData);
-      console.log("Sync ID:", syncId, "Record Type:", recordType, "Data:", validatedData);
+      // Submit the data to the API
+      const response = await fetchWithAuth(
+        `/api/sync/${syncId}/records`,
+        getToken,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ data: validatedData }),
+        }
+      );
+
+      console.log("Record created:", response);
 
       // Close modal and reset form
-      // setIsOpen(false);
+      setIsOpen(false);
       setFormData({});
       setErrors({});
     } catch (error) {
@@ -72,6 +86,9 @@ export function CreateRecordModal({
           newErrors[field] = err.message;
         });
         setErrors(newErrors);
+      } else {
+        console.error("Failed to create record:", error);
+        // You might want to show a toast notification here
       }
     } finally {
       setIsSubmitting(false);

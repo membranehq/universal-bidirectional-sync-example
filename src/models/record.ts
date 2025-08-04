@@ -8,7 +8,7 @@ const RecordSchema: Schema = new Schema(
     userId: { type: String, required: true },
     data: { type: Schema.Types.Mixed, required: false },
     syncId: { type: String, required: true },
-    id: { type: String, required: true },
+    externalId: { type: String, required: false },
 
     /**
      * Derived from the record UDM

@@ -8,6 +8,7 @@ import {
   ActionRunError,
   IntegrationAppClient as Membrane,
 } from "@integration-app/sdk";
+import { getElementKey } from "@/lib/record-type-config";
 
 export async function PUT(
   request: Request,
@@ -57,11 +58,11 @@ export async function PUT(
       // Update the record in the integration
       await membrane
         .connection(sync.integrationKey)
-        .action(`update-${sync.recordType}`, {
+        .action(getElementKey(sync.recordType, "update-action"), {
           instanceKey: sync.instanceKey,
         })
         .run({
-          id: record.id,
+          id: record.externalId,
           ...body,
         });
 
@@ -76,7 +77,7 @@ export async function PUT(
         type: "event_record_updated",
         recordId: record._id.toString(),
         metadata: {
-          recordId: record.id,
+          recordId: record.externalId,
           integrationKey: sync.integrationKey,
           recordType: sync.recordType,
         },

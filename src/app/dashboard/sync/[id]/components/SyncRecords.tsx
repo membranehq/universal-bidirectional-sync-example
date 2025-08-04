@@ -7,7 +7,7 @@ import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Database, Plus } from "lucide-react";
-import type { IRecord } from "@/models/types";
+import type { IRecord, SyncStatus } from "@/models/types";
 import { fetchWithAuth } from "@/lib/fetch-utils";
 import { capitalize } from "@/lib/string-utils";
 import { getPluralForm } from "@/lib/pluralize-utils";
@@ -24,9 +24,10 @@ import { CreateRecordModal } from "./CreateRecordModal";
 interface SyncRecordsProps {
   recordType: string;
   syncId: string;
+  syncStatus?: SyncStatus;
 }
 
-export const SyncRecords = memo(function SyncRecords({ recordType, syncId }: SyncRecordsProps) {
+export const SyncRecords = memo(function SyncRecords({ recordType, syncId, syncStatus }: SyncRecordsProps) {
   const { id } = useParams();
   const { getToken } = useAuth();
 
@@ -63,6 +64,8 @@ export const SyncRecords = memo(function SyncRecords({ recordType, syncId }: Syn
   }
 
   if (records.length === 0) {
+    const isSyncInProgress = syncStatus === "in_progress";
+
     return (
       <div className="space-y-4">
         <div className="flex items-center justify-between">
@@ -78,24 +81,28 @@ export const SyncRecords = memo(function SyncRecords({ recordType, syncId }: Syn
             No records yet
           </h3>
           <p className="text-gray-600 mb-6 max-w-md">
-            This sync hasn&apos;t pulled any {recordType} records yet.
-            Records will appear here once the sync completes successfully.
+            {isSyncInProgress
+              ? `This sync hasn't pulled any ${recordType} records yet. Records will appear here once the sync completes successfully.`
+              : `This sync hasn't pulled any ${recordType} records yet.`
+            }
           </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <CreateRecordModal
-              recordType={recordType}
-              syncId={syncId}
-              trigger={
-                <Button
-                  variant="outline"
-                  className="flex items-center gap-2"
-                >
-                  <Plus className="w-4 h-4" />
-                  Create {recordType}
-                </Button>
-              }
-            />
-          </div>
+          {!isSyncInProgress && (
+            <div className="flex flex-col sm:flex-row gap-3">
+              <CreateRecordModal
+                recordType={recordType}
+                syncId={syncId}
+                trigger={
+                  <Button
+                    variant="outline"
+                    className="flex items-center gap-2"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Create {recordType}
+                  </Button>
+                }
+              />
+            </div>
+          )}
         </div>
       </div>
     );

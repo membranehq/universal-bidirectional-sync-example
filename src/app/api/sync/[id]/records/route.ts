@@ -8,6 +8,7 @@ import {
   ActionRunError,
   IntegrationAppClient as Membrane,
 } from "@integration-app/sdk";
+import { getElementKey } from "@/lib/record-type-config";
 
 export async function DELETE(
   request: Request,
@@ -68,7 +69,7 @@ export async function DELETE(
           instanceKey: sync.instanceKey,
         })
         .run({
-          id: record.id,
+          id: record.externalId,
         });
     } catch (error) {
       if (error instanceof ActionRunError) {
@@ -93,7 +94,7 @@ export async function DELETE(
       type: "event_record_deleted",
       recordId: record._id.toString(),
       metadata: {
-        recordId: record.id,
+        recordId: record.externalId,
         integrationKey: sync.integrationKey,
         recordType: sync.recordType,
       },
@@ -109,6 +110,106 @@ export async function DELETE(
       {
         success: false,
         message: `Failed to delete record: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`,
+      },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    await connectDB();
+    const { dbUserId, membraneAccessToken } = await ensureUser();
+
+    if (!dbUserId) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const { id: syncId } = await params;
+    const body = await request.json();
+    const { data } = body;
+
+    if (!data) {
+      return NextResponse.json(
+        { success: false, message: "Record data is required" },
+        { status: 400 }
+      );
+    }
+
+    // Verify the sync exists and belongs to the user
+    const sync = await Sync.findOne({
+      _id: syncId,
+      userId: dbUserId,
+    }).lean();
+
+    if (!sync) {
+      return NextResponse.json(
+        { success: false, message: "Sync not found" },
+        { status: 404 }
+      );
+    }
+    const record = new Record({
+      userId: dbUserId,
+      syncId: syncId,
+      data: data,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    await record.save();
+
+    const membrane = new Membrane({
+      token: membraneAccessToken!,
+    });
+
+    try {
+      // Create the record in the integration
+      const result = await membrane
+        .connection(sync.integrationKey)
+        .action(getElementKey(sync.recordType, "create-action"), {
+          instanceKey: sync.instanceKey,
+        })
+        .run(data);
+
+      // Update the record with the integration data
+      record.externalId = result.output.id;
+
+      await record.save();
+    } catch (e) {
+      // Mark sync of record as failed
+      console.error("Failed to create record:", e);
+    }
+
+    // Create sync activity
+    await createSyncActivity({
+      syncId,
+      userId: dbUserId,
+      type: "event_record_created",
+      recordId: record._id.toString(),
+      metadata: {
+        recordId: record.externalId,
+        integrationKey: sync.integrationKey,
+        recordType: sync.recordType,
+        integrationStatus: record.data.integrationStatus || "success",
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      data: record,
+      message: "Record created successfully",
+    });
+  } catch (error) {
+    console.error("Failed to create record:", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: `Failed to create record: ${
           error instanceof Error ? error.message : "Unknown error"
         }`,
       },

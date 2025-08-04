@@ -5,7 +5,7 @@ export async function triggerSyncRecords(props: {
   userId: string;
   token: string;
   integrationKey: string;
-  actionId: string;
+  actionKey: string;
   syncId: string;
 }) {
   return await inngest.send({

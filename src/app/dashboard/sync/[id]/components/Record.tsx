@@ -80,7 +80,7 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
             </button>
             <Badge variant="outline" className="flex items-center gap-1 font-mono text-xs px-2 py-1">
               <Hash className="w-3 h-3 mr-1" />
-              {record.id}
+              {record.externalId}
             </Badge>
           </div>
         </TableCell>

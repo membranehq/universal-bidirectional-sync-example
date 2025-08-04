@@ -2,7 +2,7 @@ import { ExternalEventSubscription } from "@integration-app/sdk";
 
 export interface IRecord {
   _id: string;
-  id: string;
+  externalId: string;
   name: string;
   createdAt: Date;
   updatedAt: Date;

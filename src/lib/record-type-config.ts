@@ -7,15 +7,15 @@ import { Mail, User, File } from "lucide-react";
  * Define the schema for each record type
  */
 const emailSchema = z.object({
-  threadId: z.string(),
-  to: z.array(z.string()),
-  cc: z.array(z.string()),
-  bcc: z.array(z.string()),
-  from: z.string(),
-  replyTo: z.array(z.string()),
   subject: z.string(),
-  body: z.string(),
-  htmlBody: z.string(),
+  to: z.array(z.string()),
+  cc: z.array(z.string()).optional(),
+  bcc: z.array(z.string()).optional(),
+  from: z.string().optional(),
+  replyTo: z.array(z.string()).optional(),
+  threadId: z.string().optional(),
+  body: z.string().optional(),
+  htmlBody: z.string().optional(),
   attachments: z.array(
     z.object({
       id: z.string(),
@@ -24,8 +24,8 @@ const emailSchema = z.object({
       content: z.string(),
       url: z.string(),
     })
-  ),
-});
+  ).optional(),
+})
 
 const userSchema = z.object({
   email: z.string().email(),

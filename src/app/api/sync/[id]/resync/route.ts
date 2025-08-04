@@ -5,6 +5,7 @@ import { Record } from "@/models/record";
 import { Sync } from "@/models/sync";
 import { triggerSyncRecords } from "@/inngest/trigger-sync-records";
 import { createSyncActivity } from "@/lib/sync-activity-utils";
+import { getElementKey } from "@/lib/record-type-config";
 
 export async function POST(
   request: Request,
@@ -35,7 +36,6 @@ export async function POST(
 
     await Sync.updateOne({ _id: id }, { $set: { status: "in_progress" } });
 
-    // Track resync started activity
     await createSyncActivity({
       syncId: id.toString(),
       userId: dbUserId,
@@ -47,19 +47,15 @@ export async function POST(
 
     await Record.deleteMany({ syncId: id, userId: dbUserId });
 
-    // Respond early after creating the sync
-    const response = NextResponse.json({ success: true });
-
-    // Trigger sync records using Inngest
     await triggerSyncRecords({
       userId: dbUserId,
       token: membraneAccessToken!,
       integrationKey: sync.integrationKey,
-      actionId: `get-${sync.recordType}`,
+      actionKey: getElementKey(sync.recordType, "list-action"),
       syncId: id,
     });
 
-    return response;
+    return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Failed to resync records:", error);
     return NextResponse.json(

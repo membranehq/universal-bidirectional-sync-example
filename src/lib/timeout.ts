@@ -16,5 +16,9 @@ export async function withTimeout<T>(
     }, timeoutMs);
   });
 
-  return Promise.race([promise, timeoutPromise]);
+  const result = await Promise.race([promise, timeoutPromise]);
+
+  console.log({ result });
+
+  return result;
 }
