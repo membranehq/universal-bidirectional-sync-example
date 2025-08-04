@@ -62,10 +62,7 @@ export const syncRecordsFunction = inngest.createFunction(
 
     // Track sync syncing activity
     await step.run("track-sync-start", async () => {
-    await Sync.updateOne(
-        { _id: syncId },
-        { $set: { error: "" } }
-      );
+      await Sync.updateOne({ _id: syncId }, { $set: { error: "" } });
 
       await createSyncActivity({
         syncId,
@@ -75,8 +72,6 @@ export const syncRecordsFunction = inngest.createFunction(
           maxDocuments: MAX_DOCUMENTS,
         },
       });
-
-   
     });
 
     const integrationApp = new IntegrationAppClient({ token });
