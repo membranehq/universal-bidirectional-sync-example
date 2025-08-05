@@ -110,7 +110,7 @@ function CustomDataSourceConfiguration({
           <div className="flex flex-col gap-1">
             <div className="flex justify-between">
               <FormLabel
-                label="Configure Data Source"
+                label="Configure Object"
                 tooltip="Configure any required parameters for the selected data source."
                 size="sm"
                 className="mb-1"
@@ -360,7 +360,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                           id="data-source-select"
                           className="min-w-[200px]"
                         >
-                          <SelectValue placeholder="Choose a data source">
+                          <SelectValue placeholder="Select an object">
                             {selectedDataSourceKey &&
                               (() => {
                                 const ds = dataSources.find(

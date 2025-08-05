@@ -1,6 +1,6 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useState } from "react";
 import useSWR from "swr";
 import { useAuth } from "@clerk/nextjs";
 import { useParams } from "next/navigation";
@@ -15,6 +15,8 @@ import { getPluralForm } from "@/lib/pluralize-utils";
 import recordTypesConfig from "@/lib/record-type-config";
 import { Record } from "./Record";
 import { CreateRecordModal } from "./CreateRecordModal";
+import { EditRecordDialog } from "./EditRecordDialog";
+import { toast } from "sonner";
 
 interface SyncRecordsProps {
   recordType: string;
@@ -25,6 +27,8 @@ interface SyncRecordsProps {
 export const SyncRecords = memo(function SyncRecords({ recordType, syncId, syncStatus }: SyncRecordsProps) {
   const { id } = useParams();
   const { getToken } = useAuth();
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [editingRecord, setEditingRecord] = useState<IRecord | null>(null);
 
   const {
     data: recordsData,
@@ -40,6 +44,42 @@ export const SyncRecords = memo(function SyncRecords({ recordType, syncId, syncS
   );
 
   const records = recordsData?.data || [];
+
+  const handleDeleteRecord = async (recordId: string) => {
+    const confirmed = window.confirm(`Are you sure you want to delete this ${recordType}? This action cannot be undone.`);
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/sync/${syncId}/records?recordId=${recordId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || errorData.error || 'Failed to delete record');
+      }
+
+      toast.success('Record deleted successfully');
+      mutateRecords();
+    } catch (error) {
+      console.error('Failed to delete record:', error);
+      toast.error(error instanceof Error ? error.message : 'Failed to delete record');
+    }
+  };
+
+  const handleEditRecord = (record: IRecord) => {
+    setEditingRecord(record);
+    setEditDialogOpen(true);
+  };
+
+  const handleRecordUpdated = () => {
+    mutateRecords();
+    setEditDialogOpen(false);
+    setEditingRecord(null);
+  };
 
   if (isLoading) {
     return (
@@ -104,36 +144,48 @@ export const SyncRecords = memo(function SyncRecords({ recordType, syncId, syncS
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-900">
-          {capitalize(getPluralForm(recordType))}
-        </h2>
-        {recordTypesConfig[recordType as keyof typeof recordTypesConfig]?.allowCreate && (
-          <CreateRecordModal
-            recordType={recordType}
-            syncId={syncId}
-          />
-        )}
-      </div>
-
-      <div className="border rounded-lg">
-        <div>
-          {records.map(
-            (record: IRecord & { _id: string }, idx: number) => (
-              <Record
-                key={record._id || idx}
-                record={record}
-                index={idx}
-                syncId={id as string}
-                onRecordDeleted={() => mutateRecords()}
-                onRecordUpdated={() => mutateRecords()}
-                recordType={recordType}
-              />
-            )
+    <>
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-gray-900">
+            {capitalize(getPluralForm(recordType))}
+          </h2>
+          {recordTypesConfig[recordType as keyof typeof recordTypesConfig]?.allowCreate && (
+            <CreateRecordModal
+              recordType={recordType}
+              syncId={syncId}
+            />
           )}
         </div>
+
+        <div className="border rounded-lg">
+          <div>
+            {records.map(
+              (record: IRecord & { _id: string }, idx: number) => (
+                <Record
+                  key={record._id || idx}
+                  record={record}
+                  index={idx}
+                  onRecordDeleted={handleDeleteRecord}
+                  onEditRecord={handleEditRecord}
+                  recordType={recordType}
+                />
+              )
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+
+      {editingRecord && (
+        <EditRecordDialog
+          record={editingRecord}
+          recordType={recordType}
+          syncId={syncId}
+          onRecordUpdated={handleRecordUpdated}
+          open={editDialogOpen}
+          onOpenChange={setEditDialogOpen}
+        />
+      )}
+    </>
   );
 }); 

@@ -1,12 +1,17 @@
 import { z } from "zod";
-import { RecordType } from "@/models/types";
+import { RecordType, IRecord } from "@/models/types";
 import { getPluralForm } from "./pluralize-utils";
 import { Mail, User, File } from "lucide-react";
+import {
+  EmailRecord,
+  UserRecord,
+  FileRecord,
+} from "@/app/dashboard/sync/[id]/components/record-types";
 
 /**
  * Define the schema for each record type
  */
-const emailSchema = z.object({
+export const emailSchema = z.object({
   subject: z.string(),
   to: z.array(z.string()),
   cc: z.array(z.string()).optional(),
@@ -16,26 +21,25 @@ const emailSchema = z.object({
   threadId: z.string().optional(),
   body: z.string().optional(),
   htmlBody: z.string().optional(),
-  attachments: z.array(
-    z.object({
-      id: z.string(),
-      type: z.string(),
-      name: z.string(),
-      content: z.string(),
-      url: z.string(),
-    })
-  ).optional(),
-})
-
-const userSchema = z.object({
-  email: z.string().email(),
-  name: z.string(),
-  avatar: z.string().optional(),
-  role: z.string().optional(),
-  status: z.enum(["active", "inactive", "pending"]).optional(),
+  attachments: z
+    .array(
+      z.object({
+        id: z.string(),
+        type: z.string(),
+        name: z.string(),
+        content: z.string(),
+        url: z.string(),
+      })
+    )
+    .optional(),
 });
 
-const fileSchema = z.object({
+export const userSchema = z.object({
+  fullName: z.string(),
+  imageUrl: z.string().optional(),
+});
+
+export const fileSchema = z.object({
   name: z.string(),
   size: z.number(),
   type: z.string(),
@@ -54,6 +58,7 @@ const recordTypesConfig: Record<
     allowUpdate: boolean;
     allowCreate: boolean;
     icon: React.ComponentType<{ className?: string }>;
+    component?: React.ComponentType<{ record: IRecord }>;
   }
 > = {
   email: {
@@ -62,6 +67,7 @@ const recordTypesConfig: Record<
     allowUpdate: false,
     allowCreate: true,
     icon: Mail,
+    component: EmailRecord,
   },
   user: {
     schema: userSchema,
@@ -69,6 +75,7 @@ const recordTypesConfig: Record<
     allowUpdate: true,
     allowCreate: true,
     icon: User,
+    component: UserRecord,
   },
   file: {
     schema: fileSchema,
@@ -76,6 +83,7 @@ const recordTypesConfig: Record<
     allowUpdate: true,
     allowCreate: true,
     icon: File,
+    component: FileRecord,
   },
 };
 
