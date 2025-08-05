@@ -34,7 +34,7 @@ import {
 } from "@integration-app/react";
 import "@integration-app/react/styles.css";
 import Image from "next/image";
-import { Checkbox } from "@/components/ui/checkbox";
+
 import { FormLabel } from "@/components/ui/form-label";
 
 
@@ -155,8 +155,6 @@ function CustomFieldMappingConfiguration({
       autoCreate: true,
     });
 
-  const [showConfig, setShowConfig] = useState(true);
-
   if (loading) return <Skeleton className="h-10 w-2/3" />;
   if (error) return <div>Error: {error.message}</div>;
   if (!fieldMappingInstance) return <div>No field mapping instance</div>;
@@ -170,28 +168,13 @@ function CustomFieldMappingConfiguration({
             tooltip="Customize how fields from the data source map to your local schema."
             size="sm"
           />
-          <label className="flex items-center gap-1 text-xs font-medium cursor-pointer select-none">
-            <Checkbox
-              checked={showConfig}
-              onCheckedChange={() => setShowConfig((v) => !v)}
-            />
-            Customize configuration
-          </label>
         </div>
-        <div
-          className={`transition-all duration-300 ease-in-out overflow-hidden ${showConfig ? 'opacity-100 max-h-[1000px]' : 'opacity-0 max-h-0 pointer-events-none'}`}
-          style={{ willChange: 'opacity, max-height' }}
-        >
-          {showConfig && (
-            <DataInput
-              schema={fieldMappingInstance.appSchema!}
-              value={fieldMappingInstance.importValue}
-              variablesSchema={fieldMappingInstance.externalSchema}
-              onChange={(importValue: unknown) => patch({ importValue })}
-            />
-
-          )}
-        </div>
+        <DataInput
+          schema={fieldMappingInstance.appSchema!}
+          value={fieldMappingInstance.importValue}
+          variablesSchema={fieldMappingInstance.externalSchema}
+          onChange={(importValue: unknown) => patch({ importValue })}
+        />
       </div>
     </SectionWithStatus>
   );
