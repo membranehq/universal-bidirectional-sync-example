@@ -42,10 +42,6 @@ export function EditRecordDialog({
   const config =
     recordTypesConfig[recordType as keyof typeof recordTypesConfig];
 
-  if (!config || !config.allowUpdate) {
-    return null;
-  }
-
   const handleFieldChange = (field: string, value: unknown) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear error when user starts typing

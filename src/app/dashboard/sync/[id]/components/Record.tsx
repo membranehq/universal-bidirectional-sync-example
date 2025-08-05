@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { EditRecordDialog } from "./EditRecordDialog";
+import recordTypesConfig from "@/lib/record-type-config";
 
 interface RecordProps {
   record: IRecord,
@@ -154,13 +155,15 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem
-                  onClick={() => setEditDialogOpen(true)}
-                  className="flex items-center"
-                >
-                  <Edit className="w-4 h-4 mr-2" />
-                  Edit {recordType}
-                </DropdownMenuItem>
+                {recordTypesConfig[recordType as keyof typeof recordTypesConfig]?.allowUpdate && (
+                  <DropdownMenuItem
+                    onClick={() => setEditDialogOpen(true)}
+                    className="flex items-center"
+                  >
+                    <Edit className="w-4 h-4 mr-2" />
+                    Edit {recordType}
+                  </DropdownMenuItem>
+                )}
 
                 <DropdownMenuItem
                   onClick={() => setDeleteDialogOpen(true)}
