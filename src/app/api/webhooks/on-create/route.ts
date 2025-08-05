@@ -66,6 +66,8 @@ export async function POST(request: NextRequest) {
         userId,
         data: data.fields,
         syncId: sync._id,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       });
 
       // Track the record creation activity
