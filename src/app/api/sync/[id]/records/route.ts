@@ -206,7 +206,7 @@ export async function POST(
       record.updatedAt = new Date();
       await record.save();
     }
-    
+
     await createSyncActivity({
       syncId,
       userId: dbUserId,
@@ -269,7 +269,9 @@ export async function GET(
       userId: dbUserId,
     })
       .sort({ createdAt: -1 })
-      .lean();
+      .limit(100)
+      .allowDiskUse(true)
+      .exec();
 
     return NextResponse.json({
       success: true,

@@ -115,7 +115,6 @@ export const SyncRecords = memo(function SyncRecords({ recordType, syncId, syncS
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold text-gray-900">
           {capitalize(getPluralForm(recordType))}
-          <span className="text-sm text-gray-500">({records.length})</span>
         </h2>
         {recordTypesConfig[recordType as keyof typeof recordTypesConfig]?.allowCreate && (
           <CreateRecordModal
