@@ -50,6 +50,9 @@ export interface IUser {
 
 export type SyncActivityType =
   | "sync_created"
+  | "sync_syncing"
+  | "sync_completed"
+  | "sync_resync_triggered"
   | "sync_pulling"
   | "sync_pull_completed"
   | "sync_pull_failed"
@@ -62,9 +65,18 @@ export interface ISyncActivity {
   syncId: string;
   userId: string;
   type: SyncActivityType;
-  metadata?: Record<string, unknown>;
+  metadata?: SyncActivityMetadata;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface SyncActivityMetadata {
+  recordId?: string;
+  totalDocumentsSynced?: number;
+  fieldsCount?: number;
+  error?: string;
+  differences?: Record<string, unknown>;
+  [key: string]: unknown;
 }
 
 type EventType = "created" | "updated" | "deleted";

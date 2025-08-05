@@ -100,7 +100,7 @@ export async function PUT(
         },
       });
 
-      return resoonse;
+      return response;
 
     } catch (error) {
       // Mark sync as failed

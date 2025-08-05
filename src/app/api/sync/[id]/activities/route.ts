@@ -42,7 +42,6 @@ export async function GET(
         id: sync._id,
         integrationName: sync.integrationName,
         status: sync.status,
-        syncCount: sync.syncCount,
       },
     });
   } catch (error) {

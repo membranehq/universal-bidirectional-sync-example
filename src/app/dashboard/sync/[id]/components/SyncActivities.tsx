@@ -2,7 +2,7 @@
 
 import { memo } from "react";
 import { Plus, Edit, Trash2, RefreshCw, Database, Hash } from "lucide-react";
-import type { IRecord, ISyncActivity, SyncActivityType } from "@/models/types";
+import type { IRecord, ISyncActivity, SyncActivityType, SyncActivityMetadata } from "@/models/types";
 import useSWR from "swr";
 import { useAuth } from "@clerk/nextjs";
 import { fetchWithAuth } from "@/lib/fetch-utils";
@@ -68,6 +68,8 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
         return 'Record Updated Event Received';
       case 'event_record_deleted':
         return 'Record Deleted Event Received';
+      default:
+        return 'Activity';
     }
   };
 
@@ -91,6 +93,31 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
     } else {
       return 'Just now';
     }
+  };
+
+  const renderMetadata = (metadata: SyncActivityMetadata) => {
+    return (
+      <div className="text-xs text-muted-foreground mt-1 space-y-1">
+        {metadata.recordId && (
+          <div className="flex items-center gap-1">
+            <Hash className="w-3 h-3" />
+            {metadata.recordId}
+          </div>
+        )}
+        {metadata.totalDocumentsSynced !== undefined && (
+          <div>{metadata.totalDocumentsSynced} records</div>
+        )}
+        {metadata.fieldsCount !== undefined && (
+          <div>{metadata.fieldsCount} fields</div>
+        )}
+        {metadata.error && (
+          <div>Error: {metadata.error}</div>
+        )}
+        {metadata.differences && (
+          <div>Changes detected</div>
+        )}
+      </div>
+    );
   };
 
   if (activitiesLoading) {
@@ -150,30 +177,7 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
                     </span>
                   </div>
 
-                  <div className="text-xs text-muted-foreground mt-1 space-y-1">
-                    {activity.metadata && typeof activity.metadata === 'object' && 'recordId' in activity.metadata && (
-                      <div className="flex items-center gap-1">
-                        <Hash className="w-3 h-3" />
-                        {String(activity.metadata.recordId)}
-                      </div>
-                    )}
-                    {activity.metadata && (
-                      <>
-                        {typeof activity.metadata.totalDocumentsSynced === 'number' && (
-                          <div>{activity.metadata.totalDocumentsSynced} records</div>
-                        )}
-                        {typeof activity.metadata.fieldsCount === 'number' && (
-                          <div>{activity.metadata.fieldsCount} fields</div>
-                        )}
-                        {typeof activity.metadata.error === 'string' && (
-                          <div>Error: {activity.metadata.error}</div>
-                        )}
-                        {typeof activity.metadata.differences === 'object' && (
-                          <div>Changes detected</div>
-                        )}
-                      </>
-                    )}
-                  </div>
+                  {activity.metadata && renderMetadata(activity.metadata)}
                 </div>
               </div>
             ))}

@@ -1,13 +1,13 @@
 import "server-only";
 import { SyncActivity } from "@/models/sync-activity";
-import { SyncActivityType } from "@/models/types";
+import { SyncActivityType, SyncActivityMetadata } from "@/models/types";
 
 interface CreateSyncActivityParams {
   syncId: string;
   userId: string;
   type: SyncActivityType;
   recordId?: string;
-  metadata?: Record<string, unknown>;
+  metadata?: SyncActivityMetadata;
 }
 
 export async function createSyncActivity({
