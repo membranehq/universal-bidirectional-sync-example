@@ -3,16 +3,7 @@ import { StatusBadge } from "@/components/ui/status-badge";
 import { RecordTypeBadge } from "@/components/ui/record-type-badge";
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
-import {
   Hash,
-  Clock,
-  MoreVertical,
   RefreshCw,
   Loader2,
   Trash,
@@ -20,7 +11,6 @@ import {
   ChevronUp,
 } from "lucide-react";
 import Image from "next/image";
-import { formatDistanceToNow } from "date-fns";
 
 import { useAuth } from "@clerk/nextjs";
 
@@ -179,44 +169,33 @@ export function SyncHeader({
               <Hash className="w-4 h-4" />
               {recordsCount} records
             </span>
-            <span className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              {sync.updatedAt
-                ? formatDistanceToNow(new Date(sync.updatedAt), {
-                  addSuffix: true,
-                })
-                : "N/A"}
-            </span>
           </div>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="ml-2">
-                <MoreVertical className="w-5 h-5" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem
-                onClick={handleResync}
-                disabled={resyncing}
-                className="flex items-center gap-2"
-              >
-                {resyncing ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <RefreshCw className="w-4 h-4" />
-                )}
-                {resyncing ? "Resyncing..." : "Resync"}
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={handleDelete}
-                className="flex items-center gap-2 text-red-600"
-              >
-                <Trash className="w-4 h-4" /> Delete Sync
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleResync}
+              disabled={resyncing}
+              className="flex items-center gap-2"
+            >
+              {resyncing ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <RefreshCw className="w-4 h-4" />
+              )}
+              {resyncing ? "Resyncing..." : "Resync"}
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleDelete}
+              className="flex items-center gap-2 text-red-600 hover:text-red-700 hover:bg-red-50"
+            >
+              <Trash className="w-4 h-4" />
+              Delete
+            </Button>
+          </div>
         </div>
       </div>
 
