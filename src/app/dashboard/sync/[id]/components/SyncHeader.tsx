@@ -112,6 +112,12 @@ export function SyncHeader({
   };
 
   const handleDelete = async () => {
+    const confirmed = window.confirm(`Are you sure you want to delete this sync? This action cannot be undone and will remove all associated records.`);
+
+    if (!confirmed) {
+      return;
+    }
+
     try {
       const token = await getToken();
       const res = await fetch(`/api/sync/${sync._id}`, {

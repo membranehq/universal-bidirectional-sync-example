@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Copy, ChevronDown, ChevronRight, Hash, Trash2, Loader2, MoreHorizontal, Edit, CheckCircle, XCircle, Clock, AlertCircle } from "lucide-react";
 import type { IRecord } from "@/models/types";
 import { SyncStatusObject } from "@/models/types";
@@ -43,7 +41,6 @@ const getSyncStatusIcon = (status: string) => {
 export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recordType }: RecordProps) {
   const [expanded, setExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -58,6 +55,12 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
   };
 
   const handleDelete = async () => {
+    const confirmed = window.confirm(`Are you sure you want to delete this ${recordType}? This action cannot be undone.`);
+
+    if (!confirmed) {
+      return;
+    }
+
     setDeleting(true);
     try {
       const response = await fetch(`/api/sync/${syncId}/records?recordId=${record._id}`, {
@@ -71,7 +74,6 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
 
       toast.success('Record deleted successfully');
       onRecordDeleted?.(record._id);
-      setDeleteDialogOpen(false);
     } catch (error) {
       console.error('Failed to delete record:', error);
       toast.error(error instanceof Error ? error.message : 'Failed to delete record');
@@ -166,11 +168,12 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
                 )}
 
                 <DropdownMenuItem
-                  onClick={() => setDeleteDialogOpen(true)}
+                  onClick={handleDelete}
                   className="text-red-600 focus:text-red-600"
+                  disabled={deleting}
                 >
                   <Trash2 className="w-4 h-4 mr-2" />
-                  Delete {recordType}
+                  {deleting ? "Deleting..." : `Delete ${recordType}`}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -212,45 +215,6 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
         open={editDialogOpen}
         onOpenChange={setEditDialogOpen}
       />
-
-      <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <DialogContent className="sm:max-w-[400px]">
-          <DialogHeader>
-            <DialogTitle>Delete Record</DialogTitle>
-          </DialogHeader>
-          <div className="py-4">
-            <p className="text-sm text-muted-foreground mb-4">
-              Are you sure you want to delete this record? This action cannot be undone.
-            </p>
-            <div className="flex justify-end gap-2">
-              <Button
-                variant="outline"
-                onClick={() => setDeleteDialogOpen(false)}
-                disabled={deleting}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant="destructive"
-                onClick={handleDelete}
-                disabled={deleting}
-              >
-                {deleting ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                    Deleting...
-                  </>
-                ) : (
-                  <>
-                    <Trash2 className="w-4 h-4 mr-2" />
-                    Delete
-                  </>
-                )}
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
     </>
   );
 } 
