@@ -1,7 +1,7 @@
 "use client";
 
-import { memo } from "react";
-import { Plus, Edit, Trash2, RefreshCw, Database, Hash } from "lucide-react";
+import { memo, useEffect, useRef, useState } from "react";
+import { Plus, Edit, Trash2, RefreshCw, Database, Hash, RotateCcw } from "lucide-react";
 import type { IRecord, ISyncActivity, SyncActivityType, SyncActivityMetadata } from "@/models/types";
 import useSWR from "swr";
 import { useAuth } from "@clerk/nextjs";
@@ -16,8 +16,10 @@ interface SyncActivitiesProps {
 
 export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActivitiesProps) {
   const { getToken } = useAuth();
+  const [newActivityIds, setNewActivityIds] = useState<Set<string>>(new Set());
+  const previousActivitiesRef = useRef<ISyncActivity[]>([]);
 
-  const { data: activitiesData, error: activitiesError, isLoading: activitiesLoading } = useSWR(
+  const { data: activitiesData, error: activitiesError, isLoading: activitiesLoading, mutate } = useSWR(
     `/api/sync/${syncId}/activities`,
     async (url) => {
       const token = await getToken();
@@ -30,6 +32,29 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
   );
 
   const activities = activitiesData?.activities || [];
+
+  // Track new activities and apply animation
+  useEffect(() => {
+    if (activities.length > 0 && previousActivitiesRef.current.length > 0) {
+      const previousActivityIds = new Set(previousActivitiesRef.current.map((a: ISyncActivity) => a._id));
+
+      // Find new activities
+      const newIds = activities
+        .filter((activity: ISyncActivity) => !previousActivityIds.has(activity._id))
+        .map((activity: ISyncActivity) => activity._id);
+
+      if (newIds.length > 0) {
+        setNewActivityIds(new Set(newIds));
+
+        // Remove animation after 3 seconds
+        setTimeout(() => {
+          setNewActivityIds(new Set());
+        }, 3000);
+      }
+    }
+
+    previousActivitiesRef.current = activities;
+  }, [activities]);
 
   const getActivityIcon = (type: SyncActivityType) => {
     switch (type) {
@@ -142,7 +167,17 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
 
   return (
     <div className="space-y-4">
-      <h3 className="text-xs font-medium text-foreground">Activity</h3>
+      <div className="flex items-center justify-between">
+        <h3 className="text-xs font-medium text-foreground">Activity</h3>
+        <button
+          onClick={() => mutate()}
+          disabled={activitiesLoading}
+          className="p-1.5 rounded-md hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          title="Refresh activities"
+        >
+          <RotateCcw className={cn("w-3.5 h-3.5", activitiesLoading && "animate-spin")} />
+        </button>
+      </div>
 
       {activities.length === 0 ? (
         <div className="text-xs text-muted-foreground text-center py-4">
@@ -155,7 +190,13 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
 
           <div className="space-y-4">
             {activities.map((activity: ISyncActivity) => (
-              <div key={activity._id} className="relative flex items-start gap-3">
+              <div
+                key={activity._id}
+                className={cn(
+                  "relative flex items-start gap-3 transition-all duration-1000 ease-out",
+                  newActivityIds.has(activity._id) && "animate-highlight"
+                )}
+              >
                 {/* Timeline dot */}
                 <div className={cn(
                   "relative z-10 flex items-center justify-center w-8 h-8 rounded-full border-2 border-background",
@@ -184,6 +225,26 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
           </div>
         </div>
       )}
+
+      <style jsx>{`
+        @keyframes highlight {
+          0% {
+            background-color: rgba(59, 130, 246, 0.2);
+            transform: translateX(-4px);
+          }
+          100% {
+            background-color: transparent;
+            transform: translateX(0);
+          }
+        }
+        
+        .animate-highlight {
+          animation: highlight 3s ease-out forwards;
+          border-radius: 8px;
+          padding: 8px;
+          margin: -8px;
+        }
+      `}</style>
     </div>
   );
 }); 
