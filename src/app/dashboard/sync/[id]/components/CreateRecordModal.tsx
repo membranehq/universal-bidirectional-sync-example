@@ -81,7 +81,7 @@ export function CreateRecordModal({
     } catch (error) {
       if (error instanceof z.ZodError) {
         const newErrors: Record<string, string> = {};
-        error.errors.forEach((err) => {
+        error.issues.forEach((err: z.ZodIssue) => {
           const field = err.path.join(".");
           newErrors[field] = err.message;
         });
@@ -118,7 +118,7 @@ export function CreateRecordModal({
         <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 p-3">
           <div className="flex-1 overflow-y-auto px-6 py-4">
             <ZodFormRenderer
-              schema={config.schema}
+              schema={config.schema as z.ZodObject<Record<string, z.ZodTypeAny>>}
               formData={formData}
               errors={errors}
               onFieldChange={handleFieldChange}

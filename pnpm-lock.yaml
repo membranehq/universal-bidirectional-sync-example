@@ -142,10 +142,13 @@ importers:
         version: 1.0.7(tailwindcss@4.1.11)
       unstructured-client:
         specifier: ^0.20.0
-        version: 0.20.0(zod@3.25.76)
+        version: 0.20.0(zod@4.0.14)
       uuid:
         specifier: ^11.0.3
         version: 11.1.0
+      zod:
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3
@@ -4617,6 +4620,9 @@ packages:
 
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+
+  zod@4.0.14:
+    resolution: {integrity: sha512-nGFJTnJN6cM2v9kXL+SOBq3AtjQby3Mv5ySGFof5UGRHrRioSJ5iG680cYNjE/yWk671nROcpPj4hAS8nyLhSw==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -10286,11 +10292,11 @@ snapshots:
       '@unrs/resolver-binding-win32-ia32-msvc': 1.11.1
       '@unrs/resolver-binding-win32-x64-msvc': 1.11.1
 
-  unstructured-client@0.20.0(zod@3.25.76):
+  unstructured-client@0.20.0(zod@4.0.14):
     dependencies:
       async: 3.2.6
       pdf-lib: 1.17.1
-      zod: 3.25.76
+      zod: 4.0.14
 
   update-browserslist-db@1.1.3(browserslist@4.25.1):
     dependencies:
@@ -10467,5 +10473,7 @@ snapshots:
   zod@3.22.5: {}
 
   zod@3.25.76: {}
+
+  zod@4.0.14: {}
 
   zwitch@2.0.4: {}

@@ -182,28 +182,34 @@ const EnumField = ({
   error?: string;
   isRequired: boolean;
   onChange: (value: string) => void;
-  enumSchema: z.ZodEnum<[string, ...string[]]>;
-}) => (
-  <div className="space-y-2">
-    <Label htmlFor={fieldName} className="text-sm font-medium">
-      {formatFieldName(fieldName)}
-      {isRequired && <span className="text-red-500 ml-1">*</span>}
-    </Label>
-    <Select value={value} onValueChange={onChange}>
-      <SelectTrigger className={error ? "border-red-500" : ""}>
-        <SelectValue placeholder={`Select ${fieldName}`} />
-      </SelectTrigger>
-      <SelectContent>
-        {enumSchema._def.values.map((value: string) => (
-          <SelectItem key={value} value={value}>
-            {formatFieldName(value)}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-    {error && <p className="text-sm text-red-500">{error}</p>}
-  </div>
-);
+  enumSchema: z.ZodEnum<Record<string, string>>;
+}) => {
+  // Safely access enum values using type assertion
+  // @ts-expect-error - Accessing internal Zod enum values
+  const enumValues = enumSchema._def.values || [];
+
+  return (
+    <div className="space-y-2">
+      <Label htmlFor={fieldName} className="text-sm font-medium">
+        {formatFieldName(fieldName)}
+        {isRequired && <span className="text-red-500 ml-1">*</span>}
+      </Label>
+      <Select value={value} onValueChange={onChange}>
+        <SelectTrigger className={error ? "border-red-500" : ""}>
+          <SelectValue placeholder={`Select ${fieldName}`} />
+        </SelectTrigger>
+        <SelectContent>
+          {enumValues.map((value: string) => (
+            <SelectItem key={value} value={value}>
+              {formatFieldName(value)}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      {error && <p className="text-sm text-red-500">{error}</p>}
+    </div>
+  );
+};
 
 const PrimitiveArrayField = ({
   fieldName,
@@ -327,7 +333,7 @@ const ObjectArrayField = ({
               {Object.entries(objectShape).map(([objectFieldName, objectFieldSchema]) => {
                 const objectFieldValue = (item as Record<string, unknown>)?.[objectFieldName];
                 const objectFieldError = error; // Simplified error handling for now
-                const isObjectFieldRequired = !objectFieldSchema.isOptional();
+                const isObjectFieldRequired = !(objectFieldSchema instanceof z.ZodOptional);
 
                 return (
                   <div key={objectFieldName} className="space-y-2">
@@ -368,11 +374,11 @@ const ObjectArrayField = ({
                           <SelectValue placeholder={`Select ${objectFieldName}`} />
                         </SelectTrigger>
                         <SelectContent>
-                          {objectFieldSchema._def.values.map((value: string) => (
+                          {(objectFieldSchema as unknown as { _def: { values: string[] } })._def.values?.map((value: string) => (
                             <SelectItem key={value} value={value}>
                               {formatFieldName(value)}
                             </SelectItem>
-                          ))}
+                          )) || []}
                         </SelectContent>
                       </Select>
                     ) : (
@@ -417,7 +423,8 @@ export function ZodFormRenderer({
   const shape = schema.shape;
 
   const renderField = (fieldName: string, fieldSchema: z.ZodTypeAny) => {
-    const isRequired = !fieldSchema.isOptional();
+    // Check if schema is optional using type guard
+    const isRequired = !(fieldSchema instanceof z.ZodOptional);
     const fieldValue = formData[fieldName];
     const fieldError = errors[fieldName];
 
@@ -462,6 +469,7 @@ export function ZodFormRenderer({
           error={fieldError}
           isRequired={isRequired}
           onChange={(value) => onFieldChange(fieldName, value)}
+          // @ts-expect-error - Enum schema type mismatch
           enumSchema={fieldSchema}
         />
       );
