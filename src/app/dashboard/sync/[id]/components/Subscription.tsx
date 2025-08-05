@@ -18,7 +18,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { PullCountdown } from "./PullCountdown";
 import { ExternalEventSubscription } from "@integration-app/sdk";
-import { useIntegrationApp } from "@integration-app/react";
+import { useMembraneToken } from "@/hooks/use-integration-token";
 
 interface SubscriptionProps {
   subscription: ExternalEventSubscription | null;
@@ -37,9 +37,7 @@ export function Subscription({
   const isRealTime = subscription?.isRealTime || false;
   const requiresPull = subscription?.requiresPull || false;
   const requiresFullSync = subscription?.requiresFullSync || false;
-  const { token } = useIntegrationApp();
-
-  console.log({token})
+  const { token } = useMembraneToken();
 
   const handlePull = async () => {
     if (!subscription?.id) return;
