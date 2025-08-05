@@ -34,7 +34,7 @@ export function EditRecordDialog({
   open,
   onOpenChange,
 }: EditRecordModalProps) {
-  const [formData, setFormData] = useState<Record<string, unknown>>({});
+  const [formData, setFormData] = useState<Record<string, unknown>>(()=> record.data);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { getToken } = useAuth();

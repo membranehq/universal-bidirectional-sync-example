@@ -12,7 +12,7 @@ const emailSchema = z.object({
   cc: z.array(z.string()).optional(),
   bcc: z.array(z.string()).optional(),
   from: z.string().optional(),
-  replyTo: z.array(z.string()).optional(),
+  replyTo: z.string().optional(),
   threadId: z.string().optional(),
   body: z.string().optional(),
   htmlBody: z.string().optional(),
@@ -59,7 +59,7 @@ const recordTypesConfig: Record<
   email: {
     schema: emailSchema,
     allowDelete: true,
-    allowUpdate: true,
+    allowUpdate: false,
     allowCreate: true,
     icon: Mail,
   },

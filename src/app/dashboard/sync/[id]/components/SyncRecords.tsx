@@ -133,7 +133,7 @@ export const SyncRecords = memo(function SyncRecords({ recordType, syncId, syncS
               <TableHead>Name</TableHead>
               <TableHead>Created</TableHead>
               <TableHead>Updated</TableHead>
-              <TableHead className="text-right sticky right-0 bg-background rounded-tr-md"></TableHead>
+              <TableHead className="text-right sticky right-0 rounded-tr-md"></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

@@ -206,8 +206,7 @@ export async function POST(
       record.updatedAt = new Date();
       await record.save();
     }
-
-    // Create sync activity
+    
     await createSyncActivity({
       syncId,
       userId: dbUserId,

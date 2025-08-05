@@ -31,7 +31,7 @@ const schema = z.object({
  * - Flow Instance for receiving events
  */
 
-async function createElementDependencies(
+async function createSyncDependencies(
   membrane: IntegrationAppClient,
   integrationKey: string,
   recordType: RecordType,
@@ -121,7 +121,7 @@ export async function POST(
       })
       .get();
 
-    await createElementDependencies(
+    await createSyncDependencies(
       membrane,
       integrationKey,
       recordType as RecordType,

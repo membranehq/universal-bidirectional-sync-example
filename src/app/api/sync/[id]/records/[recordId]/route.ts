@@ -55,6 +55,17 @@ export async function PUT(
       token: membraneAccessToken!,
     });
 
+    // Update the record in our database first
+    record.data = body;
+    record.updatedAt = new Date();
+    await record.save();
+
+    const response = NextResponse.json({
+      success: true,
+      message: "Record updated successfully",
+      data: record,
+    });
+
     try {
       // Update status to in_progress
       record.syncStatus = SyncStatusObject.IN_PROGRESS;
@@ -72,10 +83,8 @@ export async function PUT(
           ...body,
         });
 
-      // Update the record in our database and mark as completed
-      record.data = body;
+      // Mark as completed after successful integration update
       record.syncStatus = SyncStatusObject.COMPLETED;
-      record.updatedAt = new Date();
       await record.save();
 
       await createSyncActivity({
@@ -91,11 +100,8 @@ export async function PUT(
         },
       });
 
-      return NextResponse.json({
-        success: true,
-        message: "Record updated successfully",
-        data: record,
-      });
+      return resoonse;
+
     } catch (error) {
       // Mark sync as failed
       record.syncStatus = SyncStatusObject.FAILED;
@@ -113,6 +119,7 @@ export async function PUT(
       }
       throw error;
     }
+
   } catch (error) {
     console.error("Failed to update record:", error);
     return NextResponse.json(

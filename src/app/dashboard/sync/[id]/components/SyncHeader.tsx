@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { RecordTypeBadge } from "@/components/ui/record-type-badge";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,7 +11,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {
   Hash,
-  Download,
   Clock,
   MoreVertical,
   RefreshCw,
@@ -167,9 +167,7 @@ export function SyncHeader({
               <Badge variant="secondary" className="text-xs">
                 {sync.integrationKey}
               </Badge>
-              <Badge variant="outline" className="text-xs">
-                {sync.recordType}
-              </Badge>
+              <RecordTypeBadge recordType={sync.recordType} variant="outline" className="text-xs" />
               <StatusBadge status={sync.status} />
             </div>
           </div>
@@ -180,10 +178,6 @@ export function SyncHeader({
             <span className="flex items-center gap-1">
               <Hash className="w-4 h-4" />
               {recordsCount} records
-            </span>
-            <span className="flex items-center gap-1">
-              <Download className="w-4 h-4" />
-              {sync.syncCount || 1} syncs
             </span>
             <span className="flex items-center gap-1">
               <Clock className="w-4 h-4" />

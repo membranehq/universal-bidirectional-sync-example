@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { StatusBadge } from "@/components/ui/status-badge";
-import recordTypesConfig from "@/lib/record-type-config";
+import { RecordTypeBadge } from "@/components/ui/record-type-badge";
 
 const fetcher = async (url: string, token: string) => {
   const res = await fetch(url, {
@@ -31,8 +31,6 @@ interface SyncItemProps {
 }
 
 function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
-  const Icon = recordTypesConfig[sync.recordType as keyof typeof recordTypesConfig]?.icon;
-
   return (
     <Link
       key={sync.integrationKey + sync.recordType + sync._id}
@@ -64,12 +62,7 @@ function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
           </div>
           <div className="flex flex-row items-center gap-2 mt-1">
             {/* Data Source Key Badge */}
-            <span className="flex items-center gap-1 bg-gray-100 text-gray-700 rounded-full px-2 py-0.5 text-xs font-medium">
-              {Icon && (
-                <Icon className="w-3.5 h-3.5 text-muted-foreground" />
-              )}
-              {sync.recordType}
-            </span>
+            <RecordTypeBadge recordType={sync.recordType} />
             {/* Record Count Badge */}
             <span className="flex items-center gap-1 bg-gray-100 text-gray-700 rounded-full px-2 py-0.5 text-xs font-medium">
               <HashIcon
@@ -92,15 +85,15 @@ function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
                 })
                 : "N/A"}
             </span>
-            {sync.error && (
+            {sync.pullError && (
               <span
                 className="flex items-center gap-1 bg-red-100 text-red-700 rounded-full px-2 py-0.5 text-xs font-medium max-w-xs truncate cursor-pointer relative group"
-                title={sync.error}
+                title={sync.pullError}
               >
                 <AlertCircle className="w-4 h-4 text-red-500" />
                 <span className="font-medium">Error:</span>
                 <span className="truncate max-w-[120px] inline-block align-bottom">
-                  {sync.error}
+                  {sync.pullError}
                 </span>
               </span>
             )}
