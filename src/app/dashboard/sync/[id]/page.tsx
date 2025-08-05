@@ -1,45 +1,26 @@
 "use client";
 
 import { useMemo } from "react";
-import useSWR from "swr";
-import { useAuth } from "@clerk/nextjs";
-import { useParams } from "next/navigation";
 import Link from "next/link";
-import type { ISync, Subscriptions } from "@/models/types";
-import { fetchWithAuth } from "@/lib/fetch-utils";
 import { Loader } from "@/components/ui/loader";
 import { ArrowLeft, AlertTriangle, Database } from "lucide-react";
 import { SyncActivities } from "./components/SyncActivities";
 import { SyncHeader } from "./components/SyncHeader";
 import { SyncRecords } from "./components/SyncRecords";
+import { useSyncData } from "@/hooks/use-sync-data";
 
 export default function SyncPage() {
-  const { id } = useParams();
-  const { getToken } = useAuth();
-
-  const { data, error, isLoading } = useSWR<{
-    data: {
-      sync: ISync;
-      subscriptions: Subscriptions;
-    };
-  }>(
-    id ? [`/api/sync/${id}`, "token"] : null,
-    async ([url]) => fetchWithAuth(url, getToken),
-    {
-      refreshInterval: 3000,
-      revalidateOnFocus: false,
-    }
-  );
+  const { sync, subscriptions, error, isLoading } = useSyncData();
 
   const syncRecordsProps = useMemo(() => ({
-    recordType: data?.data?.sync?.recordType || "",
-    syncId: data?.data?.sync?._id || "",
-    syncStatus: data?.data?.sync?.status,
-  }), [data?.data?.sync?.recordType, data?.data?.sync?._id, data?.data?.sync?.status]);
+    recordType: sync?.recordType || "",
+    syncId: sync?._id || "",
+    syncStatus: sync?.status,
+  }), [sync?.recordType, sync?._id, sync?.status]);
 
   const syncActivitiesProps = useMemo(() => ({
-    syncId: data?.data?.sync?._id || "",
-  }), [data?.data?.sync?._id]);
+    syncId: sync?._id || "",
+  }), [sync?._id]);
 
   if (isLoading) return <Loader message="Loading sync details..." />;
 
@@ -51,15 +32,13 @@ export default function SyncPage() {
       </div>
     );
 
-  if (!data?.data?.sync)
+  if (!sync)
     return (
       <div className="flex flex-col items-center justify-center h-64 text-muted-foreground">
         <Database className="w-8 h-8 mb-2" />
         <span>Sync not found.</span>
       </div>
     );
-
-  const { sync } = data.data;
 
   return (
     <div className="w-full">
@@ -69,7 +48,7 @@ export default function SyncPage() {
       >
         <ArrowLeft className="w-4 h-4" /> Syncs
       </Link>
-      <SyncHeader sync={sync} subscriptions={data.data.subscriptions} />
+      <SyncHeader sync={sync} subscriptions={subscriptions || { "data-record-created": null, "data-record-updated": null, "data-record-deleted": null }} />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <SyncRecords {...syncRecordsProps} />
