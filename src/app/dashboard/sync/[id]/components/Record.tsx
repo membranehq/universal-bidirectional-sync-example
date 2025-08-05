@@ -8,7 +8,6 @@ import type { IRecord } from "@/models/types";
 import { SyncStatusObject } from "@/models/types";
 import { toast } from "sonner";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { TableCell, TableRow } from "@/components/ui/table";
 import { EditRecordDialog } from "./EditRecordDialog";
 import recordTypesConfig from "@/lib/record-type-config";
 
@@ -84,8 +83,8 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
 
   return (
     <>
-      <TableRow>
-        <TableCell className="whitespace-nowrap">
+      <div className="flex items-center border-b border-border hover:bg-muted/50 transition-colors">
+        <div className="flex-1 px-4 py-3 whitespace-nowrap">
           <div className="flex items-center gap-2">
             <button
               className="p-1 rounded hover:bg-gray-200 transition-colors"
@@ -103,17 +102,17 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
               {record._id}
             </Badge>
           </div>
-        </TableCell>
-        <TableCell className="whitespace-nowrap">
+        </div>
+        <div className="flex-1 px-4 py-3 whitespace-nowrap">
           {record.name || "N/A"}
-        </TableCell>
-        <TableCell className="whitespace-nowrap">
+        </div>
+        <div className="flex-1 px-4 py-3 whitespace-nowrap">
           {record.createdAt ? new Date(record.createdAt).toLocaleDateString() : "N/A"}
-        </TableCell>
-        <TableCell className="whitespace-nowrap">
+        </div>
+        <div className="flex-1 px-4 py-3 whitespace-nowrap">
           {record.updatedAt ? new Date(record.updatedAt).toLocaleDateString() : "N/A"}
-        </TableCell>
-        <TableCell className="text-right sticky right-0 bg-background">
+        </div>
+        <div className="flex-1 px-4 py-3 text-right sticky right-0 bg-background">
           <div className="flex items-center justify-end gap-1">
             <div className="flex items-center gap-2 mr-2">
               {!record.syncError && getSyncStatusIcon(record.syncStatus)}
@@ -178,12 +177,12 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-        </TableCell>
-      </TableRow>
+        </div>
+      </div>
 
       {expanded && (
-        <TableRow>
-          <TableCell colSpan={5}>
+        <div className="border-b border-border">
+          <div className="px-4 py-3">
             <div className="space-y-3">
               <pre className="whitespace-pre-wrap break-all bg-gray-100 rounded p-3 text-xs border">
                 {JSON.stringify(record.data, null, 2)}
@@ -203,8 +202,8 @@ export function Record({ record, onRecordDeleted, onRecordUpdated, syncId, recor
                 )}
               </div>
             </div>
-          </TableCell>
-        </TableRow>
+          </div>
+        </div>
       )}
 
       <EditRecordDialog

@@ -13,13 +13,6 @@ import { fetchWithAuth } from "@/lib/fetch-utils";
 import { capitalize } from "@/lib/string-utils";
 import { getPluralForm } from "@/lib/pluralize-utils";
 import recordTypesConfig from "@/lib/record-type-config";
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Record } from "./Record";
 import { CreateRecordModal } from "./CreateRecordModal";
 
@@ -125,32 +118,21 @@ export const SyncRecords = memo(function SyncRecords({ recordType, syncId, syncS
       </div>
 
       <div className="border rounded-lg">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>ID</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Created</TableHead>
-              <TableHead>Updated</TableHead>
-              <TableHead className="text-right sticky right-0 rounded-tr-md"></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {records.map(
-              (record: IRecord & { _id: string }, idx: number) => (
-                <Record
-                  key={record._id || idx}
-                  record={record}
-                  index={idx}
-                  syncId={id as string}
-                  onRecordDeleted={() => mutateRecords()}
-                  onRecordUpdated={() => mutateRecords()}
-                  recordType={recordType}
-                />
-              )
-            )}
-          </TableBody>
-        </Table>
+        <div>
+          {records.map(
+            (record: IRecord & { _id: string }, idx: number) => (
+              <Record
+                key={record._id || idx}
+                record={record}
+                index={idx}
+                syncId={id as string}
+                onRecordDeleted={() => mutateRecords()}
+                onRecordUpdated={() => mutateRecords()}
+                recordType={recordType}
+              />
+            )
+          )}
+        </div>
       </div>
     </div>
   );
