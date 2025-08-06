@@ -5,6 +5,7 @@ import connectDB from "@/lib/mongodb";
 import { z } from "zod";
 import { Sync } from "@/models/sync";
 import { createSyncActivity } from "@/lib/sync-activity-utils";
+import { SyncStatusObject } from "@/models/types";
 
 const webhookSchema = z.object({
   externalRecordId: z.string(),
@@ -68,6 +69,7 @@ export async function POST(request: NextRequest) {
         syncId: sync._id,
         createdAt: new Date(),
         updatedAt: new Date(),
+        syncStatus: SyncStatusObject.COMPLETED,
       });
 
       // Track the record creation activity
