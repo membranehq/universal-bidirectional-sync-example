@@ -4,9 +4,14 @@ import { SyncStatusObject } from "@/models/types";
 interface StatusBadgeProps {
   status: string;
   className?: string;
+  text?: string;
 }
 
-export function StatusBadge({ status, className = "" }: StatusBadgeProps) {
+export function StatusBadge({
+  status,
+  className = "",
+  text,
+}: StatusBadgeProps) {
   // Helper to render sync status icon
   const renderStatusIcon = () => {
     switch (status) {
@@ -23,9 +28,11 @@ export function StatusBadge({ status, className = "" }: StatusBadgeProps) {
   };
 
   return (
-    <span className={`px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600 capitalize flex items-center gap-1 ${className}`}>
+    <span
+      className={`pl-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600 capitalize flex items-center gap-1 ${className}`}
+    >
       {renderStatusIcon()}
-      {status}
+      <span className="pr-2 py-0.5 font-bold">{text || status}</span>
     </span>
   );
-} 
+}

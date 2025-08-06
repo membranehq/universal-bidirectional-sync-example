@@ -119,14 +119,9 @@ export function SyncHeader({
     }
 
     try {
-      const token = await getToken();
-      const res = await fetch(`/api/sync/${sync._id}`, {
+      await fetchWithAuth(`/api/sync/${sync._id}`, getToken, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       });
-      if (!res.ok) throw new Error("Failed to delete sync");
       toast.success("Sync deleted");
       router.push("/dashboard");
     } catch (err: unknown) {
@@ -164,7 +159,10 @@ export function SyncHeader({
                 {sync.integrationKey}
               </Badge>
               <RecordTypeBadge recordType={sync.recordType} variant="outline" className="text-xs" />
-              <StatusBadge status={sync.status} />
+              <StatusBadge
+                status={sync.status}
+                text={sync.status === "in_progress" ? "* Syncing first 1000 records" : undefined}
+              />
             </div>
           </div>
         </div>
