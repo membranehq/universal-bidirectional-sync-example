@@ -3,7 +3,6 @@ import { useIntegrations } from "@integration-app/react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import Image from "next/image";
-
 import { Integration } from '@integration-app/sdk'
 
 

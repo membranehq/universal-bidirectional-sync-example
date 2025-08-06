@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Syncs } from "./components/syncs";
-import { SyncConfigModal } from "./components/sync-config-modal";
+import { SyncConfigModal } from "./components/sync-config-modal/sync-config-modal";
 import { ManageIntegrationsModal } from "./components/manage-integrations-modal/manage-integrations-modal";
 import { DownloadIcon } from "lucide-react";
 import { useClerkAuth } from "@/hooks/use-auth";
