@@ -249,6 +249,19 @@ export async function GET(
     }
 
     const { id: syncId } = await params;
+    const { searchParams } = new URL(request.url);
+
+    // Pagination parameters
+    const page = parseInt(searchParams.get("page") || "1");
+    const limit = parseInt(searchParams.get("limit") || "50");
+
+    // Validate pagination parameters
+    if (page < 1 || limit < 1 || limit > 100) {
+      return NextResponse.json(
+        { success: false, message: "Invalid pagination parameters" },
+        { status: 400 }
+      );
+    }
 
     // Verify the sync exists and belongs to the user
     const sync = await Sync.findOne({
@@ -263,19 +276,44 @@ export async function GET(
       );
     }
 
-    // Get all records for this sync, sorted by creation date (newest first)
+    // Calculate skip value for pagination
+    const skip = (page - 1) * limit;
+
+    // Get total count of records for this sync
+    const totalRecords = await Record.countDocuments({
+      syncId: syncId,
+      userId: dbUserId,
+    });
+
+    // Get paginated records for this sync, sorted by creation date (newest first)
     const records = await Record.find({
       syncId: syncId,
       userId: dbUserId,
     })
       .sort({ createdAt: -1 })
-      .limit(100)
+      .skip(skip)
+      .limit(limit)
       .allowDiskUse(true)
       .exec();
+
+    // Calculate pagination metadata
+    const totalPages = Math.ceil(totalRecords / limit);
+    const hasNextPage = page < totalPages;
+    const hasPreviousPage = page > 1;
 
     return NextResponse.json({
       success: true,
       data: records,
+      pagination: {
+        page,
+        limit,
+        totalRecords,
+        totalPages,
+        hasNextPage,
+        hasPreviousPage,
+        startRecord: skip + 1,
+        endRecord: Math.min(skip + limit, totalRecords),
+      },
     });
   } catch (error) {
     console.error("Failed to fetch records:", error);
