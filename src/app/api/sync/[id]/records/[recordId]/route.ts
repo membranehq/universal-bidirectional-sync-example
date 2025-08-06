@@ -8,7 +8,7 @@ import {
   ActionRunError,
   IntegrationAppClient as Membrane,
 } from "@integration-app/sdk";
-import { getElementKey } from "@/lib/record-type-config";
+import { getElementKey } from "@/lib/element-key";
 import { SyncStatusObject } from "@/models/types";
 
 export async function PUT(
@@ -101,7 +101,6 @@ export async function PUT(
       });
 
       return response;
-
     } catch (error) {
       // Mark sync as failed
       record.syncStatus = SyncStatusObject.FAILED;
@@ -119,7 +118,6 @@ export async function PUT(
       }
       throw error;
     }
-
   } catch (error) {
     console.error("Failed to update record:", error);
     return NextResponse.json(

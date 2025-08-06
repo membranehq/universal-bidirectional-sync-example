@@ -5,7 +5,7 @@ import { Record } from "@/models/record";
 import { Sync } from "@/models/sync";
 import { triggerPullRecords } from "@/inngest/trigger-pull-records";
 import { createSyncActivity } from "@/lib/sync-activity-utils";
-import { getElementKey } from "@/lib/record-type-config";
+import { getElementKey } from "@/lib/element-key";
 import { SyncStatusObject } from "@/models/types";
 
 export async function POST(

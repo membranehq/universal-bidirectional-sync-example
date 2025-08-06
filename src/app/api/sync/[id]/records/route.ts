@@ -8,7 +8,7 @@ import {
   ActionRunError,
   IntegrationAppClient as Membrane,
 } from "@integration-app/sdk";
-import { getElementKey } from "@/lib/record-type-config";
+import { getElementKey } from "@/lib/element-key";
 import { SyncStatusObject } from "@/models/types";
 
 export async function DELETE(

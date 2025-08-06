@@ -7,7 +7,8 @@ import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
 import { IntegrationAppClient } from "@integration-app/sdk";
 import { createSyncActivity } from "@/lib/sync-activity-utils";
-import recordTypesConfig, { getElementKey } from "@/lib/record-type-config";
+import recordTypesConfig from "@/lib/record-type-config";
+import { getElementKey } from "@/lib/element-key";
 import { triggerPullRecords } from "@/inngest/trigger-pull-records";
 import { RecordType } from "@/models/types";
 

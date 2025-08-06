@@ -40,6 +40,7 @@ import { FormLabel } from "@/components/ui/form-label";
 
 import { Integration, DataSource, DataSourceInstance } from "@integration-app/sdk";
 import { getSingularForm } from "@/lib/pluralize-utils";
+import { fetchWithAuth } from "@/lib/fetch-utils";
 
 // SectionWithStatus component
 function SectionWithStatus({
@@ -94,7 +95,7 @@ function CustomDataSourceConfiguration({
 
   if (loading) return <Skeleton className="h-10 w-2/3" />;
   if (error) return <div>Error: {error.message}</div>;
-  if (!dataSourceInstance) return <div>No data source instance</div>;
+  if (!dataSourceInstance) return null;
   if (dataSourceInstance?.collectionParameters && !Object.keys(dataSourceInstance?.collectionParameters).length) return null;
 
   const hasRequiredParameters =
@@ -242,16 +243,14 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
   const startSync = async () => {
     setSyncing(true);
     try {
-      const token = await getToken();
       if (!selectedDataSourceKey) {
         toast.error("No data source selected");
         setSyncing(false);
         return;
       }
-      const response = await fetch("/api/sync", {
+      await fetchWithAuth("/api/sync", getToken, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -260,12 +259,10 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
           instanceKey: instanceKey.current,
         }),
       });
-      if (!response.ok) {
-        toast.error("Failed to start sync");
-      }
-      const data = await response.json();
-      console.log(data);
       setOpen(false);
+    } catch (error) {
+      console.error("Failed to start sync:", error);
+      toast.error("Failed to start sync");
     } finally {
       setSyncing(false);
     }
@@ -296,7 +293,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
               />
             </SectionWithStatus>
 
-            {/* section 2: Connect Button (Visible if integration selected and no connection) */}
+            {/* section 2: Connect Button (Visible if integration selected has no connection) */}
             {!!selectedIntegration && !connection && (
               <SectionWithStatus done={false}>
                 <div className="flex flex-col gap-1 w-full">
@@ -340,7 +337,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
               </SectionWithStatus>
             )}
 
-            {/* section 3: Data Source Select (Visible if connection exists) */}
+            {/* section 3: List all data sources for the selected integration after connecting*/}
             {!!connection && (
               <SectionWithStatus done={!!selectedDataSourceKey}>
                 <div className="flex flex-col w-full max-w-xs">
@@ -387,7 +384,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
               </SectionWithStatus>
             )}
 
-            {/* section 4: Configure Data Source Button (Visible if data source selected) */}
+            {/* section 4: Create data source instance and let you configure it, renders nothing if data source doesn't have any parameters */}
             {!!selectedDataSourceKey && !!connection?.id && (
               <CustomDataSourceConfiguration
                 onDataSourceInstanceChange={(dataSourceInstance) => setDataSourceInstance(dataSourceInstance)}
@@ -398,7 +395,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
               />
             )}
 
-            {/* section 5: Configure Field Mapping Button (Visible if data source selected) */}
+            {/* section 5: Create field mapping instance and let you configure it */}
             {!!selectedDataSourceKey && !!connection?.id && !!dataSourceInstance && (
               <CustomFieldMappingConfiguration
                 instanceKey={instanceKey.current}

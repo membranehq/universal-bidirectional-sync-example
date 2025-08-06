@@ -8,7 +8,7 @@ import {
   IntegrationAppClient,
 } from "@integration-app/sdk";
 import { ISync } from "@/models/types";
-import { getElementKey } from "@/lib/record-type-config";
+import { getElementKey } from "@/lib/element-key";
 
 async function getSubscriptionsForSync(
   sync: ISync,
@@ -77,7 +77,6 @@ async function archiveSyncDependencies(
    * - Field Mapping Instance
    * - Data Source Instance
    */
- 
 
   const { integrationKey, instanceKey, recordType } = sync;
 
@@ -97,20 +96,27 @@ async function archiveSyncDependencies(
       operation: () =>
         membrane
           .connection(integrationKey)
-          .fieldMapping(getElementKey(recordType, "field-mapping"), { instanceKey: instanceKey })
+          .fieldMapping(getElementKey(recordType, "field-mapping"), {
+            instanceKey: instanceKey,
+          })
           .archive(),
     },
     {
       name: "Data Source",
       operation: () =>
-        membrane.connection(integrationKey).dataSource(getElementKey(recordType, "data-source")).archive(),
+        membrane
+          .connection(integrationKey)
+          .dataSource(getElementKey(recordType, "data-source"))
+          .archive(),
     },
     {
       name: "Action Instance",
       operation: () =>
         membrane
           .connection(integrationKey)
-          .action(getElementKey(recordType, "list-action"), { instanceKey: instanceKey })
+          .action(getElementKey(recordType, "list-action"), {
+            instanceKey: instanceKey,
+          })
           .archive(),
     },
     {
@@ -118,7 +124,9 @@ async function archiveSyncDependencies(
       operation: () =>
         membrane
           .connection(integrationKey)
-          .fieldMapping(getElementKey(recordType, "field-mapping"), { instanceKey: instanceKey })
+          .fieldMapping(getElementKey(recordType, "field-mapping"), {
+            instanceKey: instanceKey,
+          })
           .archive(),
     },
   ];
