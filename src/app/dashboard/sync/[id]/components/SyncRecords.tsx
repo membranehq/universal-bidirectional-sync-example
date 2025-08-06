@@ -186,7 +186,7 @@ export const SyncRecords = memo(function SyncRecords({ recordType, syncId, syncS
     if (!confirmed) return;
 
     try {
-      const response = await fetch(`/api/sync/${syncId}/records?recordId=${recordId}`, {
+      const response = await fetchWithAuth(`/api/sync/${syncId}/records/${recordId}`, getToken, {
         method: 'DELETE',
       });
 
