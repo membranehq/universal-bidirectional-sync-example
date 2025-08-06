@@ -6,7 +6,7 @@ import { createSyncActivity } from "@/lib/sync-activity-utils";
 import { withTimeout } from "@/lib/timeout";
 import connectDB from "@/lib/mongodb";
 import { SyncStatusObject } from "@/models/types";
-
+import { MAX_RECORDS_COUNT } from "@/lib/sync-constants";
 
 export const pullRecordsEvent = "pull/records" as const;
 
@@ -56,7 +56,6 @@ export const syncRecordsFunction = inngest.createFunction(
     let totalDocumentsSynced = 0;
 
     const FETCH_PAGE_TIMEOUT = 60000;
-    const MAX_DOCUMENTS = 1000; 
 
     await connectDB();
 
@@ -69,7 +68,7 @@ export const syncRecordsFunction = inngest.createFunction(
         userId,
         type: "sync_pulling",
         metadata: {
-          maxDocuments: MAX_DOCUMENTS,
+          maxDocuments: MAX_RECORDS_COUNT,
         },
       });
     });
@@ -106,7 +105,7 @@ export const syncRecordsFunction = inngest.createFunction(
           }[];
 
           // Check if adding these documents would exceed our limit
-          const remainingSlots = MAX_DOCUMENTS - totalDocumentsSynced;
+          const remainingSlots = MAX_RECORDS_COUNT - totalDocumentsSynced;
           const recordsToProcess = records.slice(0, remainingSlots);
 
           if (recordsToProcess.length) {
@@ -141,7 +140,7 @@ export const syncRecordsFunction = inngest.createFunction(
       totalDocumentsSynced += batchResult.recordsProcessed;
 
       // Break if we've reached the maximum number of documents
-      if (totalDocumentsSynced >= MAX_DOCUMENTS) {
+      if (totalDocumentsSynced >= MAX_RECORDS_COUNT) {
         break;
       }
 
@@ -158,7 +157,7 @@ export const syncRecordsFunction = inngest.createFunction(
           status: SyncStatusObject.COMPLETED,
           error: "",
           $inc: { syncCount: 1 },
-          isTruncated: totalDocumentsSynced >= MAX_DOCUMENTS,
+          isTruncated: totalDocumentsSynced >= MAX_RECORDS_COUNT,
         },
         { new: true }
       );
@@ -172,7 +171,7 @@ export const syncRecordsFunction = inngest.createFunction(
         type: "sync_pull_completed",
         metadata: {
           totalDocumentsSynced,
-          maxDocuments: MAX_DOCUMENTS,
+          maxDocuments: MAX_RECORDS_COUNT,
         },
       });
     });

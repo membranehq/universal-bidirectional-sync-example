@@ -22,6 +22,7 @@ import { Subscription } from "@/app/dashboard/sync/[id]/components/Subscription"
 import { useState } from "react";
 import { capitalize } from "@/lib/string-utils";
 import { ISync, Subscriptions } from "@/models/types";
+import { MAX_RECORDS_COUNT } from "@/lib/sync-constants";
 
 function SyncSubscriptions({
   subscriptions,
@@ -161,7 +162,7 @@ export function SyncHeader({
               <RecordTypeBadge recordType={sync.recordType} variant="outline" className="text-xs" />
               <StatusBadge
                 status={sync.status}
-                text={sync.status === "in_progress" ? "* Syncing first 1000 records" : undefined}
+                text={sync.status === "in_progress" ? `* Syncing first ${MAX_RECORDS_COUNT} records` : undefined}
               />
             </div>
           </div>
