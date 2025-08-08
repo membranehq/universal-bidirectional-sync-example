@@ -1,0 +1,46 @@
+revision: 09fcb8af-e361-4527-aa1d-95e2b20146e9
+isCustomized: false
+parentId: 68887e4a655d7bb8d28c504c
+parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
+integrationId: 68835413e49c6d4c3c9d3143
+integration:
+  key: breezy
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3143
+  name: Breezy HR
+  uuid: 03911cee-b343-4a49-a022-6b3e62ed2d3b
+  connectorId: 643e81f7badd839bce463919
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/d02b3b4f-9cc2-4298-be21-7b4959c51918
+  connectorVersion: 1.0.2
+  logoUri: https://static.integration.app/connectors/breezy/logo.png
+  dataCollectionsCount: 5
+  operationsCount: 0
+  eventsCount: 0
+  authType: client-credentials
+key: delete-user
+state: READY
+errors: []
+isDeactivated: false
+id: 688905eaee7f0f245494d715
+name: Delete User
+type: delete-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping: {}

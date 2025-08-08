@@ -1,0 +1,92 @@
+revision: 3511d691-922e-4f5d-9192-edfa995d9e6e
+isCustomized: false
+parentId: 6890519a5facd7ec99dbeba1
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+integrationId: 68835413e49c6d4c3c9d314b
+integration:
+  key: deel
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d314b
+  name: Deel
+  uuid: 1573856c-a3dd-4649-8220-fffab33a064a
+  connectorId: 652672eb70089fac484af1b0
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/9eb9b66e-96b3-4dd8-bc2a-c8de931619b2
+  connectorVersion: 1.0.2
+  logoUri: >-
+    https://static.integration.app/connectors/deel-connector/logo-0306de7e-75aa-4354-a30a-b637da5b32c7.png
+  dataCollectionsCount: 9
+  operationsCount: 145
+  eventsCount: 0
+  authType: client-credentials
+key: update-user
+state: READY
+errors: []
+isDeactivated: false
+id: 68905282ff92d86914347baf
+name: Update User
+type: update-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+    fields:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping:
+    defaultUnifiedValue:
+      $var: $.input
+    defaultValue:
+      active:
+        $var: $.input.isActive
+      emails:
+        $iterate:
+          source:
+            $var: $.input.emails
+          item:
+            type:
+              $var: $.item.type
+            value:
+              $var: $.item.value
+      addresses:
+        $iterate:
+          source:
+            $var: $.input.addresses
+          item:
+            streetAddress:
+              $var: $.item.street
+            region:
+              $var: $.item.state
+            postalCode:
+              $var: $.item.zip
+            country:
+              $var: $.item.country
+            type:
+              $var: $.item.type
+      id:
+        $var: $.input.id
+      name:
+        familyName:
+          $var: $.input.lastName
+        givenName:
+          $var: $.input.firstName
+      userName:
+        $var: $.input.userName
+      meta:
+        created:
+          $var: $.input.createdTime
+        lastModified:
+          $var: $.input.updatedTime

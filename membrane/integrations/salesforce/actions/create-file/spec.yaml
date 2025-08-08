@@ -1,0 +1,42 @@
+revision: 0c3a48f7-7807-40ad-813d-1a4a65d8b6a7
+isCustomized: false
+parentId: 688cc9e4ed172ffb20d0f39b
+parentRevision: 594f206d-8bae-412b-a5f0-35b631562f81
+integrationId: 68834d71ef496baf09c0a8fa
+integration:
+  key: salesforce
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68834d71ef496baf09c0a8fa
+  name: Salesforce
+  uuid: b1530921-5651-4b04-a059-5893a76384d4
+  connectorId: 62471fad996d5c297ae43f5e
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/8ac63569-b944-4d46-a041-e2fb80b82ac2
+  connectorVersion: 1.6.6
+  logoUri: https://static.integration.app/connectors/salesforce-connector/logo.png
+  dataCollectionsCount: 30
+  operationsCount: 303
+  eventsCount: 0
+  authType: oauth2
+key: create-file
+state: READY
+errors: []
+isDeactivated: false
+id: 688cc9eef1e1187ac07515db
+name: Create File
+type: create-data-record
+config:
+  dataSource:
+    key: files
+  fieldMapping:
+    key: files
+    input:
+      $var: $.input

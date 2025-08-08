@@ -1,0 +1,132 @@
+key: receive-file-events
+state: READY
+errors: []
+isDeactivated: false
+id: 68834d77ef496baf09c0aca4
+name: Receive File Events
+revision: 29e2a6ee-2396-433f-a4bc-7e9177163258
+universalFlowId: 68834d75ef496baf09c0aa71
+integrationId: 68834d71ef496baf09c0a907
+integration:
+  key: google-drive
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68834d71ef496baf09c0a907
+  name: Google Drive
+  uuid: 83a923e5-4dbc-4e8c-b9d8-4e361e685a78
+  connectorId: 642e822e986ed1caad090f1d
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/25565fc4-3680-4264-aaa2-14187ba9362f
+  connectorVersion: 2.5.1
+  logoUri: https://static.integration.app/connectors/gdrive/logo.png
+  dataCollectionsCount: 3
+  operationsCount: 51
+  eventsCount: 0
+  authType: oauth2
+universalFlowRevision: 655ce286-7e89-48f9-b5a0-8aeadd040d5f
+nodes:
+  file-created-trigger:
+    type: data-record-created-trigger
+    name: File Created Trigger
+    config:
+      dataSource:
+        key: files
+      fieldMapping: {}
+    links:
+      - key: get-all-file-fields-by-id
+  file-updated-trigger:
+    type: data-record-updated-trigger
+    name: File Updated Trigger
+    config:
+      dataSource:
+        key: files
+      fieldMapping: {}
+    links:
+      - key: get-all-file-fields-by-id2
+  get-all-file-fields-by-id:
+    type: find-data-record-by-id
+    name: Get all File fields by Id
+    config:
+      dataSource:
+        key: files
+      fieldMapping:
+        key: files
+        includeRawFields: true
+      id:
+        $var: $.input.file-created-trigger.record.id
+    links:
+      - key: create-file-in-my-app
+  get-all-file-fields-by-id2:
+    type: find-data-record-by-id
+    name: Get all File fields by Id
+    config:
+      dataSource:
+        key: files
+      id:
+        $var: $.input.file-updated-trigger.record.id
+      fieldMapping:
+        key: files
+        includeRawFields: true
+    links:
+      - key: update-file-in-my-app
+  create-file-in-my-app:
+    type: api-request-to-your-app
+    name: Create File in my App
+    config:
+      request:
+        body:
+          externalRecordId:
+            $var: $.input.get-all-file-fields-by-id.id
+          data:
+            $var: $.input.get-all-file-fields-by-id
+          instanceKey:
+            $var: $.flowInstance.instanceKey
+        method: POST
+        uri: webhooks/on-create
+    links: []
+  update-file-in-my-app:
+    type: api-request-to-your-app
+    name: Update File in my App
+    config:
+      request:
+        body:
+          externalRecordId:
+            $var: $.input.get-all-file-fields-by-id2.id
+          data:
+            $var: $.input.get-all-file-fields-by-id2
+          instanceKey:
+            $var: $.flowInstance.instanceKey
+        method: POST
+        uri: webhooks/on-update
+    links: []
+  delete-file-in-my-app:
+    type: api-request-to-your-app
+    name: Delete File from My App
+    config:
+      request:
+        body:
+          externalRecordId:
+            $var: $.input.file-deleted-trigger.record.id
+          instanceKey:
+            $var: $.flowInstance.instanceKey
+        method: POST
+        uri: webhooks/on-delete
+    links: []
+  file-deleted-trigger:
+    type: data-record-deleted-trigger
+    name: File Deleted Trigger
+    config:
+      dataSource:
+        key: files
+      fieldMapping: {}
+    links:
+      - key: delete-file-in-my-app
+autoCreateInstances: false
+customized: false

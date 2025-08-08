@@ -1,0 +1,48 @@
+revision: c0d4b1be-ef18-4853-abc3-ec1841065a3d
+isCustomized: false
+parentId: 68835427e49c6d4c3c9d372b
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+integrationId: 68835413e49c6d4c3c9d310a
+integration:
+  key: freshsales
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d310a
+  name: Freshsales
+  uuid: c8dbedeb-66d8-4a6e-be82-2bc0b50e7ae1
+  connectorId: 633af6ef361690ab46d8ed4d
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/42501889-cab5-45b3-9396-c089489bbae2
+  connectorVersion: 1.0.2
+  logoUri: https://static.integration.app/connectors/freshsales-connector/logo.png
+  dataCollectionsCount: 22
+  operationsCount: 0
+  eventsCount: 0
+  authType: client-credentials
+key: get-users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835428e49c6d4c3c9d381a
+name: Get Users
+type: list-data-records
+inputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+config:
+  dataSource:
+    key: users
+  cursor:
+    $var: $.input.cursor
+  fieldMapping:
+    key: users
+    includeRawFields: true

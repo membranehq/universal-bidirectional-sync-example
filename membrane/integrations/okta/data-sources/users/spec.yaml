@@ -1,0 +1,38 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835424e49c6d4c3c9d3393
+name: Users
+revision: be215634-fbf5-46aa-812c-0e367600afa1
+integrationId: 68835413e49c6d4c3c9d3149
+customized: false
+universalDataSourceId: 68835424e49c6d4c3c9d32ce
+universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
+collectionKey: users
+udm: users
+defaultPath: /data/users
+integration:
+  key: okta
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3149
+  name: Okta
+  uuid: cfea79e9-15ba-45ca-a6cd-7b0d01800f98
+  connectorId: 65a59ef7af9ac1360fd6bbd2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/65827a85-48cf-4ccc-8e40-d26d926cdb3a
+  connectorVersion: 1.0.2
+  logoUri: >-
+    https://static.integration.app/connectors/logo-0b09cb02-5978-4c94-b3e4-b92964a36bcb.png
+  dataCollectionsCount: 4
+  operationsCount: 340
+  eventsCount: 0
+  authType: client-credentials

@@ -1,0 +1,42 @@
+revision: f72d8821-b37e-4893-8334-573e52213607
+isCustomized: false
+parentId: 688cc9e4ed172ffb20d0f39b
+parentRevision: 594f206d-8bae-412b-a5f0-35b631562f81
+integrationId: 68834d71ef496baf09c0a907
+integration:
+  key: google-drive
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68834d71ef496baf09c0a907
+  name: Google Drive
+  uuid: 83a923e5-4dbc-4e8c-b9d8-4e361e685a78
+  connectorId: 642e822e986ed1caad090f1d
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/25565fc4-3680-4264-aaa2-14187ba9362f
+  connectorVersion: 2.5.1
+  logoUri: https://static.integration.app/connectors/gdrive/logo.png
+  dataCollectionsCount: 3
+  operationsCount: 51
+  eventsCount: 0
+  authType: oauth2
+key: create-file
+state: READY
+errors: []
+isDeactivated: false
+id: 688cc9eef1e1187ac07515d6
+name: Create File
+type: create-data-record
+config:
+  dataSource:
+    key: files
+  fieldMapping:
+    key: files
+    input:
+      $var: $.input

@@ -1,0 +1,22 @@
+key: capsule-crm
+state: READY
+errors: []
+isDeactivated: false
+id: 68835413e49c6d4c3c9d311d
+name: Capsule CRM
+uuid: 93a055fe-e74b-487f-837f-ecf6756a50ef
+connectorId: 640734343685521f9f0c9fe7
+hasMissingParameters: false
+hasDocumentation: false
+hasOperations: true
+hasData: true
+hasEvents: false
+hasGlobalWebhooks: false
+hasUdm: true
+baseUri: s3://integration-app-connectors/public/e9d9caaa-e654-48f2-8cbd-ac941aa9f41f
+connectorVersion: 1.1.1
+logoUri: https://static.integration.app/connectors/capsule-crm/logo.png
+dataCollectionsCount: 7
+operationsCount: 10
+eventsCount: 0
+authType: oauth2

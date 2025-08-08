@@ -1,0 +1,73 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3534
+name: Users
+customized: false
+revision: 789d9d13-61c5-4688-af5b-8ba5b76cace3
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d310a
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3357
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  display_name:
+    $var: $.fullName
+  email:
+    $var: $.primaryEmail
+  is_active:
+    $var: $.isActive
+  work_number:
+    $var: $.primaryPhone
+importValue:
+  id:
+    $var: $.id
+  fullName:
+    $var: $.display_name
+  primaryEmail:
+    $var: $.email
+  primaryPhone:
+    $var: $.work_number
+  isActive:
+    $var: $.is_active
+  firstName:
+    $firstName:
+      $var: $.display_name
+  lastName:
+    $lastName:
+      $var: $.display_name
+  emails:
+    - value:
+        $var: $.email
+  phones:
+    - value:
+        $var: $.work_number
+integration:
+  key: freshsales
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d310a
+  name: Freshsales
+  uuid: c8dbedeb-66d8-4a6e-be82-2bc0b50e7ae1
+  connectorId: 633af6ef361690ab46d8ed4d
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/42501889-cab5-45b3-9396-c089489bbae2
+  connectorVersion: 1.0.2
+  logoUri: https://static.integration.app/connectors/freshsales-connector/logo.png
+  dataCollectionsCount: 22
+  operationsCount: 0
+  eventsCount: 0
+  authType: client-credentials

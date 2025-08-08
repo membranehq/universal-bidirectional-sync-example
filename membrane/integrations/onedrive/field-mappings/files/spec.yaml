@@ -1,0 +1,117 @@
+key: files
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: integration
+        id: 68834d71ef496baf09c0a901
+  - message: Data Source Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: data-source
+        id: 68834d75ef496baf09c0a968
+isDeactivated: false
+id: 68834d75ef496baf09c0a9bf
+name: Files
+customized: false
+revision: fceaa98e-617e-4584-a40f-817ff5c15b6d
+universalFieldMappingId: 68834d75ef496baf09c0a99e
+universalFieldMappingRevision: 886948ed-fa85-4d74-8146-6efa91a4a129
+integrationId: 68834d71ef496baf09c0a901
+dataSourceKey: files
+dataSourceId: 68834d75ef496baf09c0a968
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  createdDateTime:
+    $var: $.createdTime
+  id:
+    $var: $.id
+  lastModifiedDateTime:
+    $var: $.updatedTime
+  name:
+    $var: $.name
+  webUrl:
+    $var: $.uri
+  size:
+    $var: $.size
+  createdBy:
+    user:
+      id:
+        $var: $.createdBy
+  lastModifiedBy:
+    user:
+      id:
+        $var: $.updatedBy
+  parentFolderId:
+    $var: $.folderId
+  parentReference:
+    driveId:
+      $var: $.driveId
+    id:
+      $var: $.folderId
+  fileSystemInfo:
+    createdDateTime:
+      $var: $.createdTime
+    lastModifiedDateTime:
+      $var: $.updatedTime
+  file:
+    mimeType:
+      $var: $.mimeType
+importValue:
+  id:
+    $var: id
+  mimeType:
+    $var: file.mimeType
+  name:
+    $var: name
+  size:
+    $var: size
+  folderId:
+    $var: $.parentFolderId
+  driveId:
+    $var: $.parentReference.driveId
+  downloadUri:
+    $var: $.@microsoft\.graph\.downloadUrl
+  uri:
+    $var: webUrl
+  createdTime:
+    $var: createdDateTime
+  createdBy:
+    $var: $.createdBy.user.id
+  updatedTime:
+    $var: lastModifiedDateTime
+  updatedBy:
+    $var: $.lastModifiedBy.user.id
+integration:
+  key: onedrive
+  state: CONFIGURATION_ERROR
+  errors:
+    - message: Integration is missing required parameters
+      type: configuration
+  isDeactivated: false
+  id: 68834d71ef496baf09c0a901
+  name: MS OneDrive
+  uuid: 2a2c04ac-c56b-45de-bbb6-9d39524e6498
+  connectorId: 652677b570089fac484d1a34
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/bcc78f3c-0131-4b1c-bc9d-0ac72b093b64
+  connectorVersion: 2.3.0
+  logoUri: >-
+    https://static.integration.app/connectors/onedrive/logo-8a1d93a1-ba8e-4127-93f5-ca45f899d879.png
+  dataCollectionsCount: 2
+  operationsCount: 2
+  eventsCount: 0
+  authType: oauth2

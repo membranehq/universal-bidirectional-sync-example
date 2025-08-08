@@ -1,0 +1,15 @@
+key: emails
+state: READY
+errors: []
+isDeactivated: false
+id: 6884791a95717cb90674866a
+name: Emails
+customized: true
+revision: 56f059e4-99f0-4274-86c3-c2dc3174105f
+dataSourceKey: emails
+dataSourceId: 6884791a95717cb90674862b
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $

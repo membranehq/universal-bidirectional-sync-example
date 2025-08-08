@@ -1,0 +1,25 @@
+key: google-workspace
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration is missing required parameters
+    type: configuration
+isDeactivated: false
+id: 68835413e49c6d4c3c9d315b
+name: Google Workspace
+uuid: d7db7e59-d7a6-4442-8b87-2e758a996cd8
+connectorId: 65a59ef5af9ac1360fd6bac6
+hasMissingParameters: true
+hasDocumentation: true
+hasOperations: true
+hasData: true
+hasEvents: false
+hasGlobalWebhooks: false
+hasUdm: true
+baseUri: s3://integration-app-connectors/public/ee8d1cee-bc8d-41e0-ac7b-97fe460bffad
+connectorVersion: 1.0.6
+logoUri: >-
+  https://static.integration.app/connectors/google-workspace/asset-90bc7f74-9c90-451e-9112-fa161ba6d554.png
+dataCollectionsCount: 2
+operationsCount: 123
+eventsCount: 0
+authType: oauth2

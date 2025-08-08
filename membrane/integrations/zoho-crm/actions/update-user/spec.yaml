@@ -1,0 +1,78 @@
+revision: 9848c06c-7d96-4f74-b223-674e912587bd
+isCustomized: false
+parentId: 6890519a5facd7ec99dbeba1
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+integrationId: 68835413e49c6d4c3c9d310c
+integration:
+  key: zoho-crm
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d310c
+  name: Zoho CRM
+  uuid: df807ac4-bf95-4745-b48c-214fb931cc41
+  connectorId: 64a158e7d2605720d232e07b
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/55c35625-992f-4a0b-8c11-b9522d23d94a
+  connectorVersion: 2.2.0
+  logoUri: https://static.integration.app/connectors/zoho-crm/logo.png
+  dataCollectionsCount: 20
+  operationsCount: 569
+  eventsCount: 0
+  authType: oauth2
+key: update-user
+state: READY
+errors: []
+isDeactivated: false
+id: 68905282ff92d86914347bf2
+name: Update User
+type: update-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+    fields:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping:
+    defaultUnifiedValue:
+      $var: $.input
+    defaultValue:
+      full_name:
+        $var: $.input.fullName
+      first_name:
+        $var: $.input.firstName
+      last_name:
+        $var: $.input.lastName
+      email:
+        $var: $.input.primaryEmail
+      phone:
+        $var: $.input.primaryPhone
+      time_zone:
+        $var: $.input.timezone
+      created_time:
+        $var: $.input.createdTime
+      created_by:
+        id:
+          $var: $.input.createdBy
+      id:
+        $var: $.input.id
+      role:
+        id:
+          $var: $.input.roleId
+      Modified_By:
+        id:
+          $var: $.input.updatedBy
+      Modified_Time:
+        $var: $.input.updatedTime

@@ -1,0 +1,161 @@
+key: emails
+state: READY
+errors: []
+isDeactivated: false
+id: 6884791a95717cb906748687
+name: Emails
+customized: false
+revision: 7aa2d927-d505-452d-af6b-0e48a0a7bc48
+universalFieldMappingId: 6884791a95717cb90674866a
+universalFieldMappingRevision: 56f059e4-99f0-4274-86c3-c2dc3174105f
+integrationId: 6884791695717cb906748574
+dataSourceKey: emails
+dataSourceId: 6884791a95717cb90674863c
+appSchema:
+  type: object
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  id:
+    $var: $.id
+  createdDateTime:
+    $var: $.createdTime
+  lastModifiedDateTime:
+    $var: $.updatedTime
+  subject:
+    $var: $.subject
+  body:
+    contentType:
+      $case:
+        cases:
+          - filter:
+              $eval:
+                $var: $.body
+              isNotEmpty: true
+            value: text
+          - filter:
+              $eval:
+                $var: $.html_body
+              isNotEmpty: true
+            value: html
+    content:
+      $firstNotEmpty:
+        - $var: $.body
+        - $var: $.html_body
+  from:
+    emailAddress:
+      address:
+        $var: $.from
+  toRecipients:
+    $iterate:
+      source:
+        $var: $.to
+      item:
+        emailAddress:
+          address:
+            $var: $.item
+  ccRecipients:
+    $iterate:
+      source:
+        $var: $.cc
+      item:
+        emailAddress:
+          address:
+            $var: $.item
+  bccRecipients:
+    $iterate:
+      source:
+        $var: $.bcc
+      item:
+        emailAddress:
+          address:
+            $var: $.item
+  replyTo:
+    - emailAddress:
+        address:
+          $var: $.replyTo
+  attachments:
+    $iterate:
+      source:
+        $var: $.attachments
+      item:
+        fileName:
+          $var: $.item.name
+        fileUri:
+          $var: $.item.url
+importValue:
+  id:
+    $var: id
+  subject:
+    $var: subject
+  body:
+    $case:
+      cases:
+        - filter:
+            $eval:
+              $var: $.body.contentType
+            is: text
+          value:
+            $var: $.body.content
+  createdTime:
+    $var: createdDateTime
+  updatedTime:
+    $var: lastModifiedDateTime
+  replyTo:
+    $var: $.replyTo[0].emailAddress.address
+  from:
+    $var: $.from.emailAddress.address
+  bcc:
+    $iterate:
+      source:
+        $var: $.bccRecipients
+      item:
+        $var: $.item.emailAddress.address
+  cc:
+    $iterate:
+      source:
+        $var: $.ccRecipients
+      item:
+        $var: $.item.emailAddress.address
+  to:
+    $iterate:
+      source:
+        $var: $.toRecipients
+      item:
+        $var: $.item.emailAddress.address
+  html_body:
+    $case:
+      cases:
+        - filter:
+            $eval:
+              $var: $.body.contentType
+            is: html
+          value:
+            $var: $.body.content
+integration:
+  key: microsoft-outlook
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 6884791695717cb906748574
+  name: Microsoft Outlook
+  uuid: 1eb02756-c3cc-4feb-a265-0af2d9995c03
+  connectorId: 6466784d60f981f3ce696905
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/0ae5f413-12c9-4b83-a352-e0315235a306
+  connectorVersion: 1.3.0
+  logoUri: >-
+    https://static.integration.app/connectors/microsoft-outlook/logo-32b01f8c-072d-412b-be06-67d1f341f3ef.png
+  dataCollectionsCount: 6
+  operationsCount: 3627
+  eventsCount: 0
+  authType: oauth2

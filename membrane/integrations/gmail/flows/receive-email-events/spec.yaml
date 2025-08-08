@@ -1,0 +1,132 @@
+key: receive-email-events
+state: READY
+errors: []
+isDeactivated: false
+id: 6884791b95717cb9067487be
+name: Receive Email Events
+revision: 4ce29f58-c82d-4bf9-ab41-141efe51d9a6
+universalFlowId: 6884791b95717cb906748700
+integrationId: 6884791695717cb90674856c
+integration:
+  key: gmail
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 6884791695717cb90674856c
+  name: Gmail
+  uuid: 21dc435d-989e-4dc2-8da4-43113e7442ef
+  connectorId: 64300cd1986ed1caad6e23ae
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/9c29637a-8512-4f98-817c-5faa1e0defdc
+  connectorVersion: 1.5.2
+  logoUri: https://static.integration.app/connectors/gmail/logo.png
+  dataCollectionsCount: 3
+  operationsCount: 81
+  eventsCount: 0
+  authType: oauth2
+universalFlowRevision: c6d99411-55f8-438f-9774-bde302f6142b
+nodes:
+  email-created-trigger:
+    type: data-record-created-trigger
+    name: Email Created Trigger
+    config:
+      dataSource:
+        key: emails
+      fieldMapping: {}
+    links:
+      - key: get-all-email-fields-by-id
+  email-updated-trigger:
+    type: data-record-updated-trigger
+    name: Email Updated Trigger
+    config:
+      dataSource:
+        key: emails
+      fieldMapping: {}
+    links:
+      - key: get-all-email-fields-by-id2
+  get-all-email-fields-by-id:
+    type: find-data-record-by-id
+    name: Get all Email fields by Id
+    config:
+      dataSource:
+        key: emails
+      fieldMapping:
+        key: emails
+        includeRawFields: true
+      id:
+        $var: $.input.email-created-trigger.record.id
+    links:
+      - key: create-email-in-my-app
+  get-all-email-fields-by-id2:
+    type: find-data-record-by-id
+    name: Get all Email fields by Id
+    config:
+      dataSource:
+        key: emails
+      id:
+        $var: $.input.email-updated-trigger.record.id
+      fieldMapping:
+        key: emails
+        includeRawFields: true
+    links:
+      - key: update-email-in-my-app
+  create-email-in-my-app:
+    type: api-request-to-your-app
+    name: Create Email in my App
+    config:
+      request:
+        body:
+          externalRecordId:
+            $var: $.input.get-all-email-fields-by-id.id
+          data:
+            $var: $.input.get-all-email-fields-by-id
+          instanceKey:
+            $var: $.flowInstance.instanceKey
+        uri: webhooks/on-create
+        method: POST
+    links: []
+  update-email-in-my-app:
+    type: api-request-to-your-app
+    name: Update Email in my App
+    config:
+      request:
+        body:
+          externalRecordId:
+            $var: $.input.get-all-email-fields-by-id2.id
+          data:
+            $var: $.input.get-all-email-fields-by-id2
+          instanceKey:
+            $var: $.flowInstance.instanceKey
+        uri: webhooks/on-update
+        method: POST
+    links: []
+  delete-email-in-my-app:
+    type: api-request-to-your-app
+    name: Delete Email from My App
+    config:
+      request:
+        body:
+          externalRecordId:
+            $var: $.input.email-deleted-trigger.record.id
+          instanceKey:
+            $var: $.flowInstance.instanceKey
+        method: POST
+        uri: webhooks/on-delete
+    links: []
+  email-deleted-trigger:
+    type: data-record-deleted-trigger
+    name: Email Deleted Trigger
+    config:
+      dataSource:
+        key: emails
+      fieldMapping: {}
+    links:
+      - key: delete-email-in-my-app
+autoCreateInstances: false
+customized: false

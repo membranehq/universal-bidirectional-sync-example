@@ -1,0 +1,37 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835424e49c6d4c3c9d338d
+name: Users
+revision: 8d6de5fa-ed4b-4f74-8d2e-1a55e302488a
+integrationId: 68835417e49c6d4c3c9d316a
+customized: false
+universalDataSourceId: 68835424e49c6d4c3c9d32ce
+universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
+collectionKey: users
+udm: users
+defaultPath: /data/users
+integration:
+  key: github
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835417e49c6d4c3c9d316a
+  name: Github
+  uuid: fad0232c-08bc-4ce6-806d-5d4a1a47f8e6
+  connectorId: 6446a060badd839bce1ac1ac
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/9aed1fdf-cf97-48f8-8360-1697b2daa959
+  connectorVersion: 1.1.4
+  logoUri: https://static.integration.app/connectors/github/logo.png
+  dataCollectionsCount: 8
+  operationsCount: 889
+  eventsCount: 0
+  authType: oauth2

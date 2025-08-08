@@ -1,0 +1,21 @@
+revision: 574e62c8-21f1-4bf2-a813-d18c60db8dd7
+isCustomized: true
+key: create-email
+state: READY
+errors: []
+isDeactivated: false
+id: 68887d96f9df280360f1df48
+name: Create Email
+type: create-data-record
+inputSchema:
+  type: object
+  properties:
+    fields:
+      $ref: contacts
+config:
+  dataSource:
+    key: emails
+  fieldMapping:
+    key: emails
+    input:
+      $var: $.input.fields

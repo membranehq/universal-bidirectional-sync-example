@@ -1,0 +1,69 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d355c
+name: Users
+customized: false
+revision: 449461d8-13fb-4d31-b4b9-bd0fb2d3d09d
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835417e49c6d4c3c9d316e
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3385
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  id:
+    $var: $.id
+  name:
+    $var: $.fullName
+  avatar_url:
+    $var: $.imageUrl
+  person:
+    email:
+      $var: $.primaryEmail
+importValue:
+  id:
+    $var: $.id
+  primaryEmail:
+    $var: $.person.email
+  fullName:
+    $var: $.name
+  imageUrl:
+    $var: $.avatar_url
+  firstName:
+    $firstName:
+      $var: $.name
+  lastName:
+    $lastName:
+      $var: $.name
+  emails:
+    - value:
+        $var: $.person.email
+integration:
+  key: notion
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835417e49c6d4c3c9d316e
+  name: Notion
+  uuid: facb0913-cf42-4d64-9052-68f47243a8b7
+  connectorId: 64382789986ed1caad42e561
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: true
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/79a798cd-e849-4d99-9485-6593f8db0ce0
+  connectorVersion: 1.3.2
+  logoUri: https://static.integration.app/connectors/notion/logo.png
+  dataCollectionsCount: 4
+  operationsCount: 20
+  eventsCount: 18
+  authType: oauth2

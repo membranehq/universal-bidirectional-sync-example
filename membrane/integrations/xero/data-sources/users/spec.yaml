@@ -1,0 +1,37 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835424e49c6d4c3c9d335d
+name: Users
+revision: 98f62fb5-0306-4326-954b-8777547d04be
+integrationId: 68835413e49c6d4c3c9d312a
+customized: false
+universalDataSourceId: 68835424e49c6d4c3c9d32ce
+universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
+collectionKey: users
+udm: users
+defaultPath: /data/users
+integration:
+  key: xero
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d312a
+  name: Xero
+  uuid: f1eeaaa6-502c-4933-829e-61631c008058
+  connectorId: 642c613b986ed1caad98172b
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: true
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/f1146f2e-8be6-437a-bde8-1fe7abda8adb
+  connectorVersion: 1.1.5
+  logoUri: https://static.integration.app/connectors/xero-connector/logo.png
+  dataCollectionsCount: 17
+  operationsCount: 234
+  eventsCount: 1
+  authType: oauth2

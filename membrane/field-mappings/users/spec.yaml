@@ -1,0 +1,15 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d34a3
+name: Users
+customized: true
+revision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d32ce
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $

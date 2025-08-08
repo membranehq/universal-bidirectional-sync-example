@@ -1,0 +1,104 @@
+key: users
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: integration
+        id: 68835413e49c6d4c3c9d314f
+  - message: Data Source Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: data-source
+        id: 68835424e49c6d4c3c9d339b
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3574
+name: Users
+customized: false
+revision: 0d641fa2-2eff-4b58-a6d2-f5acb5a086fc
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d314f
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d339b
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  id:
+    $var: $.id
+  accountEnabled:
+    $var: $.isActive
+  businessPhones:
+    $var: $.phones
+  companyName:
+    $var: $.companyName
+  createdDateTime:
+    $var: $.createdTime
+  displayName:
+    $var: $.fullName
+  givenName:
+    $var: $.firstName
+  mail:
+    $var: $.primaryEmail
+  mobilePhone:
+    $var: $.primaryPhone
+  surname:
+    $var: $.lastName
+  userPrincipalName:
+    $var: $.userName
+importValue:
+  id:
+    $var: id
+  fullName:
+    $var: displayName
+  firstName:
+    $var: givenName
+  lastName:
+    $var: surname
+  userName:
+    $var: userPrincipalName
+  primaryEmail:
+    $var: mail
+  emails:
+    $var: otherMails
+  primaryPhone:
+    $var: mobilePhone
+  phones:
+    $var: businessPhones
+  companyName:
+    $var: companyName
+  isActive:
+    $var: accountEnabled
+  createdTime:
+    $var: createdDateTime
+integration:
+  key: microsoft-entra-id
+  state: CONFIGURATION_ERROR
+  errors:
+    - message: Integration is missing required parameters
+      type: configuration
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d314f
+  name: Microsoft Entra ID
+  uuid: c4bc775c-f08f-4324-87f6-73f829bfbe09
+  connectorId: 65a59ef6af9ac1360fd6bb8b
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/cc8b610d-578c-4f59-a43f-c2a1a5f7d356
+  connectorVersion: 1.0.7
+  logoUri: >-
+    https://static.integration.app/connectors/logo-3ca53f03-d8f4-4efd-97ca-df54806ef761.png
+  dataCollectionsCount: 8
+  operationsCount: 1
+  eventsCount: 0
+  authType: oauth2

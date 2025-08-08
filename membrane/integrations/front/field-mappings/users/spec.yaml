@@ -1,0 +1,72 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3546
+name: Users
+customized: false
+revision: 91f2c2aa-74a0-44b9-96bd-dd5cf0a12ca4
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3139
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3375
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  id:
+    $var: $.id
+  email:
+    $var: $.primaryEmail
+  username:
+    $var: $.userName
+  first_name:
+    $var: $.firstName
+  last_name:
+    $var: $.lastName
+importValue:
+  id:
+    $var: $.id
+  firstName:
+    $var: $.first_name
+  lastName:
+    $var: $.last_name
+  userName:
+    $var: $.username
+  primaryEmail:
+    $var: $.email
+  fullName:
+    $concat:
+      values:
+        - $var: $.first_name
+        - $var: $.last_name
+      delimiter: ' '
+  emails:
+    - value:
+        $var: $.email
+integration:
+  key: front
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3139
+  name: Front
+  uuid: 49e1e7e1-0ece-4055-8320-54873620b19b
+  connectorId: 64368c00986ed1caaddef4b3
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/6d026649-c347-4fac-baad-7cae0a71f789
+  connectorVersion: 1.3.0
+  logoUri: https://static.integration.app/connectors/front/logo.png
+  dataCollectionsCount: 13
+  operationsCount: 162
+  eventsCount: 0
+  authType: oauth2

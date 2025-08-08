@@ -1,0 +1,37 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835424e49c6d4c3c9d335b
+name: Users
+revision: ad8140d9-62e8-480b-841b-9a8c05641f70
+integrationId: 68835413e49c6d4c3c9d311b
+customized: false
+universalDataSourceId: 68835424e49c6d4c3c9d32ce
+universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
+collectionKey: users
+udm: users
+defaultPath: /data/users
+integration:
+  key: keap
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d311b
+  name: Keap
+  uuid: 8f6d5ef7-3fe0-4b02-8481-ada78fb966ff
+  connectorId: 635bf847fb02f18af1f1c626
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/efd9508f-8ab8-4258-8b2b-b05d7ce9285e
+  connectorVersion: 1.0.4
+  logoUri: https://static.integration.app/connectors/keap/logo.png
+  dataCollectionsCount: 13
+  operationsCount: 140
+  eventsCount: 0
+  authType: oauth2

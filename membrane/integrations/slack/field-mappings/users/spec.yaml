@@ -1,0 +1,66 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3532
+name: Users
+customized: false
+revision: 0236c9cc-f6a7-4348-b747-a9dd0d15acbe
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3117
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3359
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+importValue:
+  id:
+    $var: $.id
+  updatedTime:
+    $var: $.updated
+  title:
+    $var: $.profile.title
+  userName:
+    $var: $.name
+  primaryEmail:
+    $var: $.profile.email
+  primaryPhone:
+    $var: $.profile.phone
+  firstName:
+    $var: $.profile.first_name
+  lastName:
+    $var: $.profile.last_name
+  fullName:
+    $var: $.real_name
+  emails:
+    - value:
+        $var: $.profile.email
+  phones:
+    - value:
+        $var: $.profile.phone
+integration:
+  key: slack
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3117
+  name: Slack
+  uuid: 82293aaf-8ffd-45d0-9215-ed7785452830
+  connectorId: 643084d0986ed1caad854e41
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: true
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/6049f6e1-e0e2-4f8d-bd1b-a52bdd02b4ff
+  connectorVersion: 1.3.0
+  logoUri: https://static.integration.app/connectors/slack/logo.png
+  dataCollectionsCount: 3
+  operationsCount: 246
+  eventsCount: 79
+  authType: oauth2

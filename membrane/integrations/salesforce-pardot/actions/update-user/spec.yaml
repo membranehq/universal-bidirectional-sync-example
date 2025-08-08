@@ -1,0 +1,69 @@
+revision: 9522a898-5287-4ff3-bd10-8d72fd65a313
+isCustomized: false
+parentId: 6890519a5facd7ec99dbeba1
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+integrationId: 68835413e49c6d4c3c9d3115
+integration:
+  key: salesforce-pardot
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3115
+  name: SalesForce Pardot
+  uuid: 541d9ad0-89ae-4bbb-b4bc-67c802e2e1a3
+  connectorId: 63a3723bad7bd4eb80db61e0
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/138a57cc-bb7e-466a-8aa6-370053d1327b
+  connectorVersion: 1.0.5
+  logoUri: https://static.integration.app/connectors/salesforce-pardot/logo.png
+  dataCollectionsCount: 12
+  operationsCount: 84
+  eventsCount: 0
+  authType: oauth2
+key: update-user
+state: READY
+errors: []
+isDeactivated: false
+id: 68905282ff92d86914347bde
+name: Update User
+type: update-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+    fields:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping:
+    defaultUnifiedValue:
+      $var: $.input
+    defaultValue:
+      username:
+        $var: $.input.userName
+      firstName:
+        $var: $.input.firstName
+      lastName:
+        $var: $.input.lastName
+      email:
+        $var: $.input.primaryEmail
+      createdAt:
+        $var: $.input.createdTime
+      updatedAt:
+        $var: $.input.updatedTime
+      createdById:
+        $var: $.input.createdBy
+      updatedById:
+        $var: $.input.updatedBy
+      id:
+        $var: $.input.id

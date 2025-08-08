@@ -1,0 +1,99 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d356a
+name: Users
+customized: false
+revision: b383cc9c-c528-49bb-9c42-2d35b5b1e24d
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835417e49c6d4c3c9d3176
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3389
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  email:
+    $var: $.primaryEmail
+  phone:
+    $var: $.primaryPhone
+  is_disabled:
+    $case:
+      cases:
+        - filter:
+            $eval:
+              $var: $.isActive
+            is: false
+          value: true
+      default: false
+  pic:
+    $var: $.imageUrl
+  name:
+    $var: $.fullName
+  role_id:
+    $var: $.roleId
+  createdTime:
+    $var: $.createdTime
+importValue:
+  id:
+    $var: $.id
+  fullName:
+    $var: $.name
+  primaryEmail:
+    $var: $.email
+  primaryPhone:
+    $var: $.phone
+  imageUrl:
+    $var: $.pic
+  roleId:
+    $var: $.role_id
+  createdTime:
+    $var: $.createdTime
+  isActive:
+    $case:
+      cases:
+        - filter:
+            $eval:
+              $var: $.is_disabled
+            is: true
+          value: false
+      default: true
+  firstName:
+    $firstName:
+      $var: $.name
+  lastName:
+    $lastName:
+      $var: $.name
+  emails:
+    - value:
+        $var: $.email
+  phones:
+    - value:
+        $var: $.phone
+integration:
+  key: agile-crm
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835417e49c6d4c3c9d3176
+  name: Agile CRM
+  uuid: d6fdf74c-d5bb-4a33-8fe2-fcd56f5c6b60
+  connectorId: 64416311badd839bce41fdeb
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/8c3f8af0-b16c-4d0f-b27d-fc1022d0e078
+  connectorVersion: 1.0.2
+  logoUri: https://static.integration.app/connectors/agile-crm/logo.png
+  dataCollectionsCount: 6
+  operationsCount: 15
+  eventsCount: 0
+  authType: client-credentials

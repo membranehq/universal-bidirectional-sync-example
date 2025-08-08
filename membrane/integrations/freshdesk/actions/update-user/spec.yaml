@@ -1,0 +1,78 @@
+revision: 990759c9-8f2c-4289-8e09-70e0f42a424d
+isCustomized: false
+parentId: 6890519a5facd7ec99dbeba1
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+integrationId: 68835413e49c6d4c3c9d313f
+integration:
+  key: freshdesk
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d313f
+  name: Freshdesk
+  uuid: 149c53e1-84d3-4dfc-909b-b144eb3d6245
+  connectorId: 64b114f5d2605720d2134075
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/994c78f8-50a9-4805-aa0f-1e90ec27e28c
+  connectorVersion: 1.0.1
+  logoUri: https://static.integration.app/connectors/freshdesk-connector/logo.png
+  dataCollectionsCount: 8
+  operationsCount: 39
+  eventsCount: 0
+  authType: client-credentials
+key: update-user
+state: READY
+errors: []
+isDeactivated: false
+id: 68905282ff92d86914347bb8
+name: Update User
+type: update-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+    fields:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping:
+    defaultUnifiedValue:
+      $var: $.input
+    defaultValue:
+      available:
+        $var: $.input.isActive
+      role_ids:
+        - $var: $.input.roleId
+      id:
+        $var: $.input.id
+      created_at:
+        $var: $.input.createdTime
+      updated_at:
+        $var: $.input.updatedTime
+      contact:
+        active:
+          $var: $.input.isActive
+        email:
+          $var: $.input.primaryEmail
+        language:
+          $var: $.input.timezone
+        mobile:
+          $var: $.input.primaryPhone
+        name:
+          $var: $.input.fullName
+        time_zone:
+          $var: $.input.timezone
+      email:
+        $var: $.input.primaryEmail
+      time_zone:
+        $var: $.input.timezone

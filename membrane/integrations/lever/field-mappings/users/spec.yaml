@@ -1,0 +1,86 @@
+key: users
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: integration
+        id: 68835413e49c6d4c3c9d314d
+  - message: Data Source Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: data-source
+        id: 68835424e49c6d4c3c9d3397
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3558
+name: Users
+customized: false
+revision: 69cf3680-4d82-428e-805b-bae9f3833d9b
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d314d
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3397
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  id:
+    $var: $.id
+  name:
+    $var: $.fullName
+  username:
+    $var: $.userName
+  email:
+    $var: $.primaryEmail
+  createdAt:
+    $var: $.createdTime
+importValue:
+  id:
+    $var: $.id
+  fullName:
+    $var: $.name
+  userName:
+    $var: $.username
+  primaryEmail:
+    $var: $.email
+  createdTime:
+    $var: $.createdAt
+  firstName:
+    $firstName:
+      $var: $.name
+  lastName:
+    $lastName:
+      $var: $.name
+  emails:
+    - value:
+        $var: $.email
+integration:
+  key: lever
+  state: CONFIGURATION_ERROR
+  errors:
+    - message: Integration is missing required parameters
+      type: configuration
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d314d
+  name: Lever
+  uuid: 15653d4b-08f3-4a71-b74a-43eb00919fe8
+  connectorId: 6466784c60f981f3ce696903
+  hasMissingParameters: true
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/2e111cbc-2e3c-424d-94bc-1204bcdb57f0
+  connectorVersion: 1.0.2
+  logoUri: https://static.integration.app/connectors/lever/logohq.png
+  dataCollectionsCount: 12
+  operationsCount: 68
+  eventsCount: 0
+  authType: oauth2

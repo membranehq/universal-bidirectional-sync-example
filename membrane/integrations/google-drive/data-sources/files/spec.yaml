@@ -1,0 +1,37 @@
+key: files
+state: READY
+errors: []
+isDeactivated: false
+id: 68834d75ef496baf09c0a962
+name: Files
+revision: 5ae3ee5b-80f5-4b1b-ac3f-05371d393b71
+integrationId: 68834d71ef496baf09c0a907
+customized: false
+universalDataSourceId: 68834d75ef496baf09c0a94a
+universalDataSourceRevision: 5ccf733d-4403-46a0-9e2a-9df0742e63f7
+collectionKey: files
+udm: files
+defaultPath: /data/files
+integration:
+  key: google-drive
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68834d71ef496baf09c0a907
+  name: Google Drive
+  uuid: 83a923e5-4dbc-4e8c-b9d8-4e361e685a78
+  connectorId: 642e822e986ed1caad090f1d
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/25565fc4-3680-4264-aaa2-14187ba9362f
+  connectorVersion: 2.5.1
+  logoUri: https://static.integration.app/connectors/gdrive/logo.png
+  dataCollectionsCount: 3
+  operationsCount: 51
+  eventsCount: 0
+  authType: oauth2

@@ -1,0 +1,153 @@
+key: receive-user-events
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: integration
+        id: 68835413e49c6d4c3c9d315b
+  - message: Data Source Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: data-source
+        id: 68835424e49c6d4c3c9d3399
+  - message: Field Mapping Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: field-mapping
+        id: 68835425e49c6d4c3c9d3572
+isDeactivated: false
+id: 6883542fe49c6d4c3c9d4539
+name: Receive User Events
+revision: 2d81d88b-52e6-40fa-b603-acfc25c19e1b
+universalFlowId: 68835428e49c6d4c3c9d396a
+integrationId: 68835413e49c6d4c3c9d315b
+integration:
+  key: google-workspace
+  state: CONFIGURATION_ERROR
+  errors:
+    - message: Integration is missing required parameters
+      type: configuration
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d315b
+  name: Google Workspace
+  uuid: d7db7e59-d7a6-4442-8b87-2e758a996cd8
+  connectorId: 65a59ef5af9ac1360fd6bac6
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/ee8d1cee-bc8d-41e0-ac7b-97fe460bffad
+  connectorVersion: 1.0.6
+  logoUri: >-
+    https://static.integration.app/connectors/google-workspace/asset-90bc7f74-9c90-451e-9112-fa161ba6d554.png
+  dataCollectionsCount: 2
+  operationsCount: 123
+  eventsCount: 0
+  authType: oauth2
+universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
+nodes:
+  user-created-trigger:
+    type: data-record-created-trigger
+    name: User Created Trigger
+    config:
+      dataSource:
+        key: users
+      fieldMapping: {}
+    links:
+      - key: get-all-user-fields-by-id
+  user-updated-trigger:
+    type: data-record-updated-trigger
+    name: User Updated Trigger
+    config:
+      dataSource:
+        key: users
+      fieldMapping: {}
+    links:
+      - key: get-all-user-fields-by-id2
+  get-all-user-fields-by-id:
+    type: find-data-record-by-id
+    name: Get all User fields by Id
+    config:
+      dataSource:
+        key: users
+      fieldMapping:
+        key: users
+        includeRawFields: true
+      id:
+        $var: $.input.user-created-trigger.record.id
+    links:
+      - key: create-user-in-my-app
+  get-all-user-fields-by-id2:
+    type: find-data-record-by-id
+    name: Get all User fields by Id
+    config:
+      dataSource:
+        key: users
+      id:
+        $var: $.input.user-updated-trigger.record.id
+      fieldMapping:
+        key: users
+        includeRawFields: true
+    links:
+      - key: update-user-in-my-app
+  create-user-in-my-app:
+    type: api-request-to-your-app
+    name: Create User in my App
+    config:
+      request:
+        body:
+          externalRecordId:
+            $var: $.input.get-all-user-fields-by-id.id
+          data:
+            $var: $.input.get-all-user-fields-by-id
+          instanceKey:
+            $var: $.flowInstance.instanceKey
+        method: POST
+        uri: webhooks/on-create
+    links: []
+  update-user-in-my-app:
+    type: api-request-to-your-app
+    name: Update User in my App
+    config:
+      request:
+        body:
+          externalRecordId:
+            $var: $.input.get-all-user-fields-by-id2.id
+          data:
+            $var: $.input.get-all-user-fields-by-id2
+          instanceKey:
+            $var: $.flowInstance.instanceKey
+        method: POST
+        uri: webhooks/on-update
+    links: []
+  delete-user-in-my-app:
+    type: api-request-to-your-app
+    name: Delete User from My App
+    config:
+      request:
+        body:
+          externalRecordId:
+            $var: $.input.user-deleted-trigger.record.id
+          instanceKey:
+            $var: $.flowInstance.instanceKey
+        method: POST
+        uri: webhooks/on-delete
+    links: []
+  user-deleted-trigger:
+    type: data-record-deleted-trigger
+    name: User Deleted Trigger
+    config:
+      dataSource:
+        key: users
+      fieldMapping: {}
+    links:
+      - key: delete-user-in-my-app
+autoCreateInstances: false
+customized: false

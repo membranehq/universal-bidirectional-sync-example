@@ -1,0 +1,46 @@
+revision: 5f2dc258-855b-471a-84cb-0750cd15cfa4
+isCustomized: false
+parentId: 68887e3ef957e0c6e8dd9c47
+parentRevision: 29e55b68-c7a2-40fc-826c-40f1e75e7208
+integrationId: 68834d71ef496baf09c0a907
+integration:
+  key: google-drive
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68834d71ef496baf09c0a907
+  name: Google Drive
+  uuid: 83a923e5-4dbc-4e8c-b9d8-4e361e685a78
+  connectorId: 642e822e986ed1caad090f1d
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/25565fc4-3680-4264-aaa2-14187ba9362f
+  connectorVersion: 2.5.1
+  logoUri: https://static.integration.app/connectors/gdrive/logo.png
+  dataCollectionsCount: 3
+  operationsCount: 51
+  eventsCount: 0
+  authType: oauth2
+key: delete-file
+state: READY
+errors: []
+isDeactivated: false
+id: 6888880119e41c785b8b6385
+name: Delete File
+type: delete-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+config:
+  dataSource:
+    key: files
+  id:
+    $var: $.input.id
+  fieldMapping: {}

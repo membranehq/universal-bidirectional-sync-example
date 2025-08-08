@@ -1,0 +1,43 @@
+revision: c4536478-3fab-4912-8b4c-389a75a74bb0
+isCustomized: false
+parentId: 68887db5f9df280360f1e0c9
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+integrationId: 68835413e49c6d4c3c9d312a
+integration:
+  key: xero
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d312a
+  name: Xero
+  uuid: f1eeaaa6-502c-4933-829e-61631c008058
+  connectorId: 642c613b986ed1caad98172b
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: true
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/f1146f2e-8be6-437a-bde8-1fe7abda8adb
+  connectorVersion: 1.1.5
+  logoUri: https://static.integration.app/connectors/xero-connector/logo.png
+  dataCollectionsCount: 17
+  operationsCount: 234
+  eventsCount: 1
+  authType: oauth2
+key: create-user
+state: READY
+errors: []
+isDeactivated: false
+id: 688cc9898fa10d3345b11884
+name: Create User
+type: create-data-record
+inputSchema:
+  type: object
+  properties:
+    fields:
+      type: string
+config:
+  fieldMapping: {}
+  dataSource: {}

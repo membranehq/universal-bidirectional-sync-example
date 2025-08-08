@@ -1,0 +1,24 @@
+key: box
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration is missing required parameters
+    type: configuration
+isDeactivated: false
+id: 68834d71ef496baf09c0a8ff
+name: Box
+uuid: aa6c7494-3fb4-44c9-8668-b1075ed2c2a8
+connectorId: 6466783c60f981f3ce6968ef
+hasMissingParameters: true
+hasDocumentation: true
+hasOperations: true
+hasData: true
+hasEvents: true
+hasGlobalWebhooks: true
+hasUdm: true
+baseUri: s3://integration-app-connectors/public/ccc997a3-9504-439c-930d-054a03172fc2
+connectorVersion: 2.2.2
+logoUri: https://static.integration.app/connectors/box/logo.png
+dataCollectionsCount: 6
+operationsCount: 264
+eventsCount: 1
+authType: oauth2

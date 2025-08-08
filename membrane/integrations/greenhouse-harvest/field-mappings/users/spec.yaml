@@ -1,0 +1,89 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3542
+name: Users
+customized: false
+revision: 8e0d1231-a7d4-4232-9c64-608e078386b0
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3151
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3371
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  id:
+    $var: $.id
+  name:
+    $var: $.fullName
+  first_name:
+    $var: $.firstName
+  last_name:
+    $var: $.lastName
+  primary_email_address:
+    $var: $.primaryEmail
+  updated_at:
+    $var: $.updatedTime
+  created_at:
+    $var: $.createdTime
+  disabled:
+    $jsonata: $not($.isActive)
+  emails:
+    $iterate:
+      source:
+        $var: $.emails
+      item:
+        $var: $.item.value
+importValue:
+  id:
+    $var: $.id
+  fullName:
+    $var: $.name
+  firstName:
+    $var: $.first_name
+  lastName:
+    $var: $.last_name
+  primaryEmail:
+    $var: $.primary_email_address
+  emails:
+    $iterate:
+      source:
+        $var: $.emails
+      item:
+        value:
+          $var: $.item
+  createdTime:
+    $var: $.created_at
+  updatedTime:
+    $var: $.updated_at
+  isActive:
+    $jsonata: $not($.disabled)
+integration:
+  key: greenhouse-harvest
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3151
+  name: Greenhouse Harvest
+  uuid: 3ede0864-2b68-4c1d-9073-9f36268e9386
+  connectorId: 65c3755eda65a37b19898497
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/c82fb5f1-310e-442d-8d69-a47b7d7da888
+  connectorVersion: 1.0.2
+  logoUri: >-
+    https://static.integration.app/connectors/greenhouse-harvest/logo-39d42c52-496c-48b3-89ec-cb588f6ec0f2.png
+  dataCollectionsCount: 15
+  operationsCount: 129
+  eventsCount: 0
+  authType: client-credentials

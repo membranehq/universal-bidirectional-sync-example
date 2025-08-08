@@ -1,0 +1,101 @@
+revision: 97e06f79-641c-4b6d-b0ae-fc53bee03890
+isCustomized: false
+parentId: 6890519a5facd7ec99dbeba1
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+integrationId: 68835413e49c6d4c3c9d3137
+integration:
+  key: microsoft-teams
+  state: CONFIGURATION_ERROR
+  errors:
+    - message: Integration is missing required parameters
+      type: configuration
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3137
+  name: Microsoft Teams
+  uuid: a8129c71-43d0-450c-bb17-3837e2b10d4e
+  connectorId: 6466784e60f981f3ce696907
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/d2f487ff-7381-409e-9098-2f4d4f51ca51
+  connectorVersion: 2.3.1
+  logoUri: >-
+    https://static.integration.app/connectors/microsoft-teams/logo-af77620a-4317-47b1-a365-419da992ef0b.png
+  dataCollectionsCount: 10
+  operationsCount: 390
+  eventsCount: 4
+  authType: oauth2
+key: update-user
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: integration
+        id: 68835413e49c6d4c3c9d3137
+  - message: Data Source Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: data-source
+        id: 68835424e49c6d4c3c9d336f
+isDeactivated: false
+id: 68905282ff92d86914347bd4
+name: Update User
+type: update-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+    fields:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping:
+    defaultUnifiedValue:
+      $var: $.input
+    defaultValue:
+      id:
+        $var: $.input.id
+      accountEnabled:
+        $var: $.input.isActive
+      companyName:
+        $var: $.input.companyName
+      createdDateTime:
+        $var: $.input.createdTime
+      displayName:
+        $var: $.input.fullName
+      givenName:
+        $var: $.input.firstName
+      mail:
+        $var: $.input.primaryEmail
+      mobilePhone:
+        $var: $.input.primaryPhone
+      surname:
+        $var: $.input.lastName
+      userPrincipalName:
+        $var: $.input.userName
+      customSecurityAttributes: {}
+      employeeOrgData: {}
+      passwordProfile: {}
+      authorizationInfo: {}
+      onPremisesExtensionAttributes: {}
+      mailboxSettings: {}
+      signInActivity: {}
+      calendar: {}
+      drive: {}
+      inferenceClassification: {}
+      manager: {}
+      outlook: {}
+      photo: {}
+      businessPhones:
+        $var: $.input.phones

@@ -1,0 +1,117 @@
+key: users
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: integration
+        id: 68835413e49c6d4c3c9d3137
+  - message: Data Source Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: data-source
+        id: 68835424e49c6d4c3c9d336f
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3540
+name: Users
+customized: false
+revision: 99449ea0-c078-4237-86eb-5f563a310ecc
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3137
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d336f
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  id:
+    $var: $.id
+  accountEnabled:
+    $var: $.isActive
+  businessPhones:
+    $var: $.phones
+  companyName:
+    $var: $.companyName
+  createdDateTime:
+    $var: $.createdTime
+  displayName:
+    $var: $.fullName
+  givenName:
+    $var: $.firstName
+  mail:
+    $var: $.primaryEmail
+  mobilePhone:
+    $var: $.primaryPhone
+  surname:
+    $var: $.lastName
+  userPrincipalName:
+    $var: $.userName
+  customSecurityAttributes: {}
+  employeeOrgData: {}
+  passwordProfile: {}
+  authorizationInfo: {}
+  onPremisesExtensionAttributes: {}
+  mailboxSettings: {}
+  signInActivity: {}
+  calendar: {}
+  drive: {}
+  inferenceClassification: {}
+  manager: {}
+  outlook: {}
+  photo: {}
+importValue:
+  id:
+    $var: id
+  fullName:
+    $var: displayName
+  firstName:
+    $var: givenName
+  lastName:
+    $var: surname
+  userName:
+    $var: userPrincipalName
+  primaryEmail:
+    $var: mail
+  emails:
+    $var: otherMails
+  primaryPhone:
+    $var: mobilePhone
+  phones:
+    $var: businessPhones
+  companyName:
+    $var: companyName
+  isActive:
+    $var: accountEnabled
+  createdTime:
+    $var: createdDateTime
+integration:
+  key: microsoft-teams
+  state: CONFIGURATION_ERROR
+  errors:
+    - message: Integration is missing required parameters
+      type: configuration
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3137
+  name: Microsoft Teams
+  uuid: a8129c71-43d0-450c-bb17-3837e2b10d4e
+  connectorId: 6466784e60f981f3ce696907
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/d2f487ff-7381-409e-9098-2f4d4f51ca51
+  connectorVersion: 2.3.1
+  logoUri: >-
+    https://static.integration.app/connectors/microsoft-teams/logo-af77620a-4317-47b1-a365-419da992ef0b.png
+  dataCollectionsCount: 10
+  operationsCount: 390
+  eventsCount: 4
+  authType: oauth2

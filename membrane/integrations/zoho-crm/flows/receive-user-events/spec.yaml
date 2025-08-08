@@ -1,0 +1,132 @@
+key: receive-user-events
+state: READY
+errors: []
+isDeactivated: false
+id: 68835430e49c6d4c3c9d4694
+name: Receive User Events
+revision: 2cf7fc8e-3134-43f8-9a70-3563a2dadd2a
+universalFlowId: 68835428e49c6d4c3c9d396a
+integrationId: 68835413e49c6d4c3c9d310c
+integration:
+  key: zoho-crm
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d310c
+  name: Zoho CRM
+  uuid: df807ac4-bf95-4745-b48c-214fb931cc41
+  connectorId: 64a158e7d2605720d232e07b
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/55c35625-992f-4a0b-8c11-b9522d23d94a
+  connectorVersion: 2.2.0
+  logoUri: https://static.integration.app/connectors/zoho-crm/logo.png
+  dataCollectionsCount: 20
+  operationsCount: 569
+  eventsCount: 0
+  authType: oauth2
+universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
+nodes:
+  user-created-trigger:
+    type: data-record-created-trigger
+    name: User Created Trigger
+    config:
+      dataSource:
+        key: users
+      fieldMapping: {}
+    links:
+      - key: get-all-user-fields-by-id
+  user-updated-trigger:
+    type: data-record-updated-trigger
+    name: User Updated Trigger
+    config:
+      dataSource:
+        key: users
+      fieldMapping: {}
+    links:
+      - key: get-all-user-fields-by-id2
+  get-all-user-fields-by-id:
+    type: find-data-record-by-id
+    name: Get all User fields by Id
+    config:
+      dataSource:
+        key: users
+      fieldMapping:
+        key: users
+        includeRawFields: true
+      id:
+        $var: $.input.user-created-trigger.record.id
+    links:
+      - key: create-user-in-my-app
+  get-all-user-fields-by-id2:
+    type: find-data-record-by-id
+    name: Get all User fields by Id
+    config:
+      dataSource:
+        key: users
+      id:
+        $var: $.input.user-updated-trigger.record.id
+      fieldMapping:
+        key: users
+        includeRawFields: true
+    links:
+      - key: update-user-in-my-app
+  create-user-in-my-app:
+    type: api-request-to-your-app
+    name: Create User in my App
+    config:
+      request:
+        body:
+          externalRecordId:
+            $var: $.input.get-all-user-fields-by-id.id
+          data:
+            $var: $.input.get-all-user-fields-by-id
+          instanceKey:
+            $var: $.flowInstance.instanceKey
+        method: POST
+        uri: webhooks/on-create
+    links: []
+  update-user-in-my-app:
+    type: api-request-to-your-app
+    name: Update User in my App
+    config:
+      request:
+        body:
+          externalRecordId:
+            $var: $.input.get-all-user-fields-by-id2.id
+          data:
+            $var: $.input.get-all-user-fields-by-id2
+          instanceKey:
+            $var: $.flowInstance.instanceKey
+        method: POST
+        uri: webhooks/on-update
+    links: []
+  delete-user-in-my-app:
+    type: api-request-to-your-app
+    name: Delete User from My App
+    config:
+      request:
+        body:
+          externalRecordId:
+            $var: $.input.user-deleted-trigger.record.id
+          instanceKey:
+            $var: $.flowInstance.instanceKey
+        method: POST
+        uri: webhooks/on-delete
+    links: []
+  user-deleted-trigger:
+    type: data-record-deleted-trigger
+    name: User Deleted Trigger
+    config:
+      dataSource:
+        key: users
+      fieldMapping: {}
+    links:
+      - key: delete-user-in-my-app
+autoCreateInstances: false
+customized: false

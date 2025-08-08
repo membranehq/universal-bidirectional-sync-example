@@ -1,0 +1,14 @@
+revision: f367ebc9-302d-4388-a73a-ac45c79b67df
+isCustomized: true
+key: create-user
+state: READY
+errors: []
+isDeactivated: false
+id: 68887db5f9df280360f1e0c9
+name: Create User
+type: create-data-record
+inputSchema:
+  type: object
+  properties:
+    fields:
+      type: string

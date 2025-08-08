@@ -1,0 +1,47 @@
+revision: ba2eb8a5-be0f-40f9-bd24-81138e86597e
+isCustomized: false
+parentId: 68887d96f9df280360f1df48
+parentRevision: 574e62c8-21f1-4bf2-a813-d18c60db8dd7
+integrationId: 6884791695717cb90674856c
+integration:
+  key: gmail
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 6884791695717cb90674856c
+  name: Gmail
+  uuid: 21dc435d-989e-4dc2-8da4-43113e7442ef
+  connectorId: 64300cd1986ed1caad6e23ae
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/9c29637a-8512-4f98-817c-5faa1e0defdc
+  connectorVersion: 1.5.2
+  logoUri: https://static.integration.app/connectors/gmail/logo.png
+  dataCollectionsCount: 3
+  operationsCount: 81
+  eventsCount: 0
+  authType: oauth2
+key: create-email
+state: READY
+errors: []
+isDeactivated: false
+id: 6889cde0b766435cecdde3f4
+name: Create Email
+type: create-data-record
+inputSchema:
+  type: object
+  properties:
+    fields:
+      $ref: contacts
+config:
+  dataSource:
+    key: emails
+  fieldMapping:
+    key: emails
+    input:
+      $var: $.input.fields

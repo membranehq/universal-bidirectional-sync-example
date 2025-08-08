@@ -1,0 +1,63 @@
+revision: e97a1fa5-1000-4b99-9ed8-d087588bd7ef
+isCustomized: false
+parentId: 6890519a5facd7ec99dbeba1
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+integrationId: 68835413e49c6d4c3c9d3128
+integration:
+  key: activecampaign
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3128
+  name: ActiveCampaign
+  uuid: df6bee88-0036-431e-9407-78c6f9278eb7
+  connectorId: 6466783960f981f3ce6968ec
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/c65d95f5-120f-4269-a268-d74c8c666a04
+  connectorVersion: 1.0.3
+  logoUri: https://static.integration.app/connectors/activecampaign-connector/logo.png
+  dataCollectionsCount: 20
+  operationsCount: 106
+  eventsCount: 0
+  authType: client-credentials
+key: update-user
+state: READY
+errors: []
+isDeactivated: false
+id: 68905282ff92d86914347ba6
+name: Update User
+type: update-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+    fields:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping:
+    defaultUnifiedValue:
+      $var: $.input
+    defaultValue:
+      username:
+        $var: $.input.userName
+      email:
+        $var: $.input.primaryEmail
+      phone:
+        $var: $.input.primaryPhone
+      firstName:
+        $var: $.input.firstName
+      lastName:
+        $var: $.input.lastName
+      id:
+        $var: $.input.id

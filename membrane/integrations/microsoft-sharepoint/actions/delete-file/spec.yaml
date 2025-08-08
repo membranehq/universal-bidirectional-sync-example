@@ -1,0 +1,47 @@
+revision: 4552339d-faef-4ddf-a967-f05aa9bda13d
+isCustomized: false
+parentId: 68887e3ef957e0c6e8dd9c47
+parentRevision: 29e55b68-c7a2-40fc-826c-40f1e75e7208
+integrationId: 68834d71ef496baf09c0a90b
+integration:
+  key: microsoft-sharepoint
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68834d71ef496baf09c0a90b
+  name: Microsoft Sharepoint
+  uuid: a136b41a-0fd4-4b43-a4b0-353ba9f25fb1
+  connectorId: 6466784d60f981f3ce696906
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/2b8ac8d1-af69-4d4b-98c3-d08dfb046f44
+  connectorVersion: 2.5.1
+  logoUri: >-
+    https://static.integration.app/connectors/microsoft-sharepoint/logo-0e34b7f3-b86a-43d8-9cb3-4d9dcf189876.png
+  dataCollectionsCount: 9
+  operationsCount: 2
+  eventsCount: 0
+  authType: oauth2
+key: delete-file
+state: READY
+errors: []
+isDeactivated: false
+id: 6888880119e41c785b8b638b
+name: Delete File
+type: delete-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+config:
+  dataSource:
+    key: files
+  id:
+    $var: $.input.id
+  fieldMapping: {}

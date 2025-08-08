@@ -1,0 +1,90 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3554
+name: Users
+customized: false
+revision: 046d3b62-30f3-456e-a632-602ce197249a
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3149
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3393
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  id:
+    $var: $.id
+  created:
+    $var: $.createdTime
+  lastUpdated:
+    $var: $.updatedTime
+  profile:
+    firstName:
+      $var: $.firstName
+    lastName:
+      $var: $.lastName
+    email:
+      $var: $.primaryEmail
+    login:
+      $var: $.userName
+    mobilePhone:
+      $var: $.primaryPhone
+  credentials: {}
+importValue:
+  id:
+    $var: $.id
+  fullName:
+    $concat:
+      values:
+        - $var: $.profile.firstName
+        - $var: $.profile.lastName
+      delimiter: ' '
+  firstName:
+    $var: $.profile.firstName
+  lastName:
+    $var: $.profile.lastName
+  userName:
+    $var: $.profile.login
+  primaryEmail:
+    $var: $.profile.email
+  primaryPhone:
+    $var: $.profile.mobilePhone
+  createdTime:
+    $var: $.created
+  updatedTime:
+    $var: $.lastUpdated
+  emails:
+    - value:
+        $var: $.profile.email
+  phones:
+    - value:
+        $var: $.profile.mobilePhone
+integration:
+  key: okta
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3149
+  name: Okta
+  uuid: cfea79e9-15ba-45ca-a6cd-7b0d01800f98
+  connectorId: 65a59ef7af9ac1360fd6bbd2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/65827a85-48cf-4ccc-8e40-d26d926cdb3a
+  connectorVersion: 1.0.2
+  logoUri: >-
+    https://static.integration.app/connectors/logo-0b09cb02-5978-4c94-b3e4-b92964a36bcb.png
+  dataCollectionsCount: 4
+  operationsCount: 340
+  eventsCount: 0
+  authType: client-credentials

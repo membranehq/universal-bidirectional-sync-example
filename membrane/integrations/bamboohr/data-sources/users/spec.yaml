@@ -1,0 +1,37 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835424e49c6d4c3c9d337d
+name: Users
+revision: cee58c08-5ef1-4846-a4fe-c33b554d3358
+integrationId: 68835413e49c6d4c3c9d3141
+customized: false
+universalDataSourceId: 68835424e49c6d4c3c9d32ce
+universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
+collectionKey: users
+udm: users
+defaultPath: /data/users
+integration:
+  key: bamboohr
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3141
+  name: BambooHR
+  uuid: 24313c3a-1850-4d5d-8eda-9fe8e0691416
+  connectorId: 65265ce970089fac483f2ee8
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/87ba99d3-5940-43af-8118-c8d969b709e0
+  connectorVersion: 2.0.7
+  logoUri: https://static.integration.app/connectors/bamboohr/logohq.png
+  dataCollectionsCount: 9
+  operationsCount: 165
+  eventsCount: 0
+  authType: client-credentials

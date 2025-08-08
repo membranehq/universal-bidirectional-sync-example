@@ -1,0 +1,12 @@
+key: contacts
+isDeactivated: false
+id: 6890ba588682c9e7c4114d59
+name: contacts
+schema:
+  type: object
+  properties:
+    name:
+      type: string
+    email:
+      type: string
+revision: 66f5a372-749b-4119-bc2f-982f2123c3b1

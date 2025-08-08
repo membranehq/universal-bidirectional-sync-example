@@ -1,0 +1,48 @@
+revision: 239c2a15-ead0-4575-a7a1-82893a17ec89
+isCustomized: false
+parentId: 68835427e49c6d4c3c9d372b
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+integrationId: 68835413e49c6d4c3c9d3110
+integration:
+  key: salesloft
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3110
+  name: Salesloft
+  uuid: 2922d5a7-afb2-482b-8657-2bc44d5a4d5a
+  connectorId: 633af74f361690ab46d8ed4e
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/80f6639f-0e3b-4fb0-aa69-c2b207a4b81e
+  connectorVersion: 2.0.5
+  logoUri: https://static.integration.app/connectors/salesloft/logo.png
+  dataCollectionsCount: 19
+  operationsCount: 121
+  eventsCount: 0
+  authType: client-credentials
+key: get-users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835428e49c6d4c3c9d37d9
+name: Get Users
+type: list-data-records
+inputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+config:
+  dataSource:
+    key: users
+  cursor:
+    $var: $.input.cursor
+  fieldMapping:
+    key: users
+    includeRawFields: true

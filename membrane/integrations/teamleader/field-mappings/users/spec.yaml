@@ -1,0 +1,95 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3566
+name: Users
+customized: false
+revision: e554bcbd-253d-44bc-953c-d581b4eb0ed3
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d312e
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3466
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  id:
+    $var: $.id
+  account:
+    id:
+      $var: $.companyId
+  first_name:
+    $var: $.firstName
+  last_name:
+    $var: $.lastName
+  email:
+    $var: $.primaryEmail
+  telephones:
+    $iterate:
+      source:
+        $var: $.phones
+      item:
+        type:
+          $var: $.item.type
+        number:
+          $var: $.item.value
+  time_zone:
+    $var: $.timezone
+importValue:
+  id:
+    $var: $.id
+  firstName:
+    $var: $.first_name
+  lastName:
+    $var: $.last_name
+  primaryEmail:
+    $var: $.email
+  phones:
+    $iterate:
+      source:
+        $var: $.telephones
+      item:
+        value:
+          $var: $.item.number
+        type:
+          $var: $.item.type
+  companyId:
+    $var: $.account.id
+  timezone:
+    $var: $.time_zone
+  fullName:
+    $concat:
+      values:
+        - $var: $.first_name
+        - $var: $.last_name
+      delimiter: ' '
+  emails:
+    - value:
+        $var: $.email
+integration:
+  key: teamleader
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d312e
+  name: Teamleader
+  uuid: 7bd8eabb-0159-43b7-9108-03bbac8965ff
+  connectorId: 64417517badd839bce44c5df
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/3ffe3fb5-9388-4ab8-a8e8-e01ae4781100
+  connectorVersion: 0.1.0
+  logoUri: https://static.integration.app/connectors/teamleader/logo.png
+  dataCollectionsCount: 7
+  operationsCount: 225
+  eventsCount: 0
+  authType: oauth2

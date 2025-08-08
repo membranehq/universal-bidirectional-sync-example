@@ -1,0 +1,41 @@
+revision: 36029d24-75c2-4f57-94b3-8a5ec41d9c7e
+isCustomized: false
+parentId: 68887e21e84a885dbcaa0eb5
+parentRevision: 1b3f8697-a7a6-45f3-a95b-f939b520d82a
+integrationId: 6884791695717cb90674856c
+integration:
+  key: gmail
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 6884791695717cb90674856c
+  name: Gmail
+  uuid: 21dc435d-989e-4dc2-8da4-43113e7442ef
+  connectorId: 64300cd1986ed1caad6e23ae
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/9c29637a-8512-4f98-817c-5faa1e0defdc
+  connectorVersion: 1.5.2
+  logoUri: https://static.integration.app/connectors/gmail/logo.png
+  dataCollectionsCount: 3
+  operationsCount: 81
+  eventsCount: 0
+  authType: oauth2
+key: delete-email
+state: READY
+errors: []
+isDeactivated: false
+id: 6889069146438ad26621d7f8
+name: Delete Email
+type: delete-data-record
+config:
+  dataSource:
+    udm: emails
+    collectionKey: emails
+    defaultPath: /data/emails
+  fieldMapping: {}

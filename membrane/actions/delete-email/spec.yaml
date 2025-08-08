@@ -1,0 +1,12 @@
+revision: 1b3f8697-a7a6-45f3-a95b-f939b520d82a
+isCustomized: true
+key: delete-email
+state: READY
+errors: []
+isDeactivated: false
+id: 68887e21e84a885dbcaa0eb5
+name: Delete Email
+type: delete-data-record
+config:
+  dataSource:
+    udm: emails

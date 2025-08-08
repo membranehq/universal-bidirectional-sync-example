@@ -1,0 +1,49 @@
+revision: 56393819-fdc7-4117-bb9d-f63956ee77e7
+isCustomized: false
+parentId: 68835427e49c6d4c3c9d372b
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+integrationId: 68835417e49c6d4c3c9d3174
+integration:
+  key: attio
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835417e49c6d4c3c9d3174
+  name: Attio
+  uuid: 0640c7fa-d148-487d-8368-e4fc5e861a90
+  connectorId: 655caef6a9e1827bf4d915ca
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/1472e44e-fc24-41b5-8aaa-ce64eb7857b0
+  connectorVersion: 1.2.5
+  logoUri: >-
+    https://static.integration.app/connectors/attio-connector/logo-8f5adba3-1d05-4e42-a0f7-1db76c841e5f.png
+  dataCollectionsCount: 16
+  operationsCount: 98
+  eventsCount: 1
+  authType: oauth2
+key: get-users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835428e49c6d4c3c9d3812
+name: Get Users
+type: list-data-records
+inputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+config:
+  dataSource:
+    key: users
+  cursor:
+    $var: $.input.cursor
+  fieldMapping:
+    key: users
+    includeRawFields: true

@@ -1,0 +1,94 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3564
+name: Users
+customized: false
+revision: 27e8e7b6-b9ab-4c05-a38e-fd44940d796e
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3126
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3365
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  user_name:
+    $var: $.userName
+  first_name:
+    $var: $.firstName
+  last_name:
+    $var: $.lastName
+  full_name:
+    $var: $.fullName
+  date_entered:
+    $var: $.createdTime
+  date_modified:
+    $var: $.updatedTime
+  modified_user_id:
+    $var: $.updatedBy
+  created_by:
+    $var: $.createdBy
+  phone_work:
+    $var: $.primaryPhone
+  email1:
+    $var: $.primaryEmail
+importValue:
+  id:
+    $var: $.id
+  fullName:
+    $var: $.full_name
+  firstName:
+    $var: $.first_name
+  lastName:
+    $var: $.last_name
+  userName:
+    $var: $.user_name
+  primaryEmail:
+    $var: $.email1
+  emails:
+    $iterate:
+      locator: $.email
+      items:
+        value:
+          $var: $.email.$current.email_address
+  primaryPhone:
+    $var: $.phone_work
+  createdTime:
+    $var: $.date_entered
+  createdBy:
+    $var: $.created_by
+  updatedTime:
+    $var: $.date_modified
+  updatedBy:
+    $var: $.modified_user_id
+  phones:
+    - value:
+        $var: $.phone_work
+integration:
+  key: sugarcrm
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3126
+  name: SugarCRM
+  uuid: ce68db3a-979e-4034-809a-ab5458b3db61
+  connectorId: 6466785960f981f3ce69691a
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/6aaa8328-42a7-4de8-a87d-3ca0dd82dddc
+  connectorVersion: 1.1.2
+  logoUri: https://static.integration.app/connectors/sugarcrm/logo.png
+  dataCollectionsCount: 10
+  operationsCount: 0
+  eventsCount: 0
+  authType: client-credentials

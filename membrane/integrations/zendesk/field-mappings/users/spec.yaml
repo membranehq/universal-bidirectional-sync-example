@@ -1,0 +1,95 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3560
+name: Users
+customized: false
+revision: 5eae27d2-4422-4e6f-858d-34c9e31a2112
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3132
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3369
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  alias:
+    $var: $.userName
+  custom_role_id:
+    $var: $.roleId
+  email:
+    $var: $.primaryEmail
+  name:
+    $var: $.fullName
+  phone:
+    $var: $.primaryPhone
+  remote_photo_url:
+    $var: $.imageUrl
+importValue:
+  id:
+    $var: $.id
+  fullName:
+    $var: name
+  userName:
+    $var: alias
+  primaryEmail:
+    $var: email
+  primaryPhone:
+    $var: phone
+  companyId:
+    $var: organization_id
+  imageUrl:
+    $var: remote_photo_url
+  timezone:
+    $var: time_zone
+  roleId:
+    $var: custom_role_id
+  isActive:
+    $var: active
+  createdTime:
+    $var: created_at
+  createdBy:
+    $var: created_at
+  updatedTime:
+    $var: updated_at
+  updatedBy:
+    $var: updated_at
+  firstName:
+    $firstName:
+      $var: name
+  lastName:
+    $lastName:
+      $var: name
+  emails:
+    - value:
+        $var: email
+  phones:
+    - value:
+        $var: phone
+integration:
+  key: zendesk
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3132
+  name: Zendesk
+  uuid: 8f64787d-ee2e-4139-8080-45c8dab694c4
+  connectorId: 643e957fbadd839bce5208e3
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/f8ebfc16-bc0a-4559-88be-cef70aec08bc
+  connectorVersion: 1.5.0
+  logoUri: https://static.integration.app/connectors/zendesk/logo.png
+  dataCollectionsCount: 10
+  operationsCount: 393
+  eventsCount: 60
+  authType: oauth2

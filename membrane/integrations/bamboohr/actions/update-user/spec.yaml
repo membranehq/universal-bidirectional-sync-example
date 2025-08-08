@@ -1,0 +1,59 @@
+revision: 6ce06ffc-a869-411f-9f2a-2d2d6e51f47f
+isCustomized: false
+parentId: 6890519a5facd7ec99dbeba1
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+integrationId: 68835413e49c6d4c3c9d3141
+integration:
+  key: bamboohr
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3141
+  name: BambooHR
+  uuid: 24313c3a-1850-4d5d-8eda-9fe8e0691416
+  connectorId: 65265ce970089fac483f2ee8
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/87ba99d3-5940-43af-8118-c8d969b709e0
+  connectorVersion: 2.0.7
+  logoUri: https://static.integration.app/connectors/bamboohr/logohq.png
+  dataCollectionsCount: 9
+  operationsCount: 165
+  eventsCount: 0
+  authType: client-credentials
+key: update-user
+state: READY
+errors: []
+isDeactivated: false
+id: 68905282ff92d86914347bc6
+name: Update User
+type: update-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+    fields:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping:
+    defaultUnifiedValue:
+      $var: $.input
+    defaultValue:
+      id:
+        $var: $.input.id
+      firstName:
+        $var: $.input.firstName
+      lastName:
+        $var: $.input.lastName
+      email:
+        $var: $.input.primaryEmail

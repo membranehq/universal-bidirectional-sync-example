@@ -1,0 +1,39 @@
+revision: 790feb72-cb45-4900-8e19-6736ac8d2cd5
+isCustomized: false
+parentId: 68887e21e84a885dbcaa0eb5
+parentRevision: 1b3f8697-a7a6-45f3-a95b-f939b520d82a
+integrationId: 6884791695717cb906748572
+integration:
+  key: whatsapp
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 6884791695717cb906748572
+  name: Whatsapp
+  uuid: a497f3b8-56ee-4aa1-b702-8fd0ae416cd9
+  connectorId: 6466785c60f981f3ce69691e
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: true
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/4c7f0f9d-be53-4870-9b0f-718c919d79cf
+  connectorVersion: 1.0.3
+  logoUri: https://static.integration.app/connectors/whatsapp/logohq.png
+  dataCollectionsCount: 1
+  operationsCount: 55
+  eventsCount: 1
+  authType: client-credentials
+key: delete-email
+state: READY
+errors: []
+isDeactivated: false
+id: 6889069146438ad26621d805
+name: Delete Email
+type: delete-data-record
+config:
+  dataSource:
+    udm: emails
+  fieldMapping: {}

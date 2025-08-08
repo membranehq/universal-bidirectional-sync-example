@@ -1,0 +1,70 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3526
+name: Users
+customized: false
+revision: 707b8569-31e7-4141-9645-2331e502f16a
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3122
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d334d
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  email:
+    $var: $.primaryEmail
+  firstName:
+    $var: $.firstName
+  lastName:
+    $var: $.lastName
+importValue:
+  id:
+    $var: id
+  fullName:
+    $concat:
+      values:
+        - $var: $.firstName
+        - $var: $.lastName
+      delimiter: ' '
+  firstName:
+    $var: $.firstName
+  lastName:
+    $var: $.lastName
+  primaryEmail:
+    $var: $.email
+  createdTime:
+    $var: $.createdAt
+  updatedTime:
+    $var: $.updatedAt
+  emails:
+    - value:
+        $var: $.email
+integration:
+  key: hubspot
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3122
+  name: HubSpot
+  uuid: 7527f7ea-f8dd-49fa-b3ac-6cbe670cf27d
+  connectorId: 62471fad996d5c297ae43f5f
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: true
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/f6b94b97-3600-4e2e-9776-439aebf3b5e0
+  connectorVersion: 1.7.0
+  logoUri: https://static.integration.app/connectors/hubspot/logo.png
+  dataCollectionsCount: 32
+  operationsCount: 646
+  eventsCount: 37
+  authType: oauth2

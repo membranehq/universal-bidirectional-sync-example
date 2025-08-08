@@ -1,0 +1,60 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835426e49c6d4c3c9d361a
+name: Users
+customized: false
+revision: d828a206-0f79-4d06-9fbc-f73c5716d1f1
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3135
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d336d
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  name:
+    $var: $.fullName
+  email:
+    $var: $.primaryEmail
+importValue:
+  fullName:
+    $var: name
+  primaryEmail:
+    $var: email
+  firstName:
+    $firstName:
+      $var: name
+  lastName:
+    $lastName:
+      $var: name
+  emails:
+    - value:
+        $var: email
+integration:
+  key: copper
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3135
+  name: Copper
+  uuid: 06ea8926-109c-4a5b-b7aa-5b61d085d963
+  connectorId: 652701bc70089fac488f6230
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/6afa00ec-6e9e-4178-a993-f4abea4dead6
+  connectorVersion: 1.1.1
+  logoUri: https://static.integration.app/connectors/copper/logo.png
+  dataCollectionsCount: 16
+  operationsCount: 77
+  eventsCount: 0
+  authType: oauth2

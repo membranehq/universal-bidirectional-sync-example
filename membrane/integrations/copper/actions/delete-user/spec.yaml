@@ -1,0 +1,46 @@
+revision: ad3562eb-6512-469c-865d-5d853baa8698
+isCustomized: false
+parentId: 68887e4a655d7bb8d28c504c
+parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
+integrationId: 68835413e49c6d4c3c9d3135
+integration:
+  key: copper
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3135
+  name: Copper
+  uuid: 06ea8926-109c-4a5b-b7aa-5b61d085d963
+  connectorId: 652701bc70089fac488f6230
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/6afa00ec-6e9e-4178-a993-f4abea4dead6
+  connectorVersion: 1.1.1
+  logoUri: https://static.integration.app/connectors/copper/logo.png
+  dataCollectionsCount: 16
+  operationsCount: 77
+  eventsCount: 0
+  authType: oauth2
+key: delete-user
+state: READY
+errors: []
+isDeactivated: false
+id: 688905eaee7f0f245494d718
+name: Delete User
+type: delete-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping: {}

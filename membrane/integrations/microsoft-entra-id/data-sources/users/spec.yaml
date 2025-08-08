@@ -1,0 +1,46 @@
+key: users
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: integration
+        id: 68835413e49c6d4c3c9d314f
+isDeactivated: false
+id: 68835424e49c6d4c3c9d339b
+name: Users
+revision: ee715af7-7a53-464a-8294-b9b37cbaa9e7
+integrationId: 68835413e49c6d4c3c9d314f
+customized: false
+universalDataSourceId: 68835424e49c6d4c3c9d32ce
+universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
+collectionKey: users
+udm: users
+defaultPath: /data/users
+integration:
+  key: microsoft-entra-id
+  state: CONFIGURATION_ERROR
+  errors:
+    - message: Integration is missing required parameters
+      type: configuration
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d314f
+  name: Microsoft Entra ID
+  uuid: c4bc775c-f08f-4324-87f6-73f829bfbe09
+  connectorId: 65a59ef6af9ac1360fd6bb8b
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/cc8b610d-578c-4f59-a43f-c2a1a5f7d356
+  connectorVersion: 1.0.7
+  logoUri: >-
+    https://static.integration.app/connectors/logo-3ca53f03-d8f4-4efd-97ca-df54806ef761.png
+  dataCollectionsCount: 8
+  operationsCount: 1
+  eventsCount: 0
+  authType: oauth2

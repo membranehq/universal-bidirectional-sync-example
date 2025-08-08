@@ -1,0 +1,99 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d354c
+name: Users
+customized: false
+revision: 716c4f09-25ad-4c0e-8fd7-51e283339bfb
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d313f
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d337b
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  available:
+    $var: $.isActive
+  role_ids:
+    - $var: $.roleId
+  id:
+    $var: $.id
+  created_at:
+    $var: $.createdTime
+  updated_at:
+    $var: $.updatedTime
+  contact:
+    active:
+      $var: $.isActive
+    email:
+      $var: $.primaryEmail
+    language:
+      $var: $.timezone
+    mobile:
+      $var: $.primaryPhone
+    name:
+      $var: $.fullName
+    time_zone:
+      $var: $.timezone
+  email:
+    $var: $.primaryEmail
+  time_zone:
+    $var: $.timezone
+importValue:
+  id:
+    $var: id
+  primaryEmail:
+    $var: email
+  primaryPhone:
+    $var: contact.mobile
+  phones:
+    $var: contact.phone
+  timezone:
+    $var: time_zone
+  isActive:
+    $var: available
+  roleId:
+    $var: role_ids[0]
+  createdTime:
+    $var: created_at
+  updatedTime:
+    $var: updated_at
+  fullName:
+    $var: $.contact.name
+  firstName:
+    $firstName:
+      $var: $.contact.name
+  lastName:
+    $lastName:
+      $var: $.contact.name
+  emails:
+    - value:
+        $var: email
+integration:
+  key: freshdesk
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d313f
+  name: Freshdesk
+  uuid: 149c53e1-84d3-4dfc-909b-b144eb3d6245
+  connectorId: 64b114f5d2605720d2134075
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/994c78f8-50a9-4805-aa0f-1e90ec27e28c
+  connectorVersion: 1.0.1
+  logoUri: https://static.integration.app/connectors/freshdesk-connector/logo.png
+  dataCollectionsCount: 8
+  operationsCount: 39
+  eventsCount: 0
+  authType: client-credentials

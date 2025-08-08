@@ -1,0 +1,15 @@
+key: files
+state: READY
+errors: []
+isDeactivated: false
+id: 68834d75ef496baf09c0a99e
+name: Files
+customized: true
+revision: 886948ed-fa85-4d74-8146-6efa91a4a129
+dataSourceKey: files
+dataSourceId: 68834d75ef496baf09c0a94a
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $

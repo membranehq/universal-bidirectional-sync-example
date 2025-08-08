@@ -1,0 +1,22 @@
+key: zoho-books
+state: READY
+errors: []
+isDeactivated: false
+id: 68835413e49c6d4c3c9d3153
+name: Zoho Books
+uuid: ef2e79d8-6660-46f8-9614-17ab80c9887e
+connectorId: 6430516e986ed1caad7bf9f9
+hasMissingParameters: false
+hasDocumentation: false
+hasOperations: false
+hasData: true
+hasEvents: false
+hasGlobalWebhooks: false
+hasUdm: true
+baseUri: s3://integration-app-connectors/public/ddc58dc9-d550-4606-9e88-618ffab5a380
+connectorVersion: 1.0.6
+logoUri: https://static.integration.app/connectors/zoho-books-connector/logo.png
+dataCollectionsCount: 21
+operationsCount: 0
+eventsCount: 0
+authType: oauth2

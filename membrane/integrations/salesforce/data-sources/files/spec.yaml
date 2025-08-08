@@ -1,0 +1,37 @@
+key: files
+state: READY
+errors: []
+isDeactivated: false
+id: 68834d75ef496baf09c0a978
+name: Files
+revision: 32a2d78d-1c7c-445f-a931-2eb20ff3a748
+integrationId: 68834d71ef496baf09c0a8fa
+customized: false
+universalDataSourceId: 68834d75ef496baf09c0a94a
+universalDataSourceRevision: 5ccf733d-4403-46a0-9e2a-9df0742e63f7
+collectionKey: content-documents
+udm: files
+defaultPath: /data/content-documents
+integration:
+  key: salesforce
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68834d71ef496baf09c0a8fa
+  name: Salesforce
+  uuid: b1530921-5651-4b04-a059-5893a76384d4
+  connectorId: 62471fad996d5c297ae43f5e
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/8ac63569-b944-4d46-a041-e2fb80b82ac2
+  connectorVersion: 1.6.6
+  logoUri: https://static.integration.app/connectors/salesforce-connector/logo.png
+  dataCollectionsCount: 30
+  operationsCount: 303
+  eventsCount: 0
+  authType: oauth2

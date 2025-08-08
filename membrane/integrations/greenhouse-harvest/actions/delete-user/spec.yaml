@@ -1,0 +1,47 @@
+revision: 6e8080de-d21c-4600-9666-1f4e393ecbea
+isCustomized: false
+parentId: 68887e4a655d7bb8d28c504c
+parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
+integrationId: 68835413e49c6d4c3c9d3151
+integration:
+  key: greenhouse-harvest
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3151
+  name: Greenhouse Harvest
+  uuid: 3ede0864-2b68-4c1d-9073-9f36268e9386
+  connectorId: 65c3755eda65a37b19898497
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/c82fb5f1-310e-442d-8d69-a47b7d7da888
+  connectorVersion: 1.0.2
+  logoUri: >-
+    https://static.integration.app/connectors/greenhouse-harvest/logo-39d42c52-496c-48b3-89ec-cb588f6ec0f2.png
+  dataCollectionsCount: 15
+  operationsCount: 129
+  eventsCount: 0
+  authType: client-credentials
+key: delete-user
+state: READY
+errors: []
+isDeactivated: false
+id: 688905eaee7f0f245494d70d
+name: Delete User
+type: delete-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping: {}

@@ -1,0 +1,108 @@
+key: files
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: integration
+        id: 68834d71ef496baf09c0a8ff
+  - message: Data Source Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: data-source
+        id: 68834d75ef496baf09c0a96a
+isDeactivated: false
+id: 68834d75ef496baf09c0a9c1
+name: Files
+customized: false
+revision: f1beec2b-b210-4640-9c16-da90ab8a8454
+universalFieldMappingId: 68834d75ef496baf09c0a99e
+universalFieldMappingRevision: 886948ed-fa85-4d74-8146-6efa91a4a129
+integrationId: 68834d71ef496baf09c0a8ff
+dataSourceKey: files
+dataSourceId: 68834d75ef496baf09c0a96a
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  id:
+    $var: $.id
+  type: file
+  folder_id:
+    $var: $.folderId
+  created_at:
+    $var: $.createdTime
+  created_by:
+    id:
+      $var: $.createdBy
+  description:
+    $var: $.description
+  modified_at:
+    $var: $.updatedTime
+  modified_by:
+    id:
+      $var: $.updatedBy
+  name:
+    $var: $.name
+  owned_by:
+    id:
+      $var: $.ownerId
+  parent:
+    id:
+      $var: $.folderId
+  size:
+    $var: $.size
+importValue:
+  id:
+    $var: id
+  name:
+    $var: name
+  description:
+    $var: description
+  size:
+    $var: size
+  folderId:
+    $var: $.parent.id
+  ownerId:
+    $var: owned_by.id
+  downloadUri:
+    $var: shared_link.download_url
+  uri:
+    $var: $.shared_link.url
+  createdTime:
+    $var: $.created_at
+  createdBy:
+    $var: $.created_by.id
+  updatedTime:
+    $var: $.modified_at
+  updatedBy:
+    $var: $.modified_by.id
+integration:
+  key: box
+  state: CONFIGURATION_ERROR
+  errors:
+    - message: Integration is missing required parameters
+      type: configuration
+  isDeactivated: false
+  id: 68834d71ef496baf09c0a8ff
+  name: Box
+  uuid: aa6c7494-3fb4-44c9-8668-b1075ed2c2a8
+  connectorId: 6466783c60f981f3ce6968ef
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: true
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/ccc997a3-9504-439c-930d-054a03172fc2
+  connectorVersion: 2.2.2
+  logoUri: https://static.integration.app/connectors/box/logo.png
+  dataCollectionsCount: 6
+  operationsCount: 264
+  eventsCount: 1
+  authType: oauth2

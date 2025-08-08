@@ -1,0 +1,43 @@
+revision: a22442b9-3b72-40b5-ad9f-2cd91f9372c6
+isCustomized: false
+parentId: 68887db5f9df280360f1e0c9
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+integrationId: 68835413e49c6d4c3c9d3130
+integration:
+  key: insightly
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3130
+  name: Insightly
+  uuid: 0abd81be-91bf-4319-ad35-d0e78ebd9935
+  connectorId: 643eedf1badd839bce6a3f71
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/6c9df904-5921-423e-b3e0-64b7729a4889
+  connectorVersion: 1.0.1
+  logoUri: https://static.integration.app/connectors/insightly/logo.png
+  dataCollectionsCount: 11
+  operationsCount: 534
+  eventsCount: 0
+  authType: client-credentials
+key: create-user
+state: READY
+errors: []
+isDeactivated: false
+id: 688cc9898fa10d3345b1184f
+name: Create User
+type: create-data-record
+inputSchema:
+  type: object
+  properties:
+    fields:
+      type: string
+config:
+  fieldMapping: {}
+  dataSource: {}

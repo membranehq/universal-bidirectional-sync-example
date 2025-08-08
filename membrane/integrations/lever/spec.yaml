@@ -1,0 +1,24 @@
+key: lever
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration is missing required parameters
+    type: configuration
+isDeactivated: false
+id: 68835413e49c6d4c3c9d314d
+name: Lever
+uuid: 15653d4b-08f3-4a71-b74a-43eb00919fe8
+connectorId: 6466784c60f981f3ce696903
+hasMissingParameters: true
+hasDocumentation: false
+hasOperations: true
+hasData: true
+hasEvents: false
+hasGlobalWebhooks: false
+hasUdm: true
+baseUri: s3://integration-app-connectors/public/2e111cbc-2e3c-424d-94bc-1204bcdb57f0
+connectorVersion: 1.0.2
+logoUri: https://static.integration.app/connectors/lever/logohq.png
+dataCollectionsCount: 12
+operationsCount: 68
+eventsCount: 0
+authType: oauth2

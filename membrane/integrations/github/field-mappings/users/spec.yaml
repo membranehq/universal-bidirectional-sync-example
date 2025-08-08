@@ -1,0 +1,82 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d353e
+name: Users
+customized: false
+revision: ef051e99-32d2-4dda-b957-345f0797b8ae
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835417e49c6d4c3c9d316a
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d338d
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  login:
+    $var: $.id
+  avatar_url:
+    $var: $.imageUrl
+  name:
+    $var: $.fullName
+  company:
+    $var: $.companyName
+  email:
+    $var: $.primaryEmail
+  created_at:
+    $var: $.createdTime
+  updated_at:
+    $var: $.updatedTime
+importValue:
+  id:
+    $var: $.login
+  fullName:
+    $var: $.name
+  userName:
+    $var: login
+  primaryEmail:
+    $var: email
+  companyName:
+    $var: company
+  imageUrl:
+    $var: avatar_url
+  createdTime:
+    $var: created_at
+  updatedTime:
+    $var: updated_at
+  firstName:
+    $firstName:
+      $var: $.name
+  lastName:
+    $lastName:
+      $var: $.name
+  emails:
+    - value:
+        $var: email
+integration:
+  key: github
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835417e49c6d4c3c9d316a
+  name: Github
+  uuid: fad0232c-08bc-4ce6-806d-5d4a1a47f8e6
+  connectorId: 6446a060badd839bce1ac1ac
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/9aed1fdf-cf97-48f8-8360-1697b2daa959
+  connectorVersion: 1.1.4
+  logoUri: https://static.integration.app/connectors/github/logo.png
+  dataCollectionsCount: 8
+  operationsCount: 889
+  eventsCount: 0
+  authType: oauth2

@@ -1,0 +1,49 @@
+revision: e1fb97d2-07f3-415e-9742-2c1df24294a0
+isCustomized: false
+parentId: 68834d75ef496baf09c0aa0c
+parentRevision: e6a5b538-0d16-4c2b-a86f-e461a3b46079
+integrationId: 68834d71ef496baf09c0a90d
+integration:
+  key: aws-s3
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68834d71ef496baf09c0a90d
+  name: AWS S3
+  uuid: ca705236-f053-4269-8999-fa70272a5e64
+  connectorId: 663130fe0420db525b9bd67a
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/7f4c09df-a607-4ecc-a52c-65f74b4c9715
+  connectorVersion: 1.0.4
+  logoUri: >-
+    https://static.integration.app/connectors/aws-s3/asset-b007866c-ff18-41b9-8c5f-e83fdcd46be9.png
+  dataCollectionsCount: 2
+  operationsCount: 0
+  eventsCount: 0
+  authType: client-credentials
+key: get-files
+state: READY
+errors: []
+isDeactivated: false
+id: 68834d75ef496baf09c0aa46
+name: Get Files
+type: list-data-records
+inputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+config:
+  dataSource:
+    key: files
+  cursor:
+    $var: $.input.cursor
+  fieldMapping:
+    key: files
+    includeRawFields: true

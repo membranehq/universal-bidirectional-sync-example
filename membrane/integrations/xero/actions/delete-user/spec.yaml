@@ -1,0 +1,46 @@
+revision: 2df193a3-00a5-44ad-b1c9-786e2d3b3b1e
+isCustomized: false
+parentId: 68887e4a655d7bb8d28c504c
+parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
+integrationId: 68835413e49c6d4c3c9d312a
+integration:
+  key: xero
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d312a
+  name: Xero
+  uuid: f1eeaaa6-502c-4933-829e-61631c008058
+  connectorId: 642c613b986ed1caad98172b
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: true
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/f1146f2e-8be6-437a-bde8-1fe7abda8adb
+  connectorVersion: 1.1.5
+  logoUri: https://static.integration.app/connectors/xero-connector/logo.png
+  dataCollectionsCount: 17
+  operationsCount: 234
+  eventsCount: 1
+  authType: oauth2
+key: delete-user
+state: READY
+errors: []
+isDeactivated: false
+id: 688905eaee7f0f245494d74c
+name: Delete User
+type: delete-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping: {}

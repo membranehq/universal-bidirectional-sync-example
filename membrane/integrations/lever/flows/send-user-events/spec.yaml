@@ -1,0 +1,125 @@
+key: send-user-events
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: integration
+        id: 68835413e49c6d4c3c9d314d
+  - message: Data Source Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: data-source
+        id: 68835424e49c6d4c3c9d3397
+  - message: Field Mapping Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: field-mapping
+        id: 68835425e49c6d4c3c9d3558
+isDeactivated: false
+id: 6883542de49c6d4c3c9d4069
+name: Send User Events
+revision: 4a318a50-7673-4658-9e2e-eda5678ca661
+universalFlowId: 68835428e49c6d4c3c9d397c
+integrationId: 68835413e49c6d4c3c9d314d
+integration:
+  key: lever
+  state: CONFIGURATION_ERROR
+  errors:
+    - message: Integration is missing required parameters
+      type: configuration
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d314d
+  name: Lever
+  uuid: 15653d4b-08f3-4a71-b74a-43eb00919fe8
+  connectorId: 6466784c60f981f3ce696903
+  hasMissingParameters: true
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/2e111cbc-2e3c-424d-94bc-1204bcdb57f0
+  connectorVersion: 1.0.2
+  logoUri: https://static.integration.app/connectors/lever/logohq.png
+  dataCollectionsCount: 12
+  operationsCount: 68
+  eventsCount: 0
+  authType: oauth2
+universalFlowRevision: 7cd726db-f478-4538-b231-ed195e1ff008
+nodes:
+  app-event-trigger:
+    type: app-event-trigger
+    name: User Event Trigger
+    config:
+      appEvent:
+        key: user-event
+    links:
+      - key: create-data-record
+        name: User created
+        filter:
+          $eval:
+            $var: $.output.type
+          is: created
+      - key: delete-data-record
+        name: User deleted
+        filter:
+          $eval:
+            $var: $.output.type
+          is: deleted
+      - key: update-data-record
+        name: User updated
+        filter:
+          $eval:
+            $var: $.output.type
+          is: updated
+  create-data-record:
+    type: create-data-record
+    name: Create User
+    config:
+      dataSource:
+        key: users
+      fieldMapping:
+        key: users
+        input:
+          $var: $.input.app-event-trigger.data
+    links:
+      - key: save-external-user-id
+  delete-data-record:
+    type: delete-data-record
+    name: Delete User
+    config:
+      dataSource:
+        key: users
+      id:
+        $var: $.input.app-event-trigger.externalUserId
+      fieldMapping: {}
+    links: []
+  update-data-record:
+    type: update-data-record
+    name: Update User
+    config:
+      dataSource:
+        key: users
+      id:
+        $var: $.input.app-event-trigger.externalUserId
+      fieldMapping:
+        key: users
+        input:
+          $var: $.input.app-event-trigger.data
+    links: []
+  save-external-user-id:
+    type: api-request-to-your-app
+    name: Save External User Id
+    config:
+      request:
+        body:
+          externalUserId:
+            $var: $.input.create-data-record.id
+    links: []
+autoCreateInstances: false
+customized: false

@@ -1,0 +1,44 @@
+revision: 488059de-bf1b-442e-9c22-62a7f2573a31
+isCustomized: false
+parentId: 68887db5f9df280360f1e0c9
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+integrationId: 68835413e49c6d4c3c9d3149
+integration:
+  key: okta
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3149
+  name: Okta
+  uuid: cfea79e9-15ba-45ca-a6cd-7b0d01800f98
+  connectorId: 65a59ef7af9ac1360fd6bbd2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/65827a85-48cf-4ccc-8e40-d26d926cdb3a
+  connectorVersion: 1.0.2
+  logoUri: >-
+    https://static.integration.app/connectors/logo-0b09cb02-5978-4c94-b3e4-b92964a36bcb.png
+  dataCollectionsCount: 4
+  operationsCount: 340
+  eventsCount: 0
+  authType: client-credentials
+key: create-user
+state: READY
+errors: []
+isDeactivated: false
+id: 688cc9898fa10d3345b1185f
+name: Create User
+type: create-data-record
+inputSchema:
+  type: object
+  properties:
+    fields:
+      type: string
+config:
+  fieldMapping: {}
+  dataSource: {}

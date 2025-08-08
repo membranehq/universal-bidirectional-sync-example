@@ -1,0 +1,106 @@
+key: send-file-events
+state: READY
+errors: []
+isDeactivated: false
+id: 68834d76ef496baf09c0aba0
+name: Send File Events
+revision: 2e37222b-f114-48d3-b4c5-60d43725916f
+universalFlowId: 68834d75ef496baf09c0aa67
+integrationId: 68834d71ef496baf09c0a90b
+integration:
+  key: microsoft-sharepoint
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68834d71ef496baf09c0a90b
+  name: Microsoft Sharepoint
+  uuid: a136b41a-0fd4-4b43-a4b0-353ba9f25fb1
+  connectorId: 6466784d60f981f3ce696906
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/2b8ac8d1-af69-4d4b-98c3-d08dfb046f44
+  connectorVersion: 2.5.1
+  logoUri: >-
+    https://static.integration.app/connectors/microsoft-sharepoint/logo-0e34b7f3-b86a-43d8-9cb3-4d9dcf189876.png
+  dataCollectionsCount: 9
+  operationsCount: 2
+  eventsCount: 0
+  authType: oauth2
+universalFlowRevision: eb0ea9f9-08c3-485a-95f4-0b94cf74d318
+nodes:
+  app-event-trigger:
+    type: app-event-trigger
+    name: File Event Trigger
+    config:
+      appEvent:
+        key: file-event
+    links:
+      - key: create-data-record
+        name: File created
+        filter:
+          $eval:
+            $var: $.output.type
+          is: created
+      - key: delete-data-record
+        name: File deleted
+        filter:
+          $eval:
+            $var: $.output.type
+          is: deleted
+      - key: update-data-record
+        name: File updated
+        filter:
+          $eval:
+            $var: $.output.type
+          is: updated
+  create-data-record:
+    type: create-data-record
+    name: Create File
+    config:
+      dataSource:
+        key: files
+      fieldMapping:
+        key: files
+        input:
+          $var: $.input.app-event-trigger.data
+    links:
+      - key: save-external-file-id
+  delete-data-record:
+    type: delete-data-record
+    name: Delete File
+    config:
+      dataSource:
+        key: files
+      id:
+        $var: $.input.app-event-trigger.externalFileId
+      fieldMapping: {}
+    links: []
+  update-data-record:
+    type: update-data-record
+    name: Update File
+    config:
+      dataSource:
+        key: files
+      id:
+        $var: $.input.app-event-trigger.externalFileId
+      fieldMapping:
+        key: files
+        input:
+          $var: $.input.app-event-trigger.data
+    links: []
+  save-external-file-id:
+    type: api-request-to-your-app
+    name: Save External File Id
+    config:
+      request:
+        body:
+          externalFileId:
+            $var: $.input.create-data-record.id
+    links: []
+autoCreateInstances: false
+customized: false

@@ -1,0 +1,71 @@
+revision: a58d9f03-f678-4d62-b013-15f5c0e56c19
+isCustomized: false
+parentId: 6890519a5facd7ec99dbeba1
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+integrationId: 68835413e49c6d4c3c9d310e
+integration:
+  key: pipedrive
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d310e
+  name: Pipedrive
+  uuid: 228fef08-f87e-4be0-a8f0-cd568b6a74c0
+  connectorId: 644fe4efee0ebe0ca6e9746b
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/dd2804f8-a420-4e56-be50-d5e157c2ec49
+  connectorVersion: 2.1.0
+  logoUri: https://static.integration.app/connectors/pipedrive-oauth/logo.png
+  dataCollectionsCount: 27
+  operationsCount: 240
+  eventsCount: 0
+  authType: oauth2
+key: update-user
+state: READY
+errors: []
+isDeactivated: false
+id: 68905282ff92d86914347bf7
+name: Update User
+type: update-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+    fields:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping:
+    defaultUnifiedValue:
+      $var: $.input
+    defaultValue:
+      name:
+        $var: $.input.fullName
+      email:
+        $var: $.input.primaryEmail
+      phone:
+        $var: $.input.primaryPhone
+      timezone_name:
+        $var: $.input.timezone
+      active_flag:
+        $var: $.input.isActive
+      role_id:
+        $var: $.input.roleId
+      created:
+        $var: $.input.createdTime
+      modified:
+        $var: $.input.updatedTime
+      icon_url:
+        $var: $.input.imageUrl
+      id:
+        $var: $.input.id

@@ -1,0 +1,50 @@
+revision: f24041b1-8d3b-43dc-93ee-b9f03631d4eb
+isCustomized: false
+parentId: 6890519a5facd7ec99dbeba1
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+integrationId: 68835413e49c6d4c3c9d3130
+integration:
+  key: insightly
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3130
+  name: Insightly
+  uuid: 0abd81be-91bf-4319-ad35-d0e78ebd9935
+  connectorId: 643eedf1badd839bce6a3f71
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/6c9df904-5921-423e-b3e0-64b7729a4889
+  connectorVersion: 1.0.1
+  logoUri: https://static.integration.app/connectors/insightly/logo.png
+  dataCollectionsCount: 11
+  operationsCount: 534
+  eventsCount: 0
+  authType: client-credentials
+key: update-user
+state: READY
+errors: []
+isDeactivated: false
+id: 68905282ff92d86914347bca
+name: Update User
+type: update-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+    fields:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping:
+    defaultUnifiedValue:
+      $var: $.input

@@ -1,0 +1,19 @@
+revision: 29e55b68-c7a2-40fc-826c-40f1e75e7208
+isCustomized: true
+key: delete-file
+state: READY
+errors: []
+isDeactivated: false
+id: 68887e3ef957e0c6e8dd9c47
+name: Delete File
+type: delete-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+config:
+  dataSource:
+    key: files
+  id:
+    $var: $.input.id

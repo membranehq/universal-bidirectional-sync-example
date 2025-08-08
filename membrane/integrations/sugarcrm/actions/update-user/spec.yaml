@@ -1,0 +1,73 @@
+revision: b8a5839b-cfbc-4de1-8320-a656462e20f3
+isCustomized: false
+parentId: 6890519a5facd7ec99dbeba1
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+integrationId: 68835413e49c6d4c3c9d3126
+integration:
+  key: sugarcrm
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3126
+  name: SugarCRM
+  uuid: ce68db3a-979e-4034-809a-ab5458b3db61
+  connectorId: 6466785960f981f3ce69691a
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/6aaa8328-42a7-4de8-a87d-3ca0dd82dddc
+  connectorVersion: 1.1.2
+  logoUri: https://static.integration.app/connectors/sugarcrm/logo.png
+  dataCollectionsCount: 10
+  operationsCount: 0
+  eventsCount: 0
+  authType: client-credentials
+key: update-user
+state: READY
+errors: []
+isDeactivated: false
+id: 68905282ff92d86914347be6
+name: Update User
+type: update-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+    fields:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping:
+    defaultUnifiedValue:
+      $var: $.input
+    defaultValue:
+      first_name:
+        $var: $.input.firstName
+      last_name:
+        $var: $.input.lastName
+      full_name:
+        $var: $.input.fullName
+      user_name:
+        $var: $.input.userName
+      date_entered:
+        $var: $.input.createdTime
+      date_modified:
+        $var: $.input.updatedTime
+      modified_user_id:
+        $var: $.input.updatedBy
+      created_by:
+        $var: $.input.createdBy
+      phone_work:
+        $var: $.input.primaryPhone
+      email1:
+        $var: $.input.primaryEmail
+      id:
+        $var: $.input.id

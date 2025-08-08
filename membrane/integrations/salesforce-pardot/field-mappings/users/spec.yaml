@@ -1,0 +1,86 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3570
+name: Users
+customized: false
+revision: 11ef4c1e-af19-4195-87bd-0081dcd0b11b
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3115
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3383
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  email:
+    $var: $.primaryEmail
+  firstName:
+    $var: $.firstName
+  lastName:
+    $var: $.lastName
+  username:
+    $var: $.userName
+  createdAt:
+    $var: $.createdTime
+  updatedAt:
+    $var: $.updatedTime
+  createdById:
+    $var: $.createdBy
+  updatedById:
+    $var: $.updatedBy
+importValue:
+  id:
+    $var: $.id
+  userName:
+    $var: $.username
+  firstName:
+    $var: $.firstName
+  lastName:
+    $var: $.lastName
+  primaryEmail:
+    $var: $.email
+  createdTime:
+    $var: $.createdAt
+  updatedTime:
+    $var: $.updatedAt
+  createdBy:
+    $var: $.createdById
+  updatedBy:
+    $var: $.updatedById
+  fullName:
+    $concat:
+      values:
+        - $var: $.firstName
+        - $var: $.lastName
+      delimiter: ' '
+  emails:
+    - value:
+        $var: $.email
+integration:
+  key: salesforce-pardot
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3115
+  name: SalesForce Pardot
+  uuid: 541d9ad0-89ae-4bbb-b4bc-67c802e2e1a3
+  connectorId: 63a3723bad7bd4eb80db61e0
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/138a57cc-bb7e-466a-8aa6-370053d1327b
+  connectorVersion: 1.0.5
+  logoUri: https://static.integration.app/connectors/salesforce-pardot/logo.png
+  dataCollectionsCount: 12
+  operationsCount: 84
+  eventsCount: 0
+  authType: oauth2

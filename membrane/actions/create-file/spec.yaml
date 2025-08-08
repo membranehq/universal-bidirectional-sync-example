@@ -1,0 +1,16 @@
+revision: 594f206d-8bae-412b-a5f0-35b631562f81
+isCustomized: true
+key: create-file
+state: READY
+errors: []
+isDeactivated: false
+id: 688cc9e4ed172ffb20d0f39b
+name: Create File
+type: create-data-record
+config:
+  dataSource:
+    key: files
+  fieldMapping:
+    key: files
+    input:
+      $var: $.input

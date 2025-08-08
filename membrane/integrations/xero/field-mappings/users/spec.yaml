@@ -1,0 +1,74 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d353a
+name: Users
+customized: false
+revision: 96bdea97-fb1b-49da-b455-6ce02dab85fe
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d312a
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d335d
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  UserID:
+    $var: $.id
+  EmailAddress:
+    $var: $.primaryEmail
+  FirstName:
+    $var: $.firstName
+  LastName:
+    $var: $.lastName
+  OrganisationRole:
+    $var: $.roleId
+importValue:
+  id:
+    $var: UserID
+  fullName:
+    $concat:
+      delimiter: ' '
+      values:
+        - $var: $.FirstName
+        - $var: $.LastName
+  firstName:
+    $var: FirstName
+  lastName:
+    $var: LastName
+  primaryEmail:
+    $var: EmailAddress
+  updatedTime:
+    $var: UpdatedDateUTC
+  roleId:
+    $var: $.OrganisationRole
+  emails:
+    - value:
+        $var: EmailAddress
+integration:
+  key: xero
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d312a
+  name: Xero
+  uuid: f1eeaaa6-502c-4933-829e-61631c008058
+  connectorId: 642c613b986ed1caad98172b
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: true
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/f1146f2e-8be6-437a-bde8-1fe7abda8adb
+  connectorVersion: 1.1.5
+  logoUri: https://static.integration.app/connectors/xero-connector/logo.png
+  dataCollectionsCount: 17
+  operationsCount: 234
+  eventsCount: 1
+  authType: oauth2

@@ -1,0 +1,37 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835424e49c6d4c3c9d337f
+name: Users
+revision: 529bab92-551c-47c9-bc53-46337cdc3664
+integrationId: 68835413e49c6d4c3c9d3143
+customized: false
+universalDataSourceId: 68835424e49c6d4c3c9d32ce
+universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
+collectionKey: users
+udm: users
+defaultPath: /data/users
+integration:
+  key: breezy
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3143
+  name: Breezy HR
+  uuid: 03911cee-b343-4a49-a022-6b3e62ed2d3b
+  connectorId: 643e81f7badd839bce463919
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/d02b3b4f-9cc2-4298-be21-7b4959c51918
+  connectorVersion: 1.0.2
+  logoUri: https://static.integration.app/connectors/breezy/logo.png
+  dataCollectionsCount: 5
+  operationsCount: 0
+  eventsCount: 0
+  authType: client-credentials

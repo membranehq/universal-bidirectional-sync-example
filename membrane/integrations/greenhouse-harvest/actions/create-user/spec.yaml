@@ -1,0 +1,44 @@
+revision: e5fcd39a-5ea5-4cd2-9e36-79ccdd15d113
+isCustomized: false
+parentId: 68887db5f9df280360f1e0c9
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+integrationId: 68835413e49c6d4c3c9d3151
+integration:
+  key: greenhouse-harvest
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3151
+  name: Greenhouse Harvest
+  uuid: 3ede0864-2b68-4c1d-9073-9f36268e9386
+  connectorId: 65c3755eda65a37b19898497
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/c82fb5f1-310e-442d-8d69-a47b7d7da888
+  connectorVersion: 1.0.2
+  logoUri: >-
+    https://static.integration.app/connectors/greenhouse-harvest/logo-39d42c52-496c-48b3-89ec-cb588f6ec0f2.png
+  dataCollectionsCount: 15
+  operationsCount: 129
+  eventsCount: 0
+  authType: client-credentials
+key: create-user
+state: READY
+errors: []
+isDeactivated: false
+id: 688cc9898fa10d3345b11930
+name: Create User
+type: create-data-record
+inputSchema:
+  type: object
+  properties:
+    fields:
+      type: string
+config:
+  fieldMapping: {}
+  dataSource: {}

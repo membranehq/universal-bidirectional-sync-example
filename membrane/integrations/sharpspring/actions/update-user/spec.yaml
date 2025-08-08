@@ -1,0 +1,68 @@
+revision: d964d978-b44d-42b7-a06b-373c0ad6afe6
+isCustomized: false
+parentId: 6890519a5facd7ec99dbeba1
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+integrationId: 68835413e49c6d4c3c9d3145
+integration:
+  key: sharpspring
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3145
+  name: SharpSpring
+  uuid: 1e97c637-99ed-4f3d-ae65-f26564cdf8ff
+  connectorId: 640a32a474be562abded2875
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/5c085a81-880a-4b07-8441-95662371ec72
+  connectorVersion: 1.0.4
+  logoUri: >-
+    https://static.integration.app/connectors/sharpspring/logo-7d08538a-0c9f-4916-ab99-d214433c1307.png
+  dataCollectionsCount: 10
+  operationsCount: 1
+  eventsCount: 0
+  authType: client-credentials
+key: update-user
+state: READY
+errors: []
+isDeactivated: false
+id: 68905282ff92d86914347bfb
+name: Update User
+type: update-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+    fields:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping:
+    defaultUnifiedValue:
+      $var: $.input
+    defaultValue:
+      displayName:
+        $var: $.input.fullName
+      firstName:
+        $var: $.input.firstName
+      lastName:
+        $var: $.input.lastName
+      emailAddress:
+        $var: $.input.primaryEmail
+      phone:
+        $var: $.input.primaryPhone
+      isActive:
+        $var: $.input.isActive
+      userTimezone:
+        $var: $.input.timezone
+      id:
+        $var: $.input.id

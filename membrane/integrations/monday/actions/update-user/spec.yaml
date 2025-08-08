@@ -1,0 +1,68 @@
+revision: f52a2d28-2d63-43ba-aee0-365d1c83fb43
+isCustomized: false
+parentId: 6890519a5facd7ec99dbeba1
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+integrationId: 68835413e49c6d4c3c9d312c
+integration:
+  key: monday
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d312c
+  name: Monday
+  uuid: 27e098c9-e87d-4762-85aa-2773af509183
+  connectorId: 62471fe7996d5c297ae43f6d
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/fb036c67-7433-4a47-9558-1e17fe555e5a
+  connectorVersion: 1.1.1
+  logoUri: https://static.integration.app/connectors/monday/logo.png
+  dataCollectionsCount: 5
+  operationsCount: 0
+  eventsCount: 0
+  authType: oauth2
+key: update-user
+state: READY
+errors: []
+isDeactivated: false
+id: 68905282ff92d86914347bd6
+name: Update User
+type: update-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+    fields:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping:
+    defaultUnifiedValue:
+      $var: $.input
+    defaultValue:
+      account:
+        id:
+          $var: $.input.companyId
+        name:
+          $var: $.input.companyName
+      email:
+        $var: $.input.primaryEmail
+      name:
+        $var: $.input.fullName
+      phone:
+        $var: $.input.primaryPhone
+      enabled:
+        $var: $.input.isActive
+      time_zone_identifier:
+        $var: $.input.timezone
+      id:
+        $var: $.input.id

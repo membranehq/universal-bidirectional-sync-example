@@ -1,0 +1,105 @@
+key: send-user-events
+state: READY
+errors: []
+isDeactivated: false
+id: 6883542de49c6d4c3c9d405b
+name: Send User Events
+revision: 4e4b1200-896a-47ed-a930-f788f25ff562
+universalFlowId: 68835428e49c6d4c3c9d397c
+integrationId: 68835413e49c6d4c3c9d3153
+integration:
+  key: zoho-books
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3153
+  name: Zoho Books
+  uuid: ef2e79d8-6660-46f8-9614-17ab80c9887e
+  connectorId: 6430516e986ed1caad7bf9f9
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/ddc58dc9-d550-4606-9e88-618ffab5a380
+  connectorVersion: 1.0.6
+  logoUri: https://static.integration.app/connectors/zoho-books-connector/logo.png
+  dataCollectionsCount: 21
+  operationsCount: 0
+  eventsCount: 0
+  authType: oauth2
+universalFlowRevision: 7cd726db-f478-4538-b231-ed195e1ff008
+nodes:
+  app-event-trigger:
+    type: app-event-trigger
+    name: User Event Trigger
+    config:
+      appEvent:
+        key: user-event
+    links:
+      - key: create-data-record
+        name: User created
+        filter:
+          $eval:
+            $var: $.output.type
+          is: created
+      - key: delete-data-record
+        name: User deleted
+        filter:
+          $eval:
+            $var: $.output.type
+          is: deleted
+      - key: update-data-record
+        name: User updated
+        filter:
+          $eval:
+            $var: $.output.type
+          is: updated
+  create-data-record:
+    type: create-data-record
+    name: Create User
+    config:
+      dataSource:
+        key: users
+      fieldMapping:
+        key: users
+        input:
+          $var: $.input.app-event-trigger.data
+    links:
+      - key: save-external-user-id
+  delete-data-record:
+    type: delete-data-record
+    name: Delete User
+    config:
+      dataSource:
+        key: users
+      id:
+        $var: $.input.app-event-trigger.externalUserId
+      fieldMapping: {}
+    links: []
+  update-data-record:
+    type: update-data-record
+    name: Update User
+    config:
+      dataSource:
+        key: users
+      id:
+        $var: $.input.app-event-trigger.externalUserId
+      fieldMapping:
+        key: users
+        input:
+          $var: $.input.app-event-trigger.data
+    links: []
+  save-external-user-id:
+    type: api-request-to-your-app
+    name: Save External User Id
+    config:
+      request:
+        body:
+          externalUserId:
+            $var: $.input.create-data-record.id
+    links: []
+autoCreateInstances: false
+customized: false

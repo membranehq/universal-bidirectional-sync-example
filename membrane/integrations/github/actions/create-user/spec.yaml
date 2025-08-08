@@ -1,0 +1,43 @@
+revision: 6f37d7bf-669f-42a4-a74b-d33a9a0a36b7
+isCustomized: false
+parentId: 68887db5f9df280360f1e0c9
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+integrationId: 68835417e49c6d4c3c9d316a
+integration:
+  key: github
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835417e49c6d4c3c9d316a
+  name: Github
+  uuid: fad0232c-08bc-4ce6-806d-5d4a1a47f8e6
+  connectorId: 6446a060badd839bce1ac1ac
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/9aed1fdf-cf97-48f8-8360-1697b2daa959
+  connectorVersion: 1.1.4
+  logoUri: https://static.integration.app/connectors/github/logo.png
+  dataCollectionsCount: 8
+  operationsCount: 889
+  eventsCount: 0
+  authType: oauth2
+key: create-user
+state: READY
+errors: []
+isDeactivated: false
+id: 688cc9898fa10d3345b11843
+name: Create User
+type: create-data-record
+inputSchema:
+  type: object
+  properties:
+    fields:
+      type: string
+config:
+  fieldMapping: {}
+  dataSource: {}

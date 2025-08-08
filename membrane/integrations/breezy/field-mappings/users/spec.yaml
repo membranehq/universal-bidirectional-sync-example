@@ -1,0 +1,76 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3550
+name: Users
+customized: false
+revision: 01041821-8493-48bb-baa4-79f967cb3167
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3143
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d337f
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  _id:
+    $var: $.id
+  email_address:
+    $var: $.primaryEmail
+  name:
+    $var: $.fullName
+  username:
+    $var: $.userName
+  creation_date:
+    $var: $.createdTime
+  updated_date:
+    $var: $.updatedTime
+importValue:
+  id:
+    $var: $._id
+  fullName:
+    $var: $.name
+  userName:
+    $var: $.username
+  primaryEmail:
+    $var: $.email_address
+  createdTime:
+    $var: $.creation_date
+  updatedTime:
+    $var: $.updated_date
+  firstName:
+    $firstName:
+      $var: $.name
+  lastName:
+    $lastName:
+      $var: $.name
+  emails:
+    - value:
+        $var: $.email_address
+integration:
+  key: breezy
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3143
+  name: Breezy HR
+  uuid: 03911cee-b343-4a49-a022-6b3e62ed2d3b
+  connectorId: 643e81f7badd839bce463919
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/d02b3b4f-9cc2-4298-be21-7b4959c51918
+  connectorVersion: 1.0.2
+  logoUri: https://static.integration.app/connectors/breezy/logo.png
+  dataCollectionsCount: 5
+  operationsCount: 0
+  eventsCount: 0
+  authType: client-credentials

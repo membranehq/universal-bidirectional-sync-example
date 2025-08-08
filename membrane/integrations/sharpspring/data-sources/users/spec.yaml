@@ -1,0 +1,38 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835424e49c6d4c3c9d3478
+name: Users
+revision: 2ab05153-408f-4be2-b5f1-081c1b8da988
+integrationId: 68835413e49c6d4c3c9d3145
+customized: false
+universalDataSourceId: 68835424e49c6d4c3c9d32ce
+universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
+collectionKey: users
+udm: users
+defaultPath: /data/users
+integration:
+  key: sharpspring
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3145
+  name: SharpSpring
+  uuid: 1e97c637-99ed-4f3d-ae65-f26564cdf8ff
+  connectorId: 640a32a474be562abded2875
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/5c085a81-880a-4b07-8441-95662371ec72
+  connectorVersion: 1.0.4
+  logoUri: >-
+    https://static.integration.app/connectors/sharpspring/logo-7d08538a-0c9f-4916-ab99-d214433c1307.png
+  dataCollectionsCount: 10
+  operationsCount: 1
+  eventsCount: 0
+  authType: client-credentials

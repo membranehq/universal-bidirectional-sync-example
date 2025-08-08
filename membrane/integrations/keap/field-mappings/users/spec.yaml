@@ -1,0 +1,103 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3536
+name: Users
+customized: false
+revision: 01fd7f58-51b2-4d53-877b-8b4412a759a7
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d311b
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d335b
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  company_name:
+    $var: $.companyName
+  created_by:
+    $var: $.createdBy
+  date_created:
+    $var: $.createdTime
+  email:
+    $var: $.primaryEmail
+  family_name:
+    $var: $.lastName
+  given_name:
+    $var: $.firstName
+  last_updated:
+    $var: $.updatedTime
+  last_updated_by:
+    $var: $.updatedBy
+  time_zone:
+    $var: $.timezone
+  id:
+    $var: $.id
+importValue:
+  id:
+    $var: $.id
+  fullName:
+    $concat:
+      values:
+        - $var: $.given_name
+        - $var: $.family_name
+      delimiter: ' '
+  firstName:
+    $var: $.given_name
+  lastName:
+    $var: $.family_name
+  primaryEmail:
+    $var: $.email
+  primaryPhone:
+    $var: $.phone_numbers[0].number
+  phones:
+    $iterate:
+      locator: $.phone_numbers
+      items:
+        value:
+          $var: $.phone_numbers.$current.number
+        type:
+          $var: $.phone_numbers.$current.type
+  companyName:
+    $var: $.company_name
+  timezone:
+    $var: $.time_zone
+  isActive: null
+  createdTime:
+    $var: $.date_created
+  createdBy:
+    $var: $.created_by
+  updatedTime:
+    $var: $.last_updated
+  updatedBy:
+    $var: $.last_updated_by
+  emails:
+    - value:
+        $var: $.email
+integration:
+  key: keap
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d311b
+  name: Keap
+  uuid: 8f6d5ef7-3fe0-4b02-8481-ada78fb966ff
+  connectorId: 635bf847fb02f18af1f1c626
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/efd9508f-8ab8-4258-8b2b-b05d7ce9285e
+  connectorVersion: 1.0.4
+  logoUri: https://static.integration.app/connectors/keap/logo.png
+  dataCollectionsCount: 13
+  operationsCount: 140
+  eventsCount: 0
+  authType: oauth2

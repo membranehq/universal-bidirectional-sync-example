@@ -1,0 +1,46 @@
+key: users
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: integration
+        id: 68835413e49c6d4c3c9d3137
+isDeactivated: false
+id: 68835424e49c6d4c3c9d336f
+name: Users
+revision: 8d426af6-cde1-4a20-bfd5-1476f794f09a
+integrationId: 68835413e49c6d4c3c9d3137
+customized: false
+universalDataSourceId: 68835424e49c6d4c3c9d32ce
+universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
+collectionKey: users
+udm: users
+defaultPath: /data/users
+integration:
+  key: microsoft-teams
+  state: CONFIGURATION_ERROR
+  errors:
+    - message: Integration is missing required parameters
+      type: configuration
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3137
+  name: Microsoft Teams
+  uuid: a8129c71-43d0-450c-bb17-3837e2b10d4e
+  connectorId: 6466784e60f981f3ce696907
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/d2f487ff-7381-409e-9098-2f4d4f51ca51
+  connectorVersion: 2.3.1
+  logoUri: >-
+    https://static.integration.app/connectors/microsoft-teams/logo-af77620a-4317-47b1-a365-419da992ef0b.png
+  dataCollectionsCount: 10
+  operationsCount: 390
+  eventsCount: 4
+  authType: oauth2

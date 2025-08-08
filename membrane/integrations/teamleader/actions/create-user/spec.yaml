@@ -1,0 +1,43 @@
+revision: 2ba537e3-6fd0-45b3-a7b3-5206731468cf
+isCustomized: false
+parentId: 68887db5f9df280360f1e0c9
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+integrationId: 68835413e49c6d4c3c9d312e
+integration:
+  key: teamleader
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d312e
+  name: Teamleader
+  uuid: 7bd8eabb-0159-43b7-9108-03bbac8965ff
+  connectorId: 64417517badd839bce44c5df
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/3ffe3fb5-9388-4ab8-a8e8-e01ae4781100
+  connectorVersion: 0.1.0
+  logoUri: https://static.integration.app/connectors/teamleader/logo.png
+  dataCollectionsCount: 7
+  operationsCount: 225
+  eventsCount: 0
+  authType: oauth2
+key: create-user
+state: READY
+errors: []
+isDeactivated: false
+id: 688cc9898fa10d3345b1186f
+name: Create User
+type: create-data-record
+inputSchema:
+  type: object
+  properties:
+    fields:
+      type: string
+config:
+  fieldMapping: {}
+  dataSource: {}

@@ -1,0 +1,126 @@
+key: send-user-events
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: integration
+        id: 68835413e49c6d4c3c9d3137
+  - message: Data Source Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: data-source
+        id: 68835424e49c6d4c3c9d336f
+  - message: Field Mapping Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: field-mapping
+        id: 68835425e49c6d4c3c9d3540
+isDeactivated: false
+id: 6883542de49c6d4c3c9d4032
+name: Send User Events
+revision: 6c91f7f0-8dd3-43e2-9fa0-dcadb55a43ae
+universalFlowId: 68835428e49c6d4c3c9d397c
+integrationId: 68835413e49c6d4c3c9d3137
+integration:
+  key: microsoft-teams
+  state: CONFIGURATION_ERROR
+  errors:
+    - message: Integration is missing required parameters
+      type: configuration
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3137
+  name: Microsoft Teams
+  uuid: a8129c71-43d0-450c-bb17-3837e2b10d4e
+  connectorId: 6466784e60f981f3ce696907
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/d2f487ff-7381-409e-9098-2f4d4f51ca51
+  connectorVersion: 2.3.1
+  logoUri: >-
+    https://static.integration.app/connectors/microsoft-teams/logo-af77620a-4317-47b1-a365-419da992ef0b.png
+  dataCollectionsCount: 10
+  operationsCount: 390
+  eventsCount: 4
+  authType: oauth2
+universalFlowRevision: 7cd726db-f478-4538-b231-ed195e1ff008
+nodes:
+  app-event-trigger:
+    type: app-event-trigger
+    name: User Event Trigger
+    config:
+      appEvent:
+        key: user-event
+    links:
+      - key: create-data-record
+        name: User created
+        filter:
+          $eval:
+            $var: $.output.type
+          is: created
+      - key: delete-data-record
+        name: User deleted
+        filter:
+          $eval:
+            $var: $.output.type
+          is: deleted
+      - key: update-data-record
+        name: User updated
+        filter:
+          $eval:
+            $var: $.output.type
+          is: updated
+  create-data-record:
+    type: create-data-record
+    name: Create User
+    config:
+      dataSource:
+        key: users
+      fieldMapping:
+        key: users
+        input:
+          $var: $.input.app-event-trigger.data
+    links:
+      - key: save-external-user-id
+  delete-data-record:
+    type: delete-data-record
+    name: Delete User
+    config:
+      dataSource:
+        key: users
+      id:
+        $var: $.input.app-event-trigger.externalUserId
+      fieldMapping: {}
+    links: []
+  update-data-record:
+    type: update-data-record
+    name: Update User
+    config:
+      dataSource:
+        key: users
+      id:
+        $var: $.input.app-event-trigger.externalUserId
+      fieldMapping:
+        key: users
+        input:
+          $var: $.input.app-event-trigger.data
+    links: []
+  save-external-user-id:
+    type: api-request-to-your-app
+    name: Save External User Id
+    config:
+      request:
+        body:
+          externalUserId:
+            $var: $.input.create-data-record.id
+    links: []
+autoCreateInstances: false
+customized: false

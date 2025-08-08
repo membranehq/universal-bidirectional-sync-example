@@ -1,0 +1,103 @@
+key: emails
+state: READY
+errors: []
+isDeactivated: false
+id: 6884791a95717cb90674868b
+name: Emails
+customized: true
+revision: 2476b1f1-b7d4-45cd-bd5a-186236556e7e
+universalFieldMappingId: 6884791a95717cb90674866a
+universalFieldMappingRevision: 4b8fef4c-2a09-4e58-876f-40f269c91ddb
+integrationId: 6884791695717cb90674856c
+dataSourceKey: emails
+dataSourceId: 6884791a95717cb90674863a
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  threadId:
+    $var: $.threadId
+  to:
+    $var: $.to
+  cc:
+    $var: $.cc
+  bcc:
+    $var: $.bcc
+  from:
+    $var: $.from
+  reply_to:
+    $var: $.replyTo
+  subject:
+    $var: $.subject
+  body:
+    $var: $.body
+  html_body:
+    $var: $.html_body
+  attachments:
+    $iterate:
+      source:
+        $var: $.attachments
+      item:
+        fileName:
+          $var: $.item.name
+        fileUri:
+          $var: $.item.url
+importValue:
+  id:
+    $var: id
+  threadId:
+    $var: threadId
+  to:
+    $var: to
+  cc:
+    $var: cc
+  bcc:
+    $var: bcc
+  from:
+    $var: from
+  replyTo:
+    $var: reply_to
+  subject:
+    $var: subject
+  body:
+    $var: body
+  html_body:
+    $var: html_body
+  attachments:
+    $iterate:
+      source:
+        $var: $.payload.parts
+      item:
+        id:
+          $var: $.item.body.attachmentId
+        name:
+          $var: $.item.filename
+        type:
+          $var: $.item.mimeType
+        content:
+          $var: $.item.body.data
+integration:
+  key: gmail
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 6884791695717cb90674856c
+  name: Gmail
+  uuid: 21dc435d-989e-4dc2-8da4-43113e7442ef
+  connectorId: 64300cd1986ed1caad6e23ae
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/9c29637a-8512-4f98-817c-5faa1e0defdc
+  connectorVersion: 1.5.2
+  logoUri: https://static.integration.app/connectors/gmail/logo.png
+  dataCollectionsCount: 3
+  operationsCount: 81
+  eventsCount: 0
+  authType: oauth2

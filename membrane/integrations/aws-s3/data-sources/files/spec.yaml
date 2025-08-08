@@ -1,0 +1,38 @@
+key: files
+state: READY
+errors: []
+isDeactivated: false
+id: 68834d75ef496baf09c0a97f
+name: Files
+revision: 6c71a977-e6e8-41c8-b868-d4a198793c56
+integrationId: 68834d71ef496baf09c0a90d
+customized: false
+universalDataSourceId: 68834d75ef496baf09c0a94a
+universalDataSourceRevision: 5ccf733d-4403-46a0-9e2a-9df0742e63f7
+collectionKey: objects
+udm: files
+defaultPath: /data/objects
+integration:
+  key: aws-s3
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68834d71ef496baf09c0a90d
+  name: AWS S3
+  uuid: ca705236-f053-4269-8999-fa70272a5e64
+  connectorId: 663130fe0420db525b9bd67a
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/7f4c09df-a607-4ecc-a52c-65f74b4c9715
+  connectorVersion: 1.0.4
+  logoUri: >-
+    https://static.integration.app/connectors/aws-s3/asset-b007866c-ff18-41b9-8c5f-e83fdcd46be9.png
+  dataCollectionsCount: 2
+  operationsCount: 0
+  eventsCount: 0
+  authType: client-credentials

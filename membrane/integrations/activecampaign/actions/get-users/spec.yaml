@@ -1,0 +1,48 @@
+revision: 3c8d6e22-8e24-4ebe-92d7-fba8a2c548ab
+isCustomized: false
+parentId: 68835427e49c6d4c3c9d372b
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+integrationId: 68835413e49c6d4c3c9d3128
+integration:
+  key: activecampaign
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3128
+  name: ActiveCampaign
+  uuid: df6bee88-0036-431e-9407-78c6f9278eb7
+  connectorId: 6466783960f981f3ce6968ec
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/c65d95f5-120f-4269-a268-d74c8c666a04
+  connectorVersion: 1.0.3
+  logoUri: https://static.integration.app/connectors/activecampaign-connector/logo.png
+  dataCollectionsCount: 20
+  operationsCount: 106
+  eventsCount: 0
+  authType: client-credentials
+key: get-users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835428e49c6d4c3c9d37c8
+name: Get Users
+type: list-data-records
+inputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+config:
+  dataSource:
+    key: users
+  cursor:
+    $var: $.input.cursor
+  fieldMapping:
+    key: users
+    includeRawFields: true

@@ -1,0 +1,84 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3538
+name: Users
+customized: false
+revision: d335f78e-9da9-4eaa-93b4-83714c71ac47
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d311d
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3381
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  name:
+    $var: $.fullName
+  username:
+    $var: $.userName
+  party:
+    emailAddresses:
+      - address:
+          $var: $.primaryEmail
+    phoneNumbers:
+      - number:
+          $var: $.primaryPhone
+  timezone:
+    $var: $.timezone
+  pictureURL:
+    $var: $.imageUrl
+importValue:
+  id:
+    $var: $.id
+  fullName:
+    $var: $.name
+  userName:
+    $var: $.username
+  firstName:
+    $firstName:
+      $var: $.name
+  lastName:
+    $lastName:
+      $var: $.name
+  primaryEmail:
+    $var: $.party.emailAddresses[0].address
+  primaryPhone:
+    $var: $.party.phoneNumbers[0].number
+  timezone:
+    $var: $.timezone
+  imageUrl:
+    $var: $.pictureURL
+  emails:
+    - value:
+        $var: $.party.emailAddresses[0].address
+  phones:
+    - value:
+        $var: $.party.phoneNumbers[0].number
+integration:
+  key: capsule-crm
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d311d
+  name: Capsule CRM
+  uuid: 93a055fe-e74b-487f-837f-ecf6756a50ef
+  connectorId: 640734343685521f9f0c9fe7
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/e9d9caaa-e654-48f2-8cbd-ac941aa9f41f
+  connectorVersion: 1.1.1
+  logoUri: https://static.integration.app/connectors/capsule-crm/logo.png
+  dataCollectionsCount: 7
+  operationsCount: 10
+  eventsCount: 0
+  authType: oauth2

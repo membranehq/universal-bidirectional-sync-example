@@ -1,0 +1,37 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835424e49c6d4c3c9d3379
+name: Users
+revision: 8fa27501-8ab1-45c7-a9cb-8d53867950d7
+integrationId: 68835413e49c6d4c3c9d313d
+customized: false
+universalDataSourceId: 68835424e49c6d4c3c9d32ce
+universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
+collectionKey: user
+udm: users
+defaultPath: /data/user
+integration:
+  key: close
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d313d
+  name: Close
+  uuid: c9b0a533-0a75-457f-a691-8b303391f857
+  connectorId: 64fa1e1af51a74915b9fca3c
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/420e8c2f-5414-416a-8759-29d756bf1cf9
+  connectorVersion: 1.1.12
+  logoUri: https://static.integration.app/connectors/close/logo.png
+  dataCollectionsCount: 13
+  operationsCount: 0
+  eventsCount: 0
+  authType: oauth2

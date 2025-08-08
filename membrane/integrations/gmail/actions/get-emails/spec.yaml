@@ -1,0 +1,48 @@
+revision: acb88065-83fc-4291-946d-30172b94ad22
+isCustomized: false
+parentId: 6884791a95717cb9067486bc
+parentRevision: 3f5ffc55-5e80-4f25-99f1-8f843b28a42a
+integrationId: 6884791695717cb90674856c
+integration:
+  key: gmail
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 6884791695717cb90674856c
+  name: Gmail
+  uuid: 21dc435d-989e-4dc2-8da4-43113e7442ef
+  connectorId: 64300cd1986ed1caad6e23ae
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/9c29637a-8512-4f98-817c-5faa1e0defdc
+  connectorVersion: 1.5.2
+  logoUri: https://static.integration.app/connectors/gmail/logo.png
+  dataCollectionsCount: 3
+  operationsCount: 81
+  eventsCount: 0
+  authType: oauth2
+key: get-emails
+state: READY
+errors: []
+isDeactivated: false
+id: 6884791b95717cb9067486cf
+name: Get Emails
+type: list-data-records
+inputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+config:
+  dataSource:
+    key: emails
+  cursor:
+    $var: $.input.cursor
+  fieldMapping:
+    key: emails
+    includeRawFields: true

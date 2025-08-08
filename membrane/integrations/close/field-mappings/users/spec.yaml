@@ -1,0 +1,77 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d354a
+name: Users
+customized: false
+revision: 21b4e2a2-3bc4-4c5b-87a3-964184bad9f7
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d313d
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3379
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  date_created:
+    $var: $.createdTime
+  last_used_timezone:
+    $var: $.timezone
+  first_name:
+    $var: $.firstName
+  date_updated:
+    $var: $.updatedTime
+  last_name:
+    $var: $.lastName
+  email:
+    $var: $.primaryEmail
+importValue:
+  id:
+    $var: $.id
+  fullName:
+    $concat:
+      - $var: $.first_name
+      - ' '
+      - $var: $.last_name
+  firstName:
+    $var: $.first_name
+  lastName:
+    $var: $.last_name
+  primaryEmail:
+    $var: $.email
+  timezone:
+    $var: $.last_used_timezone
+  createdTime:
+    $var: $.date_created
+  updatedTime:
+    $var: $.date_updated
+  emails:
+    - value:
+        $var: $.email
+integration:
+  key: close
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d313d
+  name: Close
+  uuid: c9b0a533-0a75-457f-a691-8b303391f857
+  connectorId: 64fa1e1af51a74915b9fca3c
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/420e8c2f-5414-416a-8759-29d756bf1cf9
+  connectorVersion: 1.1.12
+  logoUri: https://static.integration.app/connectors/close/logo.png
+  dataCollectionsCount: 13
+  operationsCount: 0
+  eventsCount: 0
+  authType: oauth2

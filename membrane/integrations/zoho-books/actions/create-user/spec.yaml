@@ -1,0 +1,43 @@
+revision: 0110e23e-a6c4-40e8-8f7b-6d8bff413d80
+isCustomized: false
+parentId: 68887db5f9df280360f1e0c9
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+integrationId: 68835413e49c6d4c3c9d3153
+integration:
+  key: zoho-books
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3153
+  name: Zoho Books
+  uuid: ef2e79d8-6660-46f8-9614-17ab80c9887e
+  connectorId: 6430516e986ed1caad7bf9f9
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/ddc58dc9-d550-4606-9e88-618ffab5a380
+  connectorVersion: 1.0.6
+  logoUri: https://static.integration.app/connectors/zoho-books-connector/logo.png
+  dataCollectionsCount: 21
+  operationsCount: 0
+  eventsCount: 0
+  authType: oauth2
+key: create-user
+state: READY
+errors: []
+isDeactivated: false
+id: 688cc9898fa10d3345b11871
+name: Create User
+type: create-data-record
+inputSchema:
+  type: object
+  properties:
+    fields:
+      type: string
+config:
+  fieldMapping: {}
+  dataSource: {}

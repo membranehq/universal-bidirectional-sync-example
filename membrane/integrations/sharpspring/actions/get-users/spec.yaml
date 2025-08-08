@@ -1,0 +1,49 @@
+revision: 2779d035-9269-4044-9265-115a84df2e36
+isCustomized: false
+parentId: 68835427e49c6d4c3c9d372b
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+integrationId: 68835413e49c6d4c3c9d3145
+integration:
+  key: sharpspring
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3145
+  name: SharpSpring
+  uuid: 1e97c637-99ed-4f3d-ae65-f26564cdf8ff
+  connectorId: 640a32a474be562abded2875
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/5c085a81-880a-4b07-8441-95662371ec72
+  connectorVersion: 1.0.4
+  logoUri: >-
+    https://static.integration.app/connectors/sharpspring/logo-7d08538a-0c9f-4916-ab99-d214433c1307.png
+  dataCollectionsCount: 10
+  operationsCount: 1
+  eventsCount: 0
+  authType: client-credentials
+key: get-users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835428e49c6d4c3c9d37dd
+name: Get Users
+type: list-data-records
+inputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+config:
+  dataSource:
+    key: users
+  cursor:
+    $var: $.input.cursor
+  fieldMapping:
+    key: users
+    includeRawFields: true

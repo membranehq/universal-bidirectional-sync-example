@@ -1,0 +1,72 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3530
+name: Users
+customized: false
+revision: 40c84e34-7369-437b-89de-b39f99beffc0
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3119
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3361
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  accountId:
+    $var: $.id
+  emailAddress:
+    $var: $.primaryEmail
+  displayName:
+    $var: $.fullName
+  active:
+    $var: $.isActive
+  timeZone:
+    $var: $.timezone
+importValue:
+  id:
+    $var: $.accountId
+  fullName:
+    $var: $.displayName
+  timezone:
+    $var: $.timeZone
+  isActive:
+    $var: $.active
+  primaryEmail:
+    $var: $.emailAddress
+  firstName:
+    $firstName:
+      $var: $.displayName
+  lastName:
+    $lastName:
+      $var: $.displayName
+  emails:
+    - value:
+        $var: $.emailAddress
+integration:
+  key: jira
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3119
+  name: Jira
+  uuid: 5efcb1d6-7b41-40e8-bde9-c8cf3e9c83c3
+  connectorId: 64343d08986ed1caad5b3aa7
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/f4bc8dfd-af63-4dda-a7b3-60d67dd5c9f6
+  connectorVersion: 1.4.13
+  logoUri: https://static.integration.app/connectors/jira/logo.png
+  dataCollectionsCount: 12
+  operationsCount: 499
+  eventsCount: 0
+  authType: oauth2

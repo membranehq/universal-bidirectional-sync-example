@@ -1,0 +1,22 @@
+key: salesforce-pardot
+state: READY
+errors: []
+isDeactivated: false
+id: 68835413e49c6d4c3c9d3115
+name: SalesForce Pardot
+uuid: 541d9ad0-89ae-4bbb-b4bc-67c802e2e1a3
+connectorId: 63a3723bad7bd4eb80db61e0
+hasMissingParameters: false
+hasDocumentation: true
+hasOperations: true
+hasData: true
+hasEvents: false
+hasGlobalWebhooks: false
+hasUdm: true
+baseUri: s3://integration-app-connectors/public/138a57cc-bb7e-466a-8aa6-370053d1327b
+connectorVersion: 1.0.5
+logoUri: https://static.integration.app/connectors/salesforce-pardot/logo.png
+dataCollectionsCount: 12
+operationsCount: 84
+eventsCount: 0
+authType: oauth2

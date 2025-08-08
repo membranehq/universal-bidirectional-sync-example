@@ -1,0 +1,22 @@
+revision: e6a5b538-0d16-4c2b-a86f-e461a3b46079
+isCustomized: true
+key: get-files
+state: READY
+errors: []
+isDeactivated: false
+id: 68834d75ef496baf09c0aa0c
+name: Get Files
+type: list-data-records
+inputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+config:
+  dataSource:
+    key: files
+  cursor:
+    $var: $.input.cursor
+  fieldMapping:
+    key: files
+    includeRawFields: true

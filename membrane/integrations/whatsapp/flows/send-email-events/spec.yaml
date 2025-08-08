@@ -1,0 +1,105 @@
+key: send-email-events
+state: READY
+errors: []
+isDeactivated: false
+id: 6884791b95717cb9067487c0
+name: Send Email Events
+revision: bd20704e-3111-49c0-94d8-57d41c683fc4
+universalFlowId: 6884791b95717cb9067486f6
+integrationId: 6884791695717cb906748572
+integration:
+  key: whatsapp
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 6884791695717cb906748572
+  name: Whatsapp
+  uuid: a497f3b8-56ee-4aa1-b702-8fd0ae416cd9
+  connectorId: 6466785c60f981f3ce69691e
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: true
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/4c7f0f9d-be53-4870-9b0f-718c919d79cf
+  connectorVersion: 1.0.3
+  logoUri: https://static.integration.app/connectors/whatsapp/logohq.png
+  dataCollectionsCount: 1
+  operationsCount: 55
+  eventsCount: 1
+  authType: client-credentials
+universalFlowRevision: d50acedd-e887-4876-869d-0f37ccdc4151
+nodes:
+  app-event-trigger:
+    type: app-event-trigger
+    name: Email Event Trigger
+    config:
+      appEvent:
+        key: email-event
+    links:
+      - key: create-data-record
+        name: Email created
+        filter:
+          $eval:
+            $var: $.output.type
+          is: created
+      - key: delete-data-record
+        name: Email deleted
+        filter:
+          $eval:
+            $var: $.output.type
+          is: deleted
+      - key: update-data-record
+        name: Email updated
+        filter:
+          $eval:
+            $var: $.output.type
+          is: updated
+  create-data-record:
+    type: create-data-record
+    name: Create Email
+    config:
+      dataSource:
+        key: emails
+      fieldMapping:
+        key: emails
+        input:
+          $var: $.input.app-event-trigger.data
+    links:
+      - key: save-external-email-id
+  delete-data-record:
+    type: delete-data-record
+    name: Delete Email
+    config:
+      dataSource:
+        key: emails
+      id:
+        $var: $.input.app-event-trigger.externalEmailId
+      fieldMapping: {}
+    links: []
+  update-data-record:
+    type: update-data-record
+    name: Update Email
+    config:
+      dataSource:
+        key: emails
+      id:
+        $var: $.input.app-event-trigger.externalEmailId
+      fieldMapping:
+        key: emails
+        input:
+          $var: $.input.app-event-trigger.data
+    links: []
+  save-external-email-id:
+    type: api-request-to-your-app
+    name: Save External Email Id
+    config:
+      request:
+        body:
+          externalEmailId:
+            $var: $.input.create-data-record.id
+    links: []
+autoCreateInstances: false
+customized: false

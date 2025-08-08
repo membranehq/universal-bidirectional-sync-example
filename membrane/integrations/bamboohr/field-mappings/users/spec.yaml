@@ -1,0 +1,68 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d354e
+name: Users
+customized: false
+revision: a16b2fc8-686d-4f1b-b55d-66bf35e39d65
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3141
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d337d
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  id:
+    $var: $.id
+  firstName:
+    $var: $.firstName
+  lastName:
+    $var: $.lastName
+  email:
+    $var: $.primaryEmail
+importValue:
+  id:
+    $var: $.id
+  fullName:
+    $concat:
+      values:
+        - $var: $.firstName
+        - $var: $.lastName
+      delimiter: ' '
+  firstName:
+    $var: $.firstName
+  lastName:
+    $var: $.lastName
+  primaryEmail:
+    $var: $.email
+  emails:
+    - value:
+        $var: $.email
+integration:
+  key: bamboohr
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3141
+  name: BambooHR
+  uuid: 24313c3a-1850-4d5d-8eda-9fe8e0691416
+  connectorId: 65265ce970089fac483f2ee8
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/87ba99d3-5940-43af-8118-c8d969b709e0
+  connectorVersion: 2.0.7
+  logoUri: https://static.integration.app/connectors/bamboohr/logohq.png
+  dataCollectionsCount: 9
+  operationsCount: 165
+  eventsCount: 0
+  authType: client-credentials

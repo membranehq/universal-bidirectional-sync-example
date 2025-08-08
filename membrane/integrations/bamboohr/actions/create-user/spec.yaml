@@ -1,0 +1,43 @@
+revision: adfbeaaa-d5b8-45dd-92e3-ca91e86000d1
+isCustomized: false
+parentId: 68887db5f9df280360f1e0c9
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+integrationId: 68835413e49c6d4c3c9d3141
+integration:
+  key: bamboohr
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3141
+  name: BambooHR
+  uuid: 24313c3a-1850-4d5d-8eda-9fe8e0691416
+  connectorId: 65265ce970089fac483f2ee8
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/87ba99d3-5940-43af-8118-c8d969b709e0
+  connectorVersion: 2.0.7
+  logoUri: https://static.integration.app/connectors/bamboohr/logohq.png
+  dataCollectionsCount: 9
+  operationsCount: 165
+  eventsCount: 0
+  authType: client-credentials
+key: create-user
+state: READY
+errors: []
+isDeactivated: false
+id: 688cc9898fa10d3345b1182d
+name: Create User
+type: create-data-record
+inputSchema:
+  type: object
+  properties:
+    fields:
+      type: string
+config:
+  fieldMapping: {}
+  dataSource: {}

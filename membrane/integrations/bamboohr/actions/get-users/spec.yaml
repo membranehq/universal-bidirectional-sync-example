@@ -1,0 +1,48 @@
+revision: 9ac5a5aa-e96f-4066-963f-414db03ddd02
+isCustomized: false
+parentId: 68835427e49c6d4c3c9d372b
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+integrationId: 68835413e49c6d4c3c9d3141
+integration:
+  key: bamboohr
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3141
+  name: BambooHR
+  uuid: 24313c3a-1850-4d5d-8eda-9fe8e0691416
+  connectorId: 65265ce970089fac483f2ee8
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/87ba99d3-5940-43af-8118-c8d969b709e0
+  connectorVersion: 2.0.7
+  logoUri: https://static.integration.app/connectors/bamboohr/logohq.png
+  dataCollectionsCount: 9
+  operationsCount: 165
+  eventsCount: 0
+  authType: client-credentials
+key: get-users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835428e49c6d4c3c9d37f5
+name: Get Users
+type: list-data-records
+inputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+config:
+  dataSource:
+    key: users
+  cursor:
+    $var: $.input.cursor
+  fieldMapping:
+    key: users
+    includeRawFields: true

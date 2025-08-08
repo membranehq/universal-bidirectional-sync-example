@@ -1,0 +1,62 @@
+revision: 00f01c7f-2332-44d7-8cd0-0a90d91c0b3c
+isCustomized: false
+parentId: 688cc9e4ed172ffb20d0f39b
+parentRevision: 594f206d-8bae-412b-a5f0-35b631562f81
+integrationId: 68834d71ef496baf09c0a8ff
+integration:
+  key: box
+  state: CONFIGURATION_ERROR
+  errors:
+    - message: Integration is missing required parameters
+      type: configuration
+  isDeactivated: false
+  id: 68834d71ef496baf09c0a8ff
+  name: Box
+  uuid: aa6c7494-3fb4-44c9-8668-b1075ed2c2a8
+  connectorId: 6466783c60f981f3ce6968ef
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: true
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/ccc997a3-9504-439c-930d-054a03172fc2
+  connectorVersion: 2.2.2
+  logoUri: https://static.integration.app/connectors/box/logo.png
+  dataCollectionsCount: 6
+  operationsCount: 264
+  eventsCount: 1
+  authType: oauth2
+key: create-file
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: integration
+        id: 68834d71ef496baf09c0a8ff
+  - message: Data Source Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: data-source
+        id: 68834d75ef496baf09c0a96a
+  - message: Field Mapping Dependency has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: field-mapping
+        id: 68834d75ef496baf09c0a9c1
+isDeactivated: false
+id: 688cc9eef1e1187ac07515c8
+name: Create File
+type: create-data-record
+config:
+  dataSource:
+    key: files
+  fieldMapping:
+    key: files
+    input:
+      $var: $.input

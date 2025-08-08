@@ -1,0 +1,77 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d353c
+name: Users
+customized: false
+revision: 5419f025-2494-4af1-a08b-2effd054f8e6
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3128
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d335f
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  username:
+    $var: $.userName
+  firstName:
+    $var: $.firstName
+  lastName:
+    $var: $.lastName
+  email:
+    $var: $.primaryEmail
+  phone:
+    $var: $.primaryPhone
+importValue:
+  id:
+    $var: $.id
+  fullName:
+    $concat:
+      values:
+        - $var: $.firstName
+        - $var: $.lastName
+      delimiter: ' '
+  firstName:
+    $var: $.firstName
+  lastName:
+    $var: $.lastName
+  userName:
+    $var: username
+  primaryEmail:
+    $var: $.email
+  primaryPhone:
+    $var: $.phone
+  emails:
+    - value:
+        $var: $.email
+  phones:
+    - value:
+        $var: $.phone
+integration:
+  key: activecampaign
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3128
+  name: ActiveCampaign
+  uuid: df6bee88-0036-431e-9407-78c6f9278eb7
+  connectorId: 6466783960f981f3ce6968ec
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/c65d95f5-120f-4269-a268-d74c8c666a04
+  connectorVersion: 1.0.3
+  logoUri: https://static.integration.app/connectors/activecampaign-connector/logo.png
+  dataCollectionsCount: 20
+  operationsCount: 106
+  eventsCount: 0
+  authType: client-credentials

@@ -1,0 +1,61 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3562
+name: Users
+customized: false
+revision: d4d91e29-0b80-4c88-8225-cba385eee96c
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3120
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3363
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+importValue:
+  id:
+    $var: $.gid
+  fullName:
+    $var: name
+  userName:
+    $var: $.user
+  primaryEmail:
+    $var: email
+  imageUrl:
+    $var: photo.image_128x128
+  firstName:
+    $firstName:
+      $var: name
+  lastName:
+    $lastName:
+      $var: name
+  emails:
+    - value:
+        $var: email
+integration:
+  key: asana
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3120
+  name: Asana
+  uuid: eb2cc238-0474-4ba8-b379-b99e9ffae9d9
+  connectorId: 6435316c986ed1caad932104
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/69bed91e-2542-4e86-a9e8-82402e473513
+  connectorVersion: 1.0.12
+  logoUri: https://static.integration.app/connectors/asana/logo.png
+  dataCollectionsCount: 6
+  operationsCount: 176
+  eventsCount: 0
+  authType: oauth2

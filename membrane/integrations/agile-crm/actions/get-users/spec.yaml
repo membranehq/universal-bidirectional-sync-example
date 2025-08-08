@@ -1,0 +1,48 @@
+revision: 33d26a7e-2cbe-43ef-a72c-781933117853
+isCustomized: false
+parentId: 68835427e49c6d4c3c9d372b
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+integrationId: 68835417e49c6d4c3c9d3176
+integration:
+  key: agile-crm
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835417e49c6d4c3c9d3176
+  name: Agile CRM
+  uuid: d6fdf74c-d5bb-4a33-8fe2-fcd56f5c6b60
+  connectorId: 64416311badd839bce41fdeb
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/8c3f8af0-b16c-4d0f-b27d-fc1022d0e078
+  connectorVersion: 1.0.2
+  logoUri: https://static.integration.app/connectors/agile-crm/logo.png
+  dataCollectionsCount: 6
+  operationsCount: 15
+  eventsCount: 0
+  authType: client-credentials
+key: get-users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835428e49c6d4c3c9d37e5
+name: Get Users
+type: list-data-records
+inputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+config:
+  dataSource:
+    key: users
+  cursor:
+    $var: $.input.cursor
+  fieldMapping:
+    key: users
+    includeRawFields: true

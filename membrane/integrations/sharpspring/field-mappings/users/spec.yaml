@@ -1,0 +1,82 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d356e
+name: Users
+customized: false
+revision: 86eec2bd-c11c-4abf-81ec-50647875d5cf
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3145
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3478
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  id:
+    $var: $.id
+  firstName:
+    $var: $.firstName
+  lastName:
+    $var: $.lastName
+  displayName:
+    $var: $.fullName
+  emailAddress:
+    $var: $.primaryEmail
+  isActive:
+    $var: $.isActive
+  userTimezone:
+    $var: $.timezone
+  phone:
+    $var: $.primaryPhone
+importValue:
+  id:
+    $var: $.id
+  fullName:
+    $var: $.displayName
+  firstName:
+    $var: $.firstName
+  lastName:
+    $var: $.lastName
+  primaryEmail:
+    $var: $.emailAddress
+  primaryPhone:
+    $var: $.phone
+  isActive:
+    $var: $.isActive
+  timezone:
+    $var: $.userTimezone
+  emails:
+    - value:
+        $var: $.emailAddress
+  phones:
+    - value:
+        $var: $.phone
+integration:
+  key: sharpspring
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3145
+  name: SharpSpring
+  uuid: 1e97c637-99ed-4f3d-ae65-f26564cdf8ff
+  connectorId: 640a32a474be562abded2875
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/5c085a81-880a-4b07-8441-95662371ec72
+  connectorVersion: 1.0.4
+  logoUri: >-
+    https://static.integration.app/connectors/sharpspring/logo-7d08538a-0c9f-4916-ab99-d214433c1307.png
+  dataCollectionsCount: 10
+  operationsCount: 1
+  eventsCount: 0
+  authType: client-credentials

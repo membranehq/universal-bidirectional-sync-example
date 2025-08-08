@@ -1,0 +1,37 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835424e49c6d4c3c9d3387
+name: Users
+revision: 57ead37d-f597-4a93-8be2-cac46668e485
+integrationId: 68835413e49c6d4c3c9d3124
+customized: false
+universalDataSourceId: 68835424e49c6d4c3c9d32ce
+universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
+collectionKey: users
+udm: users
+defaultPath: /data/users
+integration:
+  key: outreach
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3124
+  name: Outreach
+  uuid: 6839e171-d1f6-488f-88e9-65e06a949111
+  connectorId: 6466785060f981f3ce69690b
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/b3d312a2-d5f0-4d61-ab2c-8211f30667a6
+  connectorVersion: 1.1.2
+  logoUri: https://static.integration.app/connectors/outreach-connector/logo.png
+  dataCollectionsCount: 14
+  operationsCount: 176
+  eventsCount: 0
+  authType: oauth2

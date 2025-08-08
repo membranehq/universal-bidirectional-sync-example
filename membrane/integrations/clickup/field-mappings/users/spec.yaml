@@ -1,0 +1,73 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d355e
+name: Users
+customized: false
+revision: 5b9eb412-3a92-4ac5-86cd-e06851a06590
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3112
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d338b
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  username:
+    $var: $.userName
+  profilePicture:
+    $var: $.imageUrl
+  email:
+    $var: $.primaryEmail
+  role:
+    $var: $.roleId
+importValue:
+  id:
+    $var: $.id
+  userName:
+    $var: $.username
+  imageUrl:
+    $var: $.profilePicture
+  createdTime: ''
+  roleId:
+    $var: $.role
+  primaryEmail:
+    $var: $.email
+  fullName:
+    $var: $.username
+  firstName:
+    $firstName:
+      $var: $.username
+  lastName:
+    $lastName:
+      $var: $.username
+  emails:
+    - value:
+        $var: $.email
+integration:
+  key: clickup
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3112
+  name: Clickup
+  uuid: 27bb6e0d-e658-444e-bd84-a7ca9b100912
+  connectorId: 64359f80986ed1caadafa638
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/0269b955-8e69-4d0a-a128-fbbafcf810e3
+  connectorVersion: 1.2.3
+  logoUri: https://static.integration.app/connectors/clickup/logo.png
+  dataCollectionsCount: 9
+  operationsCount: 11
+  eventsCount: 28
+  authType: oauth2

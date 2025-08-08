@@ -1,0 +1,61 @@
+revision: ab358890-8592-4e3b-8d36-495d910a0d8c
+isCustomized: false
+parentId: 6890519a5facd7ec99dbeba1
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+integrationId: 68835413e49c6d4c3c9d310a
+integration:
+  key: freshsales
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d310a
+  name: Freshsales
+  uuid: c8dbedeb-66d8-4a6e-be82-2bc0b50e7ae1
+  connectorId: 633af6ef361690ab46d8ed4d
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/42501889-cab5-45b3-9396-c089489bbae2
+  connectorVersion: 1.0.2
+  logoUri: https://static.integration.app/connectors/freshsales-connector/logo.png
+  dataCollectionsCount: 22
+  operationsCount: 0
+  eventsCount: 0
+  authType: client-credentials
+key: update-user
+state: READY
+errors: []
+isDeactivated: false
+id: 68905282ff92d86914347c77
+name: Update User
+type: update-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+    fields:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping:
+    defaultUnifiedValue:
+      $var: $.input
+    defaultValue:
+      display_name:
+        $var: $.input.fullName
+      email:
+        $var: $.input.primaryEmail
+      work_number:
+        $var: $.input.primaryPhone
+      is_active:
+        $var: $.input.isActive
+      id:
+        $var: $.input.id

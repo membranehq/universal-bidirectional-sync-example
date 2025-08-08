@@ -1,0 +1,48 @@
+revision: 07f5089f-838a-4f32-88b3-48ca432441fe
+isCustomized: false
+parentId: 68835427e49c6d4c3c9d372b
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+integrationId: 68835417e49c6d4c3c9d316e
+integration:
+  key: notion
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835417e49c6d4c3c9d316e
+  name: Notion
+  uuid: facb0913-cf42-4d64-9052-68f47243a8b7
+  connectorId: 64382789986ed1caad42e561
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: true
+  hasGlobalWebhooks: true
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/79a798cd-e849-4d99-9485-6593f8db0ce0
+  connectorVersion: 1.3.2
+  logoUri: https://static.integration.app/connectors/notion/logo.png
+  dataCollectionsCount: 4
+  operationsCount: 20
+  eventsCount: 18
+  authType: oauth2
+key: get-users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835428e49c6d4c3c9d37db
+name: Get Users
+type: list-data-records
+inputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+config:
+  dataSource:
+    key: users
+  cursor:
+    $var: $.input.cursor
+  fieldMapping:
+    key: users
+    includeRawFields: true

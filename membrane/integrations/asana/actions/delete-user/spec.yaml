@@ -1,0 +1,46 @@
+revision: 0ff57415-d673-4315-8373-be26a34c62ef
+isCustomized: false
+parentId: 68887e4a655d7bb8d28c504c
+parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
+integrationId: 68835413e49c6d4c3c9d3120
+integration:
+  key: asana
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3120
+  name: Asana
+  uuid: eb2cc238-0474-4ba8-b379-b99e9ffae9d9
+  connectorId: 6435316c986ed1caad932104
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/69bed91e-2542-4e86-a9e8-82402e473513
+  connectorVersion: 1.0.12
+  logoUri: https://static.integration.app/connectors/asana/logo.png
+  dataCollectionsCount: 6
+  operationsCount: 176
+  eventsCount: 0
+  authType: oauth2
+key: delete-user
+state: READY
+errors: []
+isDeactivated: false
+id: 688905eaee7f0f245494d71a
+name: Delete User
+type: delete-data-record
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+config:
+  dataSource:
+    key: users
+  id:
+    $var: $.input.id
+  fieldMapping: {}

@@ -1,0 +1,48 @@
+revision: 9671eb74-9af3-46e6-9a9d-8e131ad72528
+isCustomized: false
+parentId: 68835427e49c6d4c3c9d372b
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+integrationId: 68835413e49c6d4c3c9d313f
+integration:
+  key: freshdesk
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d313f
+  name: Freshdesk
+  uuid: 149c53e1-84d3-4dfc-909b-b144eb3d6245
+  connectorId: 64b114f5d2605720d2134075
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/994c78f8-50a9-4805-aa0f-1e90ec27e28c
+  connectorVersion: 1.0.1
+  logoUri: https://static.integration.app/connectors/freshdesk-connector/logo.png
+  dataCollectionsCount: 8
+  operationsCount: 39
+  eventsCount: 0
+  authType: client-credentials
+key: get-users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835428e49c6d4c3c9d37f3
+name: Get Users
+type: list-data-records
+inputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+config:
+  dataSource:
+    key: users
+  cursor:
+    $var: $.input.cursor
+  fieldMapping:
+    key: users
+    includeRawFields: true

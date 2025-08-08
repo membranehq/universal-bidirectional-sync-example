@@ -1,0 +1,95 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d356c
+name: Users
+customized: false
+revision: 9b1c0d26-211a-4bb0-a021-c779f4f30baa
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3124
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3387
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  email:
+    $var: $.primaryEmail
+  firstName:
+    $var: $.firstName
+  lastName:
+    $var: $.lastName
+  phoneNumber:
+    $var: $.primaryPhone
+  username:
+    $var: $.userName
+  creator_id:
+    $var: $.createdBy
+  updater_id:
+    $var: $.updatedBy
+  role_id:
+    $var: $.roleId
+  createdAt:
+    $var: $.createdTime
+  primaryTimezone:
+    $var: $.timezone
+  updatedAt:
+    $var: $.updatedTime
+importValue:
+  fullName:
+    $var: $.name
+  firstName:
+    $var: $.firstName
+  lastName:
+    $var: $.lastName
+  userName:
+    $var: $.username
+  primaryEmail:
+    $var: $.email
+  primaryPhone:
+    $var: $.phoneNumber
+  timezone:
+    $var: $.primaryTimezone
+  roleId:
+    $var: $.role_id
+  createdTime:
+    $var: $.createdAt
+  createdBy:
+    $var: $.creator_id
+  updatedTime:
+    $var: $.updatedAt
+  updatedBy:
+    $var: $.updater_id
+  emails:
+    - value:
+        $var: $.email
+  phones:
+    - value:
+        $var: $.phoneNumber
+integration:
+  key: outreach
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3124
+  name: Outreach
+  uuid: 6839e171-d1f6-488f-88e9-65e06a949111
+  connectorId: 6466785060f981f3ce69690b
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/b3d312a2-d5f0-4d61-ab2c-8211f30667a6
+  connectorVersion: 1.1.2
+  logoUri: https://static.integration.app/connectors/outreach-connector/logo.png
+  dataCollectionsCount: 14
+  operationsCount: 176
+  eventsCount: 0
+  authType: oauth2

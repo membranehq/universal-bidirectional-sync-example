@@ -1,0 +1,83 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 68835425e49c6d4c3c9d3552
+name: Users
+customized: false
+revision: c56df75c-d14e-488d-8d7f-387984110451
+universalFieldMappingId: 68835425e49c6d4c3c9d34a3
+universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
+integrationId: 68835413e49c6d4c3c9d3147
+dataSourceKey: users
+dataSourceId: 68835424e49c6d4c3c9d3391
+direction: both
+defaultImportValue:
+  $var: $
+defaultExportValue:
+  $var: $
+exportValue:
+  id:
+    $var: $.id
+  name:
+    $var: $.fullName
+  email_address:
+    $var: $.primaryEmail
+  created_at:
+    $var: $.createdTime
+  updated_at:
+    $var: $.updatedTime
+  time_zone:
+    $var: $.timezone
+  avatar_url:
+    $var: $.imageUrl
+  company:
+    id:
+      $var: $.companyId
+    name:
+      $var: $.companyName
+importValue:
+  fullName:
+    $var: $.name
+  primaryEmail:
+    $var: $.email_address
+  companyName:
+    $var: $.company.name
+  companyId:
+    $var: $.company.id
+  imageUrl:
+    $var: $.avatar_url
+  timezone:
+    $var: $.time_zone
+  firstName:
+    $firstName:
+      $var: $.name
+  lastName:
+    $lastName:
+      $var: $.name
+  emails:
+    - value:
+        $var: $.email_address
+integration:
+  key: basecamp
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 68835413e49c6d4c3c9d3147
+  name: Basecamp
+  uuid: 02cf56ba-9aba-4c6e-ac4c-a334e1f159e1
+  connectorId: 645d2220edb0b5ee6c0ded14
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/61fa6494-3dd6-4c06-bcdd-6b5465063326
+  connectorVersion: 1.0.5
+  logoUri: https://static.integration.app/connectors/basecamp/logo.png
+  dataCollectionsCount: 8
+  operationsCount: 189
+  eventsCount: 0
+  authType: oauth2

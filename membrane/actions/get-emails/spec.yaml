@@ -1,0 +1,22 @@
+revision: 3f5ffc55-5e80-4f25-99f1-8f843b28a42a
+isCustomized: true
+key: get-emails
+state: READY
+errors: []
+isDeactivated: false
+id: 6884791a95717cb9067486bc
+name: Get Emails
+type: list-data-records
+inputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+config:
+  dataSource:
+    key: emails
+  cursor:
+    $var: $.input.cursor
+  fieldMapping:
+    key: emails
+    includeRawFields: true

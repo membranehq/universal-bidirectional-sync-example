@@ -1,0 +1,35 @@
+key: users
+state: READY
+errors: []
+isDeactivated: false
+id: 688905ebee7f0f245494d899
+name: Users
+revision: 4a8ea97e-246b-4ab3-a321-e879e19725a0
+integrationId: 6884791695717cb906748570
+customized: false
+universalDataSourceId: 68835424e49c6d4c3c9d32ce
+universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
+udm: users
+integration:
+  key: recruitee
+  state: READY
+  errors: []
+  isDeactivated: false
+  id: 6884791695717cb906748570
+  name: Recruitee
+  uuid: c418c663-8922-4747-9146-8823d4a58ade
+  connectorId: 6466785560f981f3ce696912
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  hasData: true
+  hasEvents: false
+  hasGlobalWebhooks: false
+  hasUdm: true
+  baseUri: s3://integration-app-connectors/public/6483ea20-a27d-4c6b-bb6c-d7f8f4c903f1
+  connectorVersion: 0.0.4
+  logoUri: https://static.integration.app/connectors/recruitee/logo.png
+  dataCollectionsCount: 9
+  operationsCount: 686
+  eventsCount: 0
+  authType: client-credentials
