@@ -11,7 +11,6 @@ import {
 import { getElementKey } from "@/lib/element-key";
 import { SyncStatusObject } from "@/models/types";
 
-
 export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string; recordId: string }> }
@@ -52,22 +51,37 @@ export async function PUT(
       );
     }
 
-    const membrane = new Membrane({
-      token: membraneAccessToken!,
-    });
-
     // Update the record in our database first
-    record.data = body;
-    record.updatedAt = new Date();
-    await record.save();
+    try {
+      record.data = body;
+      record.updatedAt = new Date();
+      await record.save();
+    } catch (dbError) {
+      console.error("Failed to update record in database:", dbError);
+      return NextResponse.json(
+        {
+          success: false,
+          message: `Failed to update record in database: ${
+            dbError instanceof Error ? dbError.message : "Unknown error"
+          }`,
+        },
+        { status: 500 }
+      );
+    }
 
+    // Return early response after successful database update
     const response = NextResponse.json({
       success: true,
       message: "Record updated successfully",
       data: record,
     });
 
+    // Handle Membrane integration update asynchronously
     try {
+      const membrane = new Membrane({
+        token: membraneAccessToken!,
+      });
+
       // Update status to in_progress
       record.syncStatus = SyncStatusObject.IN_PROGRESS;
       record.syncError = undefined;
@@ -100,25 +114,26 @@ export async function PUT(
           syncStatus: record.syncStatus,
         },
       });
+    } catch (membraneError) {
+      console.error("Failed to update record in Membrane:", membraneError);
 
-      return response;
-    } catch (error) {
       // Mark sync as failed
-      record.syncStatus = SyncStatusObject.FAILED;
-      record.syncError =
-        error instanceof ActionRunError
-          ? error.data.message
-          : error instanceof Error
-          ? error.message
-          : "Unknown error occurred";
-      record.updatedAt = new Date();
-      await record.save();
-
-      if (error instanceof ActionRunError) {
-        throw new Error(error.data.message);
+      try {
+        record.syncStatus = SyncStatusObject.FAILED;
+        record.syncError =
+          membraneError instanceof ActionRunError
+            ? membraneError.data.message
+            : membraneError instanceof Error
+            ? membraneError.message
+            : "Unknown error occurred";
+        record.updatedAt = new Date();
+        await record.save();
+      } catch (dbError) {
+        console.error("Failed to update record status in database:", dbError);
       }
-      throw error;
     }
+
+    return response;
   } catch (error) {
     console.error("Failed to update record:", error);
     return NextResponse.json(
@@ -132,7 +147,6 @@ export async function PUT(
     );
   }
 }
-
 
 export async function DELETE(
   request: Request,
@@ -180,11 +194,46 @@ export async function DELETE(
       );
     }
 
-    const membrane = new Membrane({
-      token: membraneAccessToken!,
+    // Delete the record from our database first
+    try {
+      await record.deleteOne();
+
+      await createSyncActivity({
+        syncId,
+        userId: dbUserId,
+        type: "event_record_deleted",
+        recordId: record._id.toString(),
+        metadata: {
+          recordId: record.externalId,
+          integrationKey: sync.integrationKey,
+          recordType: sync.recordType,
+        },
+      });
+    } catch (dbError) {
+      console.error("Failed to delete record from database:", dbError);
+      return NextResponse.json(
+        {
+          success: false,
+          message: `Failed to delete record from database: ${
+            dbError instanceof Error ? dbError.message : "Unknown error"
+          }`,
+        },
+        { status: 500 }
+      );
+    }
+
+    // Return early response after successful database deletion
+    const response = NextResponse.json({
+      success: true,
+      message: "Record deleted successfully",
     });
 
+    // Handle Membrane integration deletion asynchronously
     try {
+      const membrane = new Membrane({
+        token: membraneAccessToken!,
+      });
+
       await membrane
         .connection(sync.integrationKey)
         .action(`delete-${sync.recordType}`, {
@@ -193,39 +242,12 @@ export async function DELETE(
         .run({
           id: record.externalId,
         });
-    } catch (error) {
-      if (error instanceof ActionRunError) {
-        throw new Error(error.data.message);
-      }
-
-      throw error;
+    } catch (membraneError) {
+      console.error("Failed to delete record from Membrane:", membraneError);
+      // Note: Record is already deleted from our database, so we just log the error
     }
 
-    await record.deleteOne();
-
-    if (!record) {
-      return NextResponse.json(
-        { success: false, message: "Record not found" },
-        { status: 404 }
-      );
-    }
-
-    await createSyncActivity({
-      syncId,
-      userId: dbUserId,
-      type: "event_record_deleted",
-      recordId: record._id.toString(),
-      metadata: {
-        recordId: record.externalId,
-        integrationKey: sync.integrationKey,
-        recordType: sync.recordType,
-      },
-    });
-
-    return NextResponse.json({
-      success: true,
-      message: "Record deleted successfully",
-    });
+    return response;
   } catch (error) {
     console.error("Failed to delete record:", error);
     return NextResponse.json(

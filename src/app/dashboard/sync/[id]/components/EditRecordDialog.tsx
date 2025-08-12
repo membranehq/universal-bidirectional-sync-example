@@ -11,17 +11,12 @@ import {
 import { Loader2 } from "lucide-react";
 import recordTypesConfig from "@/lib/record-type-config";
 import { ZodFormRenderer } from "./ZodFormRenderer";
-import { z } from "zod";
-import { toast } from "sonner";
-import type { IRecord } from "@/models/types";
-import { fetchWithAuth } from "@/lib/fetch-utils";
-import { useAuth } from "@clerk/nextjs";
+import { TableRecord } from "./Records/types";
 
 interface EditRecordModalProps {
-  record: IRecord;
+  record: TableRecord;
   recordType: string;
-  syncId: string;
-  onRecordUpdated?: () => void;
+  onUpdateRecord?: (recordId: string, recordData: Record<string, unknown>) => Promise<void>;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
@@ -29,22 +24,20 @@ interface EditRecordModalProps {
 export function EditRecordDialog({
   record,
   recordType,
-  syncId,
-  onRecordUpdated,
+  onUpdateRecord,
   open,
   onOpenChange,
 }: EditRecordModalProps) {
   const [formData, setFormData] = useState<Record<string, unknown>>(() => record.data);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { getToken } = useAuth();
 
   const config =
     recordTypesConfig[recordType as keyof typeof recordTypesConfig];
 
   const handleFieldChange = (field: string, value: unknown) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
-    // Clear error when user starts typing
+
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: "" }));
     }
@@ -59,39 +52,15 @@ export function EditRecordDialog({
       const validatedData = config.schema.parse(formData);
       console.log("Validated data:", validatedData);
 
-      // Submit the data to the API
-      await fetchWithAuth(
-        `/api/sync/${syncId}/records/${record._id}`,
-        getToken,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(validatedData),
-        }
-      );
-
-      toast.success("Record updated successfully");
-      onRecordUpdated?.();
+      // Call the callback if provided
+      if (onUpdateRecord) {
+        await onUpdateRecord(record.id, validatedData);
+      }
       onOpenChange?.(false);
       setFormData({});
       setErrors({});
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        const newErrors: Record<string, string> = {};
-        // @ts-expect-error - ZodError errors property access
-        error.errors.forEach((err: { path: (string | number)[]; message: string }) => {
-          const field = err.path.join(".");
-          newErrors[field] = err.message;
-        });
-        setErrors(newErrors);
-      } else {
-        console.error("Failed to update record:", error);
-        toast.error(
-          error instanceof Error ? error.message : "Failed to update record"
-        );
-      }
+      setErrors({ form: error instanceof Error ? error.message : 'Failed to update record' });
     } finally {
       setIsSubmitting(false);
     }
@@ -113,6 +82,20 @@ export function EditRecordDialog({
           onSubmit={handleSubmit}
           className="flex flex-col flex-1 min-h-0 p-3"
         >
+          {errors.form && (
+            <div className="px-6 py-3 bg-red-50 border border-red-200 rounded-md mb-4">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm text-red-800">{errors.form}</p>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="flex-1 overflow-y-auto px-6 py-4">
             <ZodFormRenderer
               // @ts-expect-error - Schema type mismatch

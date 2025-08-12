@@ -15,52 +15,41 @@ import {
   Trash2,
   MoreHorizontal,
   Edit,
-  CheckCircle,
-  XCircle,
-  Clock,
-  AlertCircle,
 } from "lucide-react";
 import type { IRecord } from "@/models/types";
-import { SyncStatusObject } from "@/models/types";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
+import { toast } from "sonner";
 import recordTypesConfig from "@/lib/record-type-config";
+import { TableRecord } from "./types";
 
 interface RecordProps {
-  record: IRecord;
+  record: TableRecord;
   index: number;
-  onRecordDeleted?: (recordId: string) => void;
-  onEditRecord?: (record: IRecord) => void;
+  onRecordDeleted?: (recordId: string) => Promise<void>;
+  onEditRecord?: (record: TableRecord) => void;
   recordType: string;
+  renderRight?: React.ReactNode;
 }
 
-const getSyncStatusIcon = (status: string) => {
-  switch (status) {
-    case SyncStatusObject.COMPLETED:
-      return <CheckCircle className="w-4 h-4 text-green-500" />;
-    case SyncStatusObject.FAILED:
-      return <XCircle className="w-4 h-4 text-red-500" />;
-    case SyncStatusObject.IN_PROGRESS:
-      return <Clock className="w-4 h-4 text-blue-500" />;
-    case SyncStatusObject.PENDING:
-      return <Clock className="w-4 h-4 text-gray-500" />;
-    default:
-      return <AlertCircle className="w-4 h-4 text-gray-500" />;
-  }
-};
+
 
 export function Record({
   record,
   onRecordDeleted,
   onEditRecord,
   recordType,
+  renderRight,
 }: RecordProps) {
   const [expanded, setExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(JSON.stringify(record.data, null, 2));
@@ -73,11 +62,23 @@ export function Record({
   };
 
   const handleDelete = () => {
-    const confirmed = window.confirm(
-      `Are you sure you want to delete this ${recordType}? This action cannot be undone.`
-    );
-    if (confirmed) {
-      onRecordDeleted?.(record._id);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    setIsDeleting(true);
+    try {
+      console.log("record.id", record.id);
+      await onRecordDeleted?.(record.id);
+      toast.success(`${recordType} deleted successfully`);
+      setDeleteDialogOpen(false);
+    } catch (error) {
+      console.error('Failed to delete record:', error);
+      toast.error(
+        error instanceof Error ? error.message : `Failed to delete ${recordType}`
+      );
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -91,7 +92,7 @@ export function Record({
     const RecordComponent = recordTypeConfig?.component;
 
     if (RecordComponent) {
-      return <RecordComponent record={record} />;
+      return <RecordComponent record={record as unknown as IRecord} />;
     }
 
     return (
@@ -99,11 +100,8 @@ export function Record({
         <div className="py-3 whitespace-nowrap">
           <div className="flex items-center gap-2">
             <Hash className="w-3 h-3 mr-1" />
-            {record._id}
+            {record.id}
           </div>
-        </div>
-        <div className="flex-1 px-4 py-3 whitespace-nowrap text-sm">
-          {record.name || "N/A"}
         </div>
         <div className="flex-1 px-4 py-3 whitespace-nowrap text-sm">
           {record.createdAt
@@ -144,22 +142,7 @@ export function Record({
         <div className="px-4 py-3 text-right sticky right-0 bg-background">
           <div className="flex items-center justify-end gap-1">
             <div className="flex items-center gap-2 mr-2">
-              {!record.syncError && getSyncStatusIcon(record.syncStatus)}
-              {record.syncError && (
-                <TooltipProvider>
-                  <Tooltip delayDuration={100}>
-                    <TooltipTrigger asChild>
-                      <AlertCircle className="w-4 h-4 text-red-500 cursor-help" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <div className="max-w-xs">
-                        <p className="font-semibold">Sync Error:</p>
-                        <p className="text-xs">{record.syncError}</p>
-                      </div>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              )}
+              {renderRight}
             </div>
             <TooltipProvider>
               <Tooltip>
@@ -189,14 +172,14 @@ export function Record({
               <DropdownMenuContent align="end">
                 {recordTypesConfig[recordType as keyof typeof recordTypesConfig]
                   ?.allowUpdate && (
-                  <DropdownMenuItem
-                    onClick={handleEdit}
-                    className="flex items-center"
-                  >
-                    <Edit className="w-4 h-4 mr-2" />
-                    Edit {recordType}
-                  </DropdownMenuItem>
-                )}
+                    <DropdownMenuItem
+                      onClick={handleEdit}
+                      className="flex items-center"
+                    >
+                      <Edit className="w-4 h-4 mr-2" />
+                      Edit {recordType}
+                    </DropdownMenuItem>
+                  )}
 
                 <DropdownMenuItem
                   onClick={handleDelete}
@@ -234,16 +217,22 @@ export function Record({
                     : "N/A"}
                 </span>
               </div>
-              {record.syncError && (
-                <div className="text-red-500">
-                  <span className="font-semibold">Sync Error:</span>{" "}
-                  {record.syncError}
-                </div>
-              )}
             </div>
           </div>
         </div>
       )}
+
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        title={`Delete ${recordType}`}
+        description={`Are you sure you want to delete this ${recordType}? This action cannot be undone.`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="destructive"
+        loading={isDeleting}
+        onConfirm={confirmDelete}
+      />
     </div>
   );
 }

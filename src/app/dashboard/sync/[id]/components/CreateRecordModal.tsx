@@ -13,25 +13,22 @@ import { Plus } from "lucide-react";
 import recordTypesConfig from "@/lib/record-type-config";
 import { ZodFormRenderer } from "./ZodFormRenderer";
 import { z } from "zod";
-import { fetchWithAuth } from "@/lib/fetch-utils";
-import { useAuth } from "@clerk/nextjs";
 
 interface CreateRecordModalProps {
   recordType: string;
-  syncId: string;
   trigger?: React.ReactNode;
+  onCreatedRecord?: (recordData: Record<string, unknown>) => Promise<void>;
 }
 
 export function CreateRecordModal({
   recordType,
-  syncId,
   trigger,
+  onCreatedRecord,
 }: CreateRecordModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState<Record<string, unknown>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { getToken } = useAuth();
 
   const config = recordTypesConfig[recordType as keyof typeof recordTypesConfig];
   const IconComponent = config?.icon;
@@ -59,37 +56,17 @@ export function CreateRecordModal({
       const validatedData = config.schema.parse(formData);
       console.log("Validated data:", validatedData);
 
-      // Submit the data to the API
-      const response = await fetchWithAuth(
-        `/api/sync/${syncId}/records`,
-        getToken,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ data: validatedData }),
-        }
-      );
-
-      console.log("Record created:", response);
+      // Call the callback if provided
+      if (onCreatedRecord) {
+        await onCreatedRecord(validatedData);
+      }
 
       // Close modal and reset form
       setIsOpen(false);
       setFormData({});
       setErrors({});
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        const newErrors: Record<string, string> = {};
-        error.issues.forEach((err: z.ZodIssue) => {
-          const field = err.path.join(".");
-          newErrors[field] = err.message;
-        });
-        setErrors(newErrors);
-      } else {
-        console.error("Failed to create record:", error);
-        // You might want to show a toast notification here
-      }
+      setErrors({ form: error instanceof Error ? error.message : 'Failed to create record' });
     } finally {
       setIsSubmitting(false);
     }
@@ -116,6 +93,20 @@ export function CreateRecordModal({
           <DialogTitle>Create {recordType}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 p-3">
+          {errors.form && (
+            <div className="px-6 py-3 bg-red-50 border border-red-200 rounded-md mb-4">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm text-red-800">{errors.form}</p>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="flex-1 overflow-y-auto px-6 py-4">
             <ZodFormRenderer
               schema={config.schema as z.ZodObject<Record<string, z.ZodTypeAny>>}
