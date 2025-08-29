@@ -7,7 +7,7 @@ import Banner from "./banner";
 
 export function Header() {
   return (
-    <div className="sticky top-0 z-50 w-full">
+    <div className="sticky top-0 z-50 w-full border-gray-50">
      <Banner/>
       <header className="w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <nav className="container mx-auto px-4 sm:pl-6 lg:pl-8">
