@@ -53,7 +53,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
     isConnecting,
     connect,
   } = useIntegrationConnection({
-    integrationKey: selectedIntegration?.key!,
+    integrationKey: selectedIntegration?.key,
   });
 
   const instanceKey = useRef(uuidv4());

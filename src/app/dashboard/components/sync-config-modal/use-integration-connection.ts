@@ -3,7 +3,7 @@ import { useIntegrationApp } from "@integration-app/react";
 import { Connection } from "@integration-app/sdk";
 
 interface UseIntegrationConnectionProps {
-  integrationKey: string | null;
+  integrationKey: string | undefined;
 }
 
 interface UseIntegrationConnectionReturn {
