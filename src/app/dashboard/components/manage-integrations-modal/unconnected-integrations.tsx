@@ -3,10 +3,10 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { useIntegrations, useConnections } from '@integration-app/react';
+import { useIntegrations, useConnections } from '@membranehq/react';
 import { AlertCircle, Loader2, RefreshCw, Plug2, Search } from 'lucide-react';
 import Image from 'next/image';
-import { useIntegrationApp, type Integration } from '@integration-app/react';
+import { useIntegrationApp, type Integration } from '@membranehq/react';
 import { toast } from 'sonner';
 import { Input } from '@/components/ui/input';
 
@@ -17,7 +17,13 @@ function UnconnectedIntegrationItem({
   const [isConnecting, setIsConnecting] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
+  const isReady = integration.state === "READY";
+  const isDisabled = !isReady;
+
   const handleConnect = async () => {
+
+    if (isDisabled || !integration.key) return;
+
     try {
       setIsConnecting(true);
 
@@ -39,10 +45,13 @@ function UnconnectedIntegrationItem({
 
   return (
     <div
-      className="flex flex-col p-3 border rounded-lg transition-colors hover:bg-muted/50 cursor-pointer hover:border-primary/50 relative"
+      className={`flex flex-col p-3 border rounded-lg transition-colors relative ${isDisabled
+        ? 'opacity-50 cursor-not-allowed bg-muted/30'
+        : 'hover:bg-muted/50 cursor-pointer hover:border-primary/50'
+        }`}
       onClick={handleConnect}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => !isDisabled && setIsHovered(true)}
+      onMouseLeave={() => !isDisabled && setIsHovered(false)}
     >
       {/* TODO: Add a loading state */}
       {isConnecting && (
@@ -71,10 +80,21 @@ function UnconnectedIntegrationItem({
           <div className="h-4 mt-1">
             {isHovered ? (
               <div className="flex items-center gap-1">
-                <Plug2 className="size-3 text-muted-foreground" />
-                <span className="text-xs text-muted-foreground">
-                  Click to connect
-                </span>
+                {isDisabled ? (
+                  <>
+                    <AlertCircle className="size-3 text-muted-foreground" />
+                    <span className="text-xs text-muted-foreground">
+                      Not available
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <Plug2 className="size-3 text-muted-foreground" />
+                    <span className="text-xs text-muted-foreground">
+                      Click to connect
+                    </span>
+                  </>
+                )}
               </div>
             ) : (
               <span className="text-xs text-muted-foreground/60 font-mono truncate block">

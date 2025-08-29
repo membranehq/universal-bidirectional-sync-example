@@ -6,7 +6,7 @@ import { Record } from "@/models/record";
 import {
   ExternalEventSubscription,
   IntegrationAppClient,
-} from "@integration-app/sdk";
+} from "@membranehq/sdk";
 import { ISync } from "@/models/types";
 import { getElementKey } from "@/lib/element-key";
 

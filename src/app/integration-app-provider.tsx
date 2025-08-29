@@ -1,6 +1,6 @@
 "use client"
 
-import { IntegrationAppProvider as Provider } from "@integration-app/react";
+import { IntegrationAppProvider as Provider } from "@membranehq/react";
 import { useAuth } from "@clerk/nextjs";
 
 export function IntegrationAppProvider({

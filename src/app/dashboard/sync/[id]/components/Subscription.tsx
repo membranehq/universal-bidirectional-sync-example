@@ -17,7 +17,7 @@ import {
 import { useState } from "react";
 import { toast } from "sonner";
 import { PullCountdown } from "./PullCountdown";
-import { ExternalEventSubscription } from "@integration-app/sdk";
+import { ExternalEventSubscription } from "@membranehq/sdk";
 import { useMembraneToken } from "@/hooks/use-integration-token";
 
 interface SubscriptionProps {

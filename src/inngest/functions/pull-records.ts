@@ -1,5 +1,5 @@
 import { inngest } from "@/inngest/inngest";
-import { IntegrationAppClient } from "@integration-app/sdk";
+import { IntegrationAppClient } from "@membranehq/sdk";
 import { Record } from "@/models/record";
 import { Sync } from "@/models/sync";
 import { createSyncActivity } from "@/lib/sync-activity-utils";

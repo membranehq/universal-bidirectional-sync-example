@@ -1,4 +1,4 @@
-import { ExternalEventSubscription } from "@integration-app/sdk";
+import { ExternalEventSubscription } from "@membranehq/sdk";
 
 export const SyncStatusObject = {
   PENDING: "pending",

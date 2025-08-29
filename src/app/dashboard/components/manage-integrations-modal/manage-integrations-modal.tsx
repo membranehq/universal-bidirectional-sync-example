@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
-import { useConnections } from '@integration-app/react';
+import { useConnections } from '@membranehq/react';
 import { Plug } from 'lucide-react';
 import { cn } from '@/lib/fetch-utils';
 
@@ -16,7 +16,11 @@ import {
 import { UnconnectedIntegrations } from './unconnected-integrations';
 import { ConnectedIntegrations } from './connected-integrations';
 
-export function ManageIntegrationsModal() {
+interface ManageIntegrationsModalProps {
+  trigger?: ReactNode;
+}
+
+export function ManageIntegrationsModal({ trigger }: ManageIntegrationsModalProps) {
   const [open, setOpen] = useState(false);
   const { connections, loading: connectionsIsLoading } = useConnections();
 
@@ -24,26 +28,28 @@ export function ManageIntegrationsModal() {
     (connection) => !connection.disconnected,
   );
 
+  const defaultTrigger = (
+    <Button
+      size="icon"
+      variant="outline"
+      className="relative w-10 h-10 rounded-full focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+    >
+      <Plug className="w-4 h-4" />
+      {!connectionsIsLoading && (
+        <div
+          className={cn(
+            'absolute -top-1 -right-1 w-4 h-4 rounded-full border-2 border-background',
+            hasConnectedIntegration ? 'bg-green-500' : 'bg-red-500',
+          )}
+        />
+      )}
+    </Button>
+  );
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          size="sm"
-          variant="ghost"
-          className="gap-2 rounded-full cursor-pointer p-2"
-        >
-          <div className="relative">
-            <Plug />
-            {!connectionsIsLoading && (
-              <div
-                className={cn(
-                  'absolute -top-1 -right-1 w-2 h-2 rounded-full',
-                  hasConnectedIntegration ? 'bg-green-500' : 'bg-red-500',
-                )}
-              />
-            )}
-          </div>
-        </Button>
+        {trigger || defaultTrigger}
       </DialogTrigger>
       <DialogContent className="max-w-4xl">
         <DialogHeader className="pl-2">

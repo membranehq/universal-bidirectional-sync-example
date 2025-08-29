@@ -1,9 +1,9 @@
 "use client";
 
-import { useFieldMappingInstance } from "@integration-app/react";
+import { useFieldMappingInstance } from "@membranehq/react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { FormLabel } from "@/components/ui/form-label";
-import { DataInput } from "@integration-app/react";
+import { DataInput } from "@membranehq/react";
 import { SectionWithStatus } from "./section-with-status";
 
 interface CustomFieldMappingConfigurationProps {

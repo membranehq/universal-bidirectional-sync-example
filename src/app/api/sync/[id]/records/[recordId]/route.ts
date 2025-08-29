@@ -7,7 +7,7 @@ import { createSyncActivity } from "@/lib/sync-activity-utils";
 import {
   ActionRunError,
   IntegrationAppClient as Membrane,
-} from "@integration-app/sdk";
+} from "@membranehq/sdk";
 import { getElementKey } from "@/lib/element-key";
 import { SyncStatusObject } from "@/models/types";
 

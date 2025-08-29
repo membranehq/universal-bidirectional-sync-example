@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useIntegrationApp } from "@integration-app/react";
-import {  DataSource } from "@integration-app/sdk";
+import { useIntegrationApp } from "@membranehq/react";
+import { DataSource } from "@membranehq/sdk";
 
 interface UseDataSourcesProps {
   integrationId: string | undefined;

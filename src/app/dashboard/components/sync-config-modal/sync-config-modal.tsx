@@ -21,10 +21,10 @@ import { v4 as uuidv4 } from "uuid";
 import { Download, Loader } from "lucide-react";
 import { IntegrationSelect } from "./integration-select";
 import { Skeleton } from "@/components/ui/skeleton";
-import "@integration-app/react/styles.css";
+import "@membranehq/react/styles.css";
 import Image from "next/image";
 import { FormLabel } from "@/components/ui/form-label";
-import { Integration, DataSourceInstance } from "@integration-app/sdk";
+import { Integration, DataSourceInstance } from "@membranehq/sdk";
 import { getSingularForm } from "@/lib/pluralize-utils";
 import { fetchWithAuth } from "@/lib/fetch-utils";
 import { useDataSources } from "@/app/dashboard/components/sync-config-modal/use-data-sources";
@@ -89,7 +89,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="h-[600px] flex flex-col pb-0">
+      <DialogContent className="h-[600px] flex flex-col pb-0 max-w-3xl">
         <DialogTitle className="flex items-center gap-2">
           Configure Sync
         </DialogTitle>

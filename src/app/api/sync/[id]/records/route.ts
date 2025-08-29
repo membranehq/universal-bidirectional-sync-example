@@ -4,7 +4,7 @@ import { ensureUser } from "@/lib/ensureUser";
 import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
 import { createSyncActivity } from "@/lib/sync-activity-utils";
-import { IntegrationAppClient as Membrane } from "@integration-app/sdk";
+import { IntegrationAppClient as Membrane } from "@membranehq/sdk";
 import { getElementKey } from "@/lib/element-key";
 import { SyncStatusObject } from "@/models/types";
 

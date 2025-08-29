@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useIntegrationApp } from "@integration-app/react";
-import { Connection } from "@integration-app/sdk";
+import { useIntegrationApp } from "@membranehq/react";
+import { Connection } from "@membranehq/sdk";
 
 interface UseIntegrationConnectionProps {
   integrationKey: string | undefined;
