@@ -15,7 +15,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
 import { Download, Loader } from "lucide-react";
@@ -27,8 +26,8 @@ import { FormLabel } from "@/components/ui/form-label";
 import { Integration, DataSourceInstance } from "@membranehq/sdk";
 import { getSingularForm } from "@/lib/pluralize-utils";
 import { fetchWithAuth } from "@/lib/fetch-utils";
-import { useDataSources } from "@/app/dashboard/components/sync-config-modal/use-data-sources";
-import { useIntegrationConnection } from "@/app/dashboard/components/sync-config-modal/use-integration-connection";
+import { useDataSources } from "@/components/sync-config-modal/use-data-sources";
+import { useIntegrationConnection } from "@/components/sync-config-modal/use-integration-connection";
 import { CustomDataSourceConfiguration } from "./custom-data-source-configuration";
 import { CustomFieldMappingConfiguration } from "./custom-field-mapping-configuration";
 import { SectionWithStatus } from "./section-with-status";
@@ -38,7 +37,6 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
     useState<Integration | null>(null);
   const [selectedDataSourceKey, setSelectedDataSourceKey] =
     useState<string>("");
-  const { getToken } = useAuth();
   const [open, setOpen] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [dataSourceInstance, setDataSourceInstance] =
@@ -66,7 +64,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
         setSyncing(false);
         return;
       }
-      await fetchWithAuth("/api/sync", getToken, {
+      await fetchWithAuth("/api/sync", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

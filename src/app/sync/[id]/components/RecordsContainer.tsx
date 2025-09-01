@@ -2,7 +2,6 @@
 
 import { memo, useState, useCallback } from "react";
 import useSWR from "swr";
-import { useAuth } from "@clerk/nextjs";
 import { useParams } from "next/navigation";
 import { Database, CheckCircle, XCircle, Clock, AlertCircle } from "lucide-react";
 import type { IRecord, RecordType, SyncStatus } from "@/models/types";
@@ -18,8 +17,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { PaginationControls } from "@/app/dashboard/sync/[id]/components/Records/pagination-controls";
+PaginationControls
 import { TableRecord } from "./Records/types";
+import { PaginationControls } from "./Records/pagination-controls";
 
 
 interface RecordContainerProps {
@@ -110,7 +110,6 @@ export const RecordContainer = memo(function RecordContainer({
   syncStatus,
 }: RecordContainerProps) {
   const { id } = useParams();
-  const { getToken } = useAuth();
   const [currentPage, setCurrentPage] = useState(1);
   const [isNavigating, setIsNavigating] = useState(false);
 
@@ -125,10 +124,10 @@ export const RecordContainer = memo(function RecordContainer({
     id
       ? [
         `/api/sync/${id}/records?page=${currentPage}&limit=${PAGE_SIZE}`,
-        "token",
+
       ]
       : null,
-    async ([url]) => fetchWithAuth(url, getToken),
+    async ([url]) => fetchWithAuth(url),
     {
       refreshInterval: REFRESH_INTERVAL,
       revalidateOnFocus: false,
@@ -160,7 +159,6 @@ export const RecordContainer = memo(function RecordContainer({
       try {
         const response = await fetchWithAuth(
           `/api/sync/${syncId}/records/${recordId}`,
-          getToken,
           {
             method: "DELETE",
           }
@@ -182,7 +180,7 @@ export const RecordContainer = memo(function RecordContainer({
         );
       }
     },
-    [syncId, mutateRecords, getToken]
+    [syncId, mutateRecords]
   );
 
   const handleCreateRecord = useCallback(
@@ -190,7 +188,6 @@ export const RecordContainer = memo(function RecordContainer({
       try {
         const response = await fetchWithAuth(
           `/api/sync/${syncId}/records`,
-          getToken,
           {
             method: "POST",
             headers: {
@@ -216,7 +213,7 @@ export const RecordContainer = memo(function RecordContainer({
         );
       }
     },
-    [syncId, getToken, mutateRecords]
+    [syncId, mutateRecords]
   );
 
   const handleUpdateRecord = useCallback(
@@ -224,7 +221,7 @@ export const RecordContainer = memo(function RecordContainer({
       try {
         const response = await fetchWithAuth(
           `/api/sync/${syncId}/records/${recordId}`,
-          getToken,
+
           {
             method: "PUT",
             headers: {
@@ -250,7 +247,7 @@ export const RecordContainer = memo(function RecordContainer({
         );
       }
     },
-    [syncId, getToken, mutateRecords]
+    [syncId, mutateRecords]
   );
 
   if (records.length === 0 && !isLoading) {
@@ -292,7 +289,7 @@ export const RecordContainer = memo(function RecordContainer({
 
     return (
       <div className="flex items-center justify-between">
-          {isLoading ? null : `Showing ${formatRecordCount()}`}
+        {isLoading ? null : `Showing ${formatRecordCount()}`}
         <PaginationControls
           pagination={pagination}
           isNavigating={isNavigating}

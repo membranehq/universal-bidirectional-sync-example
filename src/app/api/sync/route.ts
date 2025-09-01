@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/lib/mongodb";
 
 import { ensureUser } from "@/lib/ensureUser";
@@ -86,12 +86,19 @@ async function createSyncDependencies(
 }
 
 export async function POST(
-  request: Request
+  request: NextRequest
 ): Promise<NextResponse<{ success: boolean }>> {
   try {
     await connectDB();
 
-    const { dbUserId, membraneAccessToken } = await ensureUser();
+    const result = await ensureUser(request);
+
+    // Check if ensureUser returned an error response
+    if (result instanceof NextResponse) {
+      return result;
+    }
+
+    const { id: dbUserId, membraneAccessToken } = result;
 
     if (!dbUserId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -167,17 +174,22 @@ export async function POST(
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     await connectDB();
 
-    const { dbUserId } = await ensureUser();
+    const result = await ensureUser(request);
+
+    // Check if ensureUser returned an error response
+    if (result instanceof NextResponse) {
+      return result;
+    }
+
+    const { id: dbUserId } = result;
 
     if (!dbUserId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-
-    await connectDB();
 
     const syncs = await Sync.find({ userId: dbUserId })
       .sort({ createdAt: -1 })

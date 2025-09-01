@@ -27,7 +27,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/dashboard/sync/[id]/components/EditRecordDialog.tsx"
   ],
   "exclude": ["node_modules"]
 }

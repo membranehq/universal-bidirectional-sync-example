@@ -4,7 +4,6 @@ import { memo, useEffect, useRef, useState } from "react";
 import { Plus, Edit, Trash2, RefreshCw, Database, Hash, RotateCcw } from "lucide-react";
 import type { IRecord, ISyncActivity, SyncActivityType, SyncActivityMetadata } from "@/models/types";
 import useSWR from "swr";
-import { useAuth } from "@clerk/nextjs";
 import { fetchWithAuth } from "@/lib/fetch-utils";
 import { Loader } from "@/components/ui/loader";
 import { cn } from "@/lib/fetch-utils";
@@ -15,15 +14,13 @@ interface SyncActivitiesProps {
 }
 
 export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActivitiesProps) {
-  const { getToken } = useAuth();
   const [newActivityIds, setNewActivityIds] = useState<Set<string>>(new Set());
   const previousActivitiesRef = useRef<ISyncActivity[]>([]);
 
   const { data: activitiesData, error: activitiesError, isLoading: activitiesLoading, mutate } = useSWR(
     `/api/sync/${syncId}/activities`,
     async (url) => {
-      const token = await getToken();
-      return fetchWithAuth(url, () => Promise.resolve(token));
+      return fetchWithAuth(url);
     },
     {
       refreshInterval: 5000,

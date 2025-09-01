@@ -1,14 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { SignedIn, UserButton } from "@clerk/nextjs";
 import { Github } from "lucide-react";
 import Banner from "./banner";
 
 export function Header() {
   return (
     <div className="sticky top-0 z-50 w-full border-gray-50">
-     <Banner/>
+      <Banner />
       <header className="w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <nav className="container mx-auto px-4 sm:pl-6 lg:pl-8">
           <div className="flex justify-between h-16">
@@ -28,9 +27,6 @@ export function Header() {
                 <Github className="w-4 h-4" />
                 <span className="hidden sm:inline">GitHub</span>
               </a>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
             </div>
           </div>
         </nav>

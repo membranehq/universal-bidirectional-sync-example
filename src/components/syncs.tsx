@@ -1,5 +1,4 @@
 import useSWR from "swr";
-import { useAuth } from "@clerk/nextjs";
 import type { ISync } from "@/models/types";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,11 +14,10 @@ import {
 import { formatDistanceToNow } from "date-fns";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { RecordTypeBadge } from "@/components/ui/record-type-badge";
+import { fetchWithAuth } from "@/lib/fetch-utils";
 
 const fetcher = async (url: string, token: string) => {
-  const res = await fetch(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const res = await fetchWithAuth(url);
   if (!res.ok) throw new Error("Failed to fetch syncs");
   return res.json();
 };
@@ -34,7 +32,7 @@ function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
   return (
     <Link
       key={sync.integrationKey + sync.recordType + sync._id}
-      href={`/dashboard/sync/${sync._id}`}
+      href={`/sync/${sync._id}`}
       className="block group"
     >
       <div className="flex items-center flex-row gap-2 border-b border-gray-200 hover:bg-muted/70 cursor-pointer transition-colors py-4 px-2">
@@ -108,13 +106,12 @@ function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
 }
 
 export function Syncs() {
-  const { getToken } = useAuth();
+
 
   const { data, error, isLoading } = useSWR<{ data: (ISync & { _id: string, recordCount: number })[] }>(
     ["/api/sync", "token"],
     async ([url]) => {
-      const token = await getToken();
-      return fetcher(url, token!);
+      return fetchWithAuth(url);
     },
     {
       refreshInterval: 5000,

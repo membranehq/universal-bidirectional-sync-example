@@ -11,18 +11,15 @@ import {
   ChevronUp,
 } from "lucide-react";
 import Image from "next/image";
-
-import { useAuth } from "@clerk/nextjs";
-
 import useSWRMutation from "swr/mutation";
 import { fetchWithAuth } from "@/lib/fetch-utils";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { Subscription } from "@/app/dashboard/sync/[id]/components/Subscription";
 import { useState } from "react";
 import { capitalize } from "@/lib/string-utils";
 import { ISync, Subscriptions } from "@/models/types";
 import { MAX_RECORDS_COUNT } from "@/lib/sync-constants";
+import { Subscription } from "./Subscription";
 
 function SyncSubscriptions({
   subscriptions,
@@ -89,13 +86,12 @@ export function SyncHeader({
   sync: ISync;
   subscriptions: Subscriptions;
 }) {
-  const { getToken } = useAuth();
   const router = useRouter();
 
   const { trigger: triggerResync, isMutating: resyncing } = useSWRMutation(
     `/api/sync/${sync._id}/resync`,
     async (url: string) =>
-      fetchWithAuth(url, getToken, {
+      fetchWithAuth(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       })
@@ -120,11 +116,12 @@ export function SyncHeader({
     }
 
     try {
-      await fetchWithAuth(`/api/sync/${sync._id}`, getToken, {
+      await fetchWithAuth(`/api/sync/${sync._id}`, {
         method: "DELETE",
       });
+
       toast.success("Sync deleted");
-      router.push("/dashboard");
+      router.push("/");
     } catch (err: unknown) {
       let message = "Failed to delete sync";
       if (err instanceof Error) message = err.message;

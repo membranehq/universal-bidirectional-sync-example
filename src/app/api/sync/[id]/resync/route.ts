@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/lib/mongodb";
 import { ensureUser } from "@/lib/ensureUser";
 import { Record } from "@/models/record";
@@ -9,13 +9,20 @@ import { getElementKey } from "@/lib/element-key";
 import { SyncStatusObject } from "@/models/types";
 
 export async function POST(
-  request: Request,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
 
-    const { dbUserId, membraneAccessToken } = await ensureUser();
+    const result = await ensureUser(request);
+
+    // Check if ensureUser returned an error response
+    if (result instanceof NextResponse) {
+      return result;
+    }
+
+    const { id: dbUserId, membraneAccessToken } = result;
 
     if (!dbUserId) {
       return new NextResponse("Unauthorized", { status: 401 });

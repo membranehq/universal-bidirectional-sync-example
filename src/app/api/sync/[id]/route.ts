@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/lib/mongodb";
 import { ensureUser } from "@/lib/ensureUser";
 import { Sync } from "@/models/sync";
@@ -142,12 +142,19 @@ async function archiveSyncDependencies(
 }
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
-    const { dbUserId, membraneAccessToken } = await ensureUser();
+    const result = await ensureUser(request);
+
+    // Check if ensureUser returned an error response
+    if (result instanceof NextResponse) {
+      return result;
+    }
+
+    const { id: dbUserId, membraneAccessToken } = result;
     if (!dbUserId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -201,13 +208,20 @@ export async function GET(
 }
 
 export async function DELETE(
-  request: Request,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
 
-    const { dbUserId, membraneAccessToken } = await ensureUser();
+    const result = await ensureUser(request);
+
+    // Check if ensureUser returned an error response
+    if (result instanceof NextResponse) {
+      return result;
+    }
+
+    const { id: dbUserId, membraneAccessToken } = result;
 
     if (!dbUserId) {
       return new NextResponse("Unauthorized", { status: 401 });

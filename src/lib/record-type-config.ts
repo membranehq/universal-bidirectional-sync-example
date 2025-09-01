@@ -5,7 +5,7 @@ import {
   EmailRecord,
   UserRecord,
   FileRecord,
-} from "@/app/dashboard/sync/[id]/components/record-types";
+} from "@/app/sync/[id]/components/record-types";
 
 /**
  * Define the schema for each record type

@@ -5,17 +5,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export async function fetchWithAuth(
-  url: string,
-  getToken: () => Promise<string | null>,
-  options?: RequestInit
-) {
-  const token = await getToken();
+export async function fetchWithAuth(url: string, options?: RequestInit) {
   const res = await fetch(url, {
     ...options,
     headers: {
       ...(options?.headers || {}),
-      Authorization: `Bearer ${token}`,
     },
   });
   if (!res.ok) {

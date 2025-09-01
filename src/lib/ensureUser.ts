@@ -1,51 +1,26 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { User } from "@/models/user";
 import { generateCustomerAccessToken } from "./integration-token";
+import { getAuthUser } from "./auth-utils";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function ensureUser(): Promise<{
-  authUserId: string | null;
-  dbUserId: string | null;
-  fullName: string | null;
-  email: string | null;
-  membraneAccessToken: string | null;
-}> {
-  const sessionAuth = await auth();
+export async function ensureUser(request: NextRequest) {
+  const user = await getAuthUser(request);
 
-  const authUser = await currentUser();
-
-  if (!sessionAuth.userId || !authUser) {
-    return {
-      authUserId: null,
-      dbUserId: null,
-      fullName: null,
-      email: null,
-      membraneAccessToken: null,
-    };
+  if (!user) {
+    return new NextResponse("Unauthorized", { status: 401 });
   }
-
-  let dbUser = await User.findOne({ authUserId: sessionAuth.userId });
-
-  /**
-   * Ensure that  user with this authUserId exists in the database
-   */
-  if (!dbUser) {
-    dbUser = await User.create({ authUserId: sessionAuth.userId });
-  }
-
   /**
    * Generate a membrane access token for the user.
    * This is needed for the user to access the membrane API.
    */
   const token = await generateCustomerAccessToken({
-    id: dbUser._id.toString(),
-    name: authUser.fullName || `$user-${dbUser._id.toString()}`,
+    id: user.id,
+    name: `${user.email}-${user.id}`,
   });
 
   return {
-    authUserId: sessionAuth.userId,
-    dbUserId: dbUser._id.toString(),
-    fullName: authUser?.fullName,
-    email: authUser?.emailAddresses[0].emailAddress,
+    id: user.id,
+    email: user.email,
     membraneAccessToken: token,
   };
 }
