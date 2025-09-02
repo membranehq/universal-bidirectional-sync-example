@@ -5,6 +5,7 @@ import {
   useIntegrationApp,
   useDataSourceInstance,
   IntegrationAppConnectionProvider,
+  DataSourceConfig,
 } from "@membranehq/react";
 import { DataSourceInstance } from "@membranehq/sdk";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -57,6 +58,10 @@ export function CustomDataSourceConfiguration({
 
   const requiredFieldsAreFilled = false;
 
+
+  // Render null until we fix the issue with the data source config
+  return null
+
   return (
     <IntegrationAppConnectionProvider connectionId={connectionId}>
       <SectionWithStatus
@@ -76,15 +81,10 @@ export function CustomDataSourceConfiguration({
               </span>
             )}
           </div>
-          <DataInput
-            schema={dataSourceInstance.collectionSpec?.parametersSchema ?? {}}
-            value={dataSourceInstance.collectionParameters}
-            variablesSchema={
-              dataSourceInstance.collectionSpec?.parametersSchema ?? {}
-            }
-            onChange={(importValue: unknown) =>
-              patch({ collectionParameters: importValue })
-            }
+          <DataSourceConfig
+            configureEvents={true}
+            value={dataSourceInstance}
+            onChange={(value) => patch(value)}
           />
         </div>
       </SectionWithStatus>

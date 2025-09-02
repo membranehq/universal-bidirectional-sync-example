@@ -25,25 +25,27 @@ import Image from "next/image";
 import { FormLabel } from "@/components/ui/form-label";
 import { Integration, DataSourceInstance } from "@membranehq/sdk";
 import { fetchWithAuth } from "@/lib/fetch-utils";
-import { useDataSources } from "@/components/sync-config-modal/use-data-sources";
 import { useIntegrationConnection } from "@/components/sync-config-modal/use-integration-connection";
 import { CustomDataSourceConfiguration } from "./custom-data-source-configuration";
 import { CustomFieldMappingConfiguration } from "./custom-field-mapping-configuration";
 import { SectionWithStatus } from "./section-with-status";
+import appObjects from "@/lib/app-objects";
+import { AppObjectKey } from "@/lib/app-objects-schemas";
+import { useDataSources } from "@membranehq/react";
 
 function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
   const [selectedIntegration, setSelectedIntegration] =
     useState<Integration | null>(null);
-  const [selectedDataSourceKey, setSelectedDataSourceKey] =
-    useState<string>("");
+  const [selectedAppObjectKey, setSelectedAppObjectKey] = useState<
+    string | undefined
+  >();
   const [open, setOpen] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [dataSourceInstance, setDataSourceInstance] =
     useState<DataSourceInstance | null>(null);
 
-  const { data: dataSources, isLoading: dataSourcesLoading } = useDataSources({
-    integrationId: selectedIntegration?.id,
-  });
+  const { dataSources: dataSources = [] } =
+    useDataSources();
 
   const {
     data: connection,
@@ -58,7 +60,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
   const startSync = async () => {
     setSyncing(true);
     try {
-      if (!selectedDataSourceKey) {
+      if (!selectedAppObjectKey) {
         toast.error("No Object selected");
         setSyncing(false);
         return;
@@ -70,7 +72,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
         },
         body: JSON.stringify({
           integrationKey: selectedIntegration?.key,
-          recordType: selectedDataSourceKey,
+          recordType: selectedAppObjectKey,
           instanceKey: instanceKey.current,
         }),
       });
@@ -82,6 +84,11 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
       setSyncing(false);
     }
   };
+
+
+  const dataSourceKeys = dataSources.map((dataSource) => dataSource.key);
+
+  console.log("dataSourceKeys", dataSourceKeys);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -98,16 +105,78 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
               startSync();
             }}
           >
-            {/* 1: Integration Select (Always visible) */}
+            {/* 1: App Object Select (Always visible) */}
+            <SectionWithStatus done={!!selectedAppObjectKey}>
+              <div className="flex flex-col w-full max-w-xs">
+                <FormLabel
+                  label="Select Object"
+                  tooltip="Choose which app object you want to sync."
+                  size="sm"
+                  className="mb-1"
+                />
+                <Select
+                  value={selectedAppObjectKey}
+                  onValueChange={(value) => {
+                    if (selectedIntegration) setSelectedIntegration(null);
+
+                    setSelectedAppObjectKey(value);
+                  }}
+                >
+                  <SelectTrigger
+                    id="app-object-select"
+                    className="min-w-[200px]"
+                  >
+                    <SelectValue placeholder="Select an app object">
+                      {selectedAppObjectKey &&
+                        (() => {
+                          const obj =
+                            appObjects[selectedAppObjectKey as AppObjectKey];
+                          if (!obj) return null;
+                          const Icon = obj.icon;
+                          return (
+                            <span className="inline-flex items-center gap-2">
+                              <Icon className="w-4 h-4" />
+                              {obj.label}
+                            </span>
+                          );
+                        })()}
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.entries(appObjects).map(([key, obj]) => {
+                      const Icon = obj.icon;
+                      /**
+                       * Prevent showing App Object if we wont't have a data source for it
+                       */
+                      if (!dataSourceKeys.includes(key)) return null;
+
+                      return (
+                        <SelectItem value={key} key={key}>
+                          <span className="inline-flex items-center gap-2">
+                            <Icon className="w-4 h-4" />
+                            {obj.label}
+                          </span>
+                        </SelectItem>
+                      );
+                    })}
+                  </SelectContent>
+                </Select>
+              </div>
+            </SectionWithStatus>
+
+            {/* 2: Integration Select (Always visible) */}
             <SectionWithStatus done={!!selectedIntegration}>
               <IntegrationSelect
                 value={selectedIntegration}
-                onValueChange={setSelectedIntegration}
+                onValueChange={(integration) => {
+                  setSelectedIntegration(integration);
+                }}
+                dataSourceKey={selectedAppObjectKey}
                 label="Select Integration"
               />
             </SectionWithStatus>
 
-            {/* 2: Connect Button (Visible if integration selected has no connection) */}
+            {/* 3: Connect Button (Visible if integration selected has no connection) */}
             {!!selectedIntegration && !connection && (
               <SectionWithStatus done={false}>
                 <div className="flex flex-col gap-1 w-full">
@@ -143,74 +212,27 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
               </SectionWithStatus>
             )}
 
-            {/* 3: List all data sources for the selected integration after connecting*/}
-            {!!connection && (
-              <SectionWithStatus done={!!selectedDataSourceKey}>
-                <div className="flex flex-col w-full max-w-xs">
-                  <FormLabel
-                    label="Select Object"
-                    tooltip="Choose which object to sync from the selected integration."
-                    size="sm"
-                    className="mb-1"
-                  />
-                  <div className="flex flex-col gap-1 w-full">
-                    {!dataSourcesLoading ? (
-                      <Select
-                        value={selectedDataSourceKey}
-                        onValueChange={setSelectedDataSourceKey}
-                      >
-                        <SelectTrigger
-                          id="data-source-select"
-                          className="min-w-[200px]"
-                        >
-                          <SelectValue placeholder="Select an object">
-                            {selectedDataSourceKey &&
-                              (() => {
-                                const ds = dataSources.find(
-                                  (d) => d.key === selectedDataSourceKey
-                                );
-                                if (!ds) return null;
-                                return <span>{ds.name}</span>;
-                              })()}
-                          </SelectValue>
-                        </SelectTrigger>
-                        <SelectContent>
-                          {dataSources.map((ds) => (
-                            <SelectItem value={ds.key!} key={ds.key!}>
-                              {ds.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    ) : (
-                      <Skeleton className="h-10 w-2/3" />
-                    )}
-                  </div>
-                </div>
-              </SectionWithStatus>
-            )}
-
             {/* 4: Create data source instance and let you configure it, renders nothing if data source doesn't have any parameters */}
-            {!!selectedDataSourceKey && !!connection?.id && (
+            {!!selectedAppObjectKey && !!connection?.id && (
               <CustomDataSourceConfiguration
                 onDataSourceInstanceChange={(dataSourceInstance) =>
                   setDataSourceInstance(dataSourceInstance)
                 }
                 instanceKey={instanceKey.current}
                 integrationKey={selectedIntegration?.key}
-                dataSourceKey={selectedDataSourceKey}
+                dataSourceKey={selectedAppObjectKey}
                 connectionId={connection.id}
               />
             )}
 
             {/* 5: Create field mapping instance and let you configure it */}
-            {!!selectedDataSourceKey &&
+            {!!selectedAppObjectKey &&
               !!connection?.id &&
               !!dataSourceInstance && (
                 <CustomFieldMappingConfiguration
                   instanceKey={instanceKey.current}
                   integrationKey={selectedIntegration?.key}
-                  fieldMappingKey={selectedDataSourceKey}
+                  fieldMappingKey={selectedAppObjectKey}
                 />
               )}
           </form>
@@ -220,7 +242,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
           <Button
             type="button"
             className="bg-primary text-white font-semibold hover:bg-primary/90 transition"
-            disabled={!selectedIntegration || !selectedDataSourceKey || syncing}
+            disabled={!selectedIntegration || !selectedAppObjectKey || syncing}
             onClick={startSync}
           >
             {syncing && <Loader className="w-4 h-4 animate-spin mr-2" />}
