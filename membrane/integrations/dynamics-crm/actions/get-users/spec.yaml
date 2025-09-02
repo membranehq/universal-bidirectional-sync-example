@@ -1,44 +1,20 @@
-revision: ab6779cc-fb77-4cb6-9213-1ed79c329730
-isCustomized: false
-parentId: 68835427e49c6d4c3c9d372b
-parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
-integrationId: 68835413e49c6d4c3c9d3106
-integration:
-  key: dynamics-crm
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3106
-  name: Microsoft Dynamics 365
-  uuid: d865e870-6bb6-4614-9eab-91dfc1a7ea24
-  connectorId: 63151d261d39af2f69364172
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/6ae0689a-97e4-45c7-b004-a858aa4ad805
-  connectorVersion: 1.1.18
-  logoUri: >-
-    https://static.integration.app/connectors/dynamics-crm/asset-9eff3af5-d5f3-4634-b807-edd57ca5a56b.png
-  dataCollectionsCount: 18
-  operationsCount: 1
-  eventsCount: 0
-  authType: oauth2
+id: 68835428e49c6d4c3c9d37bc
+name: Get Users
 key: get-users
 state: READY
 errors: []
+revision: ab6779cc-fb77-4cb6-9213-1ed79c329730
+createdAt: '2025-07-25T09:53:44.555Z'
+updatedAt: '2025-08-05T10:23:49.828Z'
 isDeactivated: false
-id: 68835428e49c6d4c3c9d37bc
-name: Get Users
-type: list-data-records
+integrationId: 68835413e49c6d4c3c9d3106
+parentId: 68835427e49c6d4c3c9d372b
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: users
@@ -47,3 +23,30 @@ config:
   fieldMapping:
     key: users
     includeRawFields: true
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3106
+  name: Microsoft Dynamics 365
+  key: dynamics-crm
+  uuid: d865e870-6bb6-4614-9eab-91dfc1a7ea24
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.699Z'
+  updatedAt: '2025-07-25T09:53:38.595Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/dynamics-crm/asset-9eff3af5-d5f3-4634-b807-edd57ca5a56b.png
+  connectorId: 63151d261d39af2f69364172
+  connectorVersion: 1.1.18
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 1
+  hasData: true
+  dataCollectionsCount: 18
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

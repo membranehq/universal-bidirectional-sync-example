@@ -1,39 +1,14 @@
-revision: e4892df2-9627-4021-b22e-5a2c97729250
-isCustomized: false
-parentId: 6890519a5facd7ec99dbeba1
-parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
-integrationId: 68835413e49c6d4c3c9d3151
-integration:
-  key: greenhouse-harvest
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3151
-  name: Greenhouse Harvest
-  uuid: 3ede0864-2b68-4c1d-9073-9f36268e9386
-  connectorId: 65c3755eda65a37b19898497
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/c82fb5f1-310e-442d-8d69-a47b7d7da888
-  connectorVersion: 1.0.2
-  logoUri: >-
-    https://static.integration.app/connectors/greenhouse-harvest/logo-39d42c52-496c-48b3-89ec-cb588f6ec0f2.png
-  dataCollectionsCount: 15
-  operationsCount: 129
-  eventsCount: 0
-  authType: client-credentials
+id: 68905282ff92d86914347be2
+name: Update User
 key: update-user
 state: READY
 errors: []
+revision: e4892df2-9627-4021-b22e-5a2c97729250
+createdAt: '2025-08-04T06:26:13.872Z'
+updatedAt: '2025-08-05T10:23:59.340Z'
 isDeactivated: false
-id: 68905282ff92d86914347be2
-name: Update User
-type: update-data-record
+integrationId: 68835413e49c6d4c3c9d3151
+parentId: 6890519a5facd7ec99dbeba1
 inputSchema:
   type: object
   properties:
@@ -41,6 +16,7 @@ inputSchema:
       type: string
     fields:
       type: string
+type: update-data-record
 config:
   dataSource:
     key: users
@@ -72,3 +48,30 @@ config:
         $var: $.input.updatedTime
       created_at:
         $var: $.input.createdTime
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3151
+  name: Greenhouse Harvest
+  key: greenhouse-harvest
+  uuid: 3ede0864-2b68-4c1d-9073-9f36268e9386
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.791Z'
+  updatedAt: '2025-07-25T09:53:37.960Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/greenhouse-harvest/logo-39d42c52-496c-48b3-89ec-cb588f6ec0f2.png
+  connectorId: 65c3755eda65a37b19898497
+  connectorVersion: 1.0.2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 129
+  hasData: true
+  dataCollectionsCount: 15
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

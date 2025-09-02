@@ -1,35 +1,15 @@
+id: 6883542fe49c6d4c3c9d43f2
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542fe49c6d4c3c9d43f2
-name: Receive User Events
 revision: 5d2ddc22-1002-4958-9e95-b992b67d500b
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.681Z'
+updatedAt: '2025-08-05T10:24:40.169Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3143
-integration:
-  key: breezy
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3143
-  name: Breezy HR
-  uuid: 03911cee-b343-4a49-a022-6b3e62ed2d3b
-  connectorId: 643e81f7badd839bce463919
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: false
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/d02b3b4f-9cc2-4298-be21-7b4959c51918
-  connectorVersion: 1.0.2
-  logoUri: https://static.integration.app/connectors/breezy/logo.png
-  dataCollectionsCount: 5
-  operationsCount: 0
-  eventsCount: 0
-  authType: client-credentials
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -129,4 +109,27 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3143
+  name: Breezy HR
+  key: breezy
+  uuid: 03911cee-b343-4a49-a022-6b3e62ed2d3b
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.784Z'
+  updatedAt: '2025-07-25T09:53:34.063Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/breezy/logo.png
+  connectorId: 643e81f7badd839bce463919
+  connectorVersion: 1.0.2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  operationsCount: 0
+  hasData: true
+  dataCollectionsCount: 5
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

@@ -1,43 +1,20 @@
-revision: 239c2a15-ead0-4575-a7a1-82893a17ec89
-isCustomized: false
-parentId: 68835427e49c6d4c3c9d372b
-parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
-integrationId: 68835413e49c6d4c3c9d3110
-integration:
-  key: salesloft
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3110
-  name: Salesloft
-  uuid: 2922d5a7-afb2-482b-8657-2bc44d5a4d5a
-  connectorId: 633af74f361690ab46d8ed4e
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/80f6639f-0e3b-4fb0-aa69-c2b207a4b81e
-  connectorVersion: 2.0.5
-  logoUri: https://static.integration.app/connectors/salesloft/logo.png
-  dataCollectionsCount: 19
-  operationsCount: 121
-  eventsCount: 0
-  authType: client-credentials
+id: 68835428e49c6d4c3c9d37d9
+name: Get Users
 key: get-users
 state: READY
 errors: []
+revision: 239c2a15-ead0-4575-a7a1-82893a17ec89
+createdAt: '2025-07-25T09:53:44.555Z'
+updatedAt: '2025-08-05T10:23:50.305Z'
 isDeactivated: false
-id: 68835428e49c6d4c3c9d37d9
-name: Get Users
-type: list-data-records
+integrationId: 68835413e49c6d4c3c9d3110
+parentId: 68835427e49c6d4c3c9d372b
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: users
@@ -46,3 +23,29 @@ config:
   fieldMapping:
     key: users
     includeRawFields: true
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3110
+  name: Salesloft
+  key: salesloft
+  uuid: 2922d5a7-afb2-482b-8657-2bc44d5a4d5a
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.755Z'
+  updatedAt: '2025-07-25T09:53:38.856Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/salesloft/logo.png
+  connectorId: 633af74f361690ab46d8ed4e
+  connectorVersion: 2.0.5
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 121
+  hasData: true
+  dataCollectionsCount: 19
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

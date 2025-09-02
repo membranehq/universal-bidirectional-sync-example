@@ -1,44 +1,20 @@
-revision: 9acbdab5-11f1-4d9c-b4cc-f44e99fb013b
-isCustomized: false
-parentId: 68887d96f9df280360f1df48
-parentRevision: 574e62c8-21f1-4bf2-a813-d18c60db8dd7
-integrationId: 6884791695717cb906748574
-integration:
-  key: microsoft-outlook
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 6884791695717cb906748574
-  name: Microsoft Outlook
-  uuid: 1eb02756-c3cc-4feb-a265-0af2d9995c03
-  connectorId: 6466784d60f981f3ce696905
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/0ae5f413-12c9-4b83-a352-e0315235a306
-  connectorVersion: 1.3.0
-  logoUri: >-
-    https://static.integration.app/connectors/microsoft-outlook/logo-32b01f8c-072d-412b-be06-67d1f341f3ef.png
-  dataCollectionsCount: 6
-  operationsCount: 3627
-  eventsCount: 0
-  authType: oauth2
+id: 6889cde0b766435cecdde3f2
+name: Create Email
 key: create-email
 state: READY
 errors: []
+revision: 9acbdab5-11f1-4d9c-b4cc-f44e99fb013b
+createdAt: '2025-07-30T07:46:40.370Z'
+updatedAt: '2025-08-05T10:23:44.455Z'
 isDeactivated: false
-id: 6889cde0b766435cecdde3f2
-name: Create Email
-type: create-data-record
+integrationId: 6884791695717cb906748574
+parentId: 68887d96f9df280360f1df48
 inputSchema:
   type: object
   properties:
     fields:
       $ref: contacts
+type: create-data-record
 config:
   dataSource:
     key: emails
@@ -46,3 +22,30 @@ config:
     key: emails
     input:
       $var: $.input.fields
+parentRevision: 574e62c8-21f1-4bf2-a813-d18c60db8dd7
+isCustomized: false
+integration:
+  id: 6884791695717cb906748574
+  name: Microsoft Outlook
+  key: microsoft-outlook
+  uuid: 1eb02756-c3cc-4feb-a265-0af2d9995c03
+  state: READY
+  errors: []
+  createdAt: '2025-07-26T06:43:34.195Z'
+  updatedAt: '2025-07-26T06:43:37.872Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/microsoft-outlook/logo-32b01f8c-072d-412b-be06-67d1f341f3ef.png
+  connectorId: 6466784d60f981f3ce696905
+  connectorVersion: 1.3.0
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 3627
+  hasData: true
+  dataCollectionsCount: 6
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

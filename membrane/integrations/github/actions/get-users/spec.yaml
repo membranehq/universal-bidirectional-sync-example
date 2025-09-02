@@ -1,43 +1,20 @@
-revision: d3a009a4-a736-418d-868b-412ae5baaf97
-isCustomized: false
-parentId: 68835427e49c6d4c3c9d372b
-parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
-integrationId: 68835417e49c6d4c3c9d316a
-integration:
-  key: github
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835417e49c6d4c3c9d316a
-  name: Github
-  uuid: fad0232c-08bc-4ce6-806d-5d4a1a47f8e6
-  connectorId: 6446a060badd839bce1ac1ac
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/9aed1fdf-cf97-48f8-8360-1697b2daa959
-  connectorVersion: 1.1.4
-  logoUri: https://static.integration.app/connectors/github/logo.png
-  dataCollectionsCount: 8
-  operationsCount: 889
-  eventsCount: 0
-  authType: oauth2
+id: 68835428e49c6d4c3c9d3816
+name: Get Users
 key: get-users
 state: READY
 errors: []
+revision: d3a009a4-a736-418d-868b-412ae5baaf97
+createdAt: '2025-07-25T09:53:44.571Z'
+updatedAt: '2025-08-05T10:23:51.183Z'
 isDeactivated: false
-id: 68835428e49c6d4c3c9d3816
-name: Get Users
-type: list-data-records
+integrationId: 68835417e49c6d4c3c9d316a
+parentId: 68835427e49c6d4c3c9d372b
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: users
@@ -46,3 +23,29 @@ config:
   fieldMapping:
     key: users
     includeRawFields: true
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+isCustomized: false
+integration:
+  id: 68835417e49c6d4c3c9d316a
+  name: Github
+  key: github
+  uuid: fad0232c-08bc-4ce6-806d-5d4a1a47f8e6
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:27.009Z'
+  updatedAt: '2025-07-25T09:53:36.976Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/github/logo.png
+  connectorId: 6446a060badd839bce1ac1ac
+  connectorVersion: 1.1.4
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 889
+  hasData: true
+  dataCollectionsCount: 8
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

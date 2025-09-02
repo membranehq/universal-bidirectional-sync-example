@@ -1,46 +1,49 @@
-revision: 517942c0-d60d-434d-a1ff-2692c3f9adc1
-isCustomized: false
-parentId: 68887e4a655d7bb8d28c504c
-parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
-integrationId: 68835413e49c6d4c3c9d3119
-integration:
-  key: jira
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3119
-  name: Jira
-  uuid: 5efcb1d6-7b41-40e8-bde9-c8cf3e9c83c3
-  connectorId: 64343d08986ed1caad5b3aa7
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/f4bc8dfd-af63-4dda-a7b3-60d67dd5c9f6
-  connectorVersion: 1.4.13
-  logoUri: https://static.integration.app/connectors/jira/logo.png
-  dataCollectionsCount: 12
-  operationsCount: 499
-  eventsCount: 0
-  authType: oauth2
+id: 688905eaee7f0f245494d72c
+name: Delete User
 key: delete-user
 state: READY
 errors: []
+revision: 517942c0-d60d-434d-a1ff-2692c3f9adc1
+createdAt: '2025-07-29T17:33:31.074Z'
+updatedAt: '2025-08-05T10:23:48.226Z'
 isDeactivated: false
-id: 688905eaee7f0f245494d72c
-name: Delete User
-type: delete-data-record
+integrationId: 68835413e49c6d4c3c9d3119
+parentId: 68887e4a655d7bb8d28c504c
 inputSchema:
   type: object
   properties:
     id:
       type: string
+type: delete-data-record
 config:
   dataSource:
     key: users
   id:
     $var: $.input.id
   fieldMapping: {}
+parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3119
+  name: Jira
+  key: jira
+  uuid: 5efcb1d6-7b41-40e8-bde9-c8cf3e9c83c3
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.762Z'
+  updatedAt: '2025-07-25T09:53:34.874Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/jira/logo.png
+  connectorId: 64343d08986ed1caad5b3aa7
+  connectorVersion: 1.4.13
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 499
+  hasData: true
+  dataCollectionsCount: 12
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

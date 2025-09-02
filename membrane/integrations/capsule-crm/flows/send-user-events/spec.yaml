@@ -1,35 +1,15 @@
+id: 6883542fe49c6d4c3c9d4312
+name: Send User Events
 key: send-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542fe49c6d4c3c9d4312
-name: Send User Events
 revision: 1613ffd0-642b-4437-8132-bdb9fff2405a
-universalFlowId: 68835428e49c6d4c3c9d397c
+createdAt: '2025-07-25T09:53:52.481Z'
+updatedAt: '2025-08-05T10:24:17.596Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d311d
-integration:
-  key: capsule-crm
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d311d
-  name: Capsule CRM
-  uuid: 93a055fe-e74b-487f-837f-ecf6756a50ef
-  connectorId: 640734343685521f9f0c9fe7
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/e9d9caaa-e654-48f2-8cbd-ac941aa9f41f
-  connectorVersion: 1.1.1
-  logoUri: https://static.integration.app/connectors/capsule-crm/logo.png
-  dataCollectionsCount: 7
-  operationsCount: 10
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d397c
 universalFlowRevision: 7cd726db-f478-4538-b231-ed195e1ff008
 nodes:
   app-event-trigger:
@@ -40,23 +20,23 @@ nodes:
         key: user-event
     links:
       - key: create-data-record
-        name: User created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: User created
       - key: delete-data-record
-        name: User deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: User deleted
       - key: update-data-record
-        name: User updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: User updated
   create-data-record:
     type: create-data-record
     name: Create User
@@ -102,4 +82,27 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d311d
+  name: Capsule CRM
+  key: capsule-crm
+  uuid: 93a055fe-e74b-487f-837f-ecf6756a50ef
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.764Z'
+  updatedAt: '2025-07-25T09:53:36.497Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/capsule-crm/logo.png
+  connectorId: 640734343685521f9f0c9fe7
+  connectorVersion: 1.1.1
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 10
+  hasData: true
+  dataCollectionsCount: 7
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

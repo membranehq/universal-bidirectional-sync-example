@@ -1,44 +1,47 @@
-revision: 87000c91-dfda-440e-b7af-5bd08d029da5
-isCustomized: false
-parentId: 68887db5f9df280360f1e0c9
-parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
-integrationId: 68835413e49c6d4c3c9d3106
-integration:
-  key: dynamics-crm
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3106
-  name: Microsoft Dynamics 365
-  uuid: d865e870-6bb6-4614-9eab-91dfc1a7ea24
-  connectorId: 63151d261d39af2f69364172
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/6ae0689a-97e4-45c7-b004-a858aa4ad805
-  connectorVersion: 1.1.18
-  logoUri: >-
-    https://static.integration.app/connectors/dynamics-crm/asset-9eff3af5-d5f3-4634-b807-edd57ca5a56b.png
-  dataCollectionsCount: 18
-  operationsCount: 1
-  eventsCount: 0
-  authType: oauth2
+id: 688cc9898fa10d3345b11840
+name: Create User
 key: create-user
 state: READY
 errors: []
+revision: 87000c91-dfda-440e-b7af-5bd08d029da5
+createdAt: '2025-08-01T14:04:58.013Z'
+updatedAt: '2025-08-05T10:23:46.047Z'
 isDeactivated: false
-id: 688cc9898fa10d3345b11840
-name: Create User
-type: create-data-record
+integrationId: 68835413e49c6d4c3c9d3106
+parentId: 68887db5f9df280360f1e0c9
 inputSchema:
   type: object
   properties:
     fields:
       type: string
+type: create-data-record
 config:
   fieldMapping: {}
   dataSource: {}
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3106
+  name: Microsoft Dynamics 365
+  key: dynamics-crm
+  uuid: d865e870-6bb6-4614-9eab-91dfc1a7ea24
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.699Z'
+  updatedAt: '2025-07-25T09:53:38.595Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/dynamics-crm/asset-9eff3af5-d5f3-4634-b807-edd57ca5a56b.png
+  connectorId: 63151d261d39af2f69364172
+  connectorVersion: 1.1.18
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 1
+  hasData: true
+  dataCollectionsCount: 18
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

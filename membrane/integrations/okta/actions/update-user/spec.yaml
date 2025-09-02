@@ -1,39 +1,14 @@
-revision: 8de3ffa3-1dc6-4c8a-8aba-3dfb825ec2dc
-isCustomized: false
-parentId: 6890519a5facd7ec99dbeba1
-parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
-integrationId: 68835413e49c6d4c3c9d3149
-integration:
-  key: okta
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3149
-  name: Okta
-  uuid: cfea79e9-15ba-45ca-a6cd-7b0d01800f98
-  connectorId: 65a59ef7af9ac1360fd6bbd2
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/65827a85-48cf-4ccc-8e40-d26d926cdb3a
-  connectorVersion: 1.0.2
-  logoUri: >-
-    https://static.integration.app/connectors/logo-0b09cb02-5978-4c94-b3e4-b92964a36bcb.png
-  dataCollectionsCount: 4
-  operationsCount: 340
-  eventsCount: 0
-  authType: client-credentials
+id: 68905282ff92d86914347bda
+name: Update User
 key: update-user
 state: READY
 errors: []
+revision: 8de3ffa3-1dc6-4c8a-8aba-3dfb825ec2dc
+createdAt: '2025-08-04T06:26:13.692Z'
+updatedAt: '2025-08-05T10:23:58.472Z'
 isDeactivated: false
-id: 68905282ff92d86914347bda
-name: Update User
-type: update-data-record
+integrationId: 68835413e49c6d4c3c9d3149
+parentId: 6890519a5facd7ec99dbeba1
 inputSchema:
   type: object
   properties:
@@ -41,6 +16,7 @@ inputSchema:
       type: string
     fields:
       type: string
+type: update-data-record
 config:
   dataSource:
     key: users
@@ -68,3 +44,30 @@ config:
         mobilePhone:
           $var: $.input.primaryPhone
       credentials: {}
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3149
+  name: Okta
+  key: okta
+  uuid: cfea79e9-15ba-45ca-a6cd-7b0d01800f98
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.787Z'
+  updatedAt: '2025-07-25T09:53:33.187Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/logo-0b09cb02-5978-4c94-b3e4-b92964a36bcb.png
+  connectorId: 65a59ef7af9ac1360fd6bbd2
+  connectorVersion: 1.0.2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 340
+  hasData: true
+  dataCollectionsCount: 4
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

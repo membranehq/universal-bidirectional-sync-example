@@ -1,43 +1,20 @@
-revision: 2ba1fb35-9b35-4518-add0-3ed37eaace8d
-isCustomized: false
-parentId: 68835427e49c6d4c3c9d372b
-parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
-integrationId: 68835413e49c6d4c3c9d3147
-integration:
-  key: basecamp
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3147
-  name: Basecamp
-  uuid: 02cf56ba-9aba-4c6e-ac4c-a334e1f159e1
-  connectorId: 645d2220edb0b5ee6c0ded14
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/61fa6494-3dd6-4c06-bcdd-6b5465063326
-  connectorVersion: 1.0.5
-  logoUri: https://static.integration.app/connectors/basecamp/logo.png
-  dataCollectionsCount: 8
-  operationsCount: 189
-  eventsCount: 0
-  authType: oauth2
+id: 68835428e49c6d4c3c9d37f9
+name: Get Users
 key: get-users
 state: READY
 errors: []
+revision: 2ba1fb35-9b35-4518-add0-3ed37eaace8d
+createdAt: '2025-07-25T09:53:44.571Z'
+updatedAt: '2025-08-05T10:23:50.896Z'
 isDeactivated: false
-id: 68835428e49c6d4c3c9d37f9
-name: Get Users
-type: list-data-records
+integrationId: 68835413e49c6d4c3c9d3147
+parentId: 68835427e49c6d4c3c9d372b
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: users
@@ -46,3 +23,29 @@ config:
   fieldMapping:
     key: users
     includeRawFields: true
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3147
+  name: Basecamp
+  key: basecamp
+  uuid: 02cf56ba-9aba-4c6e-ac4c-a334e1f159e1
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.786Z'
+  updatedAt: '2025-07-25T09:53:36.977Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/basecamp/logo.png
+  connectorId: 645d2220edb0b5ee6c0ded14
+  connectorVersion: 1.0.5
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 189
+  hasData: true
+  dataCollectionsCount: 8
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

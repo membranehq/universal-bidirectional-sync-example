@@ -1,35 +1,15 @@
+id: 6883542de49c6d4c3c9d4048
+name: Send User Events
 key: send-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542de49c6d4c3c9d4048
-name: Send User Events
 revision: 10ac745d-0dcd-4d9c-8546-5f955323a225
-universalFlowId: 68835428e49c6d4c3c9d397c
+createdAt: '2025-07-25T09:53:51.282Z'
+updatedAt: '2025-08-05T10:24:16.314Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3110
-integration:
-  key: salesloft
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3110
-  name: Salesloft
-  uuid: 2922d5a7-afb2-482b-8657-2bc44d5a4d5a
-  connectorId: 633af74f361690ab46d8ed4e
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/80f6639f-0e3b-4fb0-aa69-c2b207a4b81e
-  connectorVersion: 2.0.5
-  logoUri: https://static.integration.app/connectors/salesloft/logo.png
-  dataCollectionsCount: 19
-  operationsCount: 121
-  eventsCount: 0
-  authType: client-credentials
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d397c
 universalFlowRevision: 7cd726db-f478-4538-b231-ed195e1ff008
 nodes:
   app-event-trigger:
@@ -40,23 +20,23 @@ nodes:
         key: user-event
     links:
       - key: create-data-record
-        name: User created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: User created
       - key: delete-data-record
-        name: User deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: User deleted
       - key: update-data-record
-        name: User updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: User updated
   create-data-record:
     type: create-data-record
     name: Create User
@@ -102,4 +82,27 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3110
+  name: Salesloft
+  key: salesloft
+  uuid: 2922d5a7-afb2-482b-8657-2bc44d5a4d5a
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.755Z'
+  updatedAt: '2025-07-25T09:53:38.856Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/salesloft/logo.png
+  connectorId: 633af74f361690ab46d8ed4e
+  connectorVersion: 2.0.5
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 121
+  hasData: true
+  dataCollectionsCount: 19
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

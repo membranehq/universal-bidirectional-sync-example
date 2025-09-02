@@ -1,37 +1,14 @@
-revision: 2d60233e-3095-4cc6-93ed-1f2dc0a2e1ba
-isCustomized: false
-parentId: 688cc9e4ed172ffb20d0f39b
-parentRevision: 594f206d-8bae-412b-a5f0-35b631562f81
-integrationId: 68834d71ef496baf09c0a8f8
-integration:
-  key: dropbox
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a8f8
-  name: Dropbox
-  uuid: e7aa585d-2f85-4ed4-b25e-ffb402a919d9
-  connectorId: 643eac8bbadd839bce5b1114
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/51e19372-446d-4be5-9e61-34153f957210
-  connectorVersion: 2.2.0
-  logoUri: https://static.integration.app/connectors/dropbox/logo.png
-  dataCollectionsCount: 1
-  operationsCount: 137
-  eventsCount: 0
-  authType: oauth2
+id: 688cc9eef1e1187ac07515ca
+name: Create File
 key: create-file
 state: READY
 errors: []
+revision: 2d60233e-3095-4cc6-93ed-1f2dc0a2e1ba
+createdAt: '2025-08-01T14:06:38.987Z'
+updatedAt: '2025-08-05T10:23:44.924Z'
 isDeactivated: false
-id: 688cc9eef1e1187ac07515ca
-name: Create File
+integrationId: 68834d71ef496baf09c0a8f8
+parentId: 688cc9e4ed172ffb20d0f39b
 type: create-data-record
 config:
   dataSource:
@@ -40,3 +17,29 @@ config:
     key: files
     input:
       $var: $.input
+parentRevision: 594f206d-8bae-412b-a5f0-35b631562f81
+isCustomized: false
+integration:
+  id: 68834d71ef496baf09c0a8f8
+  name: Dropbox
+  key: dropbox
+  uuid: e7aa585d-2f85-4ed4-b25e-ffb402a919d9
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.327Z'
+  updatedAt: '2025-07-25T09:25:07.359Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/dropbox/logo.png
+  connectorId: 643eac8bbadd839bce5b1114
+  connectorVersion: 2.2.0
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 137
+  hasData: true
+  dataCollectionsCount: 1
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

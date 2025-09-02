@@ -1,35 +1,15 @@
+id: 6883542fe49c6d4c3c9d43da
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542fe49c6d4c3c9d43da
-name: Receive User Events
 revision: 3ca427b5-7261-49b5-aafd-e061bc7c3d10
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.957Z'
+updatedAt: '2025-08-05T10:24:39.492Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3112
-integration:
-  key: clickup
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3112
-  name: Clickup
-  uuid: 27bb6e0d-e658-444e-bd84-a7ca9b100912
-  connectorId: 64359f80986ed1caadafa638
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/0269b955-8e69-4d0a-a128-fbbafcf810e3
-  connectorVersion: 1.2.3
-  logoUri: https://static.integration.app/connectors/clickup/logo.png
-  dataCollectionsCount: 9
-  operationsCount: 11
-  eventsCount: 28
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -129,4 +109,27 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3112
+  name: Clickup
+  key: clickup
+  uuid: 27bb6e0d-e658-444e-bd84-a7ca9b100912
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.756Z'
+  updatedAt: '2025-07-25T09:53:37.767Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/clickup/logo.png
+  connectorId: 64359f80986ed1caadafa638
+  connectorVersion: 1.2.3
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 11
+  hasData: true
+  dataCollectionsCount: 9
+  hasEvents: true
+  eventsCount: 28
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

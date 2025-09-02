@@ -1,44 +1,20 @@
-revision: 169cac38-5904-4345-a322-1d8d016c2e1e
-isCustomized: false
-parentId: 68835427e49c6d4c3c9d372b
-parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
-integrationId: 68835413e49c6d4c3c9d314b
-integration:
-  key: deel
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d314b
-  name: Deel
-  uuid: 1573856c-a3dd-4649-8220-fffab33a064a
-  connectorId: 652672eb70089fac484af1b0
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/9eb9b66e-96b3-4dd8-bc2a-c8de931619b2
-  connectorVersion: 1.0.2
-  logoUri: >-
-    https://static.integration.app/connectors/deel-connector/logo-0306de7e-75aa-4354-a30a-b637da5b32c7.png
-  dataCollectionsCount: 9
-  operationsCount: 145
-  eventsCount: 0
-  authType: client-credentials
+id: 68835428e49c6d4c3c9d37fd
+name: Get Users
 key: get-users
 state: READY
 errors: []
+revision: 169cac38-5904-4345-a322-1d8d016c2e1e
+createdAt: '2025-07-25T09:53:44.571Z'
+updatedAt: '2025-08-05T10:23:50.967Z'
 isDeactivated: false
-id: 68835428e49c6d4c3c9d37fd
-name: Get Users
-type: list-data-records
+integrationId: 68835413e49c6d4c3c9d314b
+parentId: 68835427e49c6d4c3c9d372b
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: users
@@ -47,3 +23,30 @@ config:
   fieldMapping:
     key: users
     includeRawFields: true
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d314b
+  name: Deel
+  key: deel
+  uuid: 1573856c-a3dd-4649-8220-fffab33a064a
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.788Z'
+  updatedAt: '2025-07-25T09:53:37.657Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/deel-connector/logo-0306de7e-75aa-4354-a30a-b637da5b32c7.png
+  connectorId: 652672eb70089fac484af1b0
+  connectorVersion: 1.0.2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 145
+  hasData: true
+  dataCollectionsCount: 9
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

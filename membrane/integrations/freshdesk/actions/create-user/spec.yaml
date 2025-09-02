@@ -1,43 +1,46 @@
-revision: c4726edc-1d09-4fae-a9ad-41991e8c1972
-isCustomized: false
-parentId: 68887db5f9df280360f1e0c9
-parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
-integrationId: 68835413e49c6d4c3c9d313f
-integration:
-  key: freshdesk
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d313f
-  name: Freshdesk
-  uuid: 149c53e1-84d3-4dfc-909b-b144eb3d6245
-  connectorId: 64b114f5d2605720d2134075
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/994c78f8-50a9-4805-aa0f-1e90ec27e28c
-  connectorVersion: 1.0.1
-  logoUri: https://static.integration.app/connectors/freshdesk-connector/logo.png
-  dataCollectionsCount: 8
-  operationsCount: 39
-  eventsCount: 0
-  authType: client-credentials
+id: 688cc9898fa10d3345b1183a
+name: Create User
 key: create-user
 state: READY
 errors: []
+revision: c4726edc-1d09-4fae-a9ad-41991e8c1972
+createdAt: '2025-08-01T14:04:58.076Z'
+updatedAt: '2025-08-05T10:23:45.941Z'
 isDeactivated: false
-id: 688cc9898fa10d3345b1183a
-name: Create User
-type: create-data-record
+integrationId: 68835413e49c6d4c3c9d313f
+parentId: 68887db5f9df280360f1e0c9
 inputSchema:
   type: object
   properties:
     fields:
       type: string
+type: create-data-record
 config:
   fieldMapping: {}
   dataSource: {}
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d313f
+  name: Freshdesk
+  key: freshdesk
+  uuid: 149c53e1-84d3-4dfc-909b-b144eb3d6245
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.782Z'
+  updatedAt: '2025-07-25T09:53:37.175Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/freshdesk-connector/logo.png
+  connectorId: 64b114f5d2605720d2134075
+  connectorVersion: 1.0.1
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 39
+  hasData: true
+  dataCollectionsCount: 8
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

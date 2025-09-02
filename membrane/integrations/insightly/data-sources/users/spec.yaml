@@ -1,37 +1,38 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835424e49c6d4c3c9d3367
 name: Users
+isDeactivated: false
+state: READY
+errors: []
+key: users
 revision: 3cf9a875-e983-40cc-85d9-2d806f0ea45e
 integrationId: 68835413e49c6d4c3c9d3130
-customized: false
+isCustomized: false
 universalDataSourceId: 68835424e49c6d4c3c9d32ce
 universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
 collectionKey: users
 udm: users
 defaultPath: /data/users
 integration:
-  key: insightly
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d3130
   name: Insightly
+  key: insightly
   uuid: 0abd81be-91bf-4319-ad35-d0e78ebd9935
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.774Z'
+  updatedAt: '2025-07-25T09:53:38.386Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/insightly/logo.png
   connectorId: 643eedf1badd839bce6a3f71
+  connectorVersion: 1.0.1
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 534
   hasData: true
+  dataCollectionsCount: 11
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/6c9df904-5921-423e-b3e0-64b7729a4889
-  connectorVersion: 1.0.1
-  logoUri: https://static.integration.app/connectors/insightly/logo.png
-  dataCollectionsCount: 11
-  operationsCount: 534
-  eventsCount: 0
   authType: client-credentials

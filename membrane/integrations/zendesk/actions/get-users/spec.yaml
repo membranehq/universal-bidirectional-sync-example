@@ -1,43 +1,20 @@
-revision: 5240c3b8-9831-4056-a41d-8d3fdedab49a
-isCustomized: false
-parentId: 68835427e49c6d4c3c9d372b
-parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
-integrationId: 68835413e49c6d4c3c9d3132
-integration:
-  key: zendesk
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3132
-  name: Zendesk
-  uuid: 8f64787d-ee2e-4139-8080-45c8dab694c4
-  connectorId: 643e957fbadd839bce5208e3
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/f8ebfc16-bc0a-4559-88be-cef70aec08bc
-  connectorVersion: 1.5.0
-  logoUri: https://static.integration.app/connectors/zendesk/logo.png
-  dataCollectionsCount: 10
-  operationsCount: 393
-  eventsCount: 60
-  authType: oauth2
+id: 68835428e49c6d4c3c9d37e1
+name: Get Users
 key: get-users
 state: READY
 errors: []
+revision: 5240c3b8-9831-4056-a41d-8d3fdedab49a
+createdAt: '2025-07-25T09:53:44.555Z'
+updatedAt: '2025-08-05T10:23:50.452Z'
 isDeactivated: false
-id: 68835428e49c6d4c3c9d37e1
-name: Get Users
-type: list-data-records
+integrationId: 68835413e49c6d4c3c9d3132
+parentId: 68835427e49c6d4c3c9d372b
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: users
@@ -46,3 +23,29 @@ config:
   fieldMapping:
     key: users
     includeRawFields: true
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3132
+  name: Zendesk
+  key: zendesk
+  uuid: 8f64787d-ee2e-4139-8080-45c8dab694c4
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.775Z'
+  updatedAt: '2025-07-25T09:53:36.977Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/zendesk/logo.png
+  connectorId: 643e957fbadd839bce5208e3
+  connectorVersion: 1.5.0
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 393
+  hasData: true
+  dataCollectionsCount: 10
+  hasEvents: true
+  eventsCount: 60
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

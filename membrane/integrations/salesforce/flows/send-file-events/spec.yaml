@@ -1,35 +1,15 @@
+id: 68834d76ef496baf09c0ac6c
+name: Send File Events
 key: send-file-events
 state: READY
 errors: []
-isDeactivated: false
-id: 68834d76ef496baf09c0ac6c
-name: Send File Events
 revision: 66e80f23-71a8-4f97-ba1f-34e6e2f7822d
-universalFlowId: 68834d75ef496baf09c0aa67
+createdAt: '2025-07-25T09:25:11.100Z'
+updatedAt: '2025-08-05T10:24:15.641Z'
+isDeactivated: false
 integrationId: 68834d71ef496baf09c0a8fa
-integration:
-  key: salesforce
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a8fa
-  name: Salesforce
-  uuid: b1530921-5651-4b04-a059-5893a76384d4
-  connectorId: 62471fad996d5c297ae43f5e
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/8ac63569-b944-4d46-a041-e2fb80b82ac2
-  connectorVersion: 1.6.6
-  logoUri: https://static.integration.app/connectors/salesforce-connector/logo.png
-  dataCollectionsCount: 30
-  operationsCount: 303
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68834d75ef496baf09c0aa67
 universalFlowRevision: eb0ea9f9-08c3-485a-95f4-0b94cf74d318
 nodes:
   app-event-trigger:
@@ -40,23 +20,23 @@ nodes:
         key: file-event
     links:
       - key: create-data-record
-        name: File created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: File created
       - key: delete-data-record
-        name: File deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: File deleted
       - key: update-data-record
-        name: File updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: File updated
   create-data-record:
     type: create-data-record
     name: Create File
@@ -102,4 +82,27 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68834d71ef496baf09c0a8fa
+  name: Salesforce
+  key: salesforce
+  uuid: b1530921-5651-4b04-a059-5893a76384d4
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.328Z'
+  updatedAt: '2025-07-25T09:25:09.149Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/salesforce-connector/logo.png
+  connectorId: 62471fad996d5c297ae43f5e
+  connectorVersion: 1.6.6
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 303
+  hasData: true
+  dataCollectionsCount: 30
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

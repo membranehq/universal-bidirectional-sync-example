@@ -1,10 +1,10 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835425e49c6d4c3c9d356e
 name: Users
-customized: false
+isDeactivated: false
+state: READY
+errors: []
+key: users
+isCustomized: false
 revision: 86eec2bd-c11c-4abf-81ec-50647875d5cf
 universalFieldMappingId: 68835425e49c6d4c3c9d34a3
 universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
@@ -57,26 +57,27 @@ importValue:
     - value:
         $var: $.phone
 integration:
-  key: sharpspring
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d3145
   name: SharpSpring
+  key: sharpspring
   uuid: 1e97c637-99ed-4f3d-ae65-f26564cdf8ff
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.785Z'
+  updatedAt: '2025-07-25T09:53:36.497Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/sharpspring/logo-7d08538a-0c9f-4916-ab99-d214433c1307.png
   connectorId: 640a32a474be562abded2875
+  connectorVersion: 1.0.4
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 1
   hasData: true
+  dataCollectionsCount: 10
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/5c085a81-880a-4b07-8441-95662371ec72
-  connectorVersion: 1.0.4
-  logoUri: >-
-    https://static.integration.app/connectors/sharpspring/logo-7d08538a-0c9f-4916-ab99-d214433c1307.png
-  dataCollectionsCount: 10
-  operationsCount: 1
-  eventsCount: 0
   authType: client-credentials

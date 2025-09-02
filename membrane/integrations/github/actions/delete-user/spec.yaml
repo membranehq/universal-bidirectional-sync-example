@@ -1,46 +1,49 @@
-revision: 5f239f5e-feea-4f72-b16b-59978e1bf7c7
-isCustomized: false
-parentId: 68887e4a655d7bb8d28c504c
-parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
-integrationId: 68835417e49c6d4c3c9d316a
-integration:
-  key: github
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835417e49c6d4c3c9d316a
-  name: Github
-  uuid: fad0232c-08bc-4ce6-806d-5d4a1a47f8e6
-  connectorId: 6446a060badd839bce1ac1ac
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/9aed1fdf-cf97-48f8-8360-1697b2daa959
-  connectorVersion: 1.1.4
-  logoUri: https://static.integration.app/connectors/github/logo.png
-  dataCollectionsCount: 8
-  operationsCount: 889
-  eventsCount: 0
-  authType: oauth2
+id: 688905eaee7f0f245494d709
+name: Delete User
 key: delete-user
 state: READY
 errors: []
+revision: 5f239f5e-feea-4f72-b16b-59978e1bf7c7
+createdAt: '2025-07-29T17:33:31.057Z'
+updatedAt: '2025-08-05T10:23:47.611Z'
 isDeactivated: false
-id: 688905eaee7f0f245494d709
-name: Delete User
-type: delete-data-record
+integrationId: 68835417e49c6d4c3c9d316a
+parentId: 68887e4a655d7bb8d28c504c
 inputSchema:
   type: object
   properties:
     id:
       type: string
+type: delete-data-record
 config:
   dataSource:
     key: users
   id:
     $var: $.input.id
   fieldMapping: {}
+parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
+isCustomized: false
+integration:
+  id: 68835417e49c6d4c3c9d316a
+  name: Github
+  key: github
+  uuid: fad0232c-08bc-4ce6-806d-5d4a1a47f8e6
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:27.009Z'
+  updatedAt: '2025-07-25T09:53:36.976Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/github/logo.png
+  connectorId: 6446a060badd839bce1ac1ac
+  connectorVersion: 1.1.4
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 889
+  hasData: true
+  dataCollectionsCount: 8
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

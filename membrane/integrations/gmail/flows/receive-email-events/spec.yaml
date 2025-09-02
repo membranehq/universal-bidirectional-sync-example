@@ -1,35 +1,15 @@
+id: 6884791b95717cb9067487be
+name: Receive Email Events
 key: receive-email-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6884791b95717cb9067487be
-name: Receive Email Events
 revision: 4ce29f58-c82d-4bf9-ab41-141efe51d9a6
-universalFlowId: 6884791b95717cb906748700
+createdAt: '2025-07-26T06:43:39.553Z'
+updatedAt: '2025-08-15T10:22:19.593Z'
+isDeactivated: false
 integrationId: 6884791695717cb90674856c
-integration:
-  key: gmail
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 6884791695717cb90674856c
-  name: Gmail
-  uuid: 21dc435d-989e-4dc2-8da4-43113e7442ef
-  connectorId: 64300cd1986ed1caad6e23ae
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/9c29637a-8512-4f98-817c-5faa1e0defdc
-  connectorVersion: 1.5.2
-  logoUri: https://static.integration.app/connectors/gmail/logo.png
-  dataCollectionsCount: 3
-  operationsCount: 81
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 6884791b95717cb906748700
 universalFlowRevision: c6d99411-55f8-438f-9774-bde302f6142b
 nodes:
   email-created-trigger:
@@ -129,4 +109,27 @@ nodes:
     links:
       - key: delete-email-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 6884791695717cb90674856c
+  name: Gmail
+  key: gmail
+  uuid: 21dc435d-989e-4dc2-8da4-43113e7442ef
+  state: READY
+  errors: []
+  createdAt: '2025-07-26T06:43:34.191Z'
+  updatedAt: '2025-07-26T06:46:54.602Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/gmail/logo.png
+  connectorId: 64300cd1986ed1caad6e23ae
+  connectorVersion: 1.5.2
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 81
+  hasData: true
+  dataCollectionsCount: 3
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

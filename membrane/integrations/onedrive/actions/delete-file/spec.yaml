@@ -1,61 +1,64 @@
-revision: afb1c9c2-1a4d-4479-9dc5-a036f0f3f556
-isCustomized: false
-parentId: 68887e3ef957e0c6e8dd9c47
-parentRevision: 29e55b68-c7a2-40fc-826c-40f1e75e7208
-integrationId: 68834d71ef496baf09c0a901
-integration:
-  key: onedrive
-  state: CONFIGURATION_ERROR
-  errors:
-    - message: Integration is missing required parameters
-      type: configuration
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a901
-  name: MS OneDrive
-  uuid: 2a2c04ac-c56b-45de-bbb6-9d39524e6498
-  connectorId: 652677b570089fac484d1a34
-  hasMissingParameters: true
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/bcc78f3c-0131-4b1c-bc9d-0ac72b093b64
-  connectorVersion: 2.3.0
-  logoUri: >-
-    https://static.integration.app/connectors/onedrive/logo-8a1d93a1-ba8e-4127-93f5-ca45f899d879.png
-  dataCollectionsCount: 2
-  operationsCount: 2
-  eventsCount: 0
-  authType: oauth2
+id: 6888880119e41c785b8b637e
+name: Delete File
 key: delete-file
 state: CONFIGURATION_ERROR
 errors:
-  - message: Integration Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Integration Dependency has error(s)
     data:
       workspaceElementReference:
         type: integration
         id: 68834d71ef496baf09c0a901
-  - message: Data Source Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Data Source Dependency has error(s)
     data:
       workspaceElementReference:
         type: data-source
         id: 68834d75ef496baf09c0a968
+revision: afb1c9c2-1a4d-4479-9dc5-a036f0f3f556
+createdAt: '2025-07-29T08:36:17.542Z'
+updatedAt: '2025-08-05T10:23:47.372Z'
 isDeactivated: false
-id: 6888880119e41c785b8b637e
-name: Delete File
-type: delete-data-record
+integrationId: 68834d71ef496baf09c0a901
+parentId: 68887e3ef957e0c6e8dd9c47
 inputSchema:
   type: object
   properties:
     id:
       type: string
+type: delete-data-record
 config:
   dataSource:
     key: files
   id:
     $var: $.input.id
   fieldMapping: {}
+parentRevision: 29e55b68-c7a2-40fc-826c-40f1e75e7208
+isCustomized: false
+integration:
+  id: 68834d71ef496baf09c0a901
+  name: MS OneDrive
+  key: onedrive
+  uuid: 2a2c04ac-c56b-45de-bbb6-9d39524e6498
+  state: CONFIGURATION_ERROR
+  errors:
+    - type: configuration
+      message: Integration is missing required parameters
+  createdAt: '2025-07-25T09:25:05.335Z'
+  updatedAt: '2025-07-25T09:25:07.056Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/onedrive/logo-8a1d93a1-ba8e-4127-93f5-ca45f899d879.png
+  connectorId: 652677b570089fac484d1a34
+  connectorVersion: 2.3.0
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 2
+  hasData: true
+  dataCollectionsCount: 2
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

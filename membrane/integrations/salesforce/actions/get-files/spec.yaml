@@ -1,43 +1,20 @@
-revision: 9c1d8291-6daf-4e52-a15f-3a105882af5c
-isCustomized: false
-parentId: 68834d75ef496baf09c0aa0c
-parentRevision: e6a5b538-0d16-4c2b-a86f-e461a3b46079
-integrationId: 68834d71ef496baf09c0a8fa
-integration:
-  key: salesforce
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a8fa
-  name: Salesforce
-  uuid: b1530921-5651-4b04-a059-5893a76384d4
-  connectorId: 62471fad996d5c297ae43f5e
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/8ac63569-b944-4d46-a041-e2fb80b82ac2
-  connectorVersion: 1.6.6
-  logoUri: https://static.integration.app/connectors/salesforce-connector/logo.png
-  dataCollectionsCount: 30
-  operationsCount: 303
-  eventsCount: 0
-  authType: oauth2
+id: 68834d75ef496baf09c0aa2f
+name: Get Files
 key: get-files
 state: READY
 errors: []
+revision: 9c1d8291-6daf-4e52-a15f-3a105882af5c
+createdAt: '2025-07-25T09:25:09.954Z'
+updatedAt: '2025-08-05T10:23:49.616Z'
 isDeactivated: false
-id: 68834d75ef496baf09c0aa2f
-name: Get Files
-type: list-data-records
+integrationId: 68834d71ef496baf09c0a8fa
+parentId: 68834d75ef496baf09c0aa0c
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: files
@@ -46,3 +23,29 @@ config:
   fieldMapping:
     key: files
     includeRawFields: true
+parentRevision: e6a5b538-0d16-4c2b-a86f-e461a3b46079
+isCustomized: false
+integration:
+  id: 68834d71ef496baf09c0a8fa
+  name: Salesforce
+  key: salesforce
+  uuid: b1530921-5651-4b04-a059-5893a76384d4
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.328Z'
+  updatedAt: '2025-07-25T09:25:09.149Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/salesforce-connector/logo.png
+  connectorId: 62471fad996d5c297ae43f5e
+  connectorVersion: 1.6.6
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 303
+  hasData: true
+  dataCollectionsCount: 30
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

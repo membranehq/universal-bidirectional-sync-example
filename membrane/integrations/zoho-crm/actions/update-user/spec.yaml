@@ -1,38 +1,14 @@
-revision: 9848c06c-7d96-4f74-b223-674e912587bd
-isCustomized: false
-parentId: 6890519a5facd7ec99dbeba1
-parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
-integrationId: 68835413e49c6d4c3c9d310c
-integration:
-  key: zoho-crm
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d310c
-  name: Zoho CRM
-  uuid: df807ac4-bf95-4745-b48c-214fb931cc41
-  connectorId: 64a158e7d2605720d232e07b
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/55c35625-992f-4a0b-8c11-b9522d23d94a
-  connectorVersion: 2.2.0
-  logoUri: https://static.integration.app/connectors/zoho-crm/logo.png
-  dataCollectionsCount: 20
-  operationsCount: 569
-  eventsCount: 0
-  authType: oauth2
+id: 68905282ff92d86914347bf2
+name: Update User
 key: update-user
 state: READY
 errors: []
+revision: 9848c06c-7d96-4f74-b223-674e912587bd
+createdAt: '2025-08-04T06:26:13.669Z'
+updatedAt: '2025-08-05T10:24:01.220Z'
 isDeactivated: false
-id: 68905282ff92d86914347bf2
-name: Update User
-type: update-data-record
+integrationId: 68835413e49c6d4c3c9d310c
+parentId: 6890519a5facd7ec99dbeba1
 inputSchema:
   type: object
   properties:
@@ -40,6 +16,7 @@ inputSchema:
       type: string
     fields:
       type: string
+type: update-data-record
 config:
   dataSource:
     key: users
@@ -76,3 +53,29 @@ config:
           $var: $.input.updatedBy
       Modified_Time:
         $var: $.input.updatedTime
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d310c
+  name: Zoho CRM
+  key: zoho-crm
+  uuid: df807ac4-bf95-4745-b48c-214fb931cc41
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.702Z'
+  updatedAt: '2025-07-25T09:53:27.010Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/zoho-crm/logo.png
+  connectorId: 64a158e7d2605720d232e07b
+  connectorVersion: 2.2.0
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 569
+  hasData: true
+  dataCollectionsCount: 20
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

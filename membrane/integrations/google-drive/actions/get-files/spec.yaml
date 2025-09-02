@@ -1,43 +1,20 @@
-revision: d4f55c37-3afa-4b0d-90a7-5536a74d5933
-isCustomized: false
-parentId: 68834d75ef496baf09c0aa0c
-parentRevision: e6a5b538-0d16-4c2b-a86f-e461a3b46079
-integrationId: 68834d71ef496baf09c0a907
-integration:
-  key: google-drive
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a907
-  name: Google Drive
-  uuid: 83a923e5-4dbc-4e8c-b9d8-4e361e685a78
-  connectorId: 642e822e986ed1caad090f1d
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/25565fc4-3680-4264-aaa2-14187ba9362f
-  connectorVersion: 2.5.1
-  logoUri: https://static.integration.app/connectors/gdrive/logo.png
-  dataCollectionsCount: 3
-  operationsCount: 51
-  eventsCount: 0
-  authType: oauth2
+id: 68834d75ef496baf09c0aa29
+name: Get Files
 key: get-files
 state: READY
 errors: []
+revision: d4f55c37-3afa-4b0d-90a7-5536a74d5933
+createdAt: '2025-07-25T09:25:09.954Z'
+updatedAt: '2025-08-05T10:23:49.494Z'
 isDeactivated: false
-id: 68834d75ef496baf09c0aa29
-name: Get Files
-type: list-data-records
+integrationId: 68834d71ef496baf09c0a907
+parentId: 68834d75ef496baf09c0aa0c
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: files
@@ -46,3 +23,29 @@ config:
   fieldMapping:
     key: files
     includeRawFields: true
+parentRevision: e6a5b538-0d16-4c2b-a86f-e461a3b46079
+isCustomized: false
+integration:
+  id: 68834d71ef496baf09c0a907
+  name: Google Drive
+  key: google-drive
+  uuid: 83a923e5-4dbc-4e8c-b9d8-4e361e685a78
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.345Z'
+  updatedAt: '2025-07-25T09:41:07.788Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/gdrive/logo.png
+  connectorId: 642e822e986ed1caad090f1d
+  connectorVersion: 2.5.1
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 51
+  hasData: true
+  dataCollectionsCount: 3
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

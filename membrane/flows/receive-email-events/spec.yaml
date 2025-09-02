@@ -1,10 +1,13 @@
+id: 6884791b95717cb906748700
+name: Receive Email Events
 key: receive-email-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6884791b95717cb906748700
-name: Receive Email Events
 revision: c6d99411-55f8-438f-9774-bde302f6142b
+createdAt: '2025-07-26T06:43:39.143Z'
+updatedAt: '2025-08-05T10:23:48.378Z'
+isDeactivated: false
+isCustomized: true
 nodes:
   email-created-trigger:
     type: data-record-created-trigger
@@ -100,4 +103,3 @@ nodes:
     links:
       - key: delete-email-in-my-app
 autoCreateInstances: false
-customized: true

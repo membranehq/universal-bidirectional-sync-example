@@ -1,38 +1,14 @@
-revision: 9b15c8d8-ebed-4f9e-9e82-b3e224a0faf4
-isCustomized: false
-parentId: 6890519a5facd7ec99dbeba1
-parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
-integrationId: 68835413e49c6d4c3c9d3147
-integration:
-  key: basecamp
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3147
-  name: Basecamp
-  uuid: 02cf56ba-9aba-4c6e-ac4c-a334e1f159e1
-  connectorId: 645d2220edb0b5ee6c0ded14
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/61fa6494-3dd6-4c06-bcdd-6b5465063326
-  connectorVersion: 1.0.5
-  logoUri: https://static.integration.app/connectors/basecamp/logo.png
-  dataCollectionsCount: 8
-  operationsCount: 189
-  eventsCount: 0
-  authType: oauth2
+id: 68905282ff92d86914347ba8
+name: Update User
 key: update-user
 state: READY
 errors: []
+revision: 9b15c8d8-ebed-4f9e-9e82-b3e224a0faf4
+createdAt: '2025-08-04T06:26:13.366Z'
+updatedAt: '2025-08-05T10:23:52.581Z'
 isDeactivated: false
-id: 68905282ff92d86914347ba8
-name: Update User
-type: update-data-record
+integrationId: 68835413e49c6d4c3c9d3147
+parentId: 6890519a5facd7ec99dbeba1
 inputSchema:
   type: object
   properties:
@@ -40,6 +16,7 @@ inputSchema:
       type: string
     fields:
       type: string
+type: update-data-record
 config:
   dataSource:
     key: users
@@ -68,3 +45,29 @@ config:
           $var: $.input.companyName
       avatar_url:
         $var: $.input.imageUrl
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3147
+  name: Basecamp
+  key: basecamp
+  uuid: 02cf56ba-9aba-4c6e-ac4c-a334e1f159e1
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.786Z'
+  updatedAt: '2025-07-25T09:53:36.977Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/basecamp/logo.png
+  connectorId: 645d2220edb0b5ee6c0ded14
+  connectorVersion: 1.0.5
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 189
+  hasData: true
+  dataCollectionsCount: 8
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

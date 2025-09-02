@@ -1,37 +1,38 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835424e49c6d4c3c9d3466
 name: Users
+isDeactivated: false
+state: READY
+errors: []
+key: users
 revision: 3ed518e7-753e-4d9f-a1c5-704184fde448
 integrationId: 68835413e49c6d4c3c9d312e
-customized: false
+isCustomized: false
 universalDataSourceId: 68835424e49c6d4c3c9d32ce
 universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
 collectionKey: users
 udm: users
 defaultPath: /data/users
 integration:
-  key: teamleader
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d312e
   name: Teamleader
+  key: teamleader
   uuid: 7bd8eabb-0159-43b7-9108-03bbac8965ff
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.773Z'
+  updatedAt: '2025-07-25T09:53:35.067Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/teamleader/logo.png
   connectorId: 64417517badd839bce44c5df
+  connectorVersion: 0.1.0
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 225
   hasData: true
+  dataCollectionsCount: 7
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/3ffe3fb5-9388-4ab8-a8e8-e01ae4781100
-  connectorVersion: 0.1.0
-  logoUri: https://static.integration.app/connectors/teamleader/logo.png
-  dataCollectionsCount: 7
-  operationsCount: 225
-  eventsCount: 0
   authType: oauth2

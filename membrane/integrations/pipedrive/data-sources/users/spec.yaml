@@ -1,37 +1,38 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835424e49c6d4c3c9d3351
 name: Users
+isDeactivated: false
+state: READY
+errors: []
+key: users
 revision: f51c23fc-3496-40db-8310-f55dc331a27e
 integrationId: 68835413e49c6d4c3c9d310e
-customized: false
+isCustomized: false
 universalDataSourceId: 68835424e49c6d4c3c9d32ce
 universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
 collectionKey: users
 udm: users
 defaultPath: /data/users
 integration:
-  key: pipedrive
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d310e
   name: Pipedrive
+  key: pipedrive
   uuid: 228fef08-f87e-4be0-a8f0-cd568b6a74c0
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.703Z'
+  updatedAt: '2025-07-25T09:53:38.600Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/pipedrive-oauth/logo.png
   connectorId: 644fe4efee0ebe0ca6e9746b
+  connectorVersion: 2.1.0
   hasMissingParameters: false
   hasDocumentation: true
   hasOperations: true
+  operationsCount: 240
   hasData: true
+  dataCollectionsCount: 27
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/dd2804f8-a420-4e56-be50-d5e157c2ec49
-  connectorVersion: 2.1.0
-  logoUri: https://static.integration.app/connectors/pipedrive-oauth/logo.png
-  dataCollectionsCount: 27
-  operationsCount: 240
-  eventsCount: 0
   authType: oauth2

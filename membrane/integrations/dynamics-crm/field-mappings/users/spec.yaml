@@ -1,10 +1,10 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835425e49c6d4c3c9d3528
 name: Users
-customized: false
+isDeactivated: false
+state: READY
+errors: []
+key: users
+isCustomized: false
 revision: f5062fa3-a49f-4718-af22-02e61e9310de
 universalFieldMappingId: 68835425e49c6d4c3c9d34a3
 universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
@@ -58,26 +58,27 @@ importValue:
     - value:
         $var: $.internalemailaddress
 integration:
-  key: dynamics-crm
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d3106
   name: Microsoft Dynamics 365
+  key: dynamics-crm
   uuid: d865e870-6bb6-4614-9eab-91dfc1a7ea24
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.699Z'
+  updatedAt: '2025-07-25T09:53:38.595Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/dynamics-crm/asset-9eff3af5-d5f3-4634-b807-edd57ca5a56b.png
   connectorId: 63151d261d39af2f69364172
+  connectorVersion: 1.1.18
   hasMissingParameters: false
   hasDocumentation: true
   hasOperations: true
+  operationsCount: 1
   hasData: true
+  dataCollectionsCount: 18
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/6ae0689a-97e4-45c7-b004-a858aa4ad805
-  connectorVersion: 1.1.18
-  logoUri: >-
-    https://static.integration.app/connectors/dynamics-crm/asset-9eff3af5-d5f3-4634-b807-edd57ca5a56b.png
-  dataCollectionsCount: 18
-  operationsCount: 1
-  eventsCount: 0
   authType: oauth2

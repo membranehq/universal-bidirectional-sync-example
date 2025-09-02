@@ -1,43 +1,46 @@
-revision: 52f2e426-9b7e-4c6e-896f-b1b8a3b6b52f
-isCustomized: false
-parentId: 68887db5f9df280360f1e0c9
-parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
-integrationId: 68835413e49c6d4c3c9d310c
-integration:
-  key: zoho-crm
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d310c
-  name: Zoho CRM
-  uuid: df807ac4-bf95-4745-b48c-214fb931cc41
-  connectorId: 64a158e7d2605720d232e07b
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/55c35625-992f-4a0b-8c11-b9522d23d94a
-  connectorVersion: 2.2.0
-  logoUri: https://static.integration.app/connectors/zoho-crm/logo.png
-  dataCollectionsCount: 20
-  operationsCount: 569
-  eventsCount: 0
-  authType: oauth2
+id: 688cc9898fa10d3345b11873
+name: Create User
 key: create-user
 state: READY
 errors: []
+revision: 52f2e426-9b7e-4c6e-896f-b1b8a3b6b52f
+createdAt: '2025-08-01T14:04:58.076Z'
+updatedAt: '2025-08-05T10:23:46.885Z'
 isDeactivated: false
-id: 688cc9898fa10d3345b11873
-name: Create User
-type: create-data-record
+integrationId: 68835413e49c6d4c3c9d310c
+parentId: 68887db5f9df280360f1e0c9
 inputSchema:
   type: object
   properties:
     fields:
       type: string
+type: create-data-record
 config:
   fieldMapping: {}
   dataSource: {}
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d310c
+  name: Zoho CRM
+  key: zoho-crm
+  uuid: df807ac4-bf95-4745-b48c-214fb931cc41
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.702Z'
+  updatedAt: '2025-07-25T09:53:27.010Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/zoho-crm/logo.png
+  connectorId: 64a158e7d2605720d232e07b
+  connectorVersion: 2.2.0
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 569
+  hasData: true
+  dataCollectionsCount: 20
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

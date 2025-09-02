@@ -1,36 +1,15 @@
+id: 68834d76ef496baf09c0abfe
+name: Receive File Events
 key: receive-file-events
 state: READY
 errors: []
-isDeactivated: false
-id: 68834d76ef496baf09c0abfe
-name: Receive File Events
 revision: ab662bda-59cd-4258-8d72-f776f954b7d4
-universalFlowId: 68834d75ef496baf09c0aa71
+createdAt: '2025-07-25T09:25:10.979Z'
+updatedAt: '2025-08-05T10:24:38.526Z'
+isDeactivated: false
 integrationId: 68834d71ef496baf09c0a90d
-integration:
-  key: aws-s3
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a90d
-  name: AWS S3
-  uuid: ca705236-f053-4269-8999-fa70272a5e64
-  connectorId: 663130fe0420db525b9bd67a
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: false
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/7f4c09df-a607-4ecc-a52c-65f74b4c9715
-  connectorVersion: 1.0.4
-  logoUri: >-
-    https://static.integration.app/connectors/aws-s3/asset-b007866c-ff18-41b9-8c5f-e83fdcd46be9.png
-  dataCollectionsCount: 2
-  operationsCount: 0
-  eventsCount: 0
-  authType: client-credentials
+isCustomized: false
+universalFlowId: 68834d75ef496baf09c0aa71
 universalFlowRevision: 655ce286-7e89-48f9-b5a0-8aeadd040d5f
 nodes:
   file-created-trigger:
@@ -130,4 +109,28 @@ nodes:
     links:
       - key: delete-file-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68834d71ef496baf09c0a90d
+  name: AWS S3
+  key: aws-s3
+  uuid: ca705236-f053-4269-8999-fa70272a5e64
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.358Z'
+  updatedAt: '2025-07-25T09:25:07.176Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/aws-s3/asset-b007866c-ff18-41b9-8c5f-e83fdcd46be9.png
+  connectorId: 663130fe0420db525b9bd67a
+  connectorVersion: 1.0.4
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  operationsCount: 0
+  hasData: true
+  dataCollectionsCount: 2
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

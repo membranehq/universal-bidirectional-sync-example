@@ -1,10 +1,10 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835425e49c6d4c3c9d3550
 name: Users
-customized: false
+isDeactivated: false
+state: READY
+errors: []
+key: users
+isCustomized: false
 revision: 01041821-8493-48bb-baa4-79f967cb3167
 universalFieldMappingId: 68835425e49c6d4c3c9d34a3
 universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
@@ -52,25 +52,26 @@ importValue:
     - value:
         $var: $.email_address
 integration:
-  key: breezy
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d3143
   name: Breezy HR
+  key: breezy
   uuid: 03911cee-b343-4a49-a022-6b3e62ed2d3b
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.784Z'
+  updatedAt: '2025-07-25T09:53:34.063Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/breezy/logo.png
   connectorId: 643e81f7badd839bce463919
+  connectorVersion: 1.0.2
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: false
+  operationsCount: 0
   hasData: true
+  dataCollectionsCount: 5
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/d02b3b4f-9cc2-4298-be21-7b4959c51918
-  connectorVersion: 1.0.2
-  logoUri: https://static.integration.app/connectors/breezy/logo.png
-  dataCollectionsCount: 5
-  operationsCount: 0
-  eventsCount: 0
   authType: client-credentials

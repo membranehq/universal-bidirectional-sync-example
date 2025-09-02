@@ -1,10 +1,10 @@
-key: emails
-state: READY
-errors: []
-isDeactivated: false
 id: 6884791a95717cb90674868b
 name: Emails
-customized: true
+isDeactivated: false
+state: READY
+errors: []
+key: emails
+isCustomized: true
 revision: 2476b1f1-b7d4-45cd-bd5a-186236556e7e
 universalFieldMappingId: 6884791a95717cb90674866a
 universalFieldMappingRevision: 4b8fef4c-2a09-4e58-876f-40f269c91ddb
@@ -79,25 +79,26 @@ importValue:
         content:
           $var: $.item.body.data
 integration:
-  key: gmail
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 6884791695717cb90674856c
   name: Gmail
+  key: gmail
   uuid: 21dc435d-989e-4dc2-8da4-43113e7442ef
+  state: READY
+  errors: []
+  createdAt: '2025-07-26T06:43:34.191Z'
+  updatedAt: '2025-07-26T06:46:54.602Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/gmail/logo.png
   connectorId: 64300cd1986ed1caad6e23ae
+  connectorVersion: 1.5.2
   hasMissingParameters: false
   hasDocumentation: true
   hasOperations: true
+  operationsCount: 81
   hasData: true
+  dataCollectionsCount: 3
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/9c29637a-8512-4f98-817c-5faa1e0defdc
-  connectorVersion: 1.5.2
-  logoUri: https://static.integration.app/connectors/gmail/logo.png
-  dataCollectionsCount: 3
-  operationsCount: 81
-  eventsCount: 0
   authType: oauth2

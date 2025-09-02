@@ -1,37 +1,14 @@
-revision: 36029d24-75c2-4f57-94b3-8a5ec41d9c7e
-isCustomized: false
-parentId: 68887e21e84a885dbcaa0eb5
-parentRevision: 1b3f8697-a7a6-45f3-a95b-f939b520d82a
-integrationId: 6884791695717cb90674856c
-integration:
-  key: gmail
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 6884791695717cb90674856c
-  name: Gmail
-  uuid: 21dc435d-989e-4dc2-8da4-43113e7442ef
-  connectorId: 64300cd1986ed1caad6e23ae
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/9c29637a-8512-4f98-817c-5faa1e0defdc
-  connectorVersion: 1.5.2
-  logoUri: https://static.integration.app/connectors/gmail/logo.png
-  dataCollectionsCount: 3
-  operationsCount: 81
-  eventsCount: 0
-  authType: oauth2
+id: 6889069146438ad26621d7f8
+name: Delete Email
 key: delete-email
 state: READY
 errors: []
+revision: 36029d24-75c2-4f57-94b3-8a5ec41d9c7e
+createdAt: '2025-07-29T17:36:17.765Z'
+updatedAt: '2025-08-05T10:23:49.131Z'
 isDeactivated: false
-id: 6889069146438ad26621d7f8
-name: Delete Email
+integrationId: 6884791695717cb90674856c
+parentId: 68887e21e84a885dbcaa0eb5
 type: delete-data-record
 config:
   dataSource:
@@ -39,3 +16,29 @@ config:
     collectionKey: emails
     defaultPath: /data/emails
   fieldMapping: {}
+parentRevision: 1b3f8697-a7a6-45f3-a95b-f939b520d82a
+isCustomized: false
+integration:
+  id: 6884791695717cb90674856c
+  name: Gmail
+  key: gmail
+  uuid: 21dc435d-989e-4dc2-8da4-43113e7442ef
+  state: READY
+  errors: []
+  createdAt: '2025-07-26T06:43:34.191Z'
+  updatedAt: '2025-07-26T06:46:54.602Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/gmail/logo.png
+  connectorId: 64300cd1986ed1caad6e23ae
+  connectorVersion: 1.5.2
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 81
+  hasData: true
+  dataCollectionsCount: 3
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

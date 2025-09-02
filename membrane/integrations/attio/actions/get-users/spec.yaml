@@ -1,44 +1,20 @@
-revision: 56393819-fdc7-4117-bb9d-f63956ee77e7
-isCustomized: false
-parentId: 68835427e49c6d4c3c9d372b
-parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
-integrationId: 68835417e49c6d4c3c9d3174
-integration:
-  key: attio
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835417e49c6d4c3c9d3174
-  name: Attio
-  uuid: 0640c7fa-d148-487d-8368-e4fc5e861a90
-  connectorId: 655caef6a9e1827bf4d915ca
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/1472e44e-fc24-41b5-8aaa-ce64eb7857b0
-  connectorVersion: 1.2.5
-  logoUri: >-
-    https://static.integration.app/connectors/attio-connector/logo-8f5adba3-1d05-4e42-a0f7-1db76c841e5f.png
-  dataCollectionsCount: 16
-  operationsCount: 98
-  eventsCount: 1
-  authType: oauth2
+id: 68835428e49c6d4c3c9d3812
+name: Get Users
 key: get-users
 state: READY
 errors: []
+revision: 56393819-fdc7-4117-bb9d-f63956ee77e7
+createdAt: '2025-07-25T09:53:44.571Z'
+updatedAt: '2025-08-05T10:23:51.114Z'
 isDeactivated: false
-id: 68835428e49c6d4c3c9d3812
-name: Get Users
-type: list-data-records
+integrationId: 68835417e49c6d4c3c9d3174
+parentId: 68835427e49c6d4c3c9d372b
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: users
@@ -47,3 +23,30 @@ config:
   fieldMapping:
     key: users
     includeRawFields: true
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+isCustomized: false
+integration:
+  id: 68835417e49c6d4c3c9d3174
+  name: Attio
+  key: attio
+  uuid: 0640c7fa-d148-487d-8368-e4fc5e861a90
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:27.883Z'
+  updatedAt: '2025-07-25T09:53:37.767Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/attio-connector/logo-8f5adba3-1d05-4e42-a0f7-1db76c841e5f.png
+  connectorId: 655caef6a9e1827bf4d915ca
+  connectorVersion: 1.2.5
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 98
+  hasData: true
+  dataCollectionsCount: 16
+  hasEvents: true
+  eventsCount: 1
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

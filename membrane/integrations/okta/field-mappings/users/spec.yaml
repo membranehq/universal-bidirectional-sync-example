@@ -1,10 +1,10 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835425e49c6d4c3c9d3554
 name: Users
-customized: false
+isDeactivated: false
+state: READY
+errors: []
+key: users
+isCustomized: false
 revision: 046d3b62-30f3-456e-a632-602ce197249a
 universalFieldMappingId: 68835425e49c6d4c3c9d34a3
 universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
@@ -65,26 +65,27 @@ importValue:
     - value:
         $var: $.profile.mobilePhone
 integration:
-  key: okta
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d3149
   name: Okta
+  key: okta
   uuid: cfea79e9-15ba-45ca-a6cd-7b0d01800f98
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.787Z'
+  updatedAt: '2025-07-25T09:53:33.187Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/logo-0b09cb02-5978-4c94-b3e4-b92964a36bcb.png
   connectorId: 65a59ef7af9ac1360fd6bbd2
+  connectorVersion: 1.0.2
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 340
   hasData: true
+  dataCollectionsCount: 4
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/65827a85-48cf-4ccc-8e40-d26d926cdb3a
-  connectorVersion: 1.0.2
-  logoUri: >-
-    https://static.integration.app/connectors/logo-0b09cb02-5978-4c94-b3e4-b92964a36bcb.png
-  dataCollectionsCount: 4
-  operationsCount: 340
-  eventsCount: 0
   authType: client-credentials

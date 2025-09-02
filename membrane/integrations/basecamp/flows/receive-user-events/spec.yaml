@@ -1,35 +1,15 @@
+id: 6883542fe49c6d4c3c9d452b
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542fe49c6d4c3c9d452b
-name: Receive User Events
 revision: 46fd0d4d-5f7c-4526-8f11-846ada9fd5b2
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.800Z'
+updatedAt: '2025-08-05T10:24:40.524Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3147
-integration:
-  key: basecamp
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3147
-  name: Basecamp
-  uuid: 02cf56ba-9aba-4c6e-ac4c-a334e1f159e1
-  connectorId: 645d2220edb0b5ee6c0ded14
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/61fa6494-3dd6-4c06-bcdd-6b5465063326
-  connectorVersion: 1.0.5
-  logoUri: https://static.integration.app/connectors/basecamp/logo.png
-  dataCollectionsCount: 8
-  operationsCount: 189
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -129,4 +109,27 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3147
+  name: Basecamp
+  key: basecamp
+  uuid: 02cf56ba-9aba-4c6e-ac4c-a334e1f159e1
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.786Z'
+  updatedAt: '2025-07-25T09:53:36.977Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/basecamp/logo.png
+  connectorId: 645d2220edb0b5ee6c0ded14
+  connectorVersion: 1.0.5
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 189
+  hasData: true
+  dataCollectionsCount: 8
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

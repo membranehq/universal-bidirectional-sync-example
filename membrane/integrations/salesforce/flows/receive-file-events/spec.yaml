@@ -1,35 +1,15 @@
+id: 68834d78ef496baf09c0acd9
+name: Receive File Events
 key: receive-file-events
 state: READY
 errors: []
-isDeactivated: false
-id: 68834d78ef496baf09c0acd9
-name: Receive File Events
 revision: 1dad1d7e-e860-4edc-863c-0bf058b3b4b0
-universalFlowId: 68834d75ef496baf09c0aa71
+createdAt: '2025-07-25T09:25:12.067Z'
+updatedAt: '2025-08-05T10:24:38.889Z'
+isDeactivated: false
 integrationId: 68834d71ef496baf09c0a8fa
-integration:
-  key: salesforce
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a8fa
-  name: Salesforce
-  uuid: b1530921-5651-4b04-a059-5893a76384d4
-  connectorId: 62471fad996d5c297ae43f5e
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/8ac63569-b944-4d46-a041-e2fb80b82ac2
-  connectorVersion: 1.6.6
-  logoUri: https://static.integration.app/connectors/salesforce-connector/logo.png
-  dataCollectionsCount: 30
-  operationsCount: 303
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68834d75ef496baf09c0aa71
 universalFlowRevision: 655ce286-7e89-48f9-b5a0-8aeadd040d5f
 nodes:
   file-created-trigger:
@@ -129,4 +109,27 @@ nodes:
     links:
       - key: delete-file-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68834d71ef496baf09c0a8fa
+  name: Salesforce
+  key: salesforce
+  uuid: b1530921-5651-4b04-a059-5893a76384d4
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.328Z'
+  updatedAt: '2025-07-25T09:25:09.149Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/salesforce-connector/logo.png
+  connectorId: 62471fad996d5c297ae43f5e
+  connectorVersion: 1.6.6
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 303
+  hasData: true
+  dataCollectionsCount: 30
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

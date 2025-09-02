@@ -1,10 +1,10 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835425e49c6d4c3c9d356c
 name: Users
-customized: false
+isDeactivated: false
+state: READY
+errors: []
+key: users
+isCustomized: false
 revision: 9b1c0d26-211a-4bb0-a021-c779f4f30baa
 universalFieldMappingId: 68835425e49c6d4c3c9d34a3
 universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
@@ -71,25 +71,26 @@ importValue:
     - value:
         $var: $.phoneNumber
 integration:
-  key: outreach
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d3124
   name: Outreach
+  key: outreach
   uuid: 6839e171-d1f6-488f-88e9-65e06a949111
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.768Z'
+  updatedAt: '2025-07-25T09:53:38.183Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/outreach-connector/logo.png
   connectorId: 6466785060f981f3ce69690b
+  connectorVersion: 1.1.2
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 176
   hasData: true
+  dataCollectionsCount: 14
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/b3d312a2-d5f0-4d61-ab2c-8211f30667a6
-  connectorVersion: 1.1.2
-  logoUri: https://static.integration.app/connectors/outreach-connector/logo.png
-  dataCollectionsCount: 14
-  operationsCount: 176
-  eventsCount: 0
   authType: oauth2

@@ -1,43 +1,20 @@
-revision: 122c50fc-5f6a-48b8-97c2-b8ac5aafc661
-isCustomized: false
-parentId: 6884791a95717cb9067486bc
-parentRevision: 3f5ffc55-5e80-4f25-99f1-8f843b28a42a
-integrationId: 6884791695717cb906748570
-integration:
-  key: recruitee
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 6884791695717cb906748570
-  name: Recruitee
-  uuid: c418c663-8922-4747-9146-8823d4a58ade
-  connectorId: 6466785560f981f3ce696912
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/6483ea20-a27d-4c6b-bb6c-d7f8f4c903f1
-  connectorVersion: 0.0.4
-  logoUri: https://static.integration.app/connectors/recruitee/logo.png
-  dataCollectionsCount: 9
-  operationsCount: 686
-  eventsCount: 0
-  authType: client-credentials
+id: 6884791b95717cb9067486dd
+name: Get Emails
 key: get-emails
 state: READY
 errors: []
+revision: 122c50fc-5f6a-48b8-97c2-b8ac5aafc661
+createdAt: '2025-07-26T06:43:39.065Z'
+updatedAt: '2025-08-05T10:23:47.225Z'
 isDeactivated: false
-id: 6884791b95717cb9067486dd
-name: Get Emails
-type: list-data-records
+integrationId: 6884791695717cb906748570
+parentId: 6884791a95717cb9067486bc
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: emails
@@ -46,3 +23,29 @@ config:
   fieldMapping:
     key: emails
     includeRawFields: true
+parentRevision: 3f5ffc55-5e80-4f25-99f1-8f843b28a42a
+isCustomized: false
+integration:
+  id: 6884791695717cb906748570
+  name: Recruitee
+  key: recruitee
+  uuid: c418c663-8922-4747-9146-8823d4a58ade
+  state: READY
+  errors: []
+  createdAt: '2025-07-26T06:43:34.194Z'
+  updatedAt: '2025-07-26T06:43:38.165Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/recruitee/logo.png
+  connectorId: 6466785560f981f3ce696912
+  connectorVersion: 0.0.4
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 686
+  hasData: true
+  dataCollectionsCount: 9
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

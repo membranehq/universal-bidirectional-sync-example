@@ -1,35 +1,15 @@
+id: 6883542de49c6d4c3c9d4050
+name: Send User Events
 key: send-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542de49c6d4c3c9d4050
-name: Send User Events
 revision: d882a8e0-bc2f-4e3b-93b5-a633c13aa0e4
-universalFlowId: 68835428e49c6d4c3c9d397c
+createdAt: '2025-07-25T09:53:52.262Z'
+updatedAt: '2025-08-05T10:24:16.502Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d312e
-integration:
-  key: teamleader
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d312e
-  name: Teamleader
-  uuid: 7bd8eabb-0159-43b7-9108-03bbac8965ff
-  connectorId: 64417517badd839bce44c5df
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/3ffe3fb5-9388-4ab8-a8e8-e01ae4781100
-  connectorVersion: 0.1.0
-  logoUri: https://static.integration.app/connectors/teamleader/logo.png
-  dataCollectionsCount: 7
-  operationsCount: 225
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d397c
 universalFlowRevision: 7cd726db-f478-4538-b231-ed195e1ff008
 nodes:
   app-event-trigger:
@@ -40,23 +20,23 @@ nodes:
         key: user-event
     links:
       - key: create-data-record
-        name: User created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: User created
       - key: delete-data-record
-        name: User deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: User deleted
       - key: update-data-record
-        name: User updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: User updated
   create-data-record:
     type: create-data-record
     name: Create User
@@ -102,4 +82,27 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d312e
+  name: Teamleader
+  key: teamleader
+  uuid: 7bd8eabb-0159-43b7-9108-03bbac8965ff
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.773Z'
+  updatedAt: '2025-07-25T09:53:35.067Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/teamleader/logo.png
+  connectorId: 64417517badd839bce44c5df
+  connectorVersion: 0.1.0
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 225
+  hasData: true
+  dataCollectionsCount: 7
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

@@ -1,38 +1,39 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835424e49c6d4c3c9d3371
 name: Users
+isDeactivated: false
+state: READY
+errors: []
+key: users
 revision: 1a2c2c57-de87-446f-a04c-38621f3fc600
 integrationId: 68835413e49c6d4c3c9d3151
-customized: false
+isCustomized: false
 universalDataSourceId: 68835424e49c6d4c3c9d32ce
 universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
 collectionKey: users
 udm: users
 defaultPath: /data/users
 integration:
-  key: greenhouse-harvest
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d3151
   name: Greenhouse Harvest
+  key: greenhouse-harvest
   uuid: 3ede0864-2b68-4c1d-9073-9f36268e9386
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.791Z'
+  updatedAt: '2025-07-25T09:53:37.960Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/greenhouse-harvest/logo-39d42c52-496c-48b3-89ec-cb588f6ec0f2.png
   connectorId: 65c3755eda65a37b19898497
+  connectorVersion: 1.0.2
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 129
   hasData: true
+  dataCollectionsCount: 15
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/c82fb5f1-310e-442d-8d69-a47b7d7da888
-  connectorVersion: 1.0.2
-  logoUri: >-
-    https://static.integration.app/connectors/greenhouse-harvest/logo-39d42c52-496c-48b3-89ec-cb588f6ec0f2.png
-  dataCollectionsCount: 15
-  operationsCount: 129
-  eventsCount: 0
   authType: client-credentials

@@ -1,35 +1,15 @@
+id: 6883542fe49c6d4c3c9d441b
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542fe49c6d4c3c9d441b
-name: Receive User Events
 revision: 40ba7342-8cd8-41b6-97d8-a3599bb3bf3a
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.903Z'
+updatedAt: '2025-08-05T10:24:40.376Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3115
-integration:
-  key: salesforce-pardot
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3115
-  name: SalesForce Pardot
-  uuid: 541d9ad0-89ae-4bbb-b4bc-67c802e2e1a3
-  connectorId: 63a3723bad7bd4eb80db61e0
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/138a57cc-bb7e-466a-8aa6-370053d1327b
-  connectorVersion: 1.0.5
-  logoUri: https://static.integration.app/connectors/salesforce-pardot/logo.png
-  dataCollectionsCount: 12
-  operationsCount: 84
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -129,4 +109,27 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3115
+  name: SalesForce Pardot
+  key: salesforce-pardot
+  uuid: 541d9ad0-89ae-4bbb-b4bc-67c802e2e1a3
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.759Z'
+  updatedAt: '2025-07-25T09:53:36.497Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/salesforce-pardot/logo.png
+  connectorId: 63a3723bad7bd4eb80db61e0
+  connectorVersion: 1.0.5
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 84
+  hasData: true
+  dataCollectionsCount: 12
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

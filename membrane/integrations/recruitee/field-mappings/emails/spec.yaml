@@ -1,10 +1,10 @@
-key: emails
-state: READY
-errors: []
-isDeactivated: false
 id: 6884791a95717cb906748689
 name: Emails
-customized: false
+isDeactivated: false
+state: READY
+errors: []
+key: emails
+isCustomized: false
 revision: a1e8f926-920d-466e-8492-0036bff20ccb
 universalFieldMappingId: 6884791a95717cb90674866a
 universalFieldMappingRevision: 56f059e4-99f0-4274-86c3-c2dc3174105f
@@ -81,25 +81,26 @@ importValue:
   createdTime:
     $var: $.send_at
 integration:
-  key: recruitee
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 6884791695717cb906748570
   name: Recruitee
+  key: recruitee
   uuid: c418c663-8922-4747-9146-8823d4a58ade
+  state: READY
+  errors: []
+  createdAt: '2025-07-26T06:43:34.194Z'
+  updatedAt: '2025-07-26T06:43:38.165Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/recruitee/logo.png
   connectorId: 6466785560f981f3ce696912
+  connectorVersion: 0.0.4
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 686
   hasData: true
+  dataCollectionsCount: 9
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/6483ea20-a27d-4c6b-bb6c-d7f8f4c903f1
-  connectorVersion: 0.0.4
-  logoUri: https://static.integration.app/connectors/recruitee/logo.png
-  dataCollectionsCount: 9
-  operationsCount: 686
-  eventsCount: 0
   authType: client-credentials

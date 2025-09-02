@@ -1,10 +1,10 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835425e49c6d4c3c9d3534
 name: Users
-customized: false
+isDeactivated: false
+state: READY
+errors: []
+key: users
+isCustomized: false
 revision: 789d9d13-61c5-4688-af5b-8ba5b76cace3
 universalFieldMappingId: 68835425e49c6d4c3c9d34a3
 universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
@@ -49,25 +49,26 @@ importValue:
     - value:
         $var: $.work_number
 integration:
-  key: freshsales
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d310a
   name: Freshsales
+  key: freshsales
   uuid: c8dbedeb-66d8-4a6e-be82-2bc0b50e7ae1
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.701Z'
+  updatedAt: '2025-07-25T09:53:39.972Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/freshsales-connector/logo.png
   connectorId: 633af6ef361690ab46d8ed4d
+  connectorVersion: 1.0.2
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: false
+  operationsCount: 0
   hasData: true
+  dataCollectionsCount: 22
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/42501889-cab5-45b3-9396-c089489bbae2
-  connectorVersion: 1.0.2
-  logoUri: https://static.integration.app/connectors/freshsales-connector/logo.png
-  dataCollectionsCount: 22
-  operationsCount: 0
-  eventsCount: 0
   authType: client-credentials

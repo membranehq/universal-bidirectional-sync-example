@@ -1,43 +1,46 @@
-revision: 3f65fc6f-88ac-4781-814b-70a7bd175c0f
-isCustomized: false
-parentId: 68887db5f9df280360f1e0c9
-parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
-integrationId: 68835413e49c6d4c3c9d313d
-integration:
-  key: close
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d313d
-  name: Close
-  uuid: c9b0a533-0a75-457f-a691-8b303391f857
-  connectorId: 64fa1e1af51a74915b9fca3c
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: false
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/420e8c2f-5414-416a-8759-29d756bf1cf9
-  connectorVersion: 1.1.12
-  logoUri: https://static.integration.app/connectors/close/logo.png
-  dataCollectionsCount: 13
-  operationsCount: 0
-  eventsCount: 0
-  authType: oauth2
+id: 688cc9898fa10d3345b1183c
+name: Create User
 key: create-user
 state: READY
 errors: []
+revision: 3f65fc6f-88ac-4781-814b-70a7bd175c0f
+createdAt: '2025-08-01T14:04:58.013Z'
+updatedAt: '2025-08-05T10:23:45.978Z'
 isDeactivated: false
-id: 688cc9898fa10d3345b1183c
-name: Create User
-type: create-data-record
+integrationId: 68835413e49c6d4c3c9d313d
+parentId: 68887db5f9df280360f1e0c9
 inputSchema:
   type: object
   properties:
     fields:
       type: string
+type: create-data-record
 config:
   fieldMapping: {}
   dataSource: {}
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d313d
+  name: Close
+  key: close
+  uuid: c9b0a533-0a75-457f-a691-8b303391f857
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.781Z'
+  updatedAt: '2025-08-29T12:11:00.830Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/close/logo.png
+  connectorId: 64fa1e1af51a74915b9fca3c
+  connectorVersion: 1.1.13
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  operationsCount: 0
+  hasData: true
+  dataCollectionsCount: 13
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

@@ -1,46 +1,49 @@
-revision: b1bd645c-6e68-4b15-8fef-f12253ac32ba
-isCustomized: false
-parentId: 68887e4a655d7bb8d28c504c
-parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
-integrationId: 68835413e49c6d4c3c9d3124
-integration:
-  key: outreach
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3124
-  name: Outreach
-  uuid: 6839e171-d1f6-488f-88e9-65e06a949111
-  connectorId: 6466785060f981f3ce69690b
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/b3d312a2-d5f0-4d61-ab2c-8211f30667a6
-  connectorVersion: 1.1.2
-  logoUri: https://static.integration.app/connectors/outreach-connector/logo.png
-  dataCollectionsCount: 14
-  operationsCount: 176
-  eventsCount: 0
-  authType: oauth2
+id: 688905eaee7f0f245494d73a
+name: Delete User
 key: delete-user
 state: READY
 errors: []
+revision: b1bd645c-6e68-4b15-8fef-f12253ac32ba
+createdAt: '2025-07-29T17:33:31.057Z'
+updatedAt: '2025-08-05T10:23:48.488Z'
 isDeactivated: false
-id: 688905eaee7f0f245494d73a
-name: Delete User
-type: delete-data-record
+integrationId: 68835413e49c6d4c3c9d3124
+parentId: 68887e4a655d7bb8d28c504c
 inputSchema:
   type: object
   properties:
     id:
       type: string
+type: delete-data-record
 config:
   dataSource:
     key: users
   id:
     $var: $.input.id
   fieldMapping: {}
+parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3124
+  name: Outreach
+  key: outreach
+  uuid: 6839e171-d1f6-488f-88e9-65e06a949111
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.768Z'
+  updatedAt: '2025-07-25T09:53:38.183Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/outreach-connector/logo.png
+  connectorId: 6466785060f981f3ce69690b
+  connectorVersion: 1.1.2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 176
+  hasData: true
+  dataCollectionsCount: 14
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

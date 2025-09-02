@@ -1,35 +1,15 @@
+id: 6883542ee49c6d4c3c9d4281
+name: Send User Events
 key: send-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542ee49c6d4c3c9d4281
-name: Send User Events
 revision: 01641559-1c04-43a0-8ab9-8a7f739f9ad1
-universalFlowId: 68835428e49c6d4c3c9d397c
+createdAt: '2025-07-25T09:53:52.304Z'
+updatedAt: '2025-08-05T10:24:17.155Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d310e
-integration:
-  key: pipedrive
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d310e
-  name: Pipedrive
-  uuid: 228fef08-f87e-4be0-a8f0-cd568b6a74c0
-  connectorId: 644fe4efee0ebe0ca6e9746b
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/dd2804f8-a420-4e56-be50-d5e157c2ec49
-  connectorVersion: 2.1.0
-  logoUri: https://static.integration.app/connectors/pipedrive-oauth/logo.png
-  dataCollectionsCount: 27
-  operationsCount: 240
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d397c
 universalFlowRevision: 7cd726db-f478-4538-b231-ed195e1ff008
 nodes:
   app-event-trigger:
@@ -40,23 +20,23 @@ nodes:
         key: user-event
     links:
       - key: create-data-record
-        name: User created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: User created
       - key: delete-data-record
-        name: User deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: User deleted
       - key: update-data-record
-        name: User updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: User updated
   create-data-record:
     type: create-data-record
     name: Create User
@@ -102,4 +82,27 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d310e
+  name: Pipedrive
+  key: pipedrive
+  uuid: 228fef08-f87e-4be0-a8f0-cd568b6a74c0
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.703Z'
+  updatedAt: '2025-07-25T09:53:38.600Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/pipedrive-oauth/logo.png
+  connectorId: 644fe4efee0ebe0ca6e9746b
+  connectorVersion: 2.1.0
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 240
+  hasData: true
+  dataCollectionsCount: 27
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

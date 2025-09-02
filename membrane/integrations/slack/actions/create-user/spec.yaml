@@ -1,43 +1,46 @@
-revision: 1bad9f31-f9ea-4832-bdb8-546bc7df1f62
-isCustomized: false
-parentId: 68887db5f9df280360f1e0c9
-parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
-integrationId: 68835413e49c6d4c3c9d3117
-integration:
-  key: slack
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3117
-  name: Slack
-  uuid: 82293aaf-8ffd-45d0-9215-ed7785452830
-  connectorId: 643084d0986ed1caad854e41
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: true
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/6049f6e1-e0e2-4f8d-bd1b-a52bdd02b4ff
-  connectorVersion: 1.3.0
-  logoUri: https://static.integration.app/connectors/slack/logo.png
-  dataCollectionsCount: 3
-  operationsCount: 246
-  eventsCount: 79
-  authType: oauth2
+id: 688cc9898fa10d3345b11881
+name: Create User
 key: create-user
 state: READY
 errors: []
+revision: 1bad9f31-f9ea-4832-bdb8-546bc7df1f62
+createdAt: '2025-08-01T14:04:58.183Z'
+updatedAt: '2025-08-05T10:23:46.915Z'
 isDeactivated: false
-id: 688cc9898fa10d3345b11881
-name: Create User
-type: create-data-record
+integrationId: 68835413e49c6d4c3c9d3117
+parentId: 68887db5f9df280360f1e0c9
 inputSchema:
   type: object
   properties:
     fields:
       type: string
+type: create-data-record
 config:
   fieldMapping: {}
   dataSource: {}
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3117
+  name: Slack
+  key: slack
+  uuid: 82293aaf-8ffd-45d0-9215-ed7785452830
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.761Z'
+  updatedAt: '2025-07-25T09:53:29.903Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/slack/logo.png
+  connectorId: 643084d0986ed1caad854e41
+  connectorVersion: 1.3.0
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 246
+  hasData: true
+  dataCollectionsCount: 3
+  hasEvents: true
+  eventsCount: 79
+  hasGlobalWebhooks: true
+  hasUdm: true
+  authType: oauth2

@@ -1,35 +1,15 @@
+id: 6883542fe49c6d4c3c9d441f
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542fe49c6d4c3c9d441f
-name: Receive User Events
 revision: d05546aa-3aa2-4dbe-9b79-c65edea6c359
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.775Z'
+updatedAt: '2025-08-05T10:24:40.475Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d312c
-integration:
-  key: monday
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d312c
-  name: Monday
-  uuid: 27e098c9-e87d-4762-85aa-2773af509183
-  connectorId: 62471fe7996d5c297ae43f6d
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: false
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/fb036c67-7433-4a47-9558-1e17fe555e5a
-  connectorVersion: 1.1.1
-  logoUri: https://static.integration.app/connectors/monday/logo.png
-  dataCollectionsCount: 5
-  operationsCount: 0
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -129,4 +109,27 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d312c
+  name: Monday
+  key: monday
+  uuid: 27e098c9-e87d-4762-85aa-2773af509183
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.772Z'
+  updatedAt: '2025-07-25T09:53:35.365Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/monday/logo.png
+  connectorId: 62471fe7996d5c297ae43f6d
+  connectorVersion: 1.1.1
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  operationsCount: 0
+  hasData: true
+  dataCollectionsCount: 5
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

@@ -1,37 +1,38 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835424e49c6d4c3c9d335f
 name: Users
+isDeactivated: false
+state: READY
+errors: []
+key: users
 revision: 6a5e8084-142f-44a9-8691-09837589b695
 integrationId: 68835413e49c6d4c3c9d3128
-customized: false
+isCustomized: false
 universalDataSourceId: 68835424e49c6d4c3c9d32ce
 universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
 collectionKey: users
 udm: users
 defaultPath: /data/users
 integration:
-  key: activecampaign
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d3128
   name: ActiveCampaign
+  key: activecampaign
   uuid: df6bee88-0036-431e-9407-78c6f9278eb7
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.770Z'
+  updatedAt: '2025-07-25T09:53:38.654Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/activecampaign-connector/logo.png
   connectorId: 6466783960f981f3ce6968ec
+  connectorVersion: 1.0.3
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 106
   hasData: true
+  dataCollectionsCount: 20
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/c65d95f5-120f-4269-a268-d74c8c666a04
-  connectorVersion: 1.0.3
-  logoUri: https://static.integration.app/connectors/activecampaign-connector/logo.png
-  dataCollectionsCount: 20
-  operationsCount: 106
-  eventsCount: 0
   authType: client-credentials

@@ -1,39 +1,14 @@
-revision: 3511d691-922e-4f5d-9192-edfa995d9e6e
-isCustomized: false
-parentId: 6890519a5facd7ec99dbeba1
-parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
-integrationId: 68835413e49c6d4c3c9d314b
-integration:
-  key: deel
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d314b
-  name: Deel
-  uuid: 1573856c-a3dd-4649-8220-fffab33a064a
-  connectorId: 652672eb70089fac484af1b0
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/9eb9b66e-96b3-4dd8-bc2a-c8de931619b2
-  connectorVersion: 1.0.2
-  logoUri: >-
-    https://static.integration.app/connectors/deel-connector/logo-0306de7e-75aa-4354-a30a-b637da5b32c7.png
-  dataCollectionsCount: 9
-  operationsCount: 145
-  eventsCount: 0
-  authType: client-credentials
+id: 68905282ff92d86914347baf
+name: Update User
 key: update-user
 state: READY
 errors: []
+revision: 3511d691-922e-4f5d-9192-edfa995d9e6e
+createdAt: '2025-08-04T06:26:13.593Z'
+updatedAt: '2025-08-05T10:23:53.135Z'
 isDeactivated: false
-id: 68905282ff92d86914347baf
-name: Update User
-type: update-data-record
+integrationId: 68835413e49c6d4c3c9d314b
+parentId: 6890519a5facd7ec99dbeba1
 inputSchema:
   type: object
   properties:
@@ -41,6 +16,7 @@ inputSchema:
       type: string
     fields:
       type: string
+type: update-data-record
 config:
   dataSource:
     key: users
@@ -90,3 +66,30 @@ config:
           $var: $.input.createdTime
         lastModified:
           $var: $.input.updatedTime
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d314b
+  name: Deel
+  key: deel
+  uuid: 1573856c-a3dd-4649-8220-fffab33a064a
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.788Z'
+  updatedAt: '2025-07-25T09:53:37.657Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/deel-connector/logo-0306de7e-75aa-4354-a30a-b637da5b32c7.png
+  connectorId: 652672eb70089fac484af1b0
+  connectorVersion: 1.0.2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 145
+  hasData: true
+  dataCollectionsCount: 9
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

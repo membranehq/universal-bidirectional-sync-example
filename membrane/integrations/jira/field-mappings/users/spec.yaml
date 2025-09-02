@@ -1,10 +1,10 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835425e49c6d4c3c9d3530
 name: Users
-customized: false
+isDeactivated: false
+state: READY
+errors: []
+key: users
+isCustomized: false
 revision: 40c84e34-7369-437b-89de-b39f99beffc0
 universalFieldMappingId: 68835425e49c6d4c3c9d34a3
 universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
@@ -48,25 +48,26 @@ importValue:
     - value:
         $var: $.emailAddress
 integration:
-  key: jira
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d3119
   name: Jira
+  key: jira
   uuid: 5efcb1d6-7b41-40e8-bde9-c8cf3e9c83c3
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.762Z'
+  updatedAt: '2025-07-25T09:53:34.874Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/jira/logo.png
   connectorId: 64343d08986ed1caad5b3aa7
+  connectorVersion: 1.4.13
   hasMissingParameters: false
   hasDocumentation: true
   hasOperations: true
+  operationsCount: 499
   hasData: true
+  dataCollectionsCount: 12
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/f4bc8dfd-af63-4dda-a7b3-60d67dd5c9f6
-  connectorVersion: 1.4.13
-  logoUri: https://static.integration.app/connectors/jira/logo.png
-  dataCollectionsCount: 12
-  operationsCount: 499
-  eventsCount: 0
   authType: oauth2

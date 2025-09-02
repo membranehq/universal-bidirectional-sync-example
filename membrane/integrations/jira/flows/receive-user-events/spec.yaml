@@ -1,35 +1,15 @@
+id: 6883542fe49c6d4c3c9d452f
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542fe49c6d4c3c9d452f
-name: Receive User Events
 revision: 4a9e9ec5-f8cb-47b5-8f07-7cd0cf6b5ad1
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.800Z'
+updatedAt: '2025-08-05T10:24:40.619Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3119
-integration:
-  key: jira
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3119
-  name: Jira
-  uuid: 5efcb1d6-7b41-40e8-bde9-c8cf3e9c83c3
-  connectorId: 64343d08986ed1caad5b3aa7
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/f4bc8dfd-af63-4dda-a7b3-60d67dd5c9f6
-  connectorVersion: 1.4.13
-  logoUri: https://static.integration.app/connectors/jira/logo.png
-  dataCollectionsCount: 12
-  operationsCount: 499
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -129,4 +109,27 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3119
+  name: Jira
+  key: jira
+  uuid: 5efcb1d6-7b41-40e8-bde9-c8cf3e9c83c3
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.762Z'
+  updatedAt: '2025-07-25T09:53:34.874Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/jira/logo.png
+  connectorId: 64343d08986ed1caad5b3aa7
+  connectorVersion: 1.4.13
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 499
+  hasData: true
+  dataCollectionsCount: 12
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

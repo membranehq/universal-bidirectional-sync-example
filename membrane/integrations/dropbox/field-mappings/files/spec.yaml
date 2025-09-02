@@ -1,10 +1,10 @@
-key: files
-state: READY
-errors: []
-isDeactivated: false
 id: 68834d75ef496baf09c0a9bd
 name: Files
-customized: false
+isDeactivated: false
+state: READY
+errors: []
+key: files
+isCustomized: false
 revision: 02286647-0124-4e92-8ec7-76843685a9dd
 universalFieldMappingId: 68834d75ef496baf09c0a99e
 universalFieldMappingRevision: 886948ed-fa85-4d74-8146-6efa91a4a129
@@ -41,25 +41,26 @@ importValue:
   downloadUri:
     $var: $.link
 integration:
-  key: dropbox
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68834d71ef496baf09c0a8f8
   name: Dropbox
+  key: dropbox
   uuid: e7aa585d-2f85-4ed4-b25e-ffb402a919d9
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.327Z'
+  updatedAt: '2025-07-25T09:25:07.359Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/dropbox/logo.png
   connectorId: 643eac8bbadd839bce5b1114
+  connectorVersion: 2.2.0
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 137
   hasData: true
+  dataCollectionsCount: 1
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/51e19372-446d-4be5-9e61-34153f957210
-  connectorVersion: 2.2.0
-  logoUri: https://static.integration.app/connectors/dropbox/logo.png
-  dataCollectionsCount: 1
-  operationsCount: 137
-  eventsCount: 0
   authType: oauth2

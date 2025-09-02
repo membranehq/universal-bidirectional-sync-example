@@ -1,38 +1,14 @@
-revision: d1288884-e6a9-4414-894a-da03c8891533
-isCustomized: false
-parentId: 6890519a5facd7ec99dbeba1
-parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
-integrationId: 68835417e49c6d4c3c9d3176
-integration:
-  key: agile-crm
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835417e49c6d4c3c9d3176
-  name: Agile CRM
-  uuid: d6fdf74c-d5bb-4a33-8fe2-fcd56f5c6b60
-  connectorId: 64416311badd839bce41fdeb
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/8c3f8af0-b16c-4d0f-b27d-fc1022d0e078
-  connectorVersion: 1.0.2
-  logoUri: https://static.integration.app/connectors/agile-crm/logo.png
-  dataCollectionsCount: 6
-  operationsCount: 15
-  eventsCount: 0
-  authType: client-credentials
+id: 68905282ff92d86914347bb2
+name: Update User
 key: update-user
 state: READY
 errors: []
+revision: d1288884-e6a9-4414-894a-da03c8891533
+createdAt: '2025-08-04T06:26:13.366Z'
+updatedAt: '2025-08-05T10:23:53.360Z'
 isDeactivated: false
-id: 68905282ff92d86914347bb2
-name: Update User
-type: update-data-record
+integrationId: 68835417e49c6d4c3c9d3176
+parentId: 6890519a5facd7ec99dbeba1
 inputSchema:
   type: object
   properties:
@@ -40,6 +16,7 @@ inputSchema:
       type: string
     fields:
       type: string
+type: update-data-record
 config:
   dataSource:
     key: users
@@ -64,3 +41,29 @@ config:
         $var: $.input.createdTime
       id:
         $var: $.input.id
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+isCustomized: false
+integration:
+  id: 68835417e49c6d4c3c9d3176
+  name: Agile CRM
+  key: agile-crm
+  uuid: d6fdf74c-d5bb-4a33-8fe2-fcd56f5c6b60
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:27.884Z'
+  updatedAt: '2025-07-25T09:53:35.067Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/agile-crm/logo.png
+  connectorId: 64416311badd839bce41fdeb
+  connectorVersion: 1.0.2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 15
+  hasData: true
+  dataCollectionsCount: 6
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

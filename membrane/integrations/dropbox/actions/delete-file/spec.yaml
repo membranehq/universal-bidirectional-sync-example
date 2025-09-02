@@ -1,46 +1,49 @@
-revision: bef45894-940f-45e6-a043-96fde7419acf
-isCustomized: false
-parentId: 68887e3ef957e0c6e8dd9c47
-parentRevision: 29e55b68-c7a2-40fc-826c-40f1e75e7208
-integrationId: 68834d71ef496baf09c0a8f8
-integration:
-  key: dropbox
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a8f8
-  name: Dropbox
-  uuid: e7aa585d-2f85-4ed4-b25e-ffb402a919d9
-  connectorId: 643eac8bbadd839bce5b1114
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/51e19372-446d-4be5-9e61-34153f957210
-  connectorVersion: 2.2.0
-  logoUri: https://static.integration.app/connectors/dropbox/logo.png
-  dataCollectionsCount: 1
-  operationsCount: 137
-  eventsCount: 0
-  authType: oauth2
+id: 6888880119e41c785b8b6377
+name: Delete File
 key: delete-file
 state: READY
 errors: []
+revision: bef45894-940f-45e6-a043-96fde7419acf
+createdAt: '2025-07-29T08:36:17.540Z'
+updatedAt: '2025-08-05T10:23:47.334Z'
 isDeactivated: false
-id: 6888880119e41c785b8b6377
-name: Delete File
-type: delete-data-record
+integrationId: 68834d71ef496baf09c0a8f8
+parentId: 68887e3ef957e0c6e8dd9c47
 inputSchema:
   type: object
   properties:
     id:
       type: string
+type: delete-data-record
 config:
   dataSource:
     key: files
   id:
     $var: $.input.id
   fieldMapping: {}
+parentRevision: 29e55b68-c7a2-40fc-826c-40f1e75e7208
+isCustomized: false
+integration:
+  id: 68834d71ef496baf09c0a8f8
+  name: Dropbox
+  key: dropbox
+  uuid: e7aa585d-2f85-4ed4-b25e-ffb402a919d9
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.327Z'
+  updatedAt: '2025-07-25T09:25:07.359Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/dropbox/logo.png
+  connectorId: 643eac8bbadd839bce5b1114
+  connectorVersion: 2.2.0
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 137
+  hasData: true
+  dataCollectionsCount: 1
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

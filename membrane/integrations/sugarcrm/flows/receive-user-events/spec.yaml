@@ -1,35 +1,15 @@
+id: 6883542fe49c6d4c3c9d43ee
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542fe49c6d4c3c9d43ee
-name: Receive User Events
 revision: d7229b26-38ba-4436-a88e-ef69aeff9b22
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.681Z'
+updatedAt: '2025-08-05T10:24:40.047Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3126
-integration:
-  key: sugarcrm
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3126
-  name: SugarCRM
-  uuid: ce68db3a-979e-4034-809a-ab5458b3db61
-  connectorId: 6466785960f981f3ce69691a
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: false
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/6aaa8328-42a7-4de8-a87d-3ca0dd82dddc
-  connectorVersion: 1.1.2
-  logoUri: https://static.integration.app/connectors/sugarcrm/logo.png
-  dataCollectionsCount: 10
-  operationsCount: 0
-  eventsCount: 0
-  authType: client-credentials
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -129,4 +109,27 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3126
+  name: SugarCRM
+  key: sugarcrm
+  uuid: ce68db3a-979e-4034-809a-ab5458b3db61
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.769Z'
+  updatedAt: '2025-07-25T09:53:36.497Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/sugarcrm/logo.png
+  connectorId: 6466785960f981f3ce69691a
+  connectorVersion: 1.1.2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  operationsCount: 0
+  hasData: true
+  dataCollectionsCount: 10
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

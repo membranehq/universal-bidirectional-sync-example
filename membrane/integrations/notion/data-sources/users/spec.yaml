@@ -1,37 +1,38 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835424e49c6d4c3c9d3385
 name: Users
+isDeactivated: false
+state: READY
+errors: []
+key: users
 revision: 7b4c9577-1f46-458d-8e99-5eb35c714b76
 integrationId: 68835417e49c6d4c3c9d316e
-customized: false
+isCustomized: false
 universalDataSourceId: 68835424e49c6d4c3c9d32ce
 universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
 collectionKey: users
 udm: users
 defaultPath: /data/users
 integration:
-  key: notion
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835417e49c6d4c3c9d316e
   name: Notion
+  key: notion
   uuid: facb0913-cf42-4d64-9052-68f47243a8b7
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:27.186Z'
+  updatedAt: '2025-07-25T09:53:36.977Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/notion/logo.png
   connectorId: 64382789986ed1caad42e561
+  connectorVersion: 1.3.2
   hasMissingParameters: false
   hasDocumentation: true
   hasOperations: true
+  operationsCount: 20
   hasData: true
+  dataCollectionsCount: 4
   hasEvents: true
+  eventsCount: 18
   hasGlobalWebhooks: true
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/79a798cd-e849-4d99-9485-6593f8db0ce0
-  connectorVersion: 1.3.2
-  logoUri: https://static.integration.app/connectors/notion/logo.png
-  dataCollectionsCount: 4
-  operationsCount: 20
-  eventsCount: 18
   authType: oauth2

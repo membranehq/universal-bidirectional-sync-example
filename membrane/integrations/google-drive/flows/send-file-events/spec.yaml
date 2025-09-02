@@ -1,35 +1,15 @@
+id: 68834d76ef496baf09c0ab9c
+name: Send File Events
 key: send-file-events
 state: READY
 errors: []
-isDeactivated: false
-id: 68834d76ef496baf09c0ab9c
-name: Send File Events
 revision: 36931e97-1441-441d-8cf7-dd0276f4a271
-universalFlowId: 68834d75ef496baf09c0aa67
+createdAt: '2025-07-25T09:25:10.890Z'
+updatedAt: '2025-08-05T10:24:15.324Z'
+isDeactivated: false
 integrationId: 68834d71ef496baf09c0a907
-integration:
-  key: google-drive
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a907
-  name: Google Drive
-  uuid: 83a923e5-4dbc-4e8c-b9d8-4e361e685a78
-  connectorId: 642e822e986ed1caad090f1d
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/25565fc4-3680-4264-aaa2-14187ba9362f
-  connectorVersion: 2.5.1
-  logoUri: https://static.integration.app/connectors/gdrive/logo.png
-  dataCollectionsCount: 3
-  operationsCount: 51
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68834d75ef496baf09c0aa67
 universalFlowRevision: eb0ea9f9-08c3-485a-95f4-0b94cf74d318
 nodes:
   app-event-trigger:
@@ -40,23 +20,23 @@ nodes:
         key: file-event
     links:
       - key: create-data-record
-        name: File created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: File created
       - key: delete-data-record
-        name: File deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: File deleted
       - key: update-data-record
-        name: File updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: File updated
   create-data-record:
     type: create-data-record
     name: Create File
@@ -102,4 +82,27 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68834d71ef496baf09c0a907
+  name: Google Drive
+  key: google-drive
+  uuid: 83a923e5-4dbc-4e8c-b9d8-4e361e685a78
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.345Z'
+  updatedAt: '2025-07-25T09:41:07.788Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/gdrive/logo.png
+  connectorId: 642e822e986ed1caad090f1d
+  connectorVersion: 2.5.1
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 51
+  hasData: true
+  dataCollectionsCount: 3
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

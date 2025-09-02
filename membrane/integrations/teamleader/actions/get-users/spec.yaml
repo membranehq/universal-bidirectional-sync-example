@@ -1,43 +1,20 @@
-revision: 473109b3-0235-4424-a767-e4fa573efee2
-isCustomized: false
-parentId: 68835427e49c6d4c3c9d372b
-parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
-integrationId: 68835413e49c6d4c3c9d312e
-integration:
-  key: teamleader
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d312e
-  name: Teamleader
-  uuid: 7bd8eabb-0159-43b7-9108-03bbac8965ff
-  connectorId: 64417517badd839bce44c5df
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/3ffe3fb5-9388-4ab8-a8e8-e01ae4781100
-  connectorVersion: 0.1.0
-  logoUri: https://static.integration.app/connectors/teamleader/logo.png
-  dataCollectionsCount: 7
-  operationsCount: 225
-  eventsCount: 0
-  authType: oauth2
+id: 68835428e49c6d4c3c9d37ed
+name: Get Users
 key: get-users
 state: READY
 errors: []
+revision: 473109b3-0235-4424-a767-e4fa573efee2
+createdAt: '2025-07-25T09:53:44.571Z'
+updatedAt: '2025-08-05T10:23:50.666Z'
 isDeactivated: false
-id: 68835428e49c6d4c3c9d37ed
-name: Get Users
-type: list-data-records
+integrationId: 68835413e49c6d4c3c9d312e
+parentId: 68835427e49c6d4c3c9d372b
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: users
@@ -46,3 +23,29 @@ config:
   fieldMapping:
     key: users
     includeRawFields: true
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d312e
+  name: Teamleader
+  key: teamleader
+  uuid: 7bd8eabb-0159-43b7-9108-03bbac8965ff
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.773Z'
+  updatedAt: '2025-07-25T09:53:35.067Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/teamleader/logo.png
+  connectorId: 64417517badd839bce44c5df
+  connectorVersion: 0.1.0
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 225
+  hasData: true
+  dataCollectionsCount: 7
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

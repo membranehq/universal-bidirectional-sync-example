@@ -1,43 +1,20 @@
-revision: fc17574b-bea2-4083-a5df-1da482e861dd
-isCustomized: false
-parentId: 6884791a95717cb9067486bc
-parentRevision: 3f5ffc55-5e80-4f25-99f1-8f843b28a42a
-integrationId: 6884791695717cb906748572
-integration:
-  key: whatsapp
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 6884791695717cb906748572
-  name: Whatsapp
-  uuid: a497f3b8-56ee-4aa1-b702-8fd0ae416cd9
-  connectorId: 6466785c60f981f3ce69691e
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: true
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/4c7f0f9d-be53-4870-9b0f-718c919d79cf
-  connectorVersion: 1.0.3
-  logoUri: https://static.integration.app/connectors/whatsapp/logohq.png
-  dataCollectionsCount: 1
-  operationsCount: 55
-  eventsCount: 1
-  authType: client-credentials
+id: 6884791b95717cb9067486d4
+name: Get Emails
 key: get-emails
 state: READY
 errors: []
+revision: fc17574b-bea2-4083-a5df-1da482e861dd
+createdAt: '2025-07-26T06:43:39.059Z'
+updatedAt: '2025-08-05T10:23:47.145Z'
 isDeactivated: false
-id: 6884791b95717cb9067486d4
-name: Get Emails
-type: list-data-records
+integrationId: 6884791695717cb906748572
+parentId: 6884791a95717cb9067486bc
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: emails
@@ -46,3 +23,29 @@ config:
   fieldMapping:
     key: emails
     includeRawFields: true
+parentRevision: 3f5ffc55-5e80-4f25-99f1-8f843b28a42a
+isCustomized: false
+integration:
+  id: 6884791695717cb906748572
+  name: Whatsapp
+  key: whatsapp
+  uuid: a497f3b8-56ee-4aa1-b702-8fd0ae416cd9
+  state: READY
+  errors: []
+  createdAt: '2025-07-26T06:43:34.195Z'
+  updatedAt: '2025-07-26T06:43:37.842Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/whatsapp/logohq.png
+  connectorId: 6466785c60f981f3ce69691e
+  connectorVersion: 1.0.3
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 55
+  hasData: true
+  dataCollectionsCount: 1
+  hasEvents: true
+  eventsCount: 1
+  hasGlobalWebhooks: true
+  hasUdm: true
+  authType: client-credentials

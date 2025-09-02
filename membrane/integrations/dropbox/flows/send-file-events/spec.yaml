@@ -1,35 +1,15 @@
+id: 68834d76ef496baf09c0ab9e
+name: Send File Events
 key: send-file-events
 state: READY
 errors: []
-isDeactivated: false
-id: 68834d76ef496baf09c0ab9e
-name: Send File Events
 revision: be3549ff-9fad-4c74-a1c4-ed87c12249dd
-universalFlowId: 68834d75ef496baf09c0aa67
+createdAt: '2025-07-25T09:25:10.890Z'
+updatedAt: '2025-08-05T10:24:15.373Z'
+isDeactivated: false
 integrationId: 68834d71ef496baf09c0a8f8
-integration:
-  key: dropbox
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a8f8
-  name: Dropbox
-  uuid: e7aa585d-2f85-4ed4-b25e-ffb402a919d9
-  connectorId: 643eac8bbadd839bce5b1114
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/51e19372-446d-4be5-9e61-34153f957210
-  connectorVersion: 2.2.0
-  logoUri: https://static.integration.app/connectors/dropbox/logo.png
-  dataCollectionsCount: 1
-  operationsCount: 137
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68834d75ef496baf09c0aa67
 universalFlowRevision: eb0ea9f9-08c3-485a-95f4-0b94cf74d318
 nodes:
   app-event-trigger:
@@ -40,23 +20,23 @@ nodes:
         key: file-event
     links:
       - key: create-data-record
-        name: File created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: File created
       - key: delete-data-record
-        name: File deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: File deleted
       - key: update-data-record
-        name: File updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: File updated
   create-data-record:
     type: create-data-record
     name: Create File
@@ -102,4 +82,27 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68834d71ef496baf09c0a8f8
+  name: Dropbox
+  key: dropbox
+  uuid: e7aa585d-2f85-4ed4-b25e-ffb402a919d9
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.327Z'
+  updatedAt: '2025-07-25T09:25:07.359Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/dropbox/logo.png
+  connectorId: 643eac8bbadd839bce5b1114
+  connectorVersion: 2.2.0
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 137
+  hasData: true
+  dataCollectionsCount: 1
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

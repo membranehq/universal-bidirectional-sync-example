@@ -1,38 +1,14 @@
-revision: ab358890-8592-4e3b-8d36-495d910a0d8c
-isCustomized: false
-parentId: 6890519a5facd7ec99dbeba1
-parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
-integrationId: 68835413e49c6d4c3c9d310a
-integration:
-  key: freshsales
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d310a
-  name: Freshsales
-  uuid: c8dbedeb-66d8-4a6e-be82-2bc0b50e7ae1
-  connectorId: 633af6ef361690ab46d8ed4d
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: false
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/42501889-cab5-45b3-9396-c089489bbae2
-  connectorVersion: 1.0.2
-  logoUri: https://static.integration.app/connectors/freshsales-connector/logo.png
-  dataCollectionsCount: 22
-  operationsCount: 0
-  eventsCount: 0
-  authType: client-credentials
+id: 68905282ff92d86914347c77
+name: Update User
 key: update-user
 state: READY
 errors: []
+revision: ab358890-8592-4e3b-8d36-495d910a0d8c
+createdAt: '2025-08-04T06:26:13.593Z'
+updatedAt: '2025-08-05T10:24:02.782Z'
 isDeactivated: false
-id: 68905282ff92d86914347c77
-name: Update User
-type: update-data-record
+integrationId: 68835413e49c6d4c3c9d310a
+parentId: 6890519a5facd7ec99dbeba1
 inputSchema:
   type: object
   properties:
@@ -40,6 +16,7 @@ inputSchema:
       type: string
     fields:
       type: string
+type: update-data-record
 config:
   dataSource:
     key: users
@@ -59,3 +36,29 @@ config:
         $var: $.input.isActive
       id:
         $var: $.input.id
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d310a
+  name: Freshsales
+  key: freshsales
+  uuid: c8dbedeb-66d8-4a6e-be82-2bc0b50e7ae1
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.701Z'
+  updatedAt: '2025-07-25T09:53:39.972Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/freshsales-connector/logo.png
+  connectorId: 633af6ef361690ab46d8ed4d
+  connectorVersion: 1.0.2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  operationsCount: 0
+  hasData: true
+  dataCollectionsCount: 22
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

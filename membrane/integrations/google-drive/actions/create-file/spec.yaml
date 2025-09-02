@@ -1,37 +1,14 @@
-revision: f72d8821-b37e-4893-8334-573e52213607
-isCustomized: false
-parentId: 688cc9e4ed172ffb20d0f39b
-parentRevision: 594f206d-8bae-412b-a5f0-35b631562f81
-integrationId: 68834d71ef496baf09c0a907
-integration:
-  key: google-drive
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a907
-  name: Google Drive
-  uuid: 83a923e5-4dbc-4e8c-b9d8-4e361e685a78
-  connectorId: 642e822e986ed1caad090f1d
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/25565fc4-3680-4264-aaa2-14187ba9362f
-  connectorVersion: 2.5.1
-  logoUri: https://static.integration.app/connectors/gdrive/logo.png
-  dataCollectionsCount: 3
-  operationsCount: 51
-  eventsCount: 0
-  authType: oauth2
+id: 688cc9eef1e1187ac07515d6
+name: Create File
 key: create-file
 state: READY
 errors: []
+revision: f72d8821-b37e-4893-8334-573e52213607
+createdAt: '2025-08-01T14:06:39.029Z'
+updatedAt: '2025-08-05T10:23:44.964Z'
 isDeactivated: false
-id: 688cc9eef1e1187ac07515d6
-name: Create File
+integrationId: 68834d71ef496baf09c0a907
+parentId: 688cc9e4ed172ffb20d0f39b
 type: create-data-record
 config:
   dataSource:
@@ -40,3 +17,29 @@ config:
     key: files
     input:
       $var: $.input
+parentRevision: 594f206d-8bae-412b-a5f0-35b631562f81
+isCustomized: false
+integration:
+  id: 68834d71ef496baf09c0a907
+  name: Google Drive
+  key: google-drive
+  uuid: 83a923e5-4dbc-4e8c-b9d8-4e361e685a78
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.345Z'
+  updatedAt: '2025-07-25T09:41:07.788Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/gdrive/logo.png
+  connectorId: 642e822e986ed1caad090f1d
+  connectorVersion: 2.5.1
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 51
+  hasData: true
+  dataCollectionsCount: 3
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

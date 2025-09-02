@@ -1,38 +1,14 @@
-revision: d1617ed0-c944-49f4-98a0-d90c3b7850c0
-isCustomized: false
-parentId: 6890519a5facd7ec99dbeba1
-parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
-integrationId: 68835413e49c6d4c3c9d312a
-integration:
-  key: xero
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d312a
-  name: Xero
-  uuid: f1eeaaa6-502c-4933-829e-61631c008058
-  connectorId: 642c613b986ed1caad98172b
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: true
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/f1146f2e-8be6-437a-bde8-1fe7abda8adb
-  connectorVersion: 1.1.5
-  logoUri: https://static.integration.app/connectors/xero-connector/logo.png
-  dataCollectionsCount: 17
-  operationsCount: 234
-  eventsCount: 1
-  authType: oauth2
+id: 68905282ff92d86914347bec
+name: Update User
 key: update-user
 state: READY
 errors: []
+revision: d1617ed0-c944-49f4-98a0-d90c3b7850c0
+createdAt: '2025-08-04T06:26:13.474Z'
+updatedAt: '2025-08-05T10:24:00.195Z'
 isDeactivated: false
-id: 68905282ff92d86914347bec
-name: Update User
-type: update-data-record
+integrationId: 68835413e49c6d4c3c9d312a
+parentId: 6890519a5facd7ec99dbeba1
 inputSchema:
   type: object
   properties:
@@ -40,6 +16,7 @@ inputSchema:
       type: string
     fields:
       type: string
+type: update-data-record
 config:
   dataSource:
     key: users
@@ -61,3 +38,29 @@ config:
         $var: $.input.updatedTime
       OrganisationRole:
         $var: $.input.roleId
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d312a
+  name: Xero
+  key: xero
+  uuid: f1eeaaa6-502c-4933-829e-61631c008058
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.771Z'
+  updatedAt: '2025-07-25T09:53:37.960Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/xero-connector/logo.png
+  connectorId: 642c613b986ed1caad98172b
+  connectorVersion: 1.1.5
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 234
+  hasData: true
+  dataCollectionsCount: 17
+  hasEvents: true
+  eventsCount: 1
+  hasGlobalWebhooks: true
+  hasUdm: true
+  authType: oauth2

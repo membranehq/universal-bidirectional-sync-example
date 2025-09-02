@@ -1,47 +1,50 @@
-revision: 00dc5a3b-009b-4e52-9b57-8e41d7123a01
-isCustomized: false
-parentId: 68887e3ef957e0c6e8dd9c47
-parentRevision: 29e55b68-c7a2-40fc-826c-40f1e75e7208
-integrationId: 68834d71ef496baf09c0a90d
-integration:
-  key: aws-s3
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a90d
-  name: AWS S3
-  uuid: ca705236-f053-4269-8999-fa70272a5e64
-  connectorId: 663130fe0420db525b9bd67a
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: false
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/7f4c09df-a607-4ecc-a52c-65f74b4c9715
-  connectorVersion: 1.0.4
-  logoUri: >-
-    https://static.integration.app/connectors/aws-s3/asset-b007866c-ff18-41b9-8c5f-e83fdcd46be9.png
-  dataCollectionsCount: 2
-  operationsCount: 0
-  eventsCount: 0
-  authType: client-credentials
+id: 6888880119e41c785b8b6375
+name: Delete File
 key: delete-file
 state: READY
 errors: []
+revision: 00dc5a3b-009b-4e52-9b57-8e41d7123a01
+createdAt: '2025-07-29T08:36:17.539Z'
+updatedAt: '2025-08-05T10:23:47.298Z'
 isDeactivated: false
-id: 6888880119e41c785b8b6375
-name: Delete File
-type: delete-data-record
+integrationId: 68834d71ef496baf09c0a90d
+parentId: 68887e3ef957e0c6e8dd9c47
 inputSchema:
   type: object
   properties:
     id:
       type: string
+type: delete-data-record
 config:
   dataSource:
     key: files
   id:
     $var: $.input.id
   fieldMapping: {}
+parentRevision: 29e55b68-c7a2-40fc-826c-40f1e75e7208
+isCustomized: false
+integration:
+  id: 68834d71ef496baf09c0a90d
+  name: AWS S3
+  key: aws-s3
+  uuid: ca705236-f053-4269-8999-fa70272a5e64
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.358Z'
+  updatedAt: '2025-07-25T09:25:07.176Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/aws-s3/asset-b007866c-ff18-41b9-8c5f-e83fdcd46be9.png
+  connectorId: 663130fe0420db525b9bd67a
+  connectorVersion: 1.0.4
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  operationsCount: 0
+  hasData: true
+  dataCollectionsCount: 2
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

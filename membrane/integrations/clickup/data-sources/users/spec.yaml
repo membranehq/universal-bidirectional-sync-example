@@ -1,37 +1,38 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835424e49c6d4c3c9d338b
 name: Users
+isDeactivated: false
+state: READY
+errors: []
+key: users
 revision: e0b67f86-2867-410d-8909-b884fbfb48a4
 integrationId: 68835413e49c6d4c3c9d3112
-customized: false
+isCustomized: false
 universalDataSourceId: 68835424e49c6d4c3c9d32ce
 universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
 collectionKey: workspace-users
 udm: users
 defaultPath: /data/workspace-users
 integration:
-  key: clickup
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d3112
   name: Clickup
+  key: clickup
   uuid: 27bb6e0d-e658-444e-bd84-a7ca9b100912
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.756Z'
+  updatedAt: '2025-07-25T09:53:37.767Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/clickup/logo.png
   connectorId: 64359f80986ed1caadafa638
+  connectorVersion: 1.2.3
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 11
   hasData: true
+  dataCollectionsCount: 9
   hasEvents: true
+  eventsCount: 28
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/0269b955-8e69-4d0a-a128-fbbafcf810e3
-  connectorVersion: 1.2.3
-  logoUri: https://static.integration.app/connectors/clickup/logo.png
-  dataCollectionsCount: 9
-  operationsCount: 11
-  eventsCount: 28
   authType: oauth2

@@ -1,38 +1,39 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835424e49c6d4c3c9d3377
 name: Users
+isDeactivated: false
+state: READY
+errors: []
+key: users
 revision: 0f6d9c98-8677-4491-b5ff-ec707135d91d
 integrationId: 68835413e49c6d4c3c9d313b
-customized: false
+isCustomized: false
 universalDataSourceId: 68835424e49c6d4c3c9d32ce
 universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
 collectionKey: users
 udm: users
 defaultPath: /data/users
 integration:
-  key: calendly
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d313b
   name: Calendly
+  key: calendly
   uuid: 6a121de7-df1e-4989-9a46-4e2b0d4945c4
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.780Z'
+  updatedAt: '2025-07-25T09:53:37.175Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/calendly/logo-f372e218-8eb5-4113-b3d5-e2395b19c25e.png
   connectorId: 65663de871f8de0690860dc5
+  connectorVersion: 1.1.1
   hasMissingParameters: false
   hasDocumentation: true
   hasOperations: true
+  operationsCount: 36
   hasData: true
+  dataCollectionsCount: 4
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/b11d90bb-5dab-48f0-89ed-742a3fd74da9
-  connectorVersion: 1.1.1
-  logoUri: >-
-    https://static.integration.app/connectors/calendly/logo-f372e218-8eb5-4113-b3d5-e2395b19c25e.png
-  dataCollectionsCount: 4
-  operationsCount: 36
-  eventsCount: 0
   authType: oauth2

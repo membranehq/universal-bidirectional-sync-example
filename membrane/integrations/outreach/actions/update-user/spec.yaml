@@ -1,38 +1,14 @@
-revision: b7405f15-0e13-4a7f-9aa0-fe2af5922dc5
-isCustomized: false
-parentId: 6890519a5facd7ec99dbeba1
-parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
-integrationId: 68835413e49c6d4c3c9d3124
-integration:
-  key: outreach
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3124
-  name: Outreach
-  uuid: 6839e171-d1f6-488f-88e9-65e06a949111
-  connectorId: 6466785060f981f3ce69690b
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/b3d312a2-d5f0-4d61-ab2c-8211f30667a6
-  connectorVersion: 1.1.2
-  logoUri: https://static.integration.app/connectors/outreach-connector/logo.png
-  dataCollectionsCount: 14
-  operationsCount: 176
-  eventsCount: 0
-  authType: oauth2
+id: 68905282ff92d86914347bdc
+name: Update User
 key: update-user
 state: READY
 errors: []
+revision: b7405f15-0e13-4a7f-9aa0-fe2af5922dc5
+createdAt: '2025-08-04T06:26:13.272Z'
+updatedAt: '2025-08-05T10:23:58.636Z'
 isDeactivated: false
-id: 68905282ff92d86914347bdc
-name: Update User
-type: update-data-record
+integrationId: 68835413e49c6d4c3c9d3124
+parentId: 6890519a5facd7ec99dbeba1
 inputSchema:
   type: object
   properties:
@@ -40,6 +16,7 @@ inputSchema:
       type: string
     fields:
       type: string
+type: update-data-record
 config:
   dataSource:
     key: users
@@ -73,3 +50,29 @@ config:
         $var: $.input.updatedTime
       updater_id:
         $var: $.input.updatedBy
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3124
+  name: Outreach
+  key: outreach
+  uuid: 6839e171-d1f6-488f-88e9-65e06a949111
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.768Z'
+  updatedAt: '2025-07-25T09:53:38.183Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/outreach-connector/logo.png
+  connectorId: 6466785060f981f3ce69690b
+  connectorVersion: 1.1.2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 176
+  hasData: true
+  dataCollectionsCount: 14
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

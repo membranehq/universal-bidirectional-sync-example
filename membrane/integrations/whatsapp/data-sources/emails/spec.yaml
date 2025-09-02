@@ -1,35 +1,36 @@
-key: emails
-state: READY
-errors: []
-isDeactivated: false
 id: 6884791a95717cb906748644
 name: Emails
+isDeactivated: false
+state: READY
+errors: []
+key: emails
 revision: 5af2c277-03ca-4ad9-8c68-11b1e1ef8148
 integrationId: 6884791695717cb906748572
-customized: false
+isCustomized: false
 universalDataSourceId: 6884791a95717cb90674862b
 universalDataSourceRevision: 38544342-e64b-4d3a-b10a-80fd4fe9d982
 udm: emails
 integration:
-  key: whatsapp
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 6884791695717cb906748572
   name: Whatsapp
+  key: whatsapp
   uuid: a497f3b8-56ee-4aa1-b702-8fd0ae416cd9
+  state: READY
+  errors: []
+  createdAt: '2025-07-26T06:43:34.195Z'
+  updatedAt: '2025-07-26T06:43:37.842Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/whatsapp/logohq.png
   connectorId: 6466785c60f981f3ce69691e
+  connectorVersion: 1.0.3
   hasMissingParameters: false
   hasDocumentation: true
   hasOperations: true
+  operationsCount: 55
   hasData: true
+  dataCollectionsCount: 1
   hasEvents: true
+  eventsCount: 1
   hasGlobalWebhooks: true
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/4c7f0f9d-be53-4870-9b0f-718c919d79cf
-  connectorVersion: 1.0.3
-  logoUri: https://static.integration.app/connectors/whatsapp/logohq.png
-  dataCollectionsCount: 1
-  operationsCount: 55
-  eventsCount: 1
   authType: client-credentials

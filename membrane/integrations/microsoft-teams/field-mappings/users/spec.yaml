@@ -1,4 +1,6 @@
-key: users
+id: 68835425e49c6d4c3c9d3540
+name: Users
+isDeactivated: false
 state: CONFIGURATION_ERROR
 errors:
   - message: Integration Dependency has error(s)
@@ -13,10 +15,8 @@ errors:
       workspaceElementReference:
         type: data-source
         id: 68835424e49c6d4c3c9d336f
-isDeactivated: false
-id: 68835425e49c6d4c3c9d3540
-name: Users
-customized: false
+key: users
+isCustomized: false
 revision: 99449ea0-c078-4237-86eb-5f563a310ecc
 universalFieldMappingId: 68835425e49c6d4c3c9d34a3
 universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
@@ -90,28 +90,29 @@ importValue:
   createdTime:
     $var: createdDateTime
 integration:
-  key: microsoft-teams
-  state: CONFIGURATION_ERROR
-  errors:
-    - message: Integration is missing required parameters
-      type: configuration
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d3137
   name: Microsoft Teams
+  key: microsoft-teams
   uuid: a8129c71-43d0-450c-bb17-3837e2b10d4e
+  state: CONFIGURATION_ERROR
+  errors:
+    - type: configuration
+      message: Integration is missing required parameters
+  createdAt: '2025-07-25T09:53:23.778Z'
+  updatedAt: '2025-07-25T09:53:37.657Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/microsoft-teams/logo-af77620a-4317-47b1-a365-419da992ef0b.png
   connectorId: 6466784e60f981f3ce696907
+  connectorVersion: 2.3.1
   hasMissingParameters: true
   hasDocumentation: true
   hasOperations: true
+  operationsCount: 390
   hasData: true
+  dataCollectionsCount: 10
   hasEvents: true
+  eventsCount: 4
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/d2f487ff-7381-409e-9098-2f4d4f51ca51
-  connectorVersion: 2.3.1
-  logoUri: >-
-    https://static.integration.app/connectors/microsoft-teams/logo-af77620a-4317-47b1-a365-419da992ef0b.png
-  dataCollectionsCount: 10
-  operationsCount: 390
-  eventsCount: 4
   authType: oauth2

@@ -1,10 +1,13 @@
+id: 6884791b95717cb9067486f6
+name: Send Email Events
 key: send-email-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6884791b95717cb9067486f6
-name: Send Email Events
 revision: d50acedd-e887-4876-869d-0f37ccdc4151
+createdAt: '2025-07-26T06:43:39.145Z'
+updatedAt: '2025-08-05T10:23:49.837Z'
+isDeactivated: false
+isCustomized: true
 nodes:
   app-event-trigger:
     type: app-event-trigger
@@ -14,23 +17,23 @@ nodes:
         key: email-event
     links:
       - key: create-data-record
-        name: Email created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: Email created
       - key: delete-data-record
-        name: Email deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: Email deleted
       - key: update-data-record
-        name: Email updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: Email updated
   create-data-record:
     type: create-data-record
     name: Create Email
@@ -75,4 +78,3 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: true

@@ -1,35 +1,15 @@
+id: 68835430e49c6d4c3c9d4690
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 68835430e49c6d4c3c9d4690
-name: Receive User Events
 revision: 86c1749b-2f25-4d5d-8ae6-7f168698aaee
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.885Z'
+updatedAt: '2025-08-05T10:24:41.018Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d313d
-integration:
-  key: close
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d313d
-  name: Close
-  uuid: c9b0a533-0a75-457f-a691-8b303391f857
-  connectorId: 64fa1e1af51a74915b9fca3c
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: false
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/420e8c2f-5414-416a-8759-29d756bf1cf9
-  connectorVersion: 1.1.12
-  logoUri: https://static.integration.app/connectors/close/logo.png
-  dataCollectionsCount: 13
-  operationsCount: 0
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -129,4 +109,27 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d313d
+  name: Close
+  key: close
+  uuid: c9b0a533-0a75-457f-a691-8b303391f857
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.781Z'
+  updatedAt: '2025-08-29T12:11:00.830Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/close/logo.png
+  connectorId: 64fa1e1af51a74915b9fca3c
+  connectorVersion: 1.1.13
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  operationsCount: 0
+  hasData: true
+  dataCollectionsCount: 13
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

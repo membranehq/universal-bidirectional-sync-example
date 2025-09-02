@@ -1,36 +1,15 @@
+id: 6883542fe49c6d4c3c9d43e2
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542fe49c6d4c3c9d43e2
-name: Receive User Events
 revision: 47f0a1d3-b4b5-4299-b102-0f8bb538c51e
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.681Z'
+updatedAt: '2025-08-05T10:24:39.705Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3149
-integration:
-  key: okta
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3149
-  name: Okta
-  uuid: cfea79e9-15ba-45ca-a6cd-7b0d01800f98
-  connectorId: 65a59ef7af9ac1360fd6bbd2
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/65827a85-48cf-4ccc-8e40-d26d926cdb3a
-  connectorVersion: 1.0.2
-  logoUri: >-
-    https://static.integration.app/connectors/logo-0b09cb02-5978-4c94-b3e4-b92964a36bcb.png
-  dataCollectionsCount: 4
-  operationsCount: 340
-  eventsCount: 0
-  authType: client-credentials
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -130,4 +109,28 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3149
+  name: Okta
+  key: okta
+  uuid: cfea79e9-15ba-45ca-a6cd-7b0d01800f98
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.787Z'
+  updatedAt: '2025-07-25T09:53:33.187Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/logo-0b09cb02-5978-4c94-b3e4-b92964a36bcb.png
+  connectorId: 65a59ef7af9ac1360fd6bbd2
+  connectorVersion: 1.0.2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 340
+  hasData: true
+  dataCollectionsCount: 4
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

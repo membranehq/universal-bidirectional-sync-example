@@ -1,46 +1,49 @@
-revision: 20eecc5f-4946-4435-b866-73528f0f2390
-isCustomized: false
-parentId: 68887e4a655d7bb8d28c504c
-parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
-integrationId: 68835413e49c6d4c3c9d311b
-integration:
-  key: keap
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d311b
-  name: Keap
-  uuid: 8f6d5ef7-3fe0-4b02-8481-ada78fb966ff
-  connectorId: 635bf847fb02f18af1f1c626
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/efd9508f-8ab8-4258-8b2b-b05d7ce9285e
-  connectorVersion: 1.0.4
-  logoUri: https://static.integration.app/connectors/keap/logo.png
-  dataCollectionsCount: 13
-  operationsCount: 140
-  eventsCount: 0
-  authType: oauth2
+id: 688905eaee7f0f245494d72e
+name: Delete User
 key: delete-user
 state: READY
 errors: []
+revision: 20eecc5f-4946-4435-b866-73528f0f2390
+createdAt: '2025-07-29T17:33:31.074Z'
+updatedAt: '2025-08-05T10:23:48.261Z'
 isDeactivated: false
-id: 688905eaee7f0f245494d72e
-name: Delete User
-type: delete-data-record
+integrationId: 68835413e49c6d4c3c9d311b
+parentId: 68887e4a655d7bb8d28c504c
 inputSchema:
   type: object
   properties:
     id:
       type: string
+type: delete-data-record
 config:
   dataSource:
     key: users
   id:
     $var: $.input.id
   fieldMapping: {}
+parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d311b
+  name: Keap
+  key: keap
+  uuid: 8f6d5ef7-3fe0-4b02-8481-ada78fb966ff
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.763Z'
+  updatedAt: '2025-07-25T09:53:38.600Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/keap/logo.png
+  connectorId: 635bf847fb02f18af1f1c626
+  connectorVersion: 1.0.4
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 140
+  hasData: true
+  dataCollectionsCount: 13
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

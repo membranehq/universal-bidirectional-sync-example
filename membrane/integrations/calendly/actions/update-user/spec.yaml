@@ -1,39 +1,14 @@
-revision: 495f979f-d1ed-4828-8070-3f2ee1d00857
-isCustomized: false
-parentId: 6890519a5facd7ec99dbeba1
-parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
-integrationId: 68835413e49c6d4c3c9d313b
-integration:
-  key: calendly
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d313b
-  name: Calendly
-  uuid: 6a121de7-df1e-4989-9a46-4e2b0d4945c4
-  connectorId: 65663de871f8de0690860dc5
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/b11d90bb-5dab-48f0-89ed-742a3fd74da9
-  connectorVersion: 1.1.1
-  logoUri: >-
-    https://static.integration.app/connectors/calendly/logo-f372e218-8eb5-4113-b3d5-e2395b19c25e.png
-  dataCollectionsCount: 4
-  operationsCount: 36
-  eventsCount: 0
-  authType: oauth2
+id: 68905282ff92d86914347bc0
+name: Update User
 key: update-user
 state: READY
 errors: []
+revision: 495f979f-d1ed-4828-8070-3f2ee1d00857
+createdAt: '2025-08-04T06:26:12.061Z'
+updatedAt: '2025-08-05T10:23:55.710Z'
 isDeactivated: false
-id: 68905282ff92d86914347bc0
-name: Update User
-type: update-data-record
+integrationId: 68835413e49c6d4c3c9d313b
+parentId: 6890519a5facd7ec99dbeba1
 inputSchema:
   type: object
   properties:
@@ -41,6 +16,7 @@ inputSchema:
       type: string
     fields:
       type: string
+type: update-data-record
 config:
   dataSource:
     key: users
@@ -64,3 +40,30 @@ config:
         $var: $.input.createdTime
       updated_at:
         $var: $.input.updatedTime
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d313b
+  name: Calendly
+  key: calendly
+  uuid: 6a121de7-df1e-4989-9a46-4e2b0d4945c4
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.780Z'
+  updatedAt: '2025-07-25T09:53:37.175Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/calendly/logo-f372e218-8eb5-4113-b3d5-e2395b19c25e.png
+  connectorId: 65663de871f8de0690860dc5
+  connectorVersion: 1.1.1
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 36
+  hasData: true
+  dataCollectionsCount: 4
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

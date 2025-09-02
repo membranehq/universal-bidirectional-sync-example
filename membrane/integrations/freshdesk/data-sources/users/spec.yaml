@@ -1,37 +1,38 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835424e49c6d4c3c9d337b
 name: Users
+isDeactivated: false
+state: READY
+errors: []
+key: users
 revision: 5c2ac7ac-0b33-4e75-838f-bfd427de7fe9
 integrationId: 68835413e49c6d4c3c9d313f
-customized: false
+isCustomized: false
 universalDataSourceId: 68835424e49c6d4c3c9d32ce
 universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
 collectionKey: agents
 udm: users
 defaultPath: /data/agents
 integration:
-  key: freshdesk
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d313f
   name: Freshdesk
+  key: freshdesk
   uuid: 149c53e1-84d3-4dfc-909b-b144eb3d6245
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.782Z'
+  updatedAt: '2025-07-25T09:53:37.175Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/freshdesk-connector/logo.png
   connectorId: 64b114f5d2605720d2134075
+  connectorVersion: 1.0.1
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 39
   hasData: true
+  dataCollectionsCount: 8
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/994c78f8-50a9-4805-aa0f-1e90ec27e28c
-  connectorVersion: 1.0.1
-  logoUri: https://static.integration.app/connectors/freshdesk-connector/logo.png
-  dataCollectionsCount: 8
-  operationsCount: 39
-  eventsCount: 0
   authType: client-credentials

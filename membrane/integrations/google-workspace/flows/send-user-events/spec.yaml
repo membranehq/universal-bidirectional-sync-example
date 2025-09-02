@@ -1,56 +1,33 @@
+id: 6883542de49c6d4c3c9d406b
+name: Send User Events
 key: send-user-events
 state: CONFIGURATION_ERROR
 errors:
-  - message: Integration Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Integration Dependency has error(s)
     data:
       workspaceElementReference:
         type: integration
         id: 68835413e49c6d4c3c9d315b
-  - message: Data Source Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Data Source Dependency has error(s)
     data:
       workspaceElementReference:
         type: data-source
         id: 68835424e49c6d4c3c9d3399
-  - message: Field Mapping Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Field Mapping Dependency has error(s)
     data:
       workspaceElementReference:
         type: field-mapping
         id: 68835425e49c6d4c3c9d3572
-isDeactivated: false
-id: 6883542de49c6d4c3c9d406b
-name: Send User Events
 revision: 37d05c1a-405c-413f-a724-d794905622cd
-universalFlowId: 68835428e49c6d4c3c9d397c
+createdAt: '2025-07-25T09:53:51.464Z'
+updatedAt: '2025-08-05T10:24:17.000Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d315b
-integration:
-  key: google-workspace
-  state: CONFIGURATION_ERROR
-  errors:
-    - message: Integration is missing required parameters
-      type: configuration
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d315b
-  name: Google Workspace
-  uuid: d7db7e59-d7a6-4442-8b87-2e758a996cd8
-  connectorId: 65a59ef5af9ac1360fd6bac6
-  hasMissingParameters: true
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/ee8d1cee-bc8d-41e0-ac7b-97fe460bffad
-  connectorVersion: 1.0.6
-  logoUri: >-
-    https://static.integration.app/connectors/google-workspace/asset-90bc7f74-9c90-451e-9112-fa161ba6d554.png
-  dataCollectionsCount: 2
-  operationsCount: 123
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d397c
 universalFlowRevision: 7cd726db-f478-4538-b231-ed195e1ff008
 nodes:
   app-event-trigger:
@@ -61,23 +38,23 @@ nodes:
         key: user-event
     links:
       - key: create-data-record
-        name: User created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: User created
       - key: delete-data-record
-        name: User deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: User deleted
       - key: update-data-record
-        name: User updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: User updated
   create-data-record:
     type: create-data-record
     name: Create User
@@ -123,4 +100,30 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d315b
+  name: Google Workspace
+  key: google-workspace
+  uuid: d7db7e59-d7a6-4442-8b87-2e758a996cd8
+  state: CONFIGURATION_ERROR
+  errors:
+    - type: configuration
+      message: Integration is missing required parameters
+  createdAt: '2025-07-25T09:53:23.868Z'
+  updatedAt: '2025-07-25T09:53:34.063Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/google-workspace/asset-90bc7f74-9c90-451e-9112-fa161ba6d554.png
+  connectorId: 65a59ef5af9ac1360fd6bac6
+  connectorVersion: 1.0.6
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 123
+  hasData: true
+  dataCollectionsCount: 2
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

@@ -1,35 +1,15 @@
+id: 68835430e49c6d4c3c9d46c7
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 68835430e49c6d4c3c9d46c7
-name: Receive User Events
 revision: b5e4b364-83f8-4fd6-81d7-6253557bcc6f
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.885Z'
+updatedAt: '2025-08-05T10:24:41.181Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3132
-integration:
-  key: zendesk
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3132
-  name: Zendesk
-  uuid: 8f64787d-ee2e-4139-8080-45c8dab694c4
-  connectorId: 643e957fbadd839bce5208e3
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/f8ebfc16-bc0a-4559-88be-cef70aec08bc
-  connectorVersion: 1.5.0
-  logoUri: https://static.integration.app/connectors/zendesk/logo.png
-  dataCollectionsCount: 10
-  operationsCount: 393
-  eventsCount: 60
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -129,4 +109,27 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3132
+  name: Zendesk
+  key: zendesk
+  uuid: 8f64787d-ee2e-4139-8080-45c8dab694c4
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.775Z'
+  updatedAt: '2025-07-25T09:53:36.977Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/zendesk/logo.png
+  connectorId: 643e957fbadd839bce5208e3
+  connectorVersion: 1.5.0
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 393
+  hasData: true
+  dataCollectionsCount: 10
+  hasEvents: true
+  eventsCount: 60
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

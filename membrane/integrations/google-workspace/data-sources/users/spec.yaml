@@ -1,4 +1,6 @@
-key: users
+id: 68835424e49c6d4c3c9d3399
+name: Users
+isDeactivated: false
 state: CONFIGURATION_ERROR
 errors:
   - message: Integration Dependency has error(s)
@@ -7,40 +9,39 @@ errors:
       workspaceElementReference:
         type: integration
         id: 68835413e49c6d4c3c9d315b
-isDeactivated: false
-id: 68835424e49c6d4c3c9d3399
-name: Users
+key: users
 revision: 0bb12690-d769-4fb0-8c05-27f17069ba97
 integrationId: 68835413e49c6d4c3c9d315b
-customized: false
+isCustomized: false
 universalDataSourceId: 68835424e49c6d4c3c9d32ce
 universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
 collectionKey: users
 udm: users
 defaultPath: /data/users
 integration:
-  key: google-workspace
-  state: CONFIGURATION_ERROR
-  errors:
-    - message: Integration is missing required parameters
-      type: configuration
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d315b
   name: Google Workspace
+  key: google-workspace
   uuid: d7db7e59-d7a6-4442-8b87-2e758a996cd8
+  state: CONFIGURATION_ERROR
+  errors:
+    - type: configuration
+      message: Integration is missing required parameters
+  createdAt: '2025-07-25T09:53:23.868Z'
+  updatedAt: '2025-07-25T09:53:34.063Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/google-workspace/asset-90bc7f74-9c90-451e-9112-fa161ba6d554.png
   connectorId: 65a59ef5af9ac1360fd6bac6
+  connectorVersion: 1.0.6
   hasMissingParameters: true
   hasDocumentation: true
   hasOperations: true
+  operationsCount: 123
   hasData: true
+  dataCollectionsCount: 2
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/ee8d1cee-bc8d-41e0-ac7b-97fe460bffad
-  connectorVersion: 1.0.6
-  logoUri: >-
-    https://static.integration.app/connectors/google-workspace/asset-90bc7f74-9c90-451e-9112-fa161ba6d554.png
-  dataCollectionsCount: 2
-  operationsCount: 123
-  eventsCount: 0
   authType: oauth2

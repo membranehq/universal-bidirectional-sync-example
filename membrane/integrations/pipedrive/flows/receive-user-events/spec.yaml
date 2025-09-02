@@ -1,35 +1,15 @@
+id: 6883542fe49c6d4c3c9d431d
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542fe49c6d4c3c9d431d
-name: Receive User Events
 revision: af95bb36-3b96-435c-b7ee-11523d1c0967
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.581Z'
+updatedAt: '2025-08-05T10:24:39.340Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d310e
-integration:
-  key: pipedrive
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d310e
-  name: Pipedrive
-  uuid: 228fef08-f87e-4be0-a8f0-cd568b6a74c0
-  connectorId: 644fe4efee0ebe0ca6e9746b
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/dd2804f8-a420-4e56-be50-d5e157c2ec49
-  connectorVersion: 2.1.0
-  logoUri: https://static.integration.app/connectors/pipedrive-oauth/logo.png
-  dataCollectionsCount: 27
-  operationsCount: 240
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -129,4 +109,27 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d310e
+  name: Pipedrive
+  key: pipedrive
+  uuid: 228fef08-f87e-4be0-a8f0-cd568b6a74c0
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.703Z'
+  updatedAt: '2025-07-25T09:53:38.600Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/pipedrive-oauth/logo.png
+  connectorId: 644fe4efee0ebe0ca6e9746b
+  connectorVersion: 2.1.0
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 240
+  hasData: true
+  dataCollectionsCount: 27
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

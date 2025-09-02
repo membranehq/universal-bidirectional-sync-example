@@ -1,44 +1,47 @@
-revision: 6026e115-fad4-4b68-bbc8-e5ddcf48bcbc
-isCustomized: false
-parentId: 68887db5f9df280360f1e0c9
-parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
-integrationId: 68835413e49c6d4c3c9d313b
-integration:
-  key: calendly
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d313b
-  name: Calendly
-  uuid: 6a121de7-df1e-4989-9a46-4e2b0d4945c4
-  connectorId: 65663de871f8de0690860dc5
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/b11d90bb-5dab-48f0-89ed-742a3fd74da9
-  connectorVersion: 1.1.1
-  logoUri: >-
-    https://static.integration.app/connectors/calendly/logo-f372e218-8eb5-4113-b3d5-e2395b19c25e.png
-  dataCollectionsCount: 4
-  operationsCount: 36
-  eventsCount: 0
-  authType: oauth2
+id: 688cc9898fa10d3345b11831
+name: Create User
 key: create-user
 state: READY
 errors: []
+revision: 6026e115-fad4-4b68-bbc8-e5ddcf48bcbc
+createdAt: '2025-08-01T14:04:58.013Z'
+updatedAt: '2025-08-05T10:23:45.807Z'
 isDeactivated: false
-id: 688cc9898fa10d3345b11831
-name: Create User
-type: create-data-record
+integrationId: 68835413e49c6d4c3c9d313b
+parentId: 68887db5f9df280360f1e0c9
 inputSchema:
   type: object
   properties:
     fields:
       type: string
+type: create-data-record
 config:
   fieldMapping: {}
   dataSource: {}
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d313b
+  name: Calendly
+  key: calendly
+  uuid: 6a121de7-df1e-4989-9a46-4e2b0d4945c4
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.780Z'
+  updatedAt: '2025-07-25T09:53:37.175Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/calendly/logo-f372e218-8eb5-4113-b3d5-e2395b19c25e.png
+  connectorId: 65663de871f8de0690860dc5
+  connectorVersion: 1.1.1
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 36
+  hasData: true
+  dataCollectionsCount: 4
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

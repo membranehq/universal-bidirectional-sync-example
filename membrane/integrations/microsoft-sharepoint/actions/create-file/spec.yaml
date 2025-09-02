@@ -1,38 +1,14 @@
-revision: e5a42c6b-738e-4d2f-a270-bcbef428b632
-isCustomized: false
-parentId: 688cc9e4ed172ffb20d0f39b
-parentRevision: 594f206d-8bae-412b-a5f0-35b631562f81
-integrationId: 68834d71ef496baf09c0a90b
-integration:
-  key: microsoft-sharepoint
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a90b
-  name: Microsoft Sharepoint
-  uuid: a136b41a-0fd4-4b43-a4b0-353ba9f25fb1
-  connectorId: 6466784d60f981f3ce696906
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/2b8ac8d1-af69-4d4b-98c3-d08dfb046f44
-  connectorVersion: 2.5.1
-  logoUri: >-
-    https://static.integration.app/connectors/microsoft-sharepoint/logo-0e34b7f3-b86a-43d8-9cb3-4d9dcf189876.png
-  dataCollectionsCount: 9
-  operationsCount: 2
-  eventsCount: 0
-  authType: oauth2
+id: 688cc9eef1e1187ac07515d8
+name: Create File
 key: create-file
 state: READY
 errors: []
+revision: e5a42c6b-738e-4d2f-a270-bcbef428b632
+createdAt: '2025-08-01T14:06:38.880Z'
+updatedAt: '2025-08-05T10:23:45.003Z'
 isDeactivated: false
-id: 688cc9eef1e1187ac07515d8
-name: Create File
+integrationId: 68834d71ef496baf09c0a90b
+parentId: 688cc9e4ed172ffb20d0f39b
 type: create-data-record
 config:
   dataSource:
@@ -41,3 +17,30 @@ config:
     key: files
     input:
       $var: $.input
+parentRevision: 594f206d-8bae-412b-a5f0-35b631562f81
+isCustomized: false
+integration:
+  id: 68834d71ef496baf09c0a90b
+  name: Microsoft Sharepoint
+  key: microsoft-sharepoint
+  uuid: a136b41a-0fd4-4b43-a4b0-353ba9f25fb1
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.355Z'
+  updatedAt: '2025-07-25T09:41:44.732Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/microsoft-sharepoint/logo-0e34b7f3-b86a-43d8-9cb3-4d9dcf189876.png
+  connectorId: 6466784d60f981f3ce696906
+  connectorVersion: 2.5.1
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 2
+  hasData: true
+  dataCollectionsCount: 9
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

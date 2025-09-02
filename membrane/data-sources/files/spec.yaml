@@ -1,9 +1,9 @@
-key: files
-state: READY
-errors: []
-isDeactivated: false
 id: 68834d75ef496baf09c0a94a
 name: Files
+isDeactivated: false
+state: READY
+errors: []
+key: files
 revision: 5ccf733d-4403-46a0-9e2a-9df0742e63f7
-customized: true
+isCustomized: true
 udm: files

@@ -1,38 +1,14 @@
-revision: e97a1fa5-1000-4b99-9ed8-d087588bd7ef
-isCustomized: false
-parentId: 6890519a5facd7ec99dbeba1
-parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
-integrationId: 68835413e49c6d4c3c9d3128
-integration:
-  key: activecampaign
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3128
-  name: ActiveCampaign
-  uuid: df6bee88-0036-431e-9407-78c6f9278eb7
-  connectorId: 6466783960f981f3ce6968ec
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/c65d95f5-120f-4269-a268-d74c8c666a04
-  connectorVersion: 1.0.3
-  logoUri: https://static.integration.app/connectors/activecampaign-connector/logo.png
-  dataCollectionsCount: 20
-  operationsCount: 106
-  eventsCount: 0
-  authType: client-credentials
+id: 68905282ff92d86914347ba6
+name: Update User
 key: update-user
 state: READY
 errors: []
+revision: e97a1fa5-1000-4b99-9ed8-d087588bd7ef
+createdAt: '2025-08-04T06:26:13.676Z'
+updatedAt: '2025-08-05T10:23:52.422Z'
 isDeactivated: false
-id: 68905282ff92d86914347ba6
-name: Update User
-type: update-data-record
+integrationId: 68835413e49c6d4c3c9d3128
+parentId: 6890519a5facd7ec99dbeba1
 inputSchema:
   type: object
   properties:
@@ -40,6 +16,7 @@ inputSchema:
       type: string
     fields:
       type: string
+type: update-data-record
 config:
   dataSource:
     key: users
@@ -61,3 +38,29 @@ config:
         $var: $.input.lastName
       id:
         $var: $.input.id
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3128
+  name: ActiveCampaign
+  key: activecampaign
+  uuid: df6bee88-0036-431e-9407-78c6f9278eb7
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.770Z'
+  updatedAt: '2025-07-25T09:53:38.654Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/activecampaign-connector/logo.png
+  connectorId: 6466783960f981f3ce6968ec
+  connectorVersion: 1.0.3
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 106
+  hasData: true
+  dataCollectionsCount: 20
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

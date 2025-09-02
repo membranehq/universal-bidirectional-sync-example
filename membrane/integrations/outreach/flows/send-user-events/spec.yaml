@@ -1,35 +1,15 @@
+id: 6883542de49c6d4c3c9d4040
+name: Send User Events
 key: send-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542de49c6d4c3c9d4040
-name: Send User Events
 revision: 7ee9b3d1-f77e-40c1-9510-0259d3c1b089
-universalFlowId: 68835428e49c6d4c3c9d397c
+createdAt: '2025-07-25T09:53:51.282Z'
+updatedAt: '2025-08-05T10:24:16.128Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3124
-integration:
-  key: outreach
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3124
-  name: Outreach
-  uuid: 6839e171-d1f6-488f-88e9-65e06a949111
-  connectorId: 6466785060f981f3ce69690b
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/b3d312a2-d5f0-4d61-ab2c-8211f30667a6
-  connectorVersion: 1.1.2
-  logoUri: https://static.integration.app/connectors/outreach-connector/logo.png
-  dataCollectionsCount: 14
-  operationsCount: 176
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d397c
 universalFlowRevision: 7cd726db-f478-4538-b231-ed195e1ff008
 nodes:
   app-event-trigger:
@@ -40,23 +20,23 @@ nodes:
         key: user-event
     links:
       - key: create-data-record
-        name: User created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: User created
       - key: delete-data-record
-        name: User deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: User deleted
       - key: update-data-record
-        name: User updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: User updated
   create-data-record:
     type: create-data-record
     name: Create User
@@ -102,4 +82,27 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3124
+  name: Outreach
+  key: outreach
+  uuid: 6839e171-d1f6-488f-88e9-65e06a949111
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.768Z'
+  updatedAt: '2025-07-25T09:53:38.183Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/outreach-connector/logo.png
+  connectorId: 6466785060f981f3ce69690b
+  connectorVersion: 1.1.2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 176
+  hasData: true
+  dataCollectionsCount: 14
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

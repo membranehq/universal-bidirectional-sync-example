@@ -1,35 +1,15 @@
+id: 6884791b95717cb906748808
+name: Send Email Events
 key: send-email-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6884791b95717cb906748808
-name: Send Email Events
 revision: a4d22e54-eded-4db6-9cc1-85533ec46c42
-universalFlowId: 6884791b95717cb9067486f6
+createdAt: '2025-07-26T06:43:39.592Z'
+updatedAt: '2025-08-15T10:22:19.636Z'
+isDeactivated: false
 integrationId: 6884791695717cb90674856c
-integration:
-  key: gmail
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 6884791695717cb90674856c
-  name: Gmail
-  uuid: 21dc435d-989e-4dc2-8da4-43113e7442ef
-  connectorId: 64300cd1986ed1caad6e23ae
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/9c29637a-8512-4f98-817c-5faa1e0defdc
-  connectorVersion: 1.5.2
-  logoUri: https://static.integration.app/connectors/gmail/logo.png
-  dataCollectionsCount: 3
-  operationsCount: 81
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 6884791b95717cb9067486f6
 universalFlowRevision: d50acedd-e887-4876-869d-0f37ccdc4151
 nodes:
   app-event-trigger:
@@ -40,23 +20,23 @@ nodes:
         key: email-event
     links:
       - key: create-data-record
-        name: Email created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: Email created
       - key: delete-data-record
-        name: Email deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: Email deleted
       - key: update-data-record
-        name: Email updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: Email updated
   create-data-record:
     type: create-data-record
     name: Create Email
@@ -102,4 +82,27 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 6884791695717cb90674856c
+  name: Gmail
+  key: gmail
+  uuid: 21dc435d-989e-4dc2-8da4-43113e7442ef
+  state: READY
+  errors: []
+  createdAt: '2025-07-26T06:43:34.191Z'
+  updatedAt: '2025-07-26T06:46:54.602Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/gmail/logo.png
+  connectorId: 64300cd1986ed1caad6e23ae
+  connectorVersion: 1.5.2
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 81
+  hasData: true
+  dataCollectionsCount: 3
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

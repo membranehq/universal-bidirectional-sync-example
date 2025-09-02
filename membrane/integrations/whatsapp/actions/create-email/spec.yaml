@@ -1,43 +1,20 @@
-revision: 16e5dc25-e7aa-459e-a852-dbfeabc30a21
-isCustomized: false
-parentId: 68887d96f9df280360f1df48
-parentRevision: 574e62c8-21f1-4bf2-a813-d18c60db8dd7
-integrationId: 6884791695717cb906748572
-integration:
-  key: whatsapp
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 6884791695717cb906748572
-  name: Whatsapp
-  uuid: a497f3b8-56ee-4aa1-b702-8fd0ae416cd9
-  connectorId: 6466785c60f981f3ce69691e
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: true
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/4c7f0f9d-be53-4870-9b0f-718c919d79cf
-  connectorVersion: 1.0.3
-  logoUri: https://static.integration.app/connectors/whatsapp/logohq.png
-  dataCollectionsCount: 1
-  operationsCount: 55
-  eventsCount: 1
-  authType: client-credentials
+id: 6889cde0b766435cecdde3fc
+name: Create Email
 key: create-email
 state: READY
 errors: []
+revision: 16e5dc25-e7aa-459e-a852-dbfeabc30a21
+createdAt: '2025-07-30T07:46:40.458Z'
+updatedAt: '2025-08-05T10:23:44.528Z'
 isDeactivated: false
-id: 6889cde0b766435cecdde3fc
-name: Create Email
-type: create-data-record
+integrationId: 6884791695717cb906748572
+parentId: 68887d96f9df280360f1df48
 inputSchema:
   type: object
   properties:
     fields:
       $ref: contacts
+type: create-data-record
 config:
   dataSource:
     key: emails
@@ -45,3 +22,29 @@ config:
     key: emails
     input:
       $var: $.input.fields
+parentRevision: 574e62c8-21f1-4bf2-a813-d18c60db8dd7
+isCustomized: false
+integration:
+  id: 6884791695717cb906748572
+  name: Whatsapp
+  key: whatsapp
+  uuid: a497f3b8-56ee-4aa1-b702-8fd0ae416cd9
+  state: READY
+  errors: []
+  createdAt: '2025-07-26T06:43:34.195Z'
+  updatedAt: '2025-07-26T06:43:37.842Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/whatsapp/logohq.png
+  connectorId: 6466785c60f981f3ce69691e
+  connectorVersion: 1.0.3
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 55
+  hasData: true
+  dataCollectionsCount: 1
+  hasEvents: true
+  eventsCount: 1
+  hasGlobalWebhooks: true
+  hasUdm: true
+  authType: client-credentials

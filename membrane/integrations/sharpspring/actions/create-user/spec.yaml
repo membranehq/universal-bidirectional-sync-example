@@ -1,44 +1,47 @@
-revision: 7bf8592b-d931-4253-b28e-b0d64e68904a
-isCustomized: false
-parentId: 68887db5f9df280360f1e0c9
-parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
-integrationId: 68835413e49c6d4c3c9d3145
-integration:
-  key: sharpspring
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3145
-  name: SharpSpring
-  uuid: 1e97c637-99ed-4f3d-ae65-f26564cdf8ff
-  connectorId: 640a32a474be562abded2875
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/5c085a81-880a-4b07-8441-95662371ec72
-  connectorVersion: 1.0.4
-  logoUri: >-
-    https://static.integration.app/connectors/sharpspring/logo-7d08538a-0c9f-4916-ab99-d214433c1307.png
-  dataCollectionsCount: 10
-  operationsCount: 1
-  eventsCount: 0
-  authType: client-credentials
+id: 688cc9898fa10d3345b1186b
+name: Create User
 key: create-user
 state: READY
 errors: []
+revision: 7bf8592b-d931-4253-b28e-b0d64e68904a
+createdAt: '2025-08-01T14:04:58.086Z'
+updatedAt: '2025-08-05T10:23:46.759Z'
 isDeactivated: false
-id: 688cc9898fa10d3345b1186b
-name: Create User
-type: create-data-record
+integrationId: 68835413e49c6d4c3c9d3145
+parentId: 68887db5f9df280360f1e0c9
 inputSchema:
   type: object
   properties:
     fields:
       type: string
+type: create-data-record
 config:
   fieldMapping: {}
   dataSource: {}
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3145
+  name: SharpSpring
+  key: sharpspring
+  uuid: 1e97c637-99ed-4f3d-ae65-f26564cdf8ff
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.785Z'
+  updatedAt: '2025-07-25T09:53:36.497Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/sharpspring/logo-7d08538a-0c9f-4916-ab99-d214433c1307.png
+  connectorId: 640a32a474be562abded2875
+  connectorVersion: 1.0.4
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 1
+  hasData: true
+  dataCollectionsCount: 10
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

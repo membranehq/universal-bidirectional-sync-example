@@ -1,35 +1,15 @@
+id: 6883542de49c6d4c3c9d4036
+name: Send User Events
 key: send-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542de49c6d4c3c9d4036
-name: Send User Events
 revision: dc1d0c04-d2de-4ef8-81df-03d1df368cd5
-universalFlowId: 68835428e49c6d4c3c9d397c
+createdAt: '2025-07-25T09:53:51.282Z'
+updatedAt: '2025-08-05T10:24:15.850Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3122
-integration:
-  key: hubspot
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3122
-  name: HubSpot
-  uuid: 7527f7ea-f8dd-49fa-b3ac-6cbe670cf27d
-  connectorId: 62471fad996d5c297ae43f5f
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: true
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/f6b94b97-3600-4e2e-9776-439aebf3b5e0
-  connectorVersion: 1.7.0
-  logoUri: https://static.integration.app/connectors/hubspot/logo.png
-  dataCollectionsCount: 32
-  operationsCount: 646
-  eventsCount: 37
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d397c
 universalFlowRevision: 7cd726db-f478-4538-b231-ed195e1ff008
 nodes:
   app-event-trigger:
@@ -40,23 +20,23 @@ nodes:
         key: user-event
     links:
       - key: create-data-record
-        name: User created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: User created
       - key: delete-data-record
-        name: User deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: User deleted
       - key: update-data-record
-        name: User updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: User updated
   create-data-record:
     type: create-data-record
     name: Create User
@@ -102,4 +82,27 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3122
+  name: HubSpot
+  key: hubspot
+  uuid: 7527f7ea-f8dd-49fa-b3ac-6cbe670cf27d
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.767Z'
+  updatedAt: '2025-07-26T14:14:48.557Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/hubspot/logo.png
+  connectorId: 62471fad996d5c297ae43f5f
+  connectorVersion: 1.7.0
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 646
+  hasData: true
+  dataCollectionsCount: 32
+  hasEvents: true
+  eventsCount: 37
+  hasGlobalWebhooks: true
+  hasUdm: true
+  authType: oauth2

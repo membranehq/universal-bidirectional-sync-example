@@ -1,10 +1,10 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835425e49c6d4c3c9d3544
 name: Users
-customized: false
+isDeactivated: false
+state: READY
+errors: []
+key: users
+isCustomized: false
 revision: 309ed7ca-254a-4438-8cf8-3fc282cfff1d
 universalFieldMappingId: 68835425e49c6d4c3c9d34a3
 universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
@@ -57,25 +57,26 @@ importValue:
   primaryPhone: null
   companyName: null
 integration:
-  key: zoho-books
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d3153
   name: Zoho Books
+  key: zoho-books
   uuid: ef2e79d8-6660-46f8-9614-17ab80c9887e
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.792Z'
+  updatedAt: '2025-07-25T09:53:37.890Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/zoho-books-connector/logo.png
   connectorId: 6430516e986ed1caad7bf9f9
+  connectorVersion: 1.0.6
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: false
+  operationsCount: 0
   hasData: true
+  dataCollectionsCount: 21
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/ddc58dc9-d550-4606-9e88-618ffab5a380
-  connectorVersion: 1.0.6
-  logoUri: https://static.integration.app/connectors/zoho-books-connector/logo.png
-  dataCollectionsCount: 21
-  operationsCount: 0
-  eventsCount: 0
   authType: oauth2

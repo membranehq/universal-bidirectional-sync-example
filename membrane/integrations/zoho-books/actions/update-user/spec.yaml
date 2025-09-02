@@ -1,38 +1,14 @@
-revision: c9793ceb-cf45-47d1-8158-5d59583b319e
-isCustomized: false
-parentId: 6890519a5facd7ec99dbeba1
-parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
-integrationId: 68835413e49c6d4c3c9d3153
-integration:
-  key: zoho-books
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3153
-  name: Zoho Books
-  uuid: ef2e79d8-6660-46f8-9614-17ab80c9887e
-  connectorId: 6430516e986ed1caad7bf9f9
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: false
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/ddc58dc9-d550-4606-9e88-618ffab5a380
-  connectorVersion: 1.0.6
-  logoUri: https://static.integration.app/connectors/zoho-books-connector/logo.png
-  dataCollectionsCount: 21
-  operationsCount: 0
-  eventsCount: 0
-  authType: oauth2
+id: 68905282ff92d86914347bf0
+name: Update User
 key: update-user
 state: READY
 errors: []
+revision: c9793ceb-cf45-47d1-8158-5d59583b319e
+createdAt: '2025-08-04T06:26:10.973Z'
+updatedAt: '2025-08-05T10:24:00.644Z'
 isDeactivated: false
-id: 68905282ff92d86914347bf0
-name: Update User
-type: update-data-record
+integrationId: 68835413e49c6d4c3c9d3153
+parentId: 6890519a5facd7ec99dbeba1
 inputSchema:
   type: object
   properties:
@@ -40,6 +16,7 @@ inputSchema:
       type: string
     fields:
       type: string
+type: update-data-record
 config:
   dataSource:
     key: users
@@ -65,3 +42,29 @@ config:
         $var: $.input.primaryEmail
       status: null
       user_role: null
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3153
+  name: Zoho Books
+  key: zoho-books
+  uuid: ef2e79d8-6660-46f8-9614-17ab80c9887e
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.792Z'
+  updatedAt: '2025-07-25T09:53:37.890Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/zoho-books-connector/logo.png
+  connectorId: 6430516e986ed1caad7bf9f9
+  connectorVersion: 1.0.6
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  operationsCount: 0
+  hasData: true
+  dataCollectionsCount: 21
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

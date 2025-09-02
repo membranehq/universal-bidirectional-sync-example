@@ -1,44 +1,20 @@
-revision: a14a3198-ceff-4dc5-86b6-70487a5a05ac
-isCustomized: false
-parentId: 68834d75ef496baf09c0aa0c
-parentRevision: e6a5b538-0d16-4c2b-a86f-e461a3b46079
-integrationId: 68834d71ef496baf09c0a90b
-integration:
-  key: microsoft-sharepoint
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a90b
-  name: Microsoft Sharepoint
-  uuid: a136b41a-0fd4-4b43-a4b0-353ba9f25fb1
-  connectorId: 6466784d60f981f3ce696906
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/2b8ac8d1-af69-4d4b-98c3-d08dfb046f44
-  connectorVersion: 2.5.1
-  logoUri: >-
-    https://static.integration.app/connectors/microsoft-sharepoint/logo-0e34b7f3-b86a-43d8-9cb3-4d9dcf189876.png
-  dataCollectionsCount: 9
-  operationsCount: 2
-  eventsCount: 0
-  authType: oauth2
+id: 68834d75ef496baf09c0aa2b
+name: Get Files
 key: get-files
 state: READY
 errors: []
+revision: a14a3198-ceff-4dc5-86b6-70487a5a05ac
+createdAt: '2025-07-25T09:25:09.954Z'
+updatedAt: '2025-08-05T10:23:49.534Z'
 isDeactivated: false
-id: 68834d75ef496baf09c0aa2b
-name: Get Files
-type: list-data-records
+integrationId: 68834d71ef496baf09c0a90b
+parentId: 68834d75ef496baf09c0aa0c
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: files
@@ -47,3 +23,30 @@ config:
   fieldMapping:
     key: files
     includeRawFields: true
+parentRevision: e6a5b538-0d16-4c2b-a86f-e461a3b46079
+isCustomized: false
+integration:
+  id: 68834d71ef496baf09c0a90b
+  name: Microsoft Sharepoint
+  key: microsoft-sharepoint
+  uuid: a136b41a-0fd4-4b43-a4b0-353ba9f25fb1
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.355Z'
+  updatedAt: '2025-07-25T09:41:44.732Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/microsoft-sharepoint/logo-0e34b7f3-b86a-43d8-9cb3-4d9dcf189876.png
+  connectorId: 6466784d60f981f3ce696906
+  connectorVersion: 2.5.1
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 2
+  hasData: true
+  dataCollectionsCount: 9
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

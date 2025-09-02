@@ -1,47 +1,50 @@
-revision: 90600513-4a14-4cbf-8714-ade044982a59
-isCustomized: false
-parentId: 68887e4a655d7bb8d28c504c
-parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
-integrationId: 68835413e49c6d4c3c9d3145
-integration:
-  key: sharpspring
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3145
-  name: SharpSpring
-  uuid: 1e97c637-99ed-4f3d-ae65-f26564cdf8ff
-  connectorId: 640a32a474be562abded2875
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/5c085a81-880a-4b07-8441-95662371ec72
-  connectorVersion: 1.0.4
-  logoUri: >-
-    https://static.integration.app/connectors/sharpspring/logo-7d08538a-0c9f-4916-ab99-d214433c1307.png
-  dataCollectionsCount: 10
-  operationsCount: 1
-  eventsCount: 0
-  authType: client-credentials
+id: 688905eaee7f0f245494d746
+name: Delete User
 key: delete-user
 state: READY
 errors: []
+revision: 90600513-4a14-4cbf-8714-ade044982a59
+createdAt: '2025-07-29T17:33:31.074Z'
+updatedAt: '2025-08-05T10:23:48.708Z'
 isDeactivated: false
-id: 688905eaee7f0f245494d746
-name: Delete User
-type: delete-data-record
+integrationId: 68835413e49c6d4c3c9d3145
+parentId: 68887e4a655d7bb8d28c504c
 inputSchema:
   type: object
   properties:
     id:
       type: string
+type: delete-data-record
 config:
   dataSource:
     key: users
   id:
     $var: $.input.id
   fieldMapping: {}
+parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3145
+  name: SharpSpring
+  key: sharpspring
+  uuid: 1e97c637-99ed-4f3d-ae65-f26564cdf8ff
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.785Z'
+  updatedAt: '2025-07-25T09:53:36.497Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/sharpspring/logo-7d08538a-0c9f-4916-ab99-d214433c1307.png
+  connectorId: 640a32a474be562abded2875
+  connectorVersion: 1.0.4
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 1
+  hasData: true
+  dataCollectionsCount: 10
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

@@ -1,10 +1,10 @@
-key: files
-state: READY
-errors: []
-isDeactivated: false
 id: 68834d75ef496baf09c0a9c3
 name: Files
-customized: false
+isDeactivated: false
+state: READY
+errors: []
+key: files
+isCustomized: false
 revision: 1809fe51-86d7-46f9-9022-db8f4549c8f6
 universalFieldMappingId: 68834d75ef496baf09c0a99e
 universalFieldMappingRevision: 886948ed-fa85-4d74-8146-6efa91a4a129
@@ -61,25 +61,26 @@ importValue:
   mimeType:
     $var: $.FileType
 integration:
-  key: salesforce
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68834d71ef496baf09c0a8fa
   name: Salesforce
+  key: salesforce
   uuid: b1530921-5651-4b04-a059-5893a76384d4
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.328Z'
+  updatedAt: '2025-07-25T09:25:09.149Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/salesforce-connector/logo.png
   connectorId: 62471fad996d5c297ae43f5e
+  connectorVersion: 1.6.6
   hasMissingParameters: false
   hasDocumentation: true
   hasOperations: true
+  operationsCount: 303
   hasData: true
+  dataCollectionsCount: 30
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/8ac63569-b944-4d46-a041-e2fb80b82ac2
-  connectorVersion: 1.6.6
-  logoUri: https://static.integration.app/connectors/salesforce-connector/logo.png
-  dataCollectionsCount: 30
-  operationsCount: 303
-  eventsCount: 0
   authType: oauth2

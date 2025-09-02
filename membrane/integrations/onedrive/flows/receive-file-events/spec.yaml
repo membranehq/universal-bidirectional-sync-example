@@ -1,56 +1,33 @@
+id: 68834d76ef496baf09c0ac1c
+name: Receive File Events
 key: receive-file-events
 state: CONFIGURATION_ERROR
 errors:
-  - message: Integration Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Integration Dependency has error(s)
     data:
       workspaceElementReference:
         type: integration
         id: 68834d71ef496baf09c0a901
-  - message: Data Source Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Data Source Dependency has error(s)
     data:
       workspaceElementReference:
         type: data-source
         id: 68834d75ef496baf09c0a968
-  - message: Field Mapping Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Field Mapping Dependency has error(s)
     data:
       workspaceElementReference:
         type: field-mapping
         id: 68834d75ef496baf09c0a9bf
-isDeactivated: false
-id: 68834d76ef496baf09c0ac1c
-name: Receive File Events
 revision: 1c02f00c-09b8-440f-8d34-9f431b274a94
-universalFlowId: 68834d75ef496baf09c0aa71
+createdAt: '2025-07-25T09:25:10.991Z'
+updatedAt: '2025-08-05T10:24:38.591Z'
+isDeactivated: false
 integrationId: 68834d71ef496baf09c0a901
-integration:
-  key: onedrive
-  state: CONFIGURATION_ERROR
-  errors:
-    - message: Integration is missing required parameters
-      type: configuration
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a901
-  name: MS OneDrive
-  uuid: 2a2c04ac-c56b-45de-bbb6-9d39524e6498
-  connectorId: 652677b570089fac484d1a34
-  hasMissingParameters: true
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/bcc78f3c-0131-4b1c-bc9d-0ac72b093b64
-  connectorVersion: 2.3.0
-  logoUri: >-
-    https://static.integration.app/connectors/onedrive/logo-8a1d93a1-ba8e-4127-93f5-ca45f899d879.png
-  dataCollectionsCount: 2
-  operationsCount: 2
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68834d75ef496baf09c0aa71
 universalFlowRevision: 655ce286-7e89-48f9-b5a0-8aeadd040d5f
 nodes:
   file-created-trigger:
@@ -150,4 +127,30 @@ nodes:
     links:
       - key: delete-file-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68834d71ef496baf09c0a901
+  name: MS OneDrive
+  key: onedrive
+  uuid: 2a2c04ac-c56b-45de-bbb6-9d39524e6498
+  state: CONFIGURATION_ERROR
+  errors:
+    - type: configuration
+      message: Integration is missing required parameters
+  createdAt: '2025-07-25T09:25:05.335Z'
+  updatedAt: '2025-07-25T09:25:07.056Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/onedrive/logo-8a1d93a1-ba8e-4127-93f5-ca45f899d879.png
+  connectorId: 652677b570089fac484d1a34
+  connectorVersion: 2.3.0
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 2
+  hasData: true
+  dataCollectionsCount: 2
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

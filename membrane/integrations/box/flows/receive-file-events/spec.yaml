@@ -1,55 +1,33 @@
+id: 68834d77ef496baf09c0acbf
+name: Receive File Events
 key: receive-file-events
 state: CONFIGURATION_ERROR
 errors:
-  - message: Integration Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Integration Dependency has error(s)
     data:
       workspaceElementReference:
         type: integration
         id: 68834d71ef496baf09c0a8ff
-  - message: Data Source Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Data Source Dependency has error(s)
     data:
       workspaceElementReference:
         type: data-source
         id: 68834d75ef496baf09c0a96a
-  - message: Field Mapping Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Field Mapping Dependency has error(s)
     data:
       workspaceElementReference:
         type: field-mapping
         id: 68834d75ef496baf09c0a9c1
-isDeactivated: false
-id: 68834d77ef496baf09c0acbf
-name: Receive File Events
 revision: 4e813e1b-22f5-42ba-8516-250363f1cee7
-universalFlowId: 68834d75ef496baf09c0aa71
+createdAt: '2025-07-25T09:25:11.686Z'
+updatedAt: '2025-08-05T10:24:38.823Z'
+isDeactivated: false
 integrationId: 68834d71ef496baf09c0a8ff
-integration:
-  key: box
-  state: CONFIGURATION_ERROR
-  errors:
-    - message: Integration is missing required parameters
-      type: configuration
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a8ff
-  name: Box
-  uuid: aa6c7494-3fb4-44c9-8668-b1075ed2c2a8
-  connectorId: 6466783c60f981f3ce6968ef
-  hasMissingParameters: true
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: true
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/ccc997a3-9504-439c-930d-054a03172fc2
-  connectorVersion: 2.2.2
-  logoUri: https://static.integration.app/connectors/box/logo.png
-  dataCollectionsCount: 6
-  operationsCount: 264
-  eventsCount: 1
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68834d75ef496baf09c0aa71
 universalFlowRevision: 655ce286-7e89-48f9-b5a0-8aeadd040d5f
 nodes:
   file-created-trigger:
@@ -149,4 +127,29 @@ nodes:
     links:
       - key: delete-file-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68834d71ef496baf09c0a8ff
+  name: Box
+  key: box
+  uuid: aa6c7494-3fb4-44c9-8668-b1075ed2c2a8
+  state: CONFIGURATION_ERROR
+  errors:
+    - type: configuration
+      message: Integration is missing required parameters
+  createdAt: '2025-07-25T09:25:05.334Z'
+  updatedAt: '2025-07-25T09:25:07.372Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/box/logo.png
+  connectorId: 6466783c60f981f3ce6968ef
+  connectorVersion: 2.2.2
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 264
+  hasData: true
+  dataCollectionsCount: 6
+  hasEvents: true
+  eventsCount: 1
+  hasGlobalWebhooks: true
+  hasUdm: true
+  authType: oauth2

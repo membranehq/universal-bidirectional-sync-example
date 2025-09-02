@@ -1,10 +1,13 @@
+id: 68835428e49c6d4c3c9d396a
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 68835428e49c6d4c3c9d396a
-name: Receive User Events
 revision: 88fd87ef-1193-4064-aa96-06656b52f0c4
+createdAt: '2025-07-25T09:53:45.085Z'
+updatedAt: '2025-08-05T10:23:49.269Z'
+isDeactivated: false
+isCustomized: true
 nodes:
   user-created-trigger:
     type: data-record-created-trigger
@@ -100,4 +103,3 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: true

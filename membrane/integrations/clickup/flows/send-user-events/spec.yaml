@@ -1,35 +1,15 @@
+id: 6883542de49c6d4c3c9d404a
+name: Send User Events
 key: send-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542de49c6d4c3c9d404a
-name: Send User Events
 revision: b0788563-ad6d-46e9-a68c-69c25fabf6a2
-universalFlowId: 68835428e49c6d4c3c9d397c
+createdAt: '2025-07-25T09:53:51.282Z'
+updatedAt: '2025-08-05T10:24:16.363Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3112
-integration:
-  key: clickup
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3112
-  name: Clickup
-  uuid: 27bb6e0d-e658-444e-bd84-a7ca9b100912
-  connectorId: 64359f80986ed1caadafa638
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/0269b955-8e69-4d0a-a128-fbbafcf810e3
-  connectorVersion: 1.2.3
-  logoUri: https://static.integration.app/connectors/clickup/logo.png
-  dataCollectionsCount: 9
-  operationsCount: 11
-  eventsCount: 28
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d397c
 universalFlowRevision: 7cd726db-f478-4538-b231-ed195e1ff008
 nodes:
   app-event-trigger:
@@ -40,23 +20,23 @@ nodes:
         key: user-event
     links:
       - key: create-data-record
-        name: User created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: User created
       - key: delete-data-record
-        name: User deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: User deleted
       - key: update-data-record
-        name: User updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: User updated
   create-data-record:
     type: create-data-record
     name: Create User
@@ -102,4 +82,27 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3112
+  name: Clickup
+  key: clickup
+  uuid: 27bb6e0d-e658-444e-bd84-a7ca9b100912
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.756Z'
+  updatedAt: '2025-07-25T09:53:37.767Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/clickup/logo.png
+  connectorId: 64359f80986ed1caadafa638
+  connectorVersion: 1.2.3
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 11
+  hasData: true
+  dataCollectionsCount: 9
+  hasEvents: true
+  eventsCount: 28
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

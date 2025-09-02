@@ -1,4 +1,6 @@
-key: users
+id: 68835424e49c6d4c3c9d3397
+name: Users
+isDeactivated: false
 state: CONFIGURATION_ERROR
 errors:
   - message: Integration Dependency has error(s)
@@ -7,39 +9,38 @@ errors:
       workspaceElementReference:
         type: integration
         id: 68835413e49c6d4c3c9d314d
-isDeactivated: false
-id: 68835424e49c6d4c3c9d3397
-name: Users
+key: users
 revision: 344681d4-49b8-4f1e-a0e9-ec54abf241fd
 integrationId: 68835413e49c6d4c3c9d314d
-customized: false
+isCustomized: false
 universalDataSourceId: 68835424e49c6d4c3c9d32ce
 universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
 collectionKey: users
 udm: users
 defaultPath: /data/users
 integration:
-  key: lever
-  state: CONFIGURATION_ERROR
-  errors:
-    - message: Integration is missing required parameters
-      type: configuration
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d314d
   name: Lever
+  key: lever
   uuid: 15653d4b-08f3-4a71-b74a-43eb00919fe8
+  state: CONFIGURATION_ERROR
+  errors:
+    - type: configuration
+      message: Integration is missing required parameters
+  createdAt: '2025-07-25T09:53:23.789Z'
+  updatedAt: '2025-07-25T09:53:36.977Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/lever/logohq.png
   connectorId: 6466784c60f981f3ce696903
+  connectorVersion: 1.0.2
   hasMissingParameters: true
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 68
   hasData: true
+  dataCollectionsCount: 12
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/2e111cbc-2e3c-424d-94bc-1204bcdb57f0
-  connectorVersion: 1.0.2
-  logoUri: https://static.integration.app/connectors/lever/logohq.png
-  dataCollectionsCount: 12
-  operationsCount: 68
-  eventsCount: 0
   authType: oauth2

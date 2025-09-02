@@ -1,10 +1,10 @@
-key: files
-state: READY
-errors: []
-isDeactivated: false
 id: 68834d75ef496baf09c0a9bb
 name: Files
-customized: false
+isDeactivated: false
+state: READY
+errors: []
+key: files
+isCustomized: false
 revision: b9c6d3ba-3b70-4b18-9eaf-0e4e9b4fe344
 universalFieldMappingId: 68834d75ef496baf09c0a99e
 universalFieldMappingRevision: 886948ed-fa85-4d74-8146-6efa91a4a129
@@ -82,26 +82,27 @@ importValue:
   updatedBy:
     $var: $.lastModifiedBy.user.id
 integration:
-  key: microsoft-sharepoint
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68834d71ef496baf09c0a90b
   name: Microsoft Sharepoint
+  key: microsoft-sharepoint
   uuid: a136b41a-0fd4-4b43-a4b0-353ba9f25fb1
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.355Z'
+  updatedAt: '2025-07-25T09:41:44.732Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/microsoft-sharepoint/logo-0e34b7f3-b86a-43d8-9cb3-4d9dcf189876.png
   connectorId: 6466784d60f981f3ce696906
+  connectorVersion: 2.5.1
   hasMissingParameters: false
   hasDocumentation: true
   hasOperations: true
+  operationsCount: 2
   hasData: true
+  dataCollectionsCount: 9
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/2b8ac8d1-af69-4d4b-98c3-d08dfb046f44
-  connectorVersion: 2.5.1
-  logoUri: >-
-    https://static.integration.app/connectors/microsoft-sharepoint/logo-0e34b7f3-b86a-43d8-9cb3-4d9dcf189876.png
-  dataCollectionsCount: 9
-  operationsCount: 2
-  eventsCount: 0
   authType: oauth2

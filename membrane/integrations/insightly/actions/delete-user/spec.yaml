@@ -1,46 +1,49 @@
-revision: 439997d6-2f99-4713-a66b-17810cc30ef5
-isCustomized: false
-parentId: 68887e4a655d7bb8d28c504c
-parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
-integrationId: 68835413e49c6d4c3c9d3130
-integration:
-  key: insightly
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3130
-  name: Insightly
-  uuid: 0abd81be-91bf-4319-ad35-d0e78ebd9935
-  connectorId: 643eedf1badd839bce6a3f71
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/6c9df904-5921-423e-b3e0-64b7729a4889
-  connectorVersion: 1.0.1
-  logoUri: https://static.integration.app/connectors/insightly/logo.png
-  dataCollectionsCount: 11
-  operationsCount: 534
-  eventsCount: 0
-  authType: client-credentials
+id: 688905eaee7f0f245494d72a
+name: Delete User
 key: delete-user
 state: READY
 errors: []
+revision: 439997d6-2f99-4713-a66b-17810cc30ef5
+createdAt: '2025-07-29T17:33:31.088Z'
+updatedAt: '2025-08-05T10:23:48.192Z'
 isDeactivated: false
-id: 688905eaee7f0f245494d72a
-name: Delete User
-type: delete-data-record
+integrationId: 68835413e49c6d4c3c9d3130
+parentId: 68887e4a655d7bb8d28c504c
 inputSchema:
   type: object
   properties:
     id:
       type: string
+type: delete-data-record
 config:
   dataSource:
     key: users
   id:
     $var: $.input.id
   fieldMapping: {}
+parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3130
+  name: Insightly
+  key: insightly
+  uuid: 0abd81be-91bf-4319-ad35-d0e78ebd9935
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.774Z'
+  updatedAt: '2025-07-25T09:53:38.386Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/insightly/logo.png
+  connectorId: 643eedf1badd839bce6a3f71
+  connectorVersion: 1.0.1
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 534
+  hasData: true
+  dataCollectionsCount: 11
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

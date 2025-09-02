@@ -1,37 +1,38 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835424e49c6d4c3c9d3389
 name: Users
+isDeactivated: false
+state: READY
+errors: []
+key: users
 revision: 0f302e31-e660-4535-81a9-a5a04bfa4d55
 integrationId: 68835417e49c6d4c3c9d3176
-customized: false
+isCustomized: false
 universalDataSourceId: 68835424e49c6d4c3c9d32ce
 universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
 collectionKey: users
 udm: users
 defaultPath: /data/users
 integration:
-  key: agile-crm
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835417e49c6d4c3c9d3176
   name: Agile CRM
+  key: agile-crm
   uuid: d6fdf74c-d5bb-4a33-8fe2-fcd56f5c6b60
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:27.884Z'
+  updatedAt: '2025-07-25T09:53:35.067Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/agile-crm/logo.png
   connectorId: 64416311badd839bce41fdeb
+  connectorVersion: 1.0.2
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 15
   hasData: true
+  dataCollectionsCount: 6
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/8c3f8af0-b16c-4d0f-b27d-fc1022d0e078
-  connectorVersion: 1.0.2
-  logoUri: https://static.integration.app/connectors/agile-crm/logo.png
-  dataCollectionsCount: 6
-  operationsCount: 15
-  eventsCount: 0
   authType: client-credentials

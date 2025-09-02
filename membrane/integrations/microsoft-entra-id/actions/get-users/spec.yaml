@@ -1,64 +1,38 @@
-revision: d11f8bb3-1877-4805-a854-5b51600843b4
-isCustomized: false
-parentId: 68835427e49c6d4c3c9d372b
-parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
-integrationId: 68835413e49c6d4c3c9d314f
-integration:
-  key: microsoft-entra-id
-  state: CONFIGURATION_ERROR
-  errors:
-    - message: Integration is missing required parameters
-      type: configuration
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d314f
-  name: Microsoft Entra ID
-  uuid: c4bc775c-f08f-4324-87f6-73f829bfbe09
-  connectorId: 65a59ef6af9ac1360fd6bb8b
-  hasMissingParameters: true
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/cc8b610d-578c-4f59-a43f-c2a1a5f7d356
-  connectorVersion: 1.0.7
-  logoUri: >-
-    https://static.integration.app/connectors/logo-3ca53f03-d8f4-4efd-97ca-df54806ef761.png
-  dataCollectionsCount: 8
-  operationsCount: 1
-  eventsCount: 0
-  authType: oauth2
+id: 68835428e49c6d4c3c9d3803
+name: Get Users
 key: get-users
 state: CONFIGURATION_ERROR
 errors:
-  - message: Integration Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Integration Dependency has error(s)
     data:
       workspaceElementReference:
         type: integration
         id: 68835413e49c6d4c3c9d314f
-  - message: Data Source Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Data Source Dependency has error(s)
     data:
       workspaceElementReference:
         type: data-source
         id: 68835424e49c6d4c3c9d339b
-  - message: Field Mapping Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Field Mapping Dependency has error(s)
     data:
       workspaceElementReference:
         type: field-mapping
         id: 68835425e49c6d4c3c9d3574
+revision: d11f8bb3-1877-4805-a854-5b51600843b4
+createdAt: '2025-07-25T09:53:44.571Z'
+updatedAt: '2025-08-05T10:23:51.078Z'
 isDeactivated: false
-id: 68835428e49c6d4c3c9d3803
-name: Get Users
-type: list-data-records
+integrationId: 68835413e49c6d4c3c9d314f
+parentId: 68835427e49c6d4c3c9d372b
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: users
@@ -67,3 +41,32 @@ config:
   fieldMapping:
     key: users
     includeRawFields: true
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d314f
+  name: Microsoft Entra ID
+  key: microsoft-entra-id
+  uuid: c4bc775c-f08f-4324-87f6-73f829bfbe09
+  state: CONFIGURATION_ERROR
+  errors:
+    - type: configuration
+      message: Integration is missing required parameters
+  createdAt: '2025-07-25T09:53:23.790Z'
+  updatedAt: '2025-07-25T09:53:37.175Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/logo-3ca53f03-d8f4-4efd-97ca-df54806ef761.png
+  connectorId: 65a59ef6af9ac1360fd6bb8b
+  connectorVersion: 1.0.7
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 1
+  hasData: true
+  dataCollectionsCount: 8
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

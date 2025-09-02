@@ -1,43 +1,46 @@
-revision: da6f472e-028d-458e-8467-e89a02a0f884
-isCustomized: false
-parentId: 68887db5f9df280360f1e0c9
-parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
-integrationId: 68835413e49c6d4c3c9d3128
-integration:
-  key: activecampaign
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3128
-  name: ActiveCampaign
-  uuid: df6bee88-0036-431e-9407-78c6f9278eb7
-  connectorId: 6466783960f981f3ce6968ec
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/c65d95f5-120f-4269-a268-d74c8c666a04
-  connectorVersion: 1.0.3
-  logoUri: https://static.integration.app/connectors/activecampaign-connector/logo.png
-  dataCollectionsCount: 20
-  operationsCount: 106
-  eventsCount: 0
-  authType: client-credentials
+id: 688cc9898fa10d3345b1182f
+name: Create User
 key: create-user
 state: READY
 errors: []
+revision: da6f472e-028d-458e-8467-e89a02a0f884
+createdAt: '2025-08-01T14:04:58.000Z'
+updatedAt: '2025-08-05T10:23:45.773Z'
 isDeactivated: false
-id: 688cc9898fa10d3345b1182f
-name: Create User
-type: create-data-record
+integrationId: 68835413e49c6d4c3c9d3128
+parentId: 68887db5f9df280360f1e0c9
 inputSchema:
   type: object
   properties:
     fields:
       type: string
+type: create-data-record
 config:
   fieldMapping: {}
   dataSource: {}
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3128
+  name: ActiveCampaign
+  key: activecampaign
+  uuid: df6bee88-0036-431e-9407-78c6f9278eb7
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.770Z'
+  updatedAt: '2025-07-25T09:53:38.654Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/activecampaign-connector/logo.png
+  connectorId: 6466783960f981f3ce6968ec
+  connectorVersion: 1.0.3
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 106
+  hasData: true
+  dataCollectionsCount: 20
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

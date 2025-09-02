@@ -1,35 +1,15 @@
+id: 6883542ee49c6d4c3c9d4287
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542ee49c6d4c3c9d4287
-name: Receive User Events
 revision: 2d57cb7b-c983-406d-b101-1372dafac541
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.304Z'
+updatedAt: '2025-08-05T10:24:39.116Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3153
-integration:
-  key: zoho-books
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3153
-  name: Zoho Books
-  uuid: ef2e79d8-6660-46f8-9614-17ab80c9887e
-  connectorId: 6430516e986ed1caad7bf9f9
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: false
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/ddc58dc9-d550-4606-9e88-618ffab5a380
-  connectorVersion: 1.0.6
-  logoUri: https://static.integration.app/connectors/zoho-books-connector/logo.png
-  dataCollectionsCount: 21
-  operationsCount: 0
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -129,4 +109,27 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3153
+  name: Zoho Books
+  key: zoho-books
+  uuid: ef2e79d8-6660-46f8-9614-17ab80c9887e
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.792Z'
+  updatedAt: '2025-07-25T09:53:37.890Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/zoho-books-connector/logo.png
+  connectorId: 6430516e986ed1caad7bf9f9
+  connectorVersion: 1.0.6
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  operationsCount: 0
+  hasData: true
+  dataCollectionsCount: 21
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

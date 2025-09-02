@@ -1,35 +1,15 @@
+id: 6883542fe49c6d4c3c9d43de
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542fe49c6d4c3c9d43de
-name: Receive User Events
 revision: 637d1eee-b637-42da-84f1-1e0e4399d565
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.681Z'
+updatedAt: '2025-08-05T10:24:39.596Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3124
-integration:
-  key: outreach
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3124
-  name: Outreach
-  uuid: 6839e171-d1f6-488f-88e9-65e06a949111
-  connectorId: 6466785060f981f3ce69690b
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/b3d312a2-d5f0-4d61-ab2c-8211f30667a6
-  connectorVersion: 1.1.2
-  logoUri: https://static.integration.app/connectors/outreach-connector/logo.png
-  dataCollectionsCount: 14
-  operationsCount: 176
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -129,4 +109,27 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3124
+  name: Outreach
+  key: outreach
+  uuid: 6839e171-d1f6-488f-88e9-65e06a949111
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.768Z'
+  updatedAt: '2025-07-25T09:53:38.183Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/outreach-connector/logo.png
+  connectorId: 6466785060f981f3ce69690b
+  connectorVersion: 1.1.2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 176
+  hasData: true
+  dataCollectionsCount: 14
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

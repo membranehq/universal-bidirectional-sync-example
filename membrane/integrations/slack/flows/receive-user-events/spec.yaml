@@ -1,35 +1,15 @@
+id: 6883542fe49c6d4c3c9d452d
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542fe49c6d4c3c9d452d
-name: Receive User Events
 revision: bc3966ab-16a8-4f84-b4f8-223ac14e348b
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.800Z'
+updatedAt: '2025-08-05T10:24:40.572Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3117
-integration:
-  key: slack
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3117
-  name: Slack
-  uuid: 82293aaf-8ffd-45d0-9215-ed7785452830
-  connectorId: 643084d0986ed1caad854e41
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: true
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/6049f6e1-e0e2-4f8d-bd1b-a52bdd02b4ff
-  connectorVersion: 1.3.0
-  logoUri: https://static.integration.app/connectors/slack/logo.png
-  dataCollectionsCount: 3
-  operationsCount: 246
-  eventsCount: 79
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -129,4 +109,27 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3117
+  name: Slack
+  key: slack
+  uuid: 82293aaf-8ffd-45d0-9215-ed7785452830
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.761Z'
+  updatedAt: '2025-07-25T09:53:29.903Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/slack/logo.png
+  connectorId: 643084d0986ed1caad854e41
+  connectorVersion: 1.3.0
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 246
+  hasData: true
+  dataCollectionsCount: 3
+  hasEvents: true
+  eventsCount: 79
+  hasGlobalWebhooks: true
+  hasUdm: true
+  authType: oauth2

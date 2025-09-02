@@ -1,43 +1,20 @@
-revision: b1351787-e1f8-4b4e-bfdf-76d36f50b366
-isCustomized: false
-parentId: 68835427e49c6d4c3c9d372b
-parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
-integrationId: 68835413e49c6d4c3c9d3120
-integration:
-  key: asana
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3120
-  name: Asana
-  uuid: eb2cc238-0474-4ba8-b379-b99e9ffae9d9
-  connectorId: 6435316c986ed1caad932104
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/69bed91e-2542-4e86-a9e8-82402e473513
-  connectorVersion: 1.0.12
-  logoUri: https://static.integration.app/connectors/asana/logo.png
-  dataCollectionsCount: 6
-  operationsCount: 176
-  eventsCount: 0
-  authType: oauth2
+id: 68835428e49c6d4c3c9d37c6
+name: Get Users
 key: get-users
 state: READY
 errors: []
+revision: b1351787-e1f8-4b4e-bfdf-76d36f50b366
+createdAt: '2025-07-25T09:53:44.555Z'
+updatedAt: '2025-08-05T10:23:50.020Z'
 isDeactivated: false
-id: 68835428e49c6d4c3c9d37c6
-name: Get Users
-type: list-data-records
+integrationId: 68835413e49c6d4c3c9d3120
+parentId: 68835427e49c6d4c3c9d372b
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: users
@@ -46,3 +23,29 @@ config:
   fieldMapping:
     key: users
     includeRawFields: true
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3120
+  name: Asana
+  key: asana
+  uuid: eb2cc238-0474-4ba8-b379-b99e9ffae9d9
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.766Z'
+  updatedAt: '2025-07-25T09:53:35.067Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/asana/logo.png
+  connectorId: 6435316c986ed1caad932104
+  connectorVersion: 1.0.12
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 176
+  hasData: true
+  dataCollectionsCount: 6
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

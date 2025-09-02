@@ -1,43 +1,20 @@
-revision: df4ee181-8c51-438a-b614-3e94e2e030b1
-isCustomized: false
-parentId: 68835427e49c6d4c3c9d372b
-parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
-integrationId: 68835413e49c6d4c3c9d312a
-integration:
-  key: xero
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d312a
-  name: Xero
-  uuid: f1eeaaa6-502c-4933-829e-61631c008058
-  connectorId: 642c613b986ed1caad98172b
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: true
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/f1146f2e-8be6-437a-bde8-1fe7abda8adb
-  connectorVersion: 1.1.5
-  logoUri: https://static.integration.app/connectors/xero-connector/logo.png
-  dataCollectionsCount: 17
-  operationsCount: 234
-  eventsCount: 1
-  authType: oauth2
+id: 68835428e49c6d4c3c9d37cc
+name: Get Users
 key: get-users
 state: READY
 errors: []
+revision: df4ee181-8c51-438a-b614-3e94e2e030b1
+createdAt: '2025-07-25T09:53:44.555Z'
+updatedAt: '2025-08-05T10:23:50.133Z'
 isDeactivated: false
-id: 68835428e49c6d4c3c9d37cc
-name: Get Users
-type: list-data-records
+integrationId: 68835413e49c6d4c3c9d312a
+parentId: 68835427e49c6d4c3c9d372b
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: users
@@ -46,3 +23,29 @@ config:
   fieldMapping:
     key: users
     includeRawFields: true
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d312a
+  name: Xero
+  key: xero
+  uuid: f1eeaaa6-502c-4933-829e-61631c008058
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.771Z'
+  updatedAt: '2025-07-25T09:53:37.960Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/xero-connector/logo.png
+  connectorId: 642c613b986ed1caad98172b
+  connectorVersion: 1.1.5
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 234
+  hasData: true
+  dataCollectionsCount: 17
+  hasEvents: true
+  eventsCount: 1
+  hasGlobalWebhooks: true
+  hasUdm: true
+  authType: oauth2

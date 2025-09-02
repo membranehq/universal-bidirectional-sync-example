@@ -1,38 +1,14 @@
-revision: 57a9b812-5822-4006-80db-06c38d0751bd
-isCustomized: false
-parentId: 6890519a5facd7ec99dbeba1
-parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
-integrationId: 68835413e49c6d4c3c9d3120
-integration:
-  key: asana
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3120
-  name: Asana
-  uuid: eb2cc238-0474-4ba8-b379-b99e9ffae9d9
-  connectorId: 6435316c986ed1caad932104
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/69bed91e-2542-4e86-a9e8-82402e473513
-  connectorVersion: 1.0.12
-  logoUri: https://static.integration.app/connectors/asana/logo.png
-  dataCollectionsCount: 6
-  operationsCount: 176
-  eventsCount: 0
-  authType: oauth2
+id: 68905282ff92d86914347bb6
+name: Update User
 key: update-user
 state: READY
 errors: []
+revision: 57a9b812-5822-4006-80db-06c38d0751bd
+createdAt: '2025-08-04T06:26:13.474Z'
+updatedAt: '2025-08-05T10:23:54.102Z'
 isDeactivated: false
-id: 68905282ff92d86914347bb6
-name: Update User
-type: update-data-record
+integrationId: 68835413e49c6d4c3c9d3120
+parentId: 6890519a5facd7ec99dbeba1
 inputSchema:
   type: object
   properties:
@@ -40,6 +16,7 @@ inputSchema:
       type: string
     fields:
       type: string
+type: update-data-record
 config:
   dataSource:
     key: users
@@ -55,3 +32,29 @@ config:
         $var: $.input.primaryEmail
       gid:
         $var: $.input.id
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3120
+  name: Asana
+  key: asana
+  uuid: eb2cc238-0474-4ba8-b379-b99e9ffae9d9
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.766Z'
+  updatedAt: '2025-07-25T09:53:35.067Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/asana/logo.png
+  connectorId: 6435316c986ed1caad932104
+  connectorVersion: 1.0.12
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 176
+  hasData: true
+  dataCollectionsCount: 6
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

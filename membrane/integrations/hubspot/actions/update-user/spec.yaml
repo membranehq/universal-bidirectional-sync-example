@@ -1,38 +1,14 @@
-revision: f8c44354-4a40-4fb7-8404-058a28c7c213
-isCustomized: false
-parentId: 6890519a5facd7ec99dbeba1
-parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
-integrationId: 68835413e49c6d4c3c9d3122
-integration:
-  key: hubspot
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3122
-  name: HubSpot
-  uuid: 7527f7ea-f8dd-49fa-b3ac-6cbe670cf27d
-  connectorId: 62471fad996d5c297ae43f5f
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: true
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/f6b94b97-3600-4e2e-9776-439aebf3b5e0
-  connectorVersion: 1.7.0
-  logoUri: https://static.integration.app/connectors/hubspot/logo.png
-  dataCollectionsCount: 32
-  operationsCount: 646
-  eventsCount: 37
-  authType: oauth2
+id: 68905282ff92d86914347bc8
+name: Update User
 key: update-user
 state: READY
 errors: []
+revision: f8c44354-4a40-4fb7-8404-058a28c7c213
+createdAt: '2025-08-04T06:26:10.973Z'
+updatedAt: '2025-08-05T10:23:56.369Z'
 isDeactivated: false
-id: 68905282ff92d86914347bc8
-name: Update User
-type: update-data-record
+integrationId: 68835413e49c6d4c3c9d3122
+parentId: 6890519a5facd7ec99dbeba1
 inputSchema:
   type: object
   properties:
@@ -40,6 +16,7 @@ inputSchema:
       type: string
     fields:
       type: string
+type: update-data-record
 config:
   dataSource:
     key: users
@@ -61,3 +38,29 @@ config:
         $var: $.input.updatedTime
       id:
         $var: $.input.id
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3122
+  name: HubSpot
+  key: hubspot
+  uuid: 7527f7ea-f8dd-49fa-b3ac-6cbe670cf27d
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.767Z'
+  updatedAt: '2025-07-26T14:14:48.557Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/hubspot/logo.png
+  connectorId: 62471fad996d5c297ae43f5f
+  connectorVersion: 1.7.0
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 646
+  hasData: true
+  dataCollectionsCount: 32
+  hasEvents: true
+  eventsCount: 37
+  hasGlobalWebhooks: true
+  hasUdm: true
+  authType: oauth2

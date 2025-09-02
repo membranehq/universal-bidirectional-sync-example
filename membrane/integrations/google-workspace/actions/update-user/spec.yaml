@@ -1,53 +1,26 @@
-revision: cb57e990-04c9-4788-8503-d7b458871d3d
-isCustomized: false
-parentId: 6890519a5facd7ec99dbeba1
-parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
-integrationId: 68835413e49c6d4c3c9d315b
-integration:
-  key: google-workspace
-  state: CONFIGURATION_ERROR
-  errors:
-    - message: Integration is missing required parameters
-      type: configuration
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d315b
-  name: Google Workspace
-  uuid: d7db7e59-d7a6-4442-8b87-2e758a996cd8
-  connectorId: 65a59ef5af9ac1360fd6bac6
-  hasMissingParameters: true
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/ee8d1cee-bc8d-41e0-ac7b-97fe460bffad
-  connectorVersion: 1.0.6
-  logoUri: >-
-    https://static.integration.app/connectors/google-workspace/asset-90bc7f74-9c90-451e-9112-fa161ba6d554.png
-  dataCollectionsCount: 2
-  operationsCount: 123
-  eventsCount: 0
-  authType: oauth2
+id: 68905282ff92d86914347bc4
+name: Update User
 key: update-user
 state: CONFIGURATION_ERROR
 errors:
-  - message: Integration Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Integration Dependency has error(s)
     data:
       workspaceElementReference:
         type: integration
         id: 68835413e49c6d4c3c9d315b
-  - message: Data Source Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Data Source Dependency has error(s)
     data:
       workspaceElementReference:
         type: data-source
         id: 68835424e49c6d4c3c9d3399
+revision: cb57e990-04c9-4788-8503-d7b458871d3d
+createdAt: '2025-08-04T06:26:13.581Z'
+updatedAt: '2025-08-05T10:23:56.035Z'
 isDeactivated: false
-id: 68905282ff92d86914347bc4
-name: Update User
-type: update-data-record
+integrationId: 68835413e49c6d4c3c9d315b
+parentId: 6890519a5facd7ec99dbeba1
 inputSchema:
   type: object
   properties:
@@ -55,6 +28,7 @@ inputSchema:
       type: string
     fields:
       type: string
+type: update-data-record
 config:
   dataSource:
     key: users
@@ -83,3 +57,32 @@ config:
             address:
               $var: $.item.value
             primary: false
+parentRevision: 55ba100b-db1e-478b-b5c6-0a2bb33093cb
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d315b
+  name: Google Workspace
+  key: google-workspace
+  uuid: d7db7e59-d7a6-4442-8b87-2e758a996cd8
+  state: CONFIGURATION_ERROR
+  errors:
+    - type: configuration
+      message: Integration is missing required parameters
+  createdAt: '2025-07-25T09:53:23.868Z'
+  updatedAt: '2025-07-25T09:53:34.063Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/google-workspace/asset-90bc7f74-9c90-451e-9112-fa161ba6d554.png
+  connectorId: 65a59ef5af9ac1360fd6bac6
+  connectorVersion: 1.0.6
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 123
+  hasData: true
+  dataCollectionsCount: 2
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

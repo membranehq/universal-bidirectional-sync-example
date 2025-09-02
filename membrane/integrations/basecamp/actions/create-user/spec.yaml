@@ -1,43 +1,46 @@
-revision: 73489fec-128b-4418-9c93-5a88fcef261f
-isCustomized: false
-parentId: 68887db5f9df280360f1e0c9
-parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
-integrationId: 68835413e49c6d4c3c9d3147
-integration:
-  key: basecamp
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3147
-  name: Basecamp
-  uuid: 02cf56ba-9aba-4c6e-ac4c-a334e1f159e1
-  connectorId: 645d2220edb0b5ee6c0ded14
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/61fa6494-3dd6-4c06-bcdd-6b5465063326
-  connectorVersion: 1.0.5
-  logoUri: https://static.integration.app/connectors/basecamp/logo.png
-  dataCollectionsCount: 8
-  operationsCount: 189
-  eventsCount: 0
-  authType: oauth2
+id: 688cc9898fa10d3345b1182b
+name: Create User
 key: create-user
 state: READY
 errors: []
+revision: 73489fec-128b-4418-9c93-5a88fcef261f
+createdAt: '2025-08-01T14:04:58.013Z'
+updatedAt: '2025-08-05T10:23:45.473Z'
 isDeactivated: false
-id: 688cc9898fa10d3345b1182b
-name: Create User
-type: create-data-record
+integrationId: 68835413e49c6d4c3c9d3147
+parentId: 68887db5f9df280360f1e0c9
 inputSchema:
   type: object
   properties:
     fields:
       type: string
+type: create-data-record
 config:
   fieldMapping: {}
   dataSource: {}
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3147
+  name: Basecamp
+  key: basecamp
+  uuid: 02cf56ba-9aba-4c6e-ac4c-a334e1f159e1
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.786Z'
+  updatedAt: '2025-07-25T09:53:36.977Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/basecamp/logo.png
+  connectorId: 645d2220edb0b5ee6c0ded14
+  connectorVersion: 1.0.5
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 189
+  hasData: true
+  dataCollectionsCount: 8
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

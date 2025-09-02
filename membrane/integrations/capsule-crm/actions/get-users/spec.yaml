@@ -1,43 +1,20 @@
-revision: 5759eb1c-baf7-4236-a3f7-4a798fb15900
-isCustomized: false
-parentId: 68835427e49c6d4c3c9d372b
-parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
-integrationId: 68835413e49c6d4c3c9d311d
-integration:
-  key: capsule-crm
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d311d
-  name: Capsule CRM
-  uuid: 93a055fe-e74b-487f-837f-ecf6756a50ef
-  connectorId: 640734343685521f9f0c9fe7
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/e9d9caaa-e654-48f2-8cbd-ac941aa9f41f
-  connectorVersion: 1.1.1
-  logoUri: https://static.integration.app/connectors/capsule-crm/logo.png
-  dataCollectionsCount: 7
-  operationsCount: 10
-  eventsCount: 0
-  authType: oauth2
+id: 68835428e49c6d4c3c9d37d0
+name: Get Users
 key: get-users
 state: READY
 errors: []
+revision: 5759eb1c-baf7-4236-a3f7-4a798fb15900
+createdAt: '2025-07-25T09:53:44.774Z'
+updatedAt: '2025-08-05T10:23:50.227Z'
 isDeactivated: false
-id: 68835428e49c6d4c3c9d37d0
-name: Get Users
-type: list-data-records
+integrationId: 68835413e49c6d4c3c9d311d
+parentId: 68835427e49c6d4c3c9d372b
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: users
@@ -46,3 +23,29 @@ config:
   fieldMapping:
     key: users
     includeRawFields: true
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d311d
+  name: Capsule CRM
+  key: capsule-crm
+  uuid: 93a055fe-e74b-487f-837f-ecf6756a50ef
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.764Z'
+  updatedAt: '2025-07-25T09:53:36.497Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/capsule-crm/logo.png
+  connectorId: 640734343685521f9f0c9fe7
+  connectorVersion: 1.1.1
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 10
+  hasData: true
+  dataCollectionsCount: 7
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

@@ -1,36 +1,15 @@
+id: 68834d76ef496baf09c0aba4
+name: Send File Events
 key: send-file-events
 state: READY
 errors: []
-isDeactivated: false
-id: 68834d76ef496baf09c0aba4
-name: Send File Events
 revision: 2ff15695-5ab9-4694-b548-31b3adbfa1bd
-universalFlowId: 68834d75ef496baf09c0aa67
+createdAt: '2025-07-25T09:25:10.890Z'
+updatedAt: '2025-08-05T10:24:15.553Z'
+isDeactivated: false
 integrationId: 68834d71ef496baf09c0a90d
-integration:
-  key: aws-s3
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68834d71ef496baf09c0a90d
-  name: AWS S3
-  uuid: ca705236-f053-4269-8999-fa70272a5e64
-  connectorId: 663130fe0420db525b9bd67a
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: false
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/7f4c09df-a607-4ecc-a52c-65f74b4c9715
-  connectorVersion: 1.0.4
-  logoUri: >-
-    https://static.integration.app/connectors/aws-s3/asset-b007866c-ff18-41b9-8c5f-e83fdcd46be9.png
-  dataCollectionsCount: 2
-  operationsCount: 0
-  eventsCount: 0
-  authType: client-credentials
+isCustomized: false
+universalFlowId: 68834d75ef496baf09c0aa67
 universalFlowRevision: eb0ea9f9-08c3-485a-95f4-0b94cf74d318
 nodes:
   app-event-trigger:
@@ -41,23 +20,23 @@ nodes:
         key: file-event
     links:
       - key: create-data-record
-        name: File created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: File created
       - key: delete-data-record
-        name: File deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: File deleted
       - key: update-data-record
-        name: File updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: File updated
   create-data-record:
     type: create-data-record
     name: Create File
@@ -103,4 +82,28 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68834d71ef496baf09c0a90d
+  name: AWS S3
+  key: aws-s3
+  uuid: ca705236-f053-4269-8999-fa70272a5e64
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:25:05.358Z'
+  updatedAt: '2025-07-25T09:25:07.176Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/aws-s3/asset-b007866c-ff18-41b9-8c5f-e83fdcd46be9.png
+  connectorId: 663130fe0420db525b9bd67a
+  connectorVersion: 1.0.4
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  operationsCount: 0
+  hasData: true
+  dataCollectionsCount: 2
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

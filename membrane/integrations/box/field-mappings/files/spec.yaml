@@ -1,4 +1,6 @@
-key: files
+id: 68834d75ef496baf09c0a9c1
+name: Files
+isDeactivated: false
 state: CONFIGURATION_ERROR
 errors:
   - message: Integration Dependency has error(s)
@@ -13,10 +15,8 @@ errors:
       workspaceElementReference:
         type: data-source
         id: 68834d75ef496baf09c0a96a
-isDeactivated: false
-id: 68834d75ef496baf09c0a9c1
-name: Files
-customized: false
+key: files
+isCustomized: false
 revision: f1beec2b-b210-4640-9c16-da90ab8a8454
 universalFieldMappingId: 68834d75ef496baf09c0a99e
 universalFieldMappingRevision: 886948ed-fa85-4d74-8146-6efa91a4a129
@@ -82,27 +82,28 @@ importValue:
   updatedBy:
     $var: $.modified_by.id
 integration:
-  key: box
-  state: CONFIGURATION_ERROR
-  errors:
-    - message: Integration is missing required parameters
-      type: configuration
-  isDeactivated: false
   id: 68834d71ef496baf09c0a8ff
   name: Box
+  key: box
   uuid: aa6c7494-3fb4-44c9-8668-b1075ed2c2a8
+  state: CONFIGURATION_ERROR
+  errors:
+    - type: configuration
+      message: Integration is missing required parameters
+  createdAt: '2025-07-25T09:25:05.334Z'
+  updatedAt: '2025-07-25T09:25:07.372Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/box/logo.png
   connectorId: 6466783c60f981f3ce6968ef
+  connectorVersion: 2.2.2
   hasMissingParameters: true
   hasDocumentation: true
   hasOperations: true
+  operationsCount: 264
   hasData: true
+  dataCollectionsCount: 6
   hasEvents: true
+  eventsCount: 1
   hasGlobalWebhooks: true
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/ccc997a3-9504-439c-930d-054a03172fc2
-  connectorVersion: 2.2.2
-  logoUri: https://static.integration.app/connectors/box/logo.png
-  dataCollectionsCount: 6
-  operationsCount: 264
-  eventsCount: 1
   authType: oauth2

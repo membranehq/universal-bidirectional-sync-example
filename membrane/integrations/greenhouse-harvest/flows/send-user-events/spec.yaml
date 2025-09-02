@@ -1,36 +1,15 @@
+id: 6883542ee49c6d4c3c9d42fb
+name: Send User Events
 key: send-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542ee49c6d4c3c9d42fb
-name: Send User Events
 revision: cbddb8fd-0ac8-4f43-9ff4-88222eba91ea
-universalFlowId: 68835428e49c6d4c3c9d397c
+createdAt: '2025-07-25T09:53:52.481Z'
+updatedAt: '2025-08-05T10:24:17.347Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3151
-integration:
-  key: greenhouse-harvest
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3151
-  name: Greenhouse Harvest
-  uuid: 3ede0864-2b68-4c1d-9073-9f36268e9386
-  connectorId: 65c3755eda65a37b19898497
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/c82fb5f1-310e-442d-8d69-a47b7d7da888
-  connectorVersion: 1.0.2
-  logoUri: >-
-    https://static.integration.app/connectors/greenhouse-harvest/logo-39d42c52-496c-48b3-89ec-cb588f6ec0f2.png
-  dataCollectionsCount: 15
-  operationsCount: 129
-  eventsCount: 0
-  authType: client-credentials
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d397c
 universalFlowRevision: 7cd726db-f478-4538-b231-ed195e1ff008
 nodes:
   app-event-trigger:
@@ -41,23 +20,23 @@ nodes:
         key: user-event
     links:
       - key: create-data-record
-        name: User created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: User created
       - key: delete-data-record
-        name: User deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: User deleted
       - key: update-data-record
-        name: User updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: User updated
   create-data-record:
     type: create-data-record
     name: Create User
@@ -103,4 +82,28 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3151
+  name: Greenhouse Harvest
+  key: greenhouse-harvest
+  uuid: 3ede0864-2b68-4c1d-9073-9f36268e9386
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.791Z'
+  updatedAt: '2025-07-25T09:53:37.960Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/greenhouse-harvest/logo-39d42c52-496c-48b3-89ec-cb588f6ec0f2.png
+  connectorId: 65c3755eda65a37b19898497
+  connectorVersion: 1.0.2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 129
+  hasData: true
+  dataCollectionsCount: 15
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

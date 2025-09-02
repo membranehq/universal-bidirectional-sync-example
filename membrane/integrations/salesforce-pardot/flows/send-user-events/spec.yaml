@@ -1,35 +1,15 @@
+id: 6883542de49c6d4c3c9d404e
+name: Send User Events
 key: send-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542de49c6d4c3c9d404e
-name: Send User Events
 revision: f98d23bd-254e-4f2b-88ac-b72730e722e5
-universalFlowId: 68835428e49c6d4c3c9d397c
+createdAt: '2025-07-25T09:53:51.286Z'
+updatedAt: '2025-08-05T10:24:16.453Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3115
-integration:
-  key: salesforce-pardot
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3115
-  name: SalesForce Pardot
-  uuid: 541d9ad0-89ae-4bbb-b4bc-67c802e2e1a3
-  connectorId: 63a3723bad7bd4eb80db61e0
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/138a57cc-bb7e-466a-8aa6-370053d1327b
-  connectorVersion: 1.0.5
-  logoUri: https://static.integration.app/connectors/salesforce-pardot/logo.png
-  dataCollectionsCount: 12
-  operationsCount: 84
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d397c
 universalFlowRevision: 7cd726db-f478-4538-b231-ed195e1ff008
 nodes:
   app-event-trigger:
@@ -40,23 +20,23 @@ nodes:
         key: user-event
     links:
       - key: create-data-record
-        name: User created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: User created
       - key: delete-data-record
-        name: User deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: User deleted
       - key: update-data-record
-        name: User updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: User updated
   create-data-record:
     type: create-data-record
     name: Create User
@@ -102,4 +82,27 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3115
+  name: SalesForce Pardot
+  key: salesforce-pardot
+  uuid: 541d9ad0-89ae-4bbb-b4bc-67c802e2e1a3
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.759Z'
+  updatedAt: '2025-07-25T09:53:36.497Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/salesforce-pardot/logo.png
+  connectorId: 63a3723bad7bd4eb80db61e0
+  connectorVersion: 1.0.5
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 84
+  hasData: true
+  dataCollectionsCount: 12
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

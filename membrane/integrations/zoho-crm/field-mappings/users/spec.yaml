@@ -1,10 +1,10 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835425e49c6d4c3c9d352c
 name: Users
-customized: false
+isDeactivated: false
+state: READY
+errors: []
+key: users
+isCustomized: false
 revision: 02cc3dfd-bdf6-44d4-b2fb-44b3ed756466
 universalFieldMappingId: 68835425e49c6d4c3c9d34a3
 universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
@@ -76,25 +76,26 @@ importValue:
     - value:
         $var: $.email
 integration:
-  key: zoho-crm
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d310c
   name: Zoho CRM
+  key: zoho-crm
   uuid: df807ac4-bf95-4745-b48c-214fb931cc41
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.702Z'
+  updatedAt: '2025-07-25T09:53:27.010Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/zoho-crm/logo.png
   connectorId: 64a158e7d2605720d232e07b
+  connectorVersion: 2.2.0
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 569
   hasData: true
+  dataCollectionsCount: 20
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/55c35625-992f-4a0b-8c11-b9522d23d94a
-  connectorVersion: 2.2.0
-  logoUri: https://static.integration.app/connectors/zoho-crm/logo.png
-  dataCollectionsCount: 20
-  operationsCount: 569
-  eventsCount: 0
   authType: oauth2

@@ -1,55 +1,33 @@
+id: 6883542fe49c6d4c3c9d43dc
+name: Receive User Events
 key: receive-user-events
 state: CONFIGURATION_ERROR
 errors:
-  - message: Integration Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Integration Dependency has error(s)
     data:
       workspaceElementReference:
         type: integration
         id: 68835413e49c6d4c3c9d314d
-  - message: Data Source Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Data Source Dependency has error(s)
     data:
       workspaceElementReference:
         type: data-source
         id: 68835424e49c6d4c3c9d3397
-  - message: Field Mapping Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Field Mapping Dependency has error(s)
     data:
       workspaceElementReference:
         type: field-mapping
         id: 68835425e49c6d4c3c9d3558
-isDeactivated: false
-id: 6883542fe49c6d4c3c9d43dc
-name: Receive User Events
 revision: aee2e56b-4e0d-479c-a43b-9a191051d54a
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.681Z'
+updatedAt: '2025-08-05T10:24:39.541Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d314d
-integration:
-  key: lever
-  state: CONFIGURATION_ERROR
-  errors:
-    - message: Integration is missing required parameters
-      type: configuration
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d314d
-  name: Lever
-  uuid: 15653d4b-08f3-4a71-b74a-43eb00919fe8
-  connectorId: 6466784c60f981f3ce696903
-  hasMissingParameters: true
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/2e111cbc-2e3c-424d-94bc-1204bcdb57f0
-  connectorVersion: 1.0.2
-  logoUri: https://static.integration.app/connectors/lever/logohq.png
-  dataCollectionsCount: 12
-  operationsCount: 68
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -149,4 +127,29 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d314d
+  name: Lever
+  key: lever
+  uuid: 15653d4b-08f3-4a71-b74a-43eb00919fe8
+  state: CONFIGURATION_ERROR
+  errors:
+    - type: configuration
+      message: Integration is missing required parameters
+  createdAt: '2025-07-25T09:53:23.789Z'
+  updatedAt: '2025-07-25T09:53:36.977Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/lever/logohq.png
+  connectorId: 6466784c60f981f3ce696903
+  connectorVersion: 1.0.2
+  hasMissingParameters: true
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 68
+  hasData: true
+  dataCollectionsCount: 12
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

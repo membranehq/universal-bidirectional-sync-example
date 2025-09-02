@@ -1,37 +1,38 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835424e49c6d4c3c9d334d
 name: Users
+isDeactivated: false
+state: READY
+errors: []
+key: users
 revision: 4d8a92b3-6fd8-499b-9983-e0d5f9edcc95
 integrationId: 68835413e49c6d4c3c9d3122
-customized: false
+isCustomized: false
 universalDataSourceId: 68835424e49c6d4c3c9d32ce
 universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
 collectionKey: owners
 udm: users
 defaultPath: /data/owners
 integration:
-  key: hubspot
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d3122
   name: HubSpot
+  key: hubspot
   uuid: 7527f7ea-f8dd-49fa-b3ac-6cbe670cf27d
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.767Z'
+  updatedAt: '2025-07-26T14:14:48.557Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/hubspot/logo.png
   connectorId: 62471fad996d5c297ae43f5f
+  connectorVersion: 1.7.0
   hasMissingParameters: false
   hasDocumentation: true
   hasOperations: true
+  operationsCount: 646
   hasData: true
+  dataCollectionsCount: 32
   hasEvents: true
+  eventsCount: 37
   hasGlobalWebhooks: true
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/f6b94b97-3600-4e2e-9776-439aebf3b5e0
-  connectorVersion: 1.7.0
-  logoUri: https://static.integration.app/connectors/hubspot/logo.png
-  dataCollectionsCount: 32
-  operationsCount: 646
-  eventsCount: 37
   authType: oauth2

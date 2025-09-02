@@ -1,43 +1,46 @@
-revision: 1eb4c1a7-2cf4-4022-a40b-7ef71bc855e5
-isCustomized: false
-parentId: 68887db5f9df280360f1e0c9
-parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
-integrationId: 68835417e49c6d4c3c9d316e
-integration:
-  key: notion
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835417e49c6d4c3c9d316e
-  name: Notion
-  uuid: facb0913-cf42-4d64-9052-68f47243a8b7
-  connectorId: 64382789986ed1caad42e561
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: true
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/79a798cd-e849-4d99-9485-6593f8db0ce0
-  connectorVersion: 1.3.2
-  logoUri: https://static.integration.app/connectors/notion/logo.png
-  dataCollectionsCount: 4
-  operationsCount: 20
-  eventsCount: 18
-  authType: oauth2
+id: 688cc9898fa10d3345b1185d
+name: Create User
 key: create-user
 state: READY
 errors: []
+revision: 1eb4c1a7-2cf4-4022-a40b-7ef71bc855e5
+createdAt: '2025-08-01T14:04:58.067Z'
+updatedAt: '2025-08-05T10:23:46.527Z'
 isDeactivated: false
-id: 688cc9898fa10d3345b1185d
-name: Create User
-type: create-data-record
+integrationId: 68835417e49c6d4c3c9d316e
+parentId: 68887db5f9df280360f1e0c9
 inputSchema:
   type: object
   properties:
     fields:
       type: string
+type: create-data-record
 config:
   fieldMapping: {}
   dataSource: {}
+parentRevision: f367ebc9-302d-4388-a73a-ac45c79b67df
+isCustomized: false
+integration:
+  id: 68835417e49c6d4c3c9d316e
+  name: Notion
+  key: notion
+  uuid: facb0913-cf42-4d64-9052-68f47243a8b7
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:27.186Z'
+  updatedAt: '2025-07-25T09:53:36.977Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/notion/logo.png
+  connectorId: 64382789986ed1caad42e561
+  connectorVersion: 1.3.2
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 20
+  hasData: true
+  dataCollectionsCount: 4
+  hasEvents: true
+  eventsCount: 18
+  hasGlobalWebhooks: true
+  hasUdm: true
+  authType: oauth2

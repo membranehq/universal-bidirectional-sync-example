@@ -1,10 +1,10 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835425e49c6d4c3c9d3566
 name: Users
-customized: false
+isDeactivated: false
+state: READY
+errors: []
+key: users
+isCustomized: false
 revision: e554bcbd-253d-44bc-953c-d581b4eb0ed3
 universalFieldMappingId: 68835425e49c6d4c3c9d34a3
 universalFieldMappingRevision: 6eef7b88-5f14-4209-b763-eddc2e0a7170
@@ -71,25 +71,26 @@ importValue:
     - value:
         $var: $.email
 integration:
-  key: teamleader
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d312e
   name: Teamleader
+  key: teamleader
   uuid: 7bd8eabb-0159-43b7-9108-03bbac8965ff
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.773Z'
+  updatedAt: '2025-07-25T09:53:35.067Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/teamleader/logo.png
   connectorId: 64417517badd839bce44c5df
+  connectorVersion: 0.1.0
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 225
   hasData: true
+  dataCollectionsCount: 7
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/3ffe3fb5-9388-4ab8-a8e8-e01ae4781100
-  connectorVersion: 0.1.0
-  logoUri: https://static.integration.app/connectors/teamleader/logo.png
-  dataCollectionsCount: 7
-  operationsCount: 225
-  eventsCount: 0
   authType: oauth2

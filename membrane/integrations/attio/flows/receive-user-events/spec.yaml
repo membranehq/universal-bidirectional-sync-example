@@ -1,36 +1,15 @@
+id: 6883542fe49c6d4c3c9d4408
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542fe49c6d4c3c9d4408
-name: Receive User Events
 revision: 31488b85-d0b1-478a-a0cd-e82c1b242ca3
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.681Z'
+updatedAt: '2025-08-05T10:24:40.219Z'
+isDeactivated: false
 integrationId: 68835417e49c6d4c3c9d3174
-integration:
-  key: attio
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835417e49c6d4c3c9d3174
-  name: Attio
-  uuid: 0640c7fa-d148-487d-8368-e4fc5e861a90
-  connectorId: 655caef6a9e1827bf4d915ca
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/1472e44e-fc24-41b5-8aaa-ce64eb7857b0
-  connectorVersion: 1.2.5
-  logoUri: >-
-    https://static.integration.app/connectors/attio-connector/logo-8f5adba3-1d05-4e42-a0f7-1db76c841e5f.png
-  dataCollectionsCount: 16
-  operationsCount: 98
-  eventsCount: 1
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -130,4 +109,28 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835417e49c6d4c3c9d3174
+  name: Attio
+  key: attio
+  uuid: 0640c7fa-d148-487d-8368-e4fc5e861a90
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:27.883Z'
+  updatedAt: '2025-07-25T09:53:37.767Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/attio-connector/logo-8f5adba3-1d05-4e42-a0f7-1db76c841e5f.png
+  connectorId: 655caef6a9e1827bf4d915ca
+  connectorVersion: 1.2.5
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 98
+  hasData: true
+  dataCollectionsCount: 16
+  hasEvents: true
+  eventsCount: 1
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

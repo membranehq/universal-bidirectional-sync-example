@@ -1,43 +1,20 @@
-revision: e21f4f68-e1c5-43da-9ca1-53e6f7da1bf0
-isCustomized: false
-parentId: 68835427e49c6d4c3c9d372b
-parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
-integrationId: 68835413e49c6d4c3c9d3119
-integration:
-  key: jira
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3119
-  name: Jira
-  uuid: 5efcb1d6-7b41-40e8-bde9-c8cf3e9c83c3
-  connectorId: 64343d08986ed1caad5b3aa7
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/f4bc8dfd-af63-4dda-a7b3-60d67dd5c9f6
-  connectorVersion: 1.4.13
-  logoUri: https://static.integration.app/connectors/jira/logo.png
-  dataCollectionsCount: 12
-  operationsCount: 499
-  eventsCount: 0
-  authType: oauth2
+id: 68835428e49c6d4c3c9d37c4
+name: Get Users
 key: get-users
 state: READY
 errors: []
+revision: e21f4f68-e1c5-43da-9ca1-53e6f7da1bf0
+createdAt: '2025-07-25T09:53:44.555Z'
+updatedAt: '2025-08-05T10:23:49.982Z'
 isDeactivated: false
-id: 68835428e49c6d4c3c9d37c4
-name: Get Users
-type: list-data-records
+integrationId: 68835413e49c6d4c3c9d3119
+parentId: 68835427e49c6d4c3c9d372b
 inputSchema:
   type: object
   properties:
     cursor:
       type: string
+type: list-data-records
 config:
   dataSource:
     key: users
@@ -46,3 +23,29 @@ config:
   fieldMapping:
     key: users
     includeRawFields: true
+parentRevision: 1176224b-2cd6-41f3-a512-7aef65cb3a16
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d3119
+  name: Jira
+  key: jira
+  uuid: 5efcb1d6-7b41-40e8-bde9-c8cf3e9c83c3
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.762Z'
+  updatedAt: '2025-07-25T09:53:34.874Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/jira/logo.png
+  connectorId: 64343d08986ed1caad5b3aa7
+  connectorVersion: 1.4.13
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 499
+  hasData: true
+  dataCollectionsCount: 12
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

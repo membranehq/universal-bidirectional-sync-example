@@ -1,36 +1,15 @@
+id: 6883542de49c6d4c3c9d4067
+name: Send User Events
 key: send-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542de49c6d4c3c9d4067
-name: Send User Events
 revision: 6ed6e0ca-231b-4d99-989e-521eb9a4ba44
-universalFlowId: 68835428e49c6d4c3c9d397c
+createdAt: '2025-07-25T09:53:51.464Z'
+updatedAt: '2025-08-05T10:24:16.913Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3149
-integration:
-  key: okta
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3149
-  name: Okta
-  uuid: cfea79e9-15ba-45ca-a6cd-7b0d01800f98
-  connectorId: 65a59ef7af9ac1360fd6bbd2
-  hasMissingParameters: false
-  hasDocumentation: false
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/65827a85-48cf-4ccc-8e40-d26d926cdb3a
-  connectorVersion: 1.0.2
-  logoUri: >-
-    https://static.integration.app/connectors/logo-0b09cb02-5978-4c94-b3e4-b92964a36bcb.png
-  dataCollectionsCount: 4
-  operationsCount: 340
-  eventsCount: 0
-  authType: client-credentials
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d397c
 universalFlowRevision: 7cd726db-f478-4538-b231-ed195e1ff008
 nodes:
   app-event-trigger:
@@ -41,23 +20,23 @@ nodes:
         key: user-event
     links:
       - key: create-data-record
-        name: User created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: User created
       - key: delete-data-record
-        name: User deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: User deleted
       - key: update-data-record
-        name: User updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: User updated
   create-data-record:
     type: create-data-record
     name: Create User
@@ -103,4 +82,28 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3149
+  name: Okta
+  key: okta
+  uuid: cfea79e9-15ba-45ca-a6cd-7b0d01800f98
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.787Z'
+  updatedAt: '2025-07-25T09:53:33.187Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/logo-0b09cb02-5978-4c94-b3e4-b92964a36bcb.png
+  connectorId: 65a59ef7af9ac1360fd6bbd2
+  connectorVersion: 1.0.2
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 340
+  hasData: true
+  dataCollectionsCount: 4
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials

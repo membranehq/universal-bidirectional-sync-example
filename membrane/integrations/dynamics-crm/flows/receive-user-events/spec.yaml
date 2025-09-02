@@ -1,36 +1,15 @@
+id: 6883542fe49c6d4c3c9d430e
+name: Receive User Events
 key: receive-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542fe49c6d4c3c9d430e
-name: Receive User Events
 revision: 6ba00773-4be3-440d-9928-c67d8c57fe59
-universalFlowId: 68835428e49c6d4c3c9d396a
+createdAt: '2025-07-25T09:53:52.581Z'
+updatedAt: '2025-08-05T10:24:39.279Z'
+isDeactivated: false
 integrationId: 68835413e49c6d4c3c9d3106
-integration:
-  key: dynamics-crm
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d3106
-  name: Microsoft Dynamics 365
-  uuid: d865e870-6bb6-4614-9eab-91dfc1a7ea24
-  connectorId: 63151d261d39af2f69364172
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/6ae0689a-97e4-45c7-b004-a858aa4ad805
-  connectorVersion: 1.1.18
-  logoUri: >-
-    https://static.integration.app/connectors/dynamics-crm/asset-9eff3af5-d5f3-4634-b807-edd57ca5a56b.png
-  dataCollectionsCount: 18
-  operationsCount: 1
-  eventsCount: 0
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d396a
 universalFlowRevision: 88fd87ef-1193-4064-aa96-06656b52f0c4
 nodes:
   user-created-trigger:
@@ -130,4 +109,28 @@ nodes:
     links:
       - key: delete-user-in-my-app
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835413e49c6d4c3c9d3106
+  name: Microsoft Dynamics 365
+  key: dynamics-crm
+  uuid: d865e870-6bb6-4614-9eab-91dfc1a7ea24
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.699Z'
+  updatedAt: '2025-07-25T09:53:38.595Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/dynamics-crm/asset-9eff3af5-d5f3-4634-b807-edd57ca5a56b.png
+  connectorId: 63151d261d39af2f69364172
+  connectorVersion: 1.1.18
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 1
+  hasData: true
+  dataCollectionsCount: 18
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

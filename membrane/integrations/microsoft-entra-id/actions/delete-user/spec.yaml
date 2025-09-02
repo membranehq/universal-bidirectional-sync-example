@@ -1,61 +1,64 @@
-revision: a94d27be-46f5-401f-97db-b86af70c0e0f
-isCustomized: false
-parentId: 68887e4a655d7bb8d28c504c
-parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
-integrationId: 68835413e49c6d4c3c9d314f
-integration:
-  key: microsoft-entra-id
-  state: CONFIGURATION_ERROR
-  errors:
-    - message: Integration is missing required parameters
-      type: configuration
-  isDeactivated: false
-  id: 68835413e49c6d4c3c9d314f
-  name: Microsoft Entra ID
-  uuid: c4bc775c-f08f-4324-87f6-73f829bfbe09
-  connectorId: 65a59ef6af9ac1360fd6bb8b
-  hasMissingParameters: true
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: false
-  hasGlobalWebhooks: false
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/cc8b610d-578c-4f59-a43f-c2a1a5f7d356
-  connectorVersion: 1.0.7
-  logoUri: >-
-    https://static.integration.app/connectors/logo-3ca53f03-d8f4-4efd-97ca-df54806ef761.png
-  dataCollectionsCount: 8
-  operationsCount: 1
-  eventsCount: 0
-  authType: oauth2
+id: 688905eaee7f0f245494d732
+name: Delete User
 key: delete-user
 state: CONFIGURATION_ERROR
 errors:
-  - message: Integration Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Integration Dependency has error(s)
     data:
       workspaceElementReference:
         type: integration
         id: 68835413e49c6d4c3c9d314f
-  - message: Data Source Dependency has error(s)
-    type: dependency_error
+  - type: dependency_error
+    message: Data Source Dependency has error(s)
     data:
       workspaceElementReference:
         type: data-source
         id: 68835424e49c6d4c3c9d339b
+revision: a94d27be-46f5-401f-97db-b86af70c0e0f
+createdAt: '2025-07-29T17:33:31.057Z'
+updatedAt: '2025-08-05T10:23:48.352Z'
 isDeactivated: false
-id: 688905eaee7f0f245494d732
-name: Delete User
-type: delete-data-record
+integrationId: 68835413e49c6d4c3c9d314f
+parentId: 68887e4a655d7bb8d28c504c
 inputSchema:
   type: object
   properties:
     id:
       type: string
+type: delete-data-record
 config:
   dataSource:
     key: users
   id:
     $var: $.input.id
   fieldMapping: {}
+parentRevision: e7a1ad2b-c1cb-49c8-aa9e-50580ed3ac9f
+isCustomized: false
+integration:
+  id: 68835413e49c6d4c3c9d314f
+  name: Microsoft Entra ID
+  key: microsoft-entra-id
+  uuid: c4bc775c-f08f-4324-87f6-73f829bfbe09
+  state: CONFIGURATION_ERROR
+  errors:
+    - type: configuration
+      message: Integration is missing required parameters
+  createdAt: '2025-07-25T09:53:23.790Z'
+  updatedAt: '2025-07-25T09:53:37.175Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/logo-3ca53f03-d8f4-4efd-97ca-df54806ef761.png
+  connectorId: 65a59ef6af9ac1360fd6bb8b
+  connectorVersion: 1.0.7
+  hasMissingParameters: true
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 1
+  hasData: true
+  dataCollectionsCount: 8
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2

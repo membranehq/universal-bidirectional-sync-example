@@ -1,10 +1,13 @@
+id: 68834d75ef496baf09c0aa67
+name: Send File Events
 key: send-file-events
 state: READY
 errors: []
-isDeactivated: false
-id: 68834d75ef496baf09c0aa67
-name: Send File Events
 revision: eb0ea9f9-08c3-485a-95f4-0b94cf74d318
+createdAt: '2025-07-25T09:25:10.056Z'
+updatedAt: '2025-08-05T10:23:50.273Z'
+isDeactivated: false
+isCustomized: true
 nodes:
   app-event-trigger:
     type: app-event-trigger
@@ -14,23 +17,23 @@ nodes:
         key: file-event
     links:
       - key: create-data-record
-        name: File created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: File created
       - key: delete-data-record
-        name: File deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: File deleted
       - key: update-data-record
-        name: File updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: File updated
   create-data-record:
     type: create-data-record
     name: Create File
@@ -75,4 +78,3 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: true

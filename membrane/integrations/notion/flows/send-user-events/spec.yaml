@@ -1,35 +1,15 @@
+id: 6883542ee49c6d4c3c9d4289
+name: Send User Events
 key: send-user-events
 state: READY
 errors: []
-isDeactivated: false
-id: 6883542ee49c6d4c3c9d4289
-name: Send User Events
 revision: d9428d43-aa69-4b91-8618-98d5e20f70c7
-universalFlowId: 68835428e49c6d4c3c9d397c
+createdAt: '2025-07-25T09:53:52.304Z'
+updatedAt: '2025-08-05T10:24:17.304Z'
+isDeactivated: false
 integrationId: 68835417e49c6d4c3c9d316e
-integration:
-  key: notion
-  state: READY
-  errors: []
-  isDeactivated: false
-  id: 68835417e49c6d4c3c9d316e
-  name: Notion
-  uuid: facb0913-cf42-4d64-9052-68f47243a8b7
-  connectorId: 64382789986ed1caad42e561
-  hasMissingParameters: false
-  hasDocumentation: true
-  hasOperations: true
-  hasData: true
-  hasEvents: true
-  hasGlobalWebhooks: true
-  hasUdm: true
-  baseUri: s3://integration-app-connectors/public/79a798cd-e849-4d99-9485-6593f8db0ce0
-  connectorVersion: 1.3.2
-  logoUri: https://static.integration.app/connectors/notion/logo.png
-  dataCollectionsCount: 4
-  operationsCount: 20
-  eventsCount: 18
-  authType: oauth2
+isCustomized: false
+universalFlowId: 68835428e49c6d4c3c9d397c
 universalFlowRevision: 7cd726db-f478-4538-b231-ed195e1ff008
 nodes:
   app-event-trigger:
@@ -40,23 +20,23 @@ nodes:
         key: user-event
     links:
       - key: create-data-record
-        name: User created
         filter:
           $eval:
             $var: $.output.type
           is: created
+        name: User created
       - key: delete-data-record
-        name: User deleted
         filter:
           $eval:
             $var: $.output.type
           is: deleted
+        name: User deleted
       - key: update-data-record
-        name: User updated
         filter:
           $eval:
             $var: $.output.type
           is: updated
+        name: User updated
   create-data-record:
     type: create-data-record
     name: Create User
@@ -102,4 +82,27 @@ nodes:
             $var: $.input.create-data-record.id
     links: []
 autoCreateInstances: false
-customized: false
+integration:
+  id: 68835417e49c6d4c3c9d316e
+  name: Notion
+  key: notion
+  uuid: facb0913-cf42-4d64-9052-68f47243a8b7
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:27.186Z'
+  updatedAt: '2025-07-25T09:53:36.977Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/notion/logo.png
+  connectorId: 64382789986ed1caad42e561
+  connectorVersion: 1.3.2
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 20
+  hasData: true
+  dataCollectionsCount: 4
+  hasEvents: true
+  eventsCount: 18
+  hasGlobalWebhooks: true
+  hasUdm: true
+  authType: oauth2

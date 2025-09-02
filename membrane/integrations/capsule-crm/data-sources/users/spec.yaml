@@ -1,37 +1,38 @@
-key: users
-state: READY
-errors: []
-isDeactivated: false
 id: 68835424e49c6d4c3c9d3381
 name: Users
+isDeactivated: false
+state: READY
+errors: []
+key: users
 revision: 49342982-f636-4a77-81e4-7c9d7331bb2d
 integrationId: 68835413e49c6d4c3c9d311d
-customized: false
+isCustomized: false
 universalDataSourceId: 68835424e49c6d4c3c9d32ce
 universalDataSourceRevision: 1b863bf7-e9a3-4a78-b185-79ea30b7fef0
 collectionKey: users
 udm: users
 defaultPath: /data/users
 integration:
-  key: capsule-crm
-  state: READY
-  errors: []
-  isDeactivated: false
   id: 68835413e49c6d4c3c9d311d
   name: Capsule CRM
+  key: capsule-crm
   uuid: 93a055fe-e74b-487f-837f-ecf6756a50ef
+  state: READY
+  errors: []
+  createdAt: '2025-07-25T09:53:23.764Z'
+  updatedAt: '2025-07-25T09:53:36.497Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/capsule-crm/logo.png
   connectorId: 640734343685521f9f0c9fe7
+  connectorVersion: 1.1.1
   hasMissingParameters: false
   hasDocumentation: false
   hasOperations: true
+  operationsCount: 10
   hasData: true
+  dataCollectionsCount: 7
   hasEvents: false
+  eventsCount: 0
   hasGlobalWebhooks: false
   hasUdm: true
-  baseUri: s3://integration-app-connectors/public/e9d9caaa-e654-48f2-8cbd-ac941aa9f41f
-  connectorVersion: 1.1.1
-  logoUri: https://static.integration.app/connectors/capsule-crm/logo.png
-  dataCollectionsCount: 7
-  operationsCount: 10
-  eventsCount: 0
   authType: oauth2
