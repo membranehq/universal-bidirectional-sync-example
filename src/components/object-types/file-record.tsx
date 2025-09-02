@@ -1,14 +1,14 @@
 import { File } from "lucide-react";
 import type { IRecord } from "@/models/types";
-import { RecordTypeWrapper } from "./RecordTypeWrapper";
-import { fileSchema } from "@/lib/record-type-config";
+import { AppObjectComponentWrapper } from "./app-object-wrapper";
+import { fileSchema } from "@/lib/app-objects-schemas";
 import { z } from "zod";
 
 interface FileRecordProps {
   record: IRecord;
 }
 
-// Derive the type from the Zod schema
+
 type FileData = z.infer<typeof fileSchema>;
 
 export function FileRecord({ record }: FileRecordProps) {
@@ -25,7 +25,7 @@ export function FileRecord({ record }: FileRecordProps) {
   };
 
   return (
-    <RecordTypeWrapper>
+    <AppObjectComponentWrapper>
       <div className="flex items-center gap-2 min-w-0">
         <File className="w-4 h-4 text-purple-500 flex-shrink-0" />
         <div className="flex flex-col min-w-0 flex-1">
@@ -39,6 +39,6 @@ export function FileRecord({ record }: FileRecordProps) {
           )}
         </div>
       </div>
-    </RecordTypeWrapper>
+    </AppObjectComponentWrapper>
   );
 }

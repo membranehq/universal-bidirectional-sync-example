@@ -10,12 +10,6 @@ const RecordSchema: Schema = new Schema(
     syncId: { type: String, required: true },
     externalId: { type: String, required: false },
 
-    /**
-     * Derived from the record UDM
-     */
-    name: { type: String, required: false },
-    createdAt: { type: Date, required: true },
-    updatedAt: { type: Date, required: true },
     syncStatus: {
       type: String,
       required: true,
@@ -23,6 +17,10 @@ const RecordSchema: Schema = new Schema(
       enum: Object.values(SyncStatusObject),
     },
     syncError: { type: String, required: false },
+
+    name: { type: String, required: false },
+    createdAt: { type: Date, required: true },
+    updatedAt: { type: Date, required: true },
   },
   { timestamps: true }
 );

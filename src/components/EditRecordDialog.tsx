@@ -7,92 +7,81 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Plus } from "lucide-react";
-import recordTypesConfig from "@/lib/record-type-config";
+import { Loader2 } from "lucide-react";
+import recordTypesConfig from "@/lib/app-objects";
 import { ZodFormRenderer } from "./ZodFormRenderer";
-import { z } from "zod";
+import { IRecord } from "@/models/types";
 
-interface CreateRecordModalProps {
+
+interface EditRecordModalProps {
+  record: IRecord;
   recordType: string;
-  trigger?: React.ReactNode;
-  onCreatedRecord?: (recordData: Record<string, unknown>) => Promise<void>;
+  onUpdateRecord?: (recordId: string, recordData: Record<string, unknown>) => Promise<void>;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
-export function CreateRecordModal({
+export function EditRecordDialog({
+  record,
   recordType,
-  trigger,
-  onCreatedRecord,
-}: CreateRecordModalProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState<Record<string, unknown>>({});
+  onUpdateRecord,
+  open,
+  onOpenChange,
+}: EditRecordModalProps) {
+  const [formData, setFormData] = useState<Record<string, unknown>>(() => record.data);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const config = recordTypesConfig[recordType as keyof typeof recordTypesConfig];
-  const IconComponent = config?.icon;
-
-  if (!config) {
-    return null;
-  }
+  const config =
+    recordTypesConfig[recordType as keyof typeof recordTypesConfig];
 
   const handleFieldChange = (field: string, value: unknown) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-    // Clear error when user starts typing
+    setFormData((prev) => ({ ...prev, [field]: value }));
+
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: "" }));
+      setErrors((prev) => ({ ...prev, [field]: "" }));
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log("Form data:", formData);
-
     try {
       setIsSubmitting(true);
       // Validate the form data against the schema
       const validatedData = config.schema.parse(formData);
-      console.log("Validated data:", validatedData);
 
       // Call the callback if provided
-      if (onCreatedRecord) {
-        await onCreatedRecord(validatedData);
+      if (onUpdateRecord) {
+        await onUpdateRecord(record._id, validatedData);
       }
-
-      // Close modal and reset form
-      setIsOpen(false);
+      onOpenChange?.(false);
       setFormData({});
       setErrors({});
     } catch (error) {
-      setErrors({ form: error instanceof Error ? error.message : 'Failed to create record' });
+      setErrors({ form: error instanceof Error ? error.message : 'Failed to update record' });
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleCancel = () => {
-    setIsOpen(false);
+    onOpenChange?.(false);
     setFormData({});
     setErrors({});
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        {trigger || (
-          <Button size="sm" className="flex items-center gap-2">
-            Create {recordType}
-            {IconComponent ? <IconComponent className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-          </Button>
-        )}
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px] max-h-[80vh] flex flex-col p-0">
         <DialogHeader className="flex-shrink-0 border-b px-6 py-4">
-          <DialogTitle>Create {recordType}</DialogTitle>
+          <DialogTitle>Edit {recordType}</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 p-3">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col flex-1 min-h-0 p-3"
+        >
           {errors.form && (
             <div className="px-6 py-3 bg-red-50 border border-red-200 rounded-md mb-4">
               <div className="flex items-center">
@@ -109,7 +98,8 @@ export function CreateRecordModal({
           )}
           <div className="flex-1 overflow-y-auto px-6 py-4">
             <ZodFormRenderer
-              schema={config.schema as z.ZodObject<Record<string, z.ZodTypeAny>>}
+              // @ts-expect-error - Schema type mismatch
+              schema={config.schema}
               formData={formData}
               errors={errors}
               onFieldChange={handleFieldChange}
@@ -124,13 +114,19 @@ export function CreateRecordModal({
             >
               Cancel
             </Button>
-            <Button
-              type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Creating..." : `Create ${recordType}`}
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  Updating...
+                </>
+              ) : (
+                `Update ${recordType}`
+              )}
             </Button>
           </div>
         </form>
       </DialogContent>
     </Dialog>
   );
-} 
+}

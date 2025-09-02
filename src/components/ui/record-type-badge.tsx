@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import recordTypesConfig from "@/lib/record-type-config";
+import recordTypesConfig from "@/lib/app-objects";
 
 interface RecordTypeBadgeProps {
   recordType: string;
@@ -7,10 +7,10 @@ interface RecordTypeBadgeProps {
   className?: string;
 }
 
-export function RecordTypeBadge({ 
-  recordType, 
+export function RecordTypeBadge({
+  recordType,
   variant = "secondary",
-  className 
+  className
 }: RecordTypeBadgeProps) {
   const Icon = recordTypesConfig[recordType as keyof typeof recordTypesConfig]?.icon;
 

@@ -75,7 +75,7 @@ export function IntegrationSelect({ value, onValueChange, label }: IntegrationSe
             <div className="text-xs text-red-500 py-2 px-2">{integrationsError.message || "Failed to load integrations"}</div>
           ) : (
             integrations.map((integration) => (
-              <SelectItem value={integration.key} key={integration.key}>
+              <SelectItem value={integration.key!} key={integration.key!}>
                 <span className="flex items-center gap-2">
                   {integration.logoUri ? (
                     <Image

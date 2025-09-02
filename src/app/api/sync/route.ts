@@ -7,10 +7,11 @@ import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
 import { IntegrationAppClient } from "@membranehq/sdk";
 import { createSyncActivity } from "@/lib/sync-activity-utils";
-import recordTypesConfig from "@/lib/record-type-config";
+import appObjects from "@/lib/app-objects";
 import { getElementKey } from "@/lib/element-key";
 import { triggerPullRecords } from "@/inngest/trigger-pull-records";
 import { RecordType } from "@/models/types";
+import { AppObjectKey } from "@/lib/app-objects-schemas";
 
 const schema = z.object({
   integrationKey: z.string(),
@@ -55,7 +56,7 @@ async function createSyncDependencies(
     .create();
 
   const { allowCreate, allowUpdate, allowDelete } =
-    recordTypesConfig[recordType];
+    appObjects[recordType as AppObjectKey];
 
   if (allowCreate) {
     await membrane
@@ -85,9 +86,7 @@ async function createSyncDependencies(
   }
 }
 
-export async function POST(
-  request: NextRequest
-): Promise<NextResponse<{ success: boolean }>> {
+export async function POST(request: NextRequest) {
   try {
     await connectDB();
 

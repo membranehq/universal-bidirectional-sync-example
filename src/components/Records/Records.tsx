@@ -2,15 +2,13 @@
 
 import { memo, useState, useCallback } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { RecordType } from "@/models/types";
+import type { IRecord, RecordType } from "@/models/types";
 import { capitalize } from "@/lib/string-utils";
 import { getPluralForm } from "@/lib/pluralize-utils";
-import recordTypesConfig from "@/lib/record-type-config";
+import recordTypesConfig from "@/lib/app-objects";
 import { Record } from "./Record";
 import { CreateRecordModal } from "../CreateRecordModal";
 import { EditRecordDialog } from "../EditRecordDialog";
-import { TableRecord } from "./types";
-
 
 
 /**
@@ -22,7 +20,7 @@ import { TableRecord } from "./types";
  */
 interface RecordsProps {
   /** Array of record objects to be displayed in the list */
-  records: TableRecord[];
+  records: IRecord[];
 
   /** The type of records being displayed (e.g., 'user', 'email', 'file') */
   recordType: RecordType;
@@ -53,7 +51,7 @@ interface RecordsProps {
   onUpdateRecord: (recordId: string, recordData: Record<string, unknown>) => Promise<void>;
 
   /** Optional function to render custom content on the right side of each record */
-  renderRight?: (record: TableRecord) => React.ReactNode;
+  renderRight?: (record: IRecord) => React.ReactNode;
 
   /** Optional function to render custom content in the header area */
   renderHeader?: () => React.ReactNode;
@@ -72,9 +70,9 @@ export const Records = memo(function Records({
   renderHeader,
 }: RecordsProps) {
   const [editDialogOpen, setEditDialogOpen] = useState(false);
-  const [editingRecord, setEditingRecord] = useState<TableRecord | null>(null);
+  const [editingRecord, setEditingRecord] = useState<IRecord | null>(null);
 
-  const handleEditRecord = useCallback((record: TableRecord) => {
+  const handleEditRecord = useCallback((record: IRecord) => {
     setEditingRecord(record);
     setEditDialogOpen(true);
   }, []);
@@ -123,7 +121,7 @@ export const Records = memo(function Records({
               records.map(
                 (record, idx: number) => (
                   <Record
-                    key={record.id}
+                    key={record._id}
                     record={record}
                     index={idx}
                     onRecordDeleted={onDeleteRecord}

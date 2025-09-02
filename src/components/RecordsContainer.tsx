@@ -18,7 +18,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 PaginationControls
-import { TableRecord } from "./Records/types";
 import { PaginationControls } from "./Records/pagination-controls";
 
 
@@ -269,13 +268,6 @@ export const RecordContainer = memo(function RecordContainer({
     );
   }
 
-  const cleanedRecords = records.map((record) => ({
-    id: record._id,
-    data: record.data,
-    createdAt: record.createdAt,
-    updatedAt: record.updatedAt,
-  }));
-
   // Create a map of record IDs to their status elements
   const statusElementsMap = new Map(
     records.map((record) => [record._id, createStatusElement(record)])
@@ -302,15 +294,15 @@ export const RecordContainer = memo(function RecordContainer({
 
   return (
     <Records
-      records={cleanedRecords}
+      records={records}
       recordType={recordType as RecordType}
       isLoading={isLoading}
       onDeleteRecord={handleDeleteRecord}
       onCreateRecord={handleCreateRecord}
       onUpdateRecord={handleUpdateRecord}
       renderHeader={PaginationControlsWrapper}
-      renderRight={(record: TableRecord) => {
-        const statusElement = statusElementsMap.get(record.id);
+      renderRight={(record: IRecord) => {
+        const statusElement = statusElementsMap.get(record._id);
         return statusElement;
       }}
     />

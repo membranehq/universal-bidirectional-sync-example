@@ -24,7 +24,6 @@ import "@membranehq/react/styles.css";
 import Image from "next/image";
 import { FormLabel } from "@/components/ui/form-label";
 import { Integration, DataSourceInstance } from "@membranehq/sdk";
-import { getSingularForm } from "@/lib/pluralize-utils";
 import { fetchWithAuth } from "@/lib/fetch-utils";
 import { useDataSources } from "@/components/sync-config-modal/use-data-sources";
 import { useIntegrationConnection } from "@/components/sync-config-modal/use-integration-connection";
@@ -71,7 +70,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
         },
         body: JSON.stringify({
           integrationKey: selectedIntegration?.key,
-          recordType: getSingularForm(selectedDataSourceKey),
+          recordType: selectedDataSourceKey,
           instanceKey: instanceKey.current,
         }),
       });
@@ -177,7 +176,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                         </SelectTrigger>
                         <SelectContent>
                           {dataSources.map((ds) => (
-                            <SelectItem value={ds.key} key={ds.key}>
+                            <SelectItem value={ds.key!} key={ds.key!}>
                               {ds.name}
                             </SelectItem>
                           ))}

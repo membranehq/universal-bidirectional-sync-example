@@ -7,44 +7,48 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Loader2 } from "lucide-react";
-import recordTypesConfig from "@/lib/record-type-config";
+import { Plus } from "lucide-react";
+import recordTypesConfig from "@/lib/app-objects";
 import { ZodFormRenderer } from "./ZodFormRenderer";
-import { TableRecord } from "./Records/types";
+import { z } from "zod";
 
-interface EditRecordModalProps {
-  record: TableRecord;
+interface CreateRecordModalProps {
   recordType: string;
-  onUpdateRecord?: (recordId: string, recordData: Record<string, unknown>) => Promise<void>;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
+  trigger?: React.ReactNode;
+  onCreatedRecord?: (recordData: Record<string, unknown>) => Promise<void>;
 }
 
-export function EditRecordDialog({
-  record,
+export function CreateRecordModal({
   recordType,
-  onUpdateRecord,
-  open,
-  onOpenChange,
-}: EditRecordModalProps) {
-  const [formData, setFormData] = useState<Record<string, unknown>>(() => record.data);
+  trigger,
+  onCreatedRecord,
+}: CreateRecordModalProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [formData, setFormData] = useState<Record<string, unknown>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const config =
-    recordTypesConfig[recordType as keyof typeof recordTypesConfig];
+  const config = recordTypesConfig[recordType as keyof typeof recordTypesConfig];
+  const IconComponent = config?.icon;
+
+  if (!config) {
+    return null;
+  }
 
   const handleFieldChange = (field: string, value: unknown) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-
+    setFormData(prev => ({ ...prev, [field]: value }));
+    // Clear error when user starts typing
     if (errors[field]) {
-      setErrors((prev) => ({ ...prev, [field]: "" }));
+      setErrors(prev => ({ ...prev, [field]: "" }));
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    console.log("Form data:", formData);
 
     try {
       setIsSubmitting(true);
@@ -53,35 +57,42 @@ export function EditRecordDialog({
       console.log("Validated data:", validatedData);
 
       // Call the callback if provided
-      if (onUpdateRecord) {
-        await onUpdateRecord(record.id, validatedData);
+      if (onCreatedRecord) {
+        await onCreatedRecord(validatedData);
       }
-      onOpenChange?.(false);
+
+      // Close modal and reset form
+      setIsOpen(false);
       setFormData({});
       setErrors({});
     } catch (error) {
-      setErrors({ form: error instanceof Error ? error.message : 'Failed to update record' });
+      setErrors({ form: error instanceof Error ? error.message : 'Failed to create record' });
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleCancel = () => {
-    onOpenChange?.(false);
+    setIsOpen(false);
     setFormData({});
     setErrors({});
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        {trigger || (
+          <Button size="sm" className="flex items-center gap-2">
+            Create {recordType}
+            {IconComponent ? <IconComponent className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+          </Button>
+        )}
+      </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[80vh] flex flex-col p-0">
         <DialogHeader className="flex-shrink-0 border-b px-6 py-4">
-          <DialogTitle>Edit {recordType}</DialogTitle>
+          <DialogTitle>Create {recordType}</DialogTitle>
         </DialogHeader>
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col flex-1 min-h-0 p-3"
-        >
+        <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 p-3">
           {errors.form && (
             <div className="px-6 py-3 bg-red-50 border border-red-200 rounded-md mb-4">
               <div className="flex items-center">
@@ -98,8 +109,7 @@ export function EditRecordDialog({
           )}
           <div className="flex-1 overflow-y-auto px-6 py-4">
             <ZodFormRenderer
-              // @ts-expect-error - Schema type mismatch
-              schema={config.schema}
+              schema={config.schema as z.ZodObject<Record<string, z.ZodTypeAny>>}
               formData={formData}
               errors={errors}
               onFieldChange={handleFieldChange}
@@ -114,19 +124,13 @@ export function EditRecordDialog({
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                  Updating...
-                </>
-              ) : (
-                `Update ${recordType}`
-              )}
+            <Button
+              type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Creating..." : `Create ${recordType}`}
             </Button>
           </div>
         </form>
       </DialogContent>
     </Dialog>
   );
-}
+} 

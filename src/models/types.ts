@@ -13,14 +13,15 @@ export type SyncStatus =
 export interface IRecord {
   _id: string;
   externalId: string;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
   userId: string;
   data: Record<string, unknown>;
   syncId: string;
   syncStatus: SyncStatus;
   syncError?: string;
+
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export type RecordType = "email" | "file" | "user";

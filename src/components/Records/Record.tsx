@@ -25,19 +25,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { toast } from "sonner";
-import recordTypesConfig from "@/lib/record-type-config";
-import { TableRecord } from "./types";
+import appObjects from "@/lib/app-objects";
+import { getPluralForm } from '@/lib/pluralize-utils';
 
 interface RecordProps {
-  record: TableRecord;
+  record: IRecord;
   index: number;
   onRecordDeleted?: (recordId: string) => Promise<void>;
-  onEditRecord?: (record: TableRecord) => void;
+  onEditRecord?: (record: IRecord) => void;
   recordType: string;
   renderRight?: React.ReactNode;
 }
-
-
 
 export function Record({
   record,
@@ -68,8 +66,7 @@ export function Record({
   const confirmDelete = async () => {
     setIsDeleting(true);
     try {
-      console.log("record.id", record.id);
-      await onRecordDeleted?.(record.id);
+      await onRecordDeleted?.(record._id);
       toast.success(`${recordType} deleted successfully`);
       setDeleteDialogOpen(false);
     } catch (error) {
@@ -86,10 +83,10 @@ export function Record({
     onEditRecord?.(record);
   };
 
-  const renderRecordTypeComponent = () => {
-    const recordTypeConfig =
-      recordTypesConfig[recordType as keyof typeof recordTypesConfig];
-    const RecordComponent = recordTypeConfig?.component;
+  const renderAppObject = () => {
+    const appObject =
+      appObjects[getPluralForm(recordType) as keyof typeof appObjects];
+    const RecordComponent = appObject?.component;
 
     if (RecordComponent) {
       return <RecordComponent record={record as unknown as IRecord} />;
@@ -100,7 +97,7 @@ export function Record({
         <div className="py-3 whitespace-nowrap">
           <div className="flex items-center gap-2">
             <Hash className="w-3 h-3 mr-1" />
-            {record.id}
+            {record._id}
           </div>
         </div>
         <div className="flex-1 px-4 py-3 whitespace-nowrap text-sm">
@@ -137,7 +134,7 @@ export function Record({
           </div>
         </div>
 
-        {renderRecordTypeComponent()}
+        {renderAppObject()}
 
         <div className="px-4 py-3 text-right sticky right-0 bg-background">
           <div className="flex items-center justify-end gap-1">
@@ -170,7 +167,7 @@ export function Record({
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                {recordTypesConfig[recordType as keyof typeof recordTypesConfig]
+                {appObjects[recordType as keyof typeof appObjects]
                   ?.allowUpdate && (
                     <DropdownMenuItem
                       onClick={handleEdit}

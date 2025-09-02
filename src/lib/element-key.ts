@@ -1,4 +1,4 @@
-import { getPluralForm } from "./pluralize-utils";
+import { getPluralForm, getSingularForm } from "./pluralize-utils";
 
 /**
  * Construct the key of an element based on some standard naming convention
@@ -17,21 +17,22 @@ export const getElementKey = (
     | "flow"
 ) => {
   const pluralizedRecordType = getPluralForm(recordType);
+  const singularizedRecordType = getSingularForm(recordType);
 
   switch (elementType) {
     case "list-action":
       return `get-${pluralizedRecordType}`;
     case "create-action":
-      return `create-${recordType}`;
+      return `create-${singularizedRecordType}`;
     case "update-action":
-      return `update-${recordType}`;
+      return `update-${singularizedRecordType}`;
     case "delete-action":
-      return `delete-${recordType}`;
+      return `delete-${singularizedRecordType}`;
     case "field-mapping":
       return `${pluralizedRecordType}`;
     case "data-source":
       return `${pluralizedRecordType}`;
     case "flow":
-      return `receive-${recordType}-events`;
+      return `receive-${singularizedRecordType}-events`;
   }
 };

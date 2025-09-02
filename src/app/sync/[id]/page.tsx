@@ -4,10 +4,10 @@ import { useMemo } from "react";
 import Link from "next/link";
 import { Loader } from "@/components/ui/loader";
 import { ArrowLeft, AlertTriangle, Database } from "lucide-react";
-import { SyncActivities } from "./components/SyncActivities";
-import { SyncHeader } from "./components/SyncHeader";
-import { RecordContainer } from "./components/RecordsContainer";
+import { SyncHeader } from "@/components/SyncHeader";
+import { RecordContainer } from "@/components/RecordsContainer";
 import { useSyncData } from "@/hooks/use-sync-data";
+import { SyncActivities } from "@/components/SyncActivities";
 
 export default function SyncPage() {
   const { sync, subscriptions, error, isLoading } = useSyncData();
