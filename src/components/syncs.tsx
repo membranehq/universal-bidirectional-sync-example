@@ -16,12 +16,6 @@ import { StatusBadge } from "@/components/ui/status-badge";
 import { RecordTypeBadge } from "@/components/ui/record-type-badge";
 import { fetchWithAuth } from "@/lib/fetch-utils";
 
-const fetcher = async (url: string, token: string) => {
-  const res = await fetchWithAuth(url);
-  if (!res.ok) throw new Error("Failed to fetch syncs");
-  return res.json();
-};
-
 interface SyncItemProps {
   sync: ISync & { _id: string, recordCount: number };
   logoUri?: string;

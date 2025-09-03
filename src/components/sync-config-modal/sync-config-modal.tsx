@@ -19,7 +19,6 @@ import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
 import { Download, Loader } from "lucide-react";
 import { IntegrationSelect } from "./integration-select";
-import { Skeleton } from "@/components/ui/skeleton";
 import "@membranehq/react/styles.css";
 import Image from "next/image";
 import { FormLabel } from "@/components/ui/form-label";

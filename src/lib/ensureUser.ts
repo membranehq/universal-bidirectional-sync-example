@@ -1,4 +1,3 @@
-import { User } from "@/models/user";
 import { generateCustomerAccessToken } from "./integration-token";
 import { getAuthUser } from "./auth-utils";
 import { NextRequest, NextResponse } from "next/server";

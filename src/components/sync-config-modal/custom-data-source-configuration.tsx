@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import {
-  useIntegrationApp,
   useDataSourceInstance,
   IntegrationAppConnectionProvider,
   DataSourceConfig,
@@ -10,7 +9,6 @@ import {
 import { DataSourceInstance } from "@membranehq/sdk";
 import { Skeleton } from "@/components/ui/skeleton";
 import { FormLabel } from "@/components/ui/form-label";
-import { DataInput } from "@membranehq/react";
 import { SectionWithStatus } from "./section-with-status";
 
 interface CustomDataSourceConfigurationProps {
@@ -28,8 +26,6 @@ export function CustomDataSourceConfiguration({
   connectionId,
   onDataSourceInstanceChange,
 }: CustomDataSourceConfigurationProps) {
-  const client = useIntegrationApp();
-
   const { dataSourceInstance, loading, error, patch } = useDataSourceInstance({
     integrationKey: integrationKey,
     dataSourceKey: dataSourceKey,
@@ -58,9 +54,8 @@ export function CustomDataSourceConfiguration({
 
   const requiredFieldsAreFilled = false;
 
-
   // Render null until we fix the issue with the data source config
-  return null
+  return null;
 
   return (
     <IntegrationAppConnectionProvider connectionId={connectionId}>

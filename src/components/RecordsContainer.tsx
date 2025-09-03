@@ -17,7 +17,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-PaginationControls
+
 import { PaginationControls } from "./Records/pagination-controls";
 
 

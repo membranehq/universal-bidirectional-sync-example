@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export const config = {
   matcher: [
@@ -9,6 +9,6 @@ export const config = {
   ],
 };
 
-export async function middleware(request: NextRequest) {
+export async function middleware() {
   return NextResponse.next();
 }
