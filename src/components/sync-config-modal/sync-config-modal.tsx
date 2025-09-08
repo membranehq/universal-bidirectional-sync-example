@@ -31,6 +31,8 @@ import { SectionWithStatus } from "./section-with-status";
 import appObjects from "@/lib/app-objects";
 import { AppObjectKey } from "@/lib/app-objects-schemas";
 import { useDataSources } from "@membranehq/react";
+import { SelectionGroup } from "./selection-group";
+import { useDataSourceAppliedIntegrations } from "@/hooks/use-applied-integrations";
 
 function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
   const [selectedIntegration, setSelectedIntegration] =
@@ -43,8 +45,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
   const [dataSourceInstance, setDataSourceInstance] =
     useState<DataSourceInstance | null>(null);
 
-  const { dataSources: dataSources = [] } =
-    useDataSources();
+  const { dataSources: dataSources = [] } = useDataSources();
 
   const {
     data: connection,
@@ -84,21 +85,43 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
     }
   };
 
-
   const dataSourceKeys = dataSources.map((dataSource) => dataSource.key);
 
   console.log("dataSourceKeys", dataSourceKeys);
 
+  const appObjectsItems = Object.keys(appObjects)
+    // .filter((key) => dataSourceKeys.includes(key))
+    .map((key) => ({
+      id: key,
+      key: key,
+      name: appObjects[key as keyof typeof appObjects].label,
+      icon: appObjects[key as keyof typeof appObjects].icon,
+      category: appObjects[key as keyof typeof appObjects].category,
+    }));
+
+  const { integrations, loading: integrationsLoading, error: integrationsError } =
+    useDataSourceAppliedIntegrations(selectedAppObjectKey ?? null);
+
+  // filter out integrations that are not ready (credentials not set)
+  const integrationItems = integrations
+    .filter((integration) => integration.state === "READY")
+    .map((integration) => ({
+      id: integration.id,
+      key: integration.key!,
+      name: integration.name,
+      logoUri: integration.logoUri,
+    }));
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="h-[600px] flex flex-col pb-0 max-w-3xl">
+      <DialogContent className="h-[600px] flex flex-col pb-0 max-w-4xl">
         <DialogTitle className="flex items-center gap-2">
           Configure Sync
         </DialogTitle>
         <div className="p-3 flex-1 overflow-y-auto">
           <form
-            className="flex flex-col gap-4 w-full max-w-xl mt-4 overflow-y-auto"
+            className="flex flex-col gap-4 w-full mt-4 overflow-y-auto"
             onSubmit={(e) => {
               e.preventDefault();
               startSync();
@@ -106,73 +129,55 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
           >
             {/* 1: App Object Select (Always visible) */}
             <SectionWithStatus done={!!selectedAppObjectKey}>
-              <div className="flex flex-col w-full max-w-xs">
-                <FormLabel
-                  label="Select Object"
-                  tooltip="Choose which app object you want to sync."
-                  size="sm"
-                  className="mb-1"
-                />
-                <Select
-                  value={selectedAppObjectKey}
-                  onValueChange={(value) => {
-                    if (selectedIntegration) setSelectedIntegration(null);
+              <FormLabel
+                label="Select Object"
+                tooltip="Choose which app object you want to sync."
+                size="sm"
+                className="mb-1"
+              />
 
-                    setSelectedAppObjectKey(value);
-                  }}
-                >
-                  <SelectTrigger
-                    id="app-object-select"
-                    className="min-w-[200px]"
-                  >
-                    <SelectValue placeholder="Select an app object">
-                      {selectedAppObjectKey &&
-                        (() => {
-                          const obj =
-                            appObjects[selectedAppObjectKey as AppObjectKey];
-                          if (!obj) return null;
-                          const Icon = obj.icon;
-                          return (
-                            <span className="inline-flex items-center gap-2">
-                              <Icon className="w-4 h-4" />
-                              {obj.label}
-                            </span>
-                          );
-                        })()}
-                    </SelectValue>
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Object.entries(appObjects).map(([key, obj]) => {
-                      const Icon = obj.icon;
-                      /**
-                       * Prevent showing App Object if we wont't have a data source for it
-                       */
-                      if (!dataSourceKeys.includes(key)) return null;
-
-                      return (
-                        <SelectItem value={key} key={key}>
-                          <span className="inline-flex items-center gap-2">
-                            <Icon className="w-4 h-4" />
-                            {obj.label}
-                          </span>
-                        </SelectItem>
-                      );
-                    })}
-                  </SelectContent>
-                </Select>
-              </div>
+              <SelectionGroup
+                items={appObjectsItems}
+                selectedKey={selectedAppObjectKey ?? null}
+                onSelect={(key) => {
+                  if (selectedIntegration) setSelectedIntegration(null);
+                  setSelectedAppObjectKey(key);
+                }}
+                visibleCount={5}
+                viewMode={"all"}
+              />
             </SectionWithStatus>
 
             {/* 2: Integration Select (Always visible) */}
             <SectionWithStatus done={!!selectedIntegration}>
-              <IntegrationSelect
-                value={selectedIntegration}
-                onValueChange={(integration) => {
-                  setSelectedIntegration(integration);
-                }}
-                dataSourceKey={selectedAppObjectKey}
+              <FormLabel
                 label="Select Integration"
+                tooltip="Choose which app object you want to sync."
+                size="sm"
+                className="mb-1"
               />
+              {!selectedAppObjectKey ? (
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-2 text-center text-gray-500 text-sm">
+                  <p>Integration list will appear when you select object</p>
+                </div>
+              ) : integrationsError ? (
+                <div className="border-2 border-dashed border-red-300 rounded-lg p-4 text-center text-red-600 text-sm">
+                  <p className="font-medium">Failed to load integrations</p>
+                  <p className="text-xs mt-1 text-red-500">{integrationsError.message}</p>
+                </div>
+              ) : (
+                <SelectionGroup
+                  items={integrationItems}
+                  selectedKey={selectedIntegration?.key ?? null}
+                  onSelect={(key) => {
+                    const integration = integrations.find((i) => i.key === key);
+                    if (integration) setSelectedIntegration(integration);
+                  }}
+                  visibleCount={3}
+                  loading={integrationsLoading}
+                  viewMode={"all"}
+                />
+              )}
             </SectionWithStatus>
 
             {/* 3: Connect Button (Visible if integration selected has no connection) */}

@@ -6,6 +6,7 @@ export function useDataSourceAppliedIntegrations(dataSourceKey: string | null) {
     Integration[]
   >([]);
   const [loading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
   const integrationApp = useIntegrationApp();
 
   useEffect(() => {
@@ -13,10 +14,12 @@ export function useDataSourceAppliedIntegrations(dataSourceKey: string | null) {
       if (!dataSourceKey) {
         setAppliedToIntegrations([]);
         setIsLoading(false);
+        setError(null);
         return;
       }
 
       setIsLoading(true);
+      setError(null);
       try {
         const dataSource = await integrationApp
           .dataSource({ key: dataSourceKey })
@@ -34,6 +37,7 @@ export function useDataSourceAppliedIntegrations(dataSourceKey: string | null) {
       } catch (err) {
         console.error("Failed to fetch data source:", err);
         setAppliedToIntegrations([]);
+        setError(err instanceof Error ? err : new Error(String(err)));
       } finally {
         setIsLoading(false);
       }
@@ -45,5 +49,6 @@ export function useDataSourceAppliedIntegrations(dataSourceKey: string | null) {
   return {
     integrations: appliedToIntegrations || [],
     loading,
+    error,
   };
 }
