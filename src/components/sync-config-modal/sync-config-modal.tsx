@@ -7,18 +7,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useState, useRef } from "react";
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
-import { Download, Loader } from "lucide-react";
-import { IntegrationSelect } from "./integration-select";
+import { Download, Loader, Settings } from "lucide-react";
 import "@membranehq/react/styles.css";
 import Image from "next/image";
 import { FormLabel } from "@/components/ui/form-label";
@@ -29,7 +21,6 @@ import { CustomDataSourceConfiguration } from "./custom-data-source-configuratio
 import { CustomFieldMappingConfiguration } from "./custom-field-mapping-configuration";
 import { SectionWithStatus } from "./section-with-status";
 import appObjects from "@/lib/app-objects";
-import { AppObjectKey } from "@/lib/app-objects-schemas";
 import { useDataSources } from "@membranehq/react";
 import { SelectionGroup } from "./selection-group";
 import { useDataSourceAppliedIntegrations } from "@/hooks/use-applied-integrations";
@@ -44,6 +35,8 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
   const [syncing, setSyncing] = useState(false);
   const [dataSourceInstance, setDataSourceInstance] =
     useState<DataSourceInstance | null>(null);
+  const [showDataSourceConfig, setShowDataSourceConfig] = useState(false);
+  const [showFieldMappingConfig, setShowFieldMappingConfig] = useState(false);
 
   const { dataSources: dataSources = [] } = useDataSources();
 
@@ -87,10 +80,8 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
 
   const dataSourceKeys = dataSources.map((dataSource) => dataSource.key);
 
-  console.log("dataSourceKeys", dataSourceKeys);
-
   const appObjectsItems = Object.keys(appObjects)
-    // .filter((key) => dataSourceKeys.includes(key))
+    .filter((key) => dataSourceKeys.includes(key))
     .map((key) => ({
       id: key,
       key: key,
@@ -115,16 +106,19 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="h-[600px] flex flex-col pb-0 max-w-4xl">
-        <DialogTitle className="flex items-center gap-2">
-          Configure Sync
+      <DialogContent className="h-[700px] flex flex-col pb-0 max-w-4xl">
+        <DialogTitle className="flex flex-col gap-1">
+          <span className="flex items-center gap-2">Configure Sync</span>
+          <span className="text-sm font-normal text-muted-foreground">
+            Set up bidirectional data synchronization between your app and external integrations
+          </span>
         </DialogTitle>
         <div className="p-3 flex-1 overflow-y-auto">
           <form
             className="flex flex-col gap-4 w-full mt-4 overflow-y-auto"
             onSubmit={(e) => {
               e.preventDefault();
-              startSync();
+              // startSync();
             }}
           >
             {/* 1: App Object Select (Always visible) */}
@@ -216,29 +210,123 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
               </SectionWithStatus>
             )}
 
-            {/* 4: Create data source instance and let you configure it, renders nothing if data source doesn't have any parameters */}
+            {/* Advanced Configuration Container */}
             {!!selectedAppObjectKey && !!connection?.id && (
-              <CustomDataSourceConfiguration
-                onDataSourceInstanceChange={(dataSourceInstance) =>
-                  setDataSourceInstance(dataSourceInstance)
-                }
-                instanceKey={instanceKey.current}
-                integrationKey={selectedIntegration?.key}
-                dataSourceKey={selectedAppObjectKey}
-                connectionId={connection.id}
-              />
-            )}
+              <div className="pr-4">
+                {/* Divider between basic and advanced configuration */}
+                <div className="flex items-center my-6">
+                  <div className="flex-1 border-t border-gray-200"></div>
+                  <div className="px-4 text-sm text-muted-foreground bg-white">
+                    Advanced Configuration
+                  </div>
+                  <div className="flex-1 border-t border-gray-200"></div>
+                </div>
 
-            {/* 5: Create field mapping instance and let you configure it */}
-            {!!selectedAppObjectKey &&
-              !!connection?.id &&
-              !!dataSourceInstance && (
-                <CustomFieldMappingConfiguration
-                  instanceKey={instanceKey.current}
-                  integrationKey={selectedIntegration?.key}
-                  fieldMappingKey={selectedAppObjectKey}
-                />
-              )}
+                {/* 4: Data Source Configuration Toggle */}
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <Settings className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm font-medium">Data Source Configuration</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-muted-foreground">
+                        Configure
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setShowDataSourceConfig(!showDataSourceConfig)}
+                        aria-label={`${showDataSourceConfig ? 'Hide' : 'Show'} data source configuration`}
+                        title={`${showDataSourceConfig ? 'Hide' : 'Show'} data source configuration`}
+                        className={`
+                          relative inline-flex h-6 w-11 items-center rounded-full transition-colors
+                          ${showDataSourceConfig ? 'bg-primary' : 'bg-gray-200'}
+                          focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                        `}
+                      >
+                        <span
+                          className={`
+                            inline-block h-4 w-4 transform rounded-full bg-white transition-transform
+                            ${showDataSourceConfig ? 'translate-x-6' : 'translate-x-1'}
+                          `}
+                        />
+                      </button>
+                    </div>
+                  </div>
+
+                  {!showDataSourceConfig && (
+                    <div className="text-sm text-muted-foreground mb-4 ml-6">
+                      <p>Configure data source parameters like filters, date ranges, and other sync settings for more control over what data is synchronized.</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* 5: Data Source Configuration Section (shown when toggled) */}
+                {showDataSourceConfig && (
+                  <div className="ml-6">
+                    <CustomDataSourceConfiguration
+                      onDataSourceInstanceChange={(dataSourceInstance) =>
+                        setDataSourceInstance(dataSourceInstance)
+                      }
+                      instanceKey={instanceKey.current}
+                      integrationKey={selectedIntegration?.key}
+                      dataSourceKey={selectedAppObjectKey}
+                      connectionId={connection.id}
+                    />
+                  </div>
+                )}
+
+                {/* 6: Field Mapping Configuration Toggle */}
+                <div className="mt-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <Settings className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm font-medium">Field Mapping Configuration</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-muted-foreground">
+                        Configure
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setShowFieldMappingConfig(!showFieldMappingConfig)}
+                        aria-label={`${showFieldMappingConfig ? 'Hide' : 'Show'} field mapping configuration`}
+                        title={`${showFieldMappingConfig ? 'Hide' : 'Show'} field mapping configuration`}
+                        className={`
+                          relative inline-flex h-6 w-11 items-center rounded-full transition-colors
+                          ${showFieldMappingConfig ? 'bg-primary' : 'bg-gray-200'}
+                          focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                        `}
+                      >
+                        <span
+                          className={`
+                            inline-block h-4 w-4 transform rounded-full bg-white transition-transform
+                            ${showFieldMappingConfig ? 'translate-x-6' : 'translate-x-1'}
+                          `}
+                        />
+                      </button>
+                    </div>
+                  </div>
+
+                  {!showFieldMappingConfig && (
+                    <div className="text-sm text-muted-foreground mb-4 ml-6">
+                      <p>Configure how fields from your app map to fields in the integration and vice versa for custom data transformation.</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* 7: Field Mapping Configuration Section (shown when toggled) */}
+                {showFieldMappingConfig && !!dataSourceInstance && (
+                  <div className="ml-6">
+                    <CustomFieldMappingConfiguration
+                      instanceKey={instanceKey.current}
+                      integrationKey={selectedIntegration?.key}
+                      fieldMappingKey={selectedAppObjectKey}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
           </form>
         </div>
         {/* Modal Footer */}
