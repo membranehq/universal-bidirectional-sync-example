@@ -370,7 +370,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
           <Button
             type="button"
             className="bg-primary text-white font-semibold hover:bg-primary/90 transition"
-            disabled={!selectedIntegration || !selectedAppObjectKey || syncing}
+            disabled={!selectedIntegration || !selectedAppObjectKey || syncing || !connection?.id}
             onClick={startSync}
           >
             {syncing && <Loader className="w-4 h-4 animate-spin mr-2" />}
