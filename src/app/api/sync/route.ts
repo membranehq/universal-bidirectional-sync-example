@@ -39,6 +39,32 @@ async function createSyncDependencies(
   recordType: RecordType,
   instanceKey: string
 ) {
+  /**
+   * Data source & Field mapping instances are created on the client when the customer
+   * tries to configure them. But this trys to  create them even if they don't exist.
+   */
+
+  // Data source
+  await membrane
+    .connection(integrationKey)
+    .dataSource(getElementKey(recordType, "data-source"), {
+      instanceKey: instanceKey,
+    })
+    .get({
+      autoCreate: true,
+    });
+
+  // Field Mapping
+  await membrane
+    .connection(integrationKey)
+    .fieldMapping(getElementKey(recordType, "field-mapping"), {
+      instanceKey: instanceKey,
+    })
+    .get({
+      autoCreate: true,
+    });
+
+  // Flow Instance
   await membrane
     .connection(integrationKey)
     .flow(getElementKey(recordType, "flow"), {
@@ -48,15 +74,16 @@ async function createSyncDependencies(
       autoCreate: true,
     });
 
+  // Action Instances
+  const { allowCreate, allowUpdate, allowDelete } =
+    appObjects[recordType as AppObjectKey];
+
   await membrane
     .connection(integrationKey)
     .action(getElementKey(recordType, "list-action"), {
       instanceKey: instanceKey,
     })
     .create();
-
-  const { allowCreate, allowUpdate, allowDelete } =
-    appObjects[recordType as AppObjectKey];
 
   if (allowCreate) {
     await membrane
@@ -118,22 +145,19 @@ export async function POST(request: NextRequest) {
       token: membraneAccessToken!,
     });
 
-    /**
-     * Get some details about how the collection handles events in dataSource.collectionSpec
-     */
-    const datasource = await membrane
-      .connection(integrationKey)
-      .dataSource(getElementKey(recordType, "data-source"), {
-        instanceKey: instanceKey,
-      })
-      .get();
-
     await createSyncDependencies(
       membrane,
       integrationKey,
       recordType as RecordType,
       instanceKey
     );
+
+    const datasource = await membrane
+      .connection(integrationKey)
+      .dataSource(getElementKey(recordType, "data-source"), {
+        instanceKey: instanceKey,
+      })
+      .get();
 
     const sync = await Sync.create({
       integrationKey,

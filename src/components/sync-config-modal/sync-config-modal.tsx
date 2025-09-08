@@ -90,8 +90,11 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
       category: appObjects[key as keyof typeof appObjects].category,
     }));
 
-  const { integrations, loading: integrationsLoading, error: integrationsError } =
-    useDataSourceAppliedIntegrations(selectedAppObjectKey ?? null);
+  const {
+    integrations,
+    loading: integrationsLoading,
+    error: integrationsError,
+  } = useDataSourceAppliedIntegrations(selectedAppObjectKey ?? null);
 
   // filter out integrations that are not ready (credentials not set)
   const integrationItems = integrations
@@ -110,17 +113,12 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
         <DialogTitle className="flex flex-col gap-1">
           <span className="flex items-center gap-2">Configure Sync</span>
           <span className="text-sm font-normal text-muted-foreground">
-            Set up bidirectional data synchronization between your app and external integrations
+            Set up bidirectional data synchronization between your app and
+            external integrations
           </span>
         </DialogTitle>
         <div className="p-3 flex-1 overflow-y-auto">
-          <form
-            className="flex flex-col gap-4 w-full mt-4 overflow-y-auto"
-            onSubmit={(e) => {
-              e.preventDefault();
-              // startSync();
-            }}
-          >
+          <div className="flex flex-col gap-4 w-full mt-4 overflow-y-auto">
             {/* 1: App Object Select (Always visible) */}
             <SectionWithStatus done={!!selectedAppObjectKey}>
               <FormLabel
@@ -157,7 +155,9 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
               ) : integrationsError ? (
                 <div className="border-2 border-dashed border-red-300 rounded-lg p-4 text-center text-red-600 text-sm">
                   <p className="font-medium">Failed to load integrations</p>
-                  <p className="text-xs mt-1 text-red-500">{integrationsError.message}</p>
+                  <p className="text-xs mt-1 text-red-500">
+                    {integrationsError.message}
+                  </p>
                 </div>
               ) : (
                 <SelectionGroup
@@ -227,7 +227,9 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                       <Settings className="w-4 h-4 text-muted-foreground" />
-                      <span className="text-sm font-medium">Data Source Configuration</span>
+                      <span className="text-sm font-medium">
+                        Data Source Configuration
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-sm text-muted-foreground">
@@ -235,19 +237,29 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                       </span>
                       <button
                         type="button"
-                        onClick={() => setShowDataSourceConfig(!showDataSourceConfig)}
-                        aria-label={`${showDataSourceConfig ? 'Hide' : 'Show'} data source configuration`}
-                        title={`${showDataSourceConfig ? 'Hide' : 'Show'} data source configuration`}
+                        onClick={() =>
+                          setShowDataSourceConfig(!showDataSourceConfig)
+                        }
+                        aria-label={`${
+                          showDataSourceConfig ? "Hide" : "Show"
+                        } data source configuration`}
+                        title={`${
+                          showDataSourceConfig ? "Hide" : "Show"
+                        } data source configuration`}
                         className={`
                           relative inline-flex h-6 w-11 items-center rounded-full transition-colors
-                          ${showDataSourceConfig ? 'bg-primary' : 'bg-gray-200'}
+                          ${showDataSourceConfig ? "bg-primary" : "bg-gray-200"}
                           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
                         `}
                       >
                         <span
                           className={`
                             inline-block h-4 w-4 transform rounded-full bg-white transition-transform
-                            ${showDataSourceConfig ? 'translate-x-6' : 'translate-x-1'}
+                            ${
+                              showDataSourceConfig
+                                ? "translate-x-6"
+                                : "translate-x-1"
+                            }
                           `}
                         />
                       </button>
@@ -256,7 +268,11 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
 
                   {!showDataSourceConfig && (
                     <div className="text-sm text-muted-foreground mb-4 ml-6">
-                      <p>Configure data source parameters like filters, date ranges, and other sync settings for more control over what data is synchronized.</p>
+                      <p>
+                        Configure data source parameters like filters, date
+                        ranges, and other sync settings for more control over
+                        what data is synchronized.
+                      </p>
                     </div>
                   )}
                 </div>
@@ -281,7 +297,9 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                       <Settings className="w-4 h-4 text-muted-foreground" />
-                      <span className="text-sm font-medium">Field Mapping Configuration</span>
+                      <span className="text-sm font-medium">
+                        Field Mapping Configuration
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-sm text-muted-foreground">
@@ -289,19 +307,33 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                       </span>
                       <button
                         type="button"
-                        onClick={() => setShowFieldMappingConfig(!showFieldMappingConfig)}
-                        aria-label={`${showFieldMappingConfig ? 'Hide' : 'Show'} field mapping configuration`}
-                        title={`${showFieldMappingConfig ? 'Hide' : 'Show'} field mapping configuration`}
+                        onClick={() =>
+                          setShowFieldMappingConfig(!showFieldMappingConfig)
+                        }
+                        aria-label={`${
+                          showFieldMappingConfig ? "Hide" : "Show"
+                        } field mapping configuration`}
+                        title={`${
+                          showFieldMappingConfig ? "Hide" : "Show"
+                        } field mapping configuration`}
                         className={`
                           relative inline-flex h-6 w-11 items-center rounded-full transition-colors
-                          ${showFieldMappingConfig ? 'bg-primary' : 'bg-gray-200'}
+                          ${
+                            showFieldMappingConfig
+                              ? "bg-primary"
+                              : "bg-gray-200"
+                          }
                           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
                         `}
                       >
                         <span
                           className={`
                             inline-block h-4 w-4 transform rounded-full bg-white transition-transform
-                            ${showFieldMappingConfig ? 'translate-x-6' : 'translate-x-1'}
+                            ${
+                              showFieldMappingConfig
+                                ? "translate-x-6"
+                                : "translate-x-1"
+                            }
                           `}
                         />
                       </button>
@@ -310,7 +342,11 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
 
                   {!showFieldMappingConfig && (
                     <div className="text-sm text-muted-foreground mb-4 ml-6">
-                      <p>Configure how fields from your app map to fields in the integration and vice versa for custom data transformation.</p>
+                      <p>
+                        Configure how fields from your app map to fields in the
+                        integration and vice versa for custom data
+                        transformation.
+                      </p>
                     </div>
                   )}
                 </div>
@@ -327,7 +363,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                 )}
               </div>
             )}
-          </form>
+          </div>
         </div>
         {/* Modal Footer */}
         <div className="w-full border-t bg-white p-3 flex justify-end">
