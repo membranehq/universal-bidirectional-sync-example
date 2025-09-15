@@ -55,7 +55,7 @@ export function ManageIntegrationsModal({ trigger }: ManageIntegrationsModalProp
         <DialogHeader className="pl-2">
           <DialogTitle>Manage Apps</DialogTitle>
           <p className="text-sm text-muted-foreground">
-            Connect to third-party apps and access their tools
+            Connect to third-party apps using Membrane's prebuilt UI
           </p>
         </DialogHeader>
         <div className="overflow-y-auto h-[70vh]">
