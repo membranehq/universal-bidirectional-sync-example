@@ -10,7 +10,7 @@ interface CustomDataSourceConfigurationProps {
   integrationKey?: string;
   dataSourceKey: string;
   connectionId: string;
-  onDataSourceInstanceChange: (dataSourceInstance: DataSourceInstance) => void;
+  onDataSourceInstanceChange?: (dataSourceInstance: DataSourceInstance) => void;
 }
 
 export function CustomDataSourceConfiguration({
@@ -28,7 +28,7 @@ export function CustomDataSourceConfiguration({
   });
 
   useEffect(() => {
-    if (dataSourceInstance) {
+    if (dataSourceInstance && onDataSourceInstanceChange) {
       onDataSourceInstanceChange(dataSourceInstance);
     }
   }, [dataSourceInstance, onDataSourceInstanceChange]);

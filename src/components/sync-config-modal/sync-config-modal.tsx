@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
@@ -21,7 +21,7 @@ import { CustomDataSourceConfiguration } from "./custom-data-source-configuratio
 import { CustomFieldMappingConfiguration } from "./custom-field-mapping-configuration";
 import { SectionWithStatus } from "./section-with-status";
 import appObjects from "@/lib/app-objects";
-import { useDataSources } from "@membranehq/react";
+import { useDataSources, useIntegrationApp } from "@membranehq/react";
 import { SelectionGroup } from "./selection-group";
 import { useDataSourceAppliedIntegrations } from "@/hooks/use-applied-integrations";
 
@@ -33,8 +33,6 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
   >();
   const [open, setOpen] = useState(false);
   const [syncing, setSyncing] = useState(false);
-  const [dataSourceInstance, setDataSourceInstance] =
-    useState<DataSourceInstance | null>(null);
   const [showDataSourceConfig, setShowDataSourceConfig] = useState(false);
   const [showFieldMappingConfig, setShowFieldMappingConfig] = useState(false);
 
@@ -44,6 +42,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
     data: connection,
     isConnecting,
     connect,
+    isLoading: isConnectionLoading,
   } = useIntegrationConnection({
     integrationKey: selectedIntegration?.key,
   });
@@ -184,28 +183,36 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                     size="sm"
                     className="mb-1"
                   />
-                  <Button
-                    type="button"
-                    className="mt-2 self-start"
-                    disabled={isConnecting}
-                    onClick={async () => {
-                      try {
-                        await connect();
-                      } catch (err) {
-                        console.error("Failed to connect:", err);
-                        toast.error("Failed to connect integration");
-                      }
-                    }}
-                  >
-                    Connect {selectedIntegration.name}{" "}
-                    <Image
-                      className="r"
-                      width={16}
-                      height={16}
-                      src={selectedIntegration.logoUri}
-                      alt={selectedIntegration.name}
-                    />
-                  </Button>
+                  {isConnectionLoading ? (
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground mt-2">
+                      <Loader className="w-4 h-4 animate-spin" />
+                      Checking connection status...
+                    </div>
+                  ) : (
+                    <Button
+                      type="button"
+                      className="mt-2 self-start"
+                      disabled={isConnecting}
+                      onClick={async () => {
+                        try {
+                          await connect();
+                        } catch (err) {
+                          console.error("Failed to connect:", err);
+                          toast.error("Failed to connect integration");
+                        }
+                      }}
+                    >
+                      {isConnecting && <Loader className="w-4 h-4 animate-spin mr-2" />}
+                      Connect {selectedIntegration.name}{" "}
+                      <Image
+                        className="r"
+                        width={16}
+                        height={16}
+                        src={selectedIntegration.logoUri}
+                        alt={selectedIntegration.name}
+                      />
+                    </Button>
+                  )}
                 </div>
               </SectionWithStatus>
             )}
@@ -228,7 +235,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                     <div className="flex items-center gap-2">
                       <Settings className="w-4 h-4 text-muted-foreground" />
                       <span className="text-sm font-medium">
-                        Data Source Configuration
+                        Object Configuration
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
@@ -240,12 +247,10 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                         onClick={() =>
                           setShowDataSourceConfig(!showDataSourceConfig)
                         }
-                        aria-label={`${
-                          showDataSourceConfig ? "Hide" : "Show"
-                        } data source configuration`}
-                        title={`${
-                          showDataSourceConfig ? "Hide" : "Show"
-                        } data source configuration`}
+                        aria-label={`${showDataSourceConfig ? "Hide" : "Show"
+                          } data source configuration`}
+                        title={`${showDataSourceConfig ? "Hide" : "Show"
+                          } data source configuration`}
                         className={`
                           relative inline-flex h-6 w-11 items-center rounded-full transition-colors
                           ${showDataSourceConfig ? "bg-primary" : "bg-gray-200"}
@@ -255,10 +260,9 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                         <span
                           className={`
                             inline-block h-4 w-4 transform rounded-full bg-white transition-transform
-                            ${
-                              showDataSourceConfig
-                                ? "translate-x-6"
-                                : "translate-x-1"
+                            ${showDataSourceConfig
+                              ? "translate-x-6"
+                              : "translate-x-1"
                             }
                           `}
                         />
@@ -269,9 +273,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                   {!showDataSourceConfig && (
                     <div className="text-sm text-muted-foreground mb-4 ml-6">
                       <p>
-                        Configure data source parameters like filters, date
-                        ranges, and other sync settings for more control over
-                        what data is synchronized.
+                        Configure Object parameters and change the data collection used
                       </p>
                     </div>
                   )}
@@ -281,9 +283,6 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                 {showDataSourceConfig && (
                   <div className="ml-6">
                     <CustomDataSourceConfiguration
-                      onDataSourceInstanceChange={(dataSourceInstance) =>
-                        setDataSourceInstance(dataSourceInstance)
-                      }
                       instanceKey={instanceKey.current}
                       integrationKey={selectedIntegration?.key}
                       dataSourceKey={selectedAppObjectKey}
@@ -310,18 +309,15 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                         onClick={() =>
                           setShowFieldMappingConfig(!showFieldMappingConfig)
                         }
-                        aria-label={`${
-                          showFieldMappingConfig ? "Hide" : "Show"
-                        } field mapping configuration`}
-                        title={`${
-                          showFieldMappingConfig ? "Hide" : "Show"
-                        } field mapping configuration`}
+                        aria-label={`${showFieldMappingConfig ? "Hide" : "Show"
+                          } field mapping configuration`}
+                        title={`${showFieldMappingConfig ? "Hide" : "Show"
+                          } field mapping configuration`}
                         className={`
                           relative inline-flex h-6 w-11 items-center rounded-full transition-colors
-                          ${
-                            showFieldMappingConfig
-                              ? "bg-primary"
-                              : "bg-gray-200"
+                          ${showFieldMappingConfig
+                            ? "bg-primary"
+                            : "bg-gray-200"
                           }
                           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
                         `}
@@ -329,10 +325,9 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                         <span
                           className={`
                             inline-block h-4 w-4 transform rounded-full bg-white transition-transform
-                            ${
-                              showFieldMappingConfig
-                                ? "translate-x-6"
-                                : "translate-x-1"
+                            ${showFieldMappingConfig
+                              ? "translate-x-6"
+                              : "translate-x-1"
                             }
                           `}
                         />
@@ -352,7 +347,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                 </div>
 
                 {/* 7: Field Mapping Configuration Section (shown when toggled) */}
-                {showFieldMappingConfig && !!dataSourceInstance && (
+                {showFieldMappingConfig && (
                   <div className="ml-6">
                     <CustomFieldMappingConfiguration
                       instanceKey={instanceKey.current}

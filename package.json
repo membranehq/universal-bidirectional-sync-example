@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack & pnpm dlx inngest-cli@1.5.2 dev",
+    "dev": "next dev --turbopack & pnpm dlx inngest-cli dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
