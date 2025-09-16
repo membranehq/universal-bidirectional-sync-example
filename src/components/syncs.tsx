@@ -11,7 +11,6 @@ import {
   ChevronRight,
   AlertCircle,
   Database,
-  DownloadIcon,
   Settings2,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
