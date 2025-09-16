@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Syncs } from "@/components/syncs";
-import { DownloadIcon, Settings2 } from "lucide-react";
+import { Settings2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SyncConfigModal } from "@/components/sync-config-modal/sync-config-modal";
 import { ManageIntegrationsModal } from "@/components/manage-integrations-modal/manage-integrations-modal";
