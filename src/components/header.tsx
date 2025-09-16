@@ -23,7 +23,7 @@ export function Header() {
             </div>
             <div className="flex items-center space-x-2 sm:space-x-4">
               <a
-                href="https://github.com/membranehq/unified-api-example"
+                href="https://github.com/membranehq/universal-bidirectional-sync-example"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors duration-200"
