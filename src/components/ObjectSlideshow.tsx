@@ -11,15 +11,10 @@ interface ObjectSlideshowProps {
 
 export function ObjectSlideshow({ className = "" }: ObjectSlideshowProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
 
   // Get all app object keys
   const objectKeys = Object.keys(appObjects) as AppObjectKey[];
-
-  // Calculate total cycles (3 full cycles through all objects)
-  const totalCycles = 3;
-  const totalSlides = objectKeys.length * totalCycles;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -27,27 +22,15 @@ export function ObjectSlideshow({ className = "" }: ObjectSlideshowProps) {
 
       setTimeout(() => {
         setCurrentIndex((prevIndex) => {
-          const nextIndex = prevIndex + 1;
-
-          // If we've completed all cycles, stop the slideshow
-          if (nextIndex >= totalSlides) {
-            setIsVisible(false);
-            return prevIndex;
-          }
-
-          return nextIndex;
+          // Continue cycling through objects indefinitely
+          return (prevIndex + 1) % objectKeys.length;
         });
         setIsAnimating(false);
       }, 200); // Half of animation duration
     }, 2000); // Change slide every 2 seconds
 
     return () => clearInterval(interval);
-  }, [totalSlides]);
-
-  // Don't render if slideshow has completed
-  if (!isVisible) {
-    return null;
-  }
+  }, [objectKeys.length]);
 
   // Get the current and next objects
   const currentObjectKey = objectKeys[currentIndex % objectKeys.length];

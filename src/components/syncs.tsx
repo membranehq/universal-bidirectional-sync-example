@@ -1,3 +1,4 @@
+import React from "react";
 import useSWR from "swr";
 import type { ISync } from "@/models/types";
 import Link from "next/link";
@@ -10,14 +11,18 @@ import {
   ChevronRight,
   AlertCircle,
   Database,
+  DownloadIcon,
+  Settings2,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { RecordTypeBadge } from "@/components/ui/record-type-badge";
 import { fetchWithAuth } from "@/lib/fetch-utils";
+import { SyncConfigModal } from "@/components/sync-config-modal/sync-config-modal";
+import { Button } from "@/components/ui/button";
 
 interface SyncItemProps {
-  sync: ISync & { _id: string, recordCount: number };
+  sync: ISync & { _id: string; recordCount: number };
   logoUri?: string;
   integrationName?: string;
 }
@@ -50,7 +55,6 @@ function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
             <span className="text font-semibold truncate">
               {integrationName || sync.integrationKey}
             </span>
-            <StatusBadge status={sync.status} />
           </div>
           <div className="flex flex-row items-center gap-2 mt-1">
             {/* Data Source Key Badge */}
@@ -91,18 +95,25 @@ function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
             )}
           </div>
         </div>
-        <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:translate-x-1 pr-4">
-          <ChevronRight className="w-5 h-5 text-gray-400" />
+        <div className="flex-shrink-0 flex items-center gap-2">
+          <StatusBadge status={sync.status} />
+          <div className="opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:translate-x-1">
+            <ChevronRight className="w-5 h-5 text-gray-400" />
+          </div>
         </div>
       </div>
     </Link>
   );
 }
 
-export function Syncs() {
+interface SyncsProps {
+  onEmptyStateChange?: (isEmpty: boolean) => void;
+}
 
-
-  const { data, error, isLoading } = useSWR<{ data: (ISync & { _id: string, recordCount: number })[] }>(
+export function Syncs({ onEmptyStateChange }: SyncsProps = {}) {
+  const { data, error, isLoading } = useSWR<{
+    data: (ISync & { _id: string; recordCount: number })[];
+  }>(
     ["/api/sync", "token"],
     async ([url]) => {
       return fetchWithAuth(url);
@@ -112,6 +123,13 @@ export function Syncs() {
     }
   );
 
+  // Notify parent about empty state
+  React.useEffect(() => {
+    if (data && !isLoading) {
+      onEmptyStateChange?.(!data?.data?.length);
+    }
+  }, [data, isLoading, onEmptyStateChange]);
+
   if (isLoading) return <Loader message="Loading syncs..." />;
   if (error) return <div className="text-red-500">Failed to load syncs</div>;
   if (!data?.data?.length) {
@@ -120,11 +138,21 @@ export function Syncs() {
         <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
           <Database className="w-8 h-8 text-gray-400" />
         </div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">No syncs yet</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+          No syncs yet
+        </h3>
         <p className="text-gray-600 mb-6 max-w-md">
-          Get started by connecting your first integration and creating a sync to begin synchronizing your data.
+          Get started by connecting your first integration and creating a sync
+          to begin synchronizing your data.
         </p>
-
+        <SyncConfigModal
+          trigger={
+            <Button className=" text-white shadow-lg hover:shadow-xl transition-all duration-200">
+              <Settings2 className="mr-2 h-4 w-4" />
+              Configure Sync
+            </Button>
+          }
+        />
       </div>
     );
   }
