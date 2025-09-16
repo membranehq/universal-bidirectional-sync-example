@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
@@ -14,14 +14,14 @@ import { Download, Loader, Settings } from "lucide-react";
 import "@membranehq/react/styles.css";
 import Image from "next/image";
 import { FormLabel } from "@/components/ui/form-label";
-import { Integration, DataSourceInstance } from "@membranehq/sdk";
+import { Integration } from "@membranehq/sdk";
 import { fetchWithAuth } from "@/lib/fetch-utils";
 import { useIntegrationConnection } from "@/components/sync-config-modal/use-integration-connection";
 import { CustomDataSourceConfiguration } from "./custom-data-source-configuration";
 import { CustomFieldMappingConfiguration } from "./custom-field-mapping-configuration";
 import { SectionWithStatus } from "./section-with-status";
 import appObjects from "@/lib/app-objects";
-import { useDataSources, useIntegrationApp } from "@membranehq/react";
+import { useDataSources } from "@membranehq/react";
 import { SelectionGroup } from "./selection-group";
 import { useDataSourceAppliedIntegrations } from "@/hooks/use-applied-integrations";
 
