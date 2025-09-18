@@ -21,7 +21,6 @@ import { CustomDataSourceConfiguration } from "./custom-data-source-configuratio
 import { CustomFieldMappingConfiguration } from "./custom-field-mapping-configuration";
 import { SectionWithStatus } from "./section-with-status";
 import appObjects from "@/lib/app-objects";
-import { useDataSources } from "@membranehq/react";
 import { SelectionGroup } from "./selection-group";
 import { useDataSourceAppliedIntegrations } from "@/hooks/use-applied-integrations";
 
@@ -35,8 +34,6 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
   const [syncing, setSyncing] = useState(false);
   const [showDataSourceConfig, setShowDataSourceConfig] = useState(false);
   const [showFieldMappingConfig, setShowFieldMappingConfig] = useState(false);
-
-  const { dataSources: dataSources = [] } = useDataSources();
 
   const {
     data: connection,
@@ -77,17 +74,14 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
     }
   };
 
-  const dataSourceKeys = dataSources.map((dataSource) => dataSource.key);
-
   const appObjectsItems = Object.keys(appObjects)
-    .filter((key) => dataSourceKeys.includes(key))
-    .map((key) => ({
-      id: key,
-      key: key,
-      name: appObjects[key as keyof typeof appObjects].label,
-      icon: appObjects[key as keyof typeof appObjects].icon,
-      category: appObjects[key as keyof typeof appObjects].category,
-    }));
+  .map((key) => ({
+    id: key,
+    key: key,
+    name: appObjects[key as keyof typeof appObjects].label,
+    icon: appObjects[key as keyof typeof appObjects].icon,
+    category: appObjects[key as keyof typeof appObjects].category,
+  }));
 
   const {
     integrations,
@@ -134,8 +128,8 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                   if (selectedIntegration) setSelectedIntegration(null);
                   setSelectedAppObjectKey(key);
                 }}
-                visibleCount={5}
-                viewMode={"all"}
+                visibleCount={4}
+                viewMode={"categories"}
               />
             </SectionWithStatus>
 
@@ -168,7 +162,6 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                   }}
                   visibleCount={3}
                   loading={integrationsLoading}
-                  viewMode={"all"}
                 />
               )}
             </SectionWithStatus>
@@ -202,7 +195,9 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                         }
                       }}
                     >
-                      {isConnecting && <Loader className="w-4 h-4 animate-spin mr-2" />}
+                      {isConnecting && (
+                        <Loader className="w-4 h-4 animate-spin mr-2" />
+                      )}
                       Connect {selectedIntegration.name}{" "}
                       <Image
                         className="r"
@@ -247,10 +242,12 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                         onClick={() =>
                           setShowDataSourceConfig(!showDataSourceConfig)
                         }
-                        aria-label={`${showDataSourceConfig ? "Hide" : "Show"
-                          } data source configuration`}
-                        title={`${showDataSourceConfig ? "Hide" : "Show"
-                          } data source configuration`}
+                        aria-label={`${
+                          showDataSourceConfig ? "Hide" : "Show"
+                        } data source configuration`}
+                        title={`${
+                          showDataSourceConfig ? "Hide" : "Show"
+                        } data source configuration`}
                         className={`
                           relative inline-flex h-6 w-11 items-center rounded-full transition-colors
                           ${showDataSourceConfig ? "bg-primary" : "bg-gray-200"}
@@ -260,9 +257,10 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                         <span
                           className={`
                             inline-block h-4 w-4 transform rounded-full bg-white transition-transform
-                            ${showDataSourceConfig
-                              ? "translate-x-6"
-                              : "translate-x-1"
+                            ${
+                              showDataSourceConfig
+                                ? "translate-x-6"
+                                : "translate-x-1"
                             }
                           `}
                         />
@@ -273,7 +271,8 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                   {!showDataSourceConfig && (
                     <div className="text-sm text-muted-foreground mb-4 ml-6">
                       <p>
-                        Configure Object parameters and change the data collection used
+                        Configure Object parameters and change the data
+                        collection used
                       </p>
                     </div>
                   )}
@@ -309,15 +308,18 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                         onClick={() =>
                           setShowFieldMappingConfig(!showFieldMappingConfig)
                         }
-                        aria-label={`${showFieldMappingConfig ? "Hide" : "Show"
-                          } field mapping configuration`}
-                        title={`${showFieldMappingConfig ? "Hide" : "Show"
-                          } field mapping configuration`}
+                        aria-label={`${
+                          showFieldMappingConfig ? "Hide" : "Show"
+                        } field mapping configuration`}
+                        title={`${
+                          showFieldMappingConfig ? "Hide" : "Show"
+                        } field mapping configuration`}
                         className={`
                           relative inline-flex h-6 w-11 items-center rounded-full transition-colors
-                          ${showFieldMappingConfig
-                            ? "bg-primary"
-                            : "bg-gray-200"
+                          ${
+                            showFieldMappingConfig
+                              ? "bg-primary"
+                              : "bg-gray-200"
                           }
                           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
                         `}
@@ -325,9 +327,10 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                         <span
                           className={`
                             inline-block h-4 w-4 transform rounded-full bg-white transition-transform
-                            ${showFieldMappingConfig
-                              ? "translate-x-6"
-                              : "translate-x-1"
+                            ${
+                              showFieldMappingConfig
+                                ? "translate-x-6"
+                                : "translate-x-1"
                             }
                           `}
                         />
@@ -365,7 +368,12 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
           <Button
             type="button"
             className="bg-primary text-white font-semibold hover:bg-primary/90 transition"
-            disabled={!selectedIntegration || !selectedAppObjectKey || syncing || !connection?.id}
+            disabled={
+              !selectedIntegration ||
+              !selectedAppObjectKey ||
+              syncing ||
+              !connection?.id
+            }
             onClick={startSync}
           >
             {syncing && <Loader className="w-4 h-4 animate-spin mr-2" />}
