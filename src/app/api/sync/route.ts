@@ -41,7 +41,7 @@ async function createSyncDependencies(
 ) {
   /**
    * Data source & Field mapping instances are created on the client when the customer
-   * tries to configure them. But this trys to  create them even if they don't exist.
+   * tries to configure them. But this creates them even if they don't exist.
    */
 
   // Data source

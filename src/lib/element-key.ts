@@ -21,7 +21,7 @@ export const getElementKey = (
 
   switch (elementType) {
     case "list-action":
-      return `get-${pluralizedRecordType}`;
+      return `list-${pluralizedRecordType}`;
     case "create-action":
       return `create-${singularizedRecordType}`;
     case "update-action":
