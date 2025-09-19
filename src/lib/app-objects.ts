@@ -28,11 +28,12 @@ import {
   UserCheck,
   DollarSign,
   BookOpen,
-  Shield, Database,
+  Shield,
+  Database,
   BarChart3,
   List,
   Award,
-  Percent
+  Percent,
 } from "lucide-react";
 import {
   UserRecord,
@@ -168,6 +169,34 @@ interface AppObject {
   category?: string;
 }
 
+export interface CategoryIcon {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+}
+
+export const categoryIcons: Record<string, CategoryIcon> = {
+  CRM: {
+    icon: Users,
+    label: "Customer Relationship Management",
+  },
+  Recruitment: {
+    icon: Briefcase,
+    label: "Recruitment & HR",
+  },
+  Finance: {
+    icon: DollarSign,
+    label: "Finance & Accounting",
+  },
+  Documents: {
+    icon: FileText,
+    label: "Documents & Files",
+  },
+  Others: {
+    icon: List,
+    label: "Other Objects",
+  },
+};
+
 const appObjects: Record<AppObjectKey, AppObject> = {
   orders: {
     label: "Order",
@@ -177,6 +206,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: Mail,
     component: OrderRecord,
+    category: "Finance",
   },
   users: {
     label: "User",
@@ -284,6 +314,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: Receipt,
     component: InvoiceRecord,
+    category: "Finance",
   },
   activities: {
     label: "Activity",
@@ -303,7 +334,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: StickyNote,
     component: NoteRecord,
-    category: "CRM",
+    category: "Documents",
   },
   emails: {
     label: "Email",
@@ -313,6 +344,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: Mail,
     component: EmailRecord,
+    category: "Documents",
   },
   files: {
     label: "File",
@@ -322,6 +354,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: File,
     component: FileRecord,
+    category: "Documents",
   },
   customers: {
     label: "Customer",
@@ -388,6 +421,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: CreditCard,
     component: PaymentRecord,
+    category: "Finance",
   },
   folders: {
     label: "Folder",
@@ -397,6 +431,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: Folder,
     component: FolderRecord,
+    category: "Documents",
   },
   documents: {
     label: "Document",
@@ -406,6 +441,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: FileText,
     component: DocumentRecord,
+    category: "Documents",
   },
   messages: {
     label: "Message",
@@ -415,6 +451,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: MessageSquare,
     component: MessageRecord,
+    category: "Documents",
   },
   bills: {
     label: "Bill",
@@ -424,6 +461,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: Receipt,
     component: BillRecord,
+    category: "Finance",
   },
   "credit-notes": {
     label: "Credit Note",
@@ -433,6 +471,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: FileMinus,
     component: CreditNoteRecord,
+    category: "Finance",
   },
   drives: {
     label: "Drive",
@@ -442,6 +481,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: HardDrive,
     component: DriveRecord,
+    category: "Documents",
   },
   "drive-items": {
     label: "Drive Item",
@@ -451,6 +491,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: File,
     component: DriveItemRecord,
+    category: "Documents",
   },
   "timeoff-balances": {
     label: "Timeoff Balance",
@@ -508,6 +549,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: DollarSign,
     component: PayrollRecord,
+    category: "Finance",
   },
   eeocs: {
     label: "EEOC",
@@ -546,6 +588,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: BookOpen,
     component: JournalEntryRecord,
+    category: "Finance",
   },
   "job-offers": {
     label: "Job Offer",
@@ -565,6 +608,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: Percent,
     component: TaxRateRecord,
+    category: "Finance",
   },
   "ledger-accounts": {
     label: "Ledger Account",
@@ -574,6 +618,7 @@ const appObjects: Record<AppObjectKey, AppObject> = {
     allowCreate: true,
     icon: Database,
     component: LedgerAccountRecord,
+    category: "Finance",
   },
 };
 

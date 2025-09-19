@@ -10,19 +10,18 @@ import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
-import { Download, Loader, Settings } from "lucide-react";
+import { Database, Download, Loader, Settings, Zap } from "lucide-react";
 import "@membranehq/react/styles.css";
 import Image from "next/image";
-import { FormLabel } from "@/components/ui/form-label";
 import { Integration } from "@membranehq/sdk";
 import { fetchWithAuth } from "@/lib/fetch-utils";
 import { useIntegrationConnection } from "@/components/sync-config-modal/use-integration-connection";
 import { CustomDataSourceConfiguration } from "./custom-data-source-configuration";
 import { CustomFieldMappingConfiguration } from "./custom-field-mapping-configuration";
-import { SectionWithStatus } from "./section-with-status";
-import appObjects from "@/lib/app-objects";
+import appObjects, { categoryIcons } from "@/lib/app-objects";
 import { SelectionGroup } from "./selection-group";
 import { useDataSourceAppliedIntegrations } from "@/hooks/use-applied-integrations";
+import { SelectionGroupWrapper } from "./selection-group-wrapper";
 
 function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
   const [selectedIntegration, setSelectedIntegration] =
@@ -74,8 +73,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
     }
   };
 
-  const appObjectsItems = Object.keys(appObjects)
-  .map((key) => ({
+  const appObjectsItems = Object.keys(appObjects).map((key) => ({
     id: key,
     key: key,
     name: appObjects[key as keyof typeof appObjects].label,
@@ -106,41 +104,43 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
         <DialogTitle className="flex flex-col gap-1">
           <span className="flex items-center gap-2">Configure Sync</span>
           <span className="text-sm font-normal text-muted-foreground">
-            Set up bidirectional data synchronization between your app and
-            external integrations
+            Set up bidirectional object sync across integrations
           </span>
         </DialogTitle>
         <div className="p-3 flex-1 overflow-y-auto">
           <div className="flex flex-col gap-4 w-full mt-4 overflow-y-auto">
-            {/* 1: App Object Select (Always visible) */}
-            <SectionWithStatus done={!!selectedAppObjectKey}>
-              <FormLabel
-                label="Select Object"
-                tooltip="Choose which app object you want to sync."
-                size="sm"
-                className="mb-1"
-              />
-
+            <SelectionGroupWrapper
+              title="Select Object"
+              description="Choose from objects across different categories"
+              icon={Database}
+              className="pb-3"
+              size="sm"
+            >
               <SelectionGroup
                 items={appObjectsItems}
                 selectedKey={selectedAppObjectKey ?? null}
-                onSelect={(key) => {
+                onItemSelect={(key) => {
                   if (selectedIntegration) setSelectedIntegration(null);
                   setSelectedAppObjectKey(key);
                 }}
-                visibleCount={4}
-                viewMode={"categories"}
+                visibleCount={3}
+                categoryIcons={categoryIcons}
+                onCategorySelect={() => {
+                  setSelectedAppObjectKey(undefined);
+                  if (selectedIntegration) setSelectedIntegration(null);
+                }}
               />
-            </SectionWithStatus>
+            </SelectionGroupWrapper>
 
-            {/* 2: Integration Select (Always visible) */}
-            <SectionWithStatus done={!!selectedIntegration}>
-              <FormLabel
-                label="Select Integration"
-                tooltip="Choose which app object you want to sync."
-                size="sm"
-                className="mb-1"
-              />
+            <SelectionGroupWrapper
+              title="Select Integration"
+              description="Select the integration you want to sync with"
+              icon={Zap}
+              showEmptyMessage={!selectedAppObjectKey}
+              emptyMessage="All available integrations will appear here after object selection"
+              className="pb-3"
+              size="sm"
+            >
               {!selectedAppObjectKey ? (
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-2 text-center text-gray-500 text-sm">
                   <p>Integration list will appear when you select object</p>
@@ -156,7 +156,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                 <SelectionGroup
                   items={integrationItems}
                   selectedKey={selectedIntegration?.key ?? null}
-                  onSelect={(key) => {
+                  onItemSelect={(key) => {
                     const integration = integrations.find((i) => i.key === key);
                     if (integration) setSelectedIntegration(integration);
                   }}
@@ -164,52 +164,48 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                   loading={integrationsLoading}
                 />
               )}
-            </SectionWithStatus>
-
+            </SelectionGroupWrapper>
             {/* 3: Connect Button (Visible if integration selected has no connection) */}
             {!!selectedIntegration && !connection && (
-              <SectionWithStatus done={false}>
-                <div className="flex flex-col gap-1 w-full">
-                  <FormLabel
-                    label="Connect Integration"
-                    tooltip="Connect your account to the selected integration to enable data syncing."
-                    size="sm"
-                    className="mb-1"
-                  />
-                  {isConnectionLoading ? (
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground mt-2">
-                      <Loader className="w-4 h-4 animate-spin" />
-                      Checking connection status...
-                    </div>
-                  ) : (
-                    <Button
-                      type="button"
-                      className="mt-2 self-start"
-                      disabled={isConnecting}
-                      onClick={async () => {
-                        try {
-                          await connect();
-                        } catch (err) {
-                          console.error("Failed to connect:", err);
-                          toast.error("Failed to connect integration");
-                        }
-                      }}
-                    >
-                      {isConnecting && (
-                        <Loader className="w-4 h-4 animate-spin mr-2" />
-                      )}
-                      Connect {selectedIntegration.name}{" "}
-                      <Image
-                        className="r"
-                        width={16}
-                        height={16}
-                        src={selectedIntegration.logoUri}
-                        alt={selectedIntegration.name}
-                      />
-                    </Button>
-                  )}
-                </div>
-              </SectionWithStatus>
+              <SelectionGroupWrapper
+                title="Connect Integration"
+                icon={Zap}
+                className="pb-3"
+                size="sm"
+              >
+                {isConnectionLoading ? (
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground mt-2">
+                    <Loader className="w-4 h-4 animate-spin" />
+                    Checking connection status...
+                  </div>
+                ) : (
+                  <Button
+                    type="button"
+                    className="mt-2 self-start"
+                    disabled={isConnecting}
+                    onClick={async () => {
+                      try {
+                        await connect();
+                      } catch (err) {
+                        console.error("Failed to connect:", err);
+                        toast.error("Failed to connect integration");
+                      }
+                    }}
+                  >
+                    {isConnecting && (
+                      <Loader className="w-4 h-4 animate-spin mr-2" />
+                    )}
+                    Connect {selectedIntegration.name}{" "}
+                    <Image
+                      className="r"
+                      width={16}
+                      height={16}
+                      src={selectedIntegration.logoUri}
+                      alt={selectedIntegration.name}
+                    />
+                  </Button>
+                )}
+              </SelectionGroupWrapper>
             )}
 
             {/* Advanced Configuration Container */}
@@ -242,12 +238,10 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                         onClick={() =>
                           setShowDataSourceConfig(!showDataSourceConfig)
                         }
-                        aria-label={`${
-                          showDataSourceConfig ? "Hide" : "Show"
-                        } data source configuration`}
-                        title={`${
-                          showDataSourceConfig ? "Hide" : "Show"
-                        } data source configuration`}
+                        aria-label={`${showDataSourceConfig ? "Hide" : "Show"
+                          } data source configuration`}
+                        title={`${showDataSourceConfig ? "Hide" : "Show"
+                          } data source configuration`}
                         className={`
                           relative inline-flex h-6 w-11 items-center rounded-full transition-colors
                           ${showDataSourceConfig ? "bg-primary" : "bg-gray-200"}
@@ -257,10 +251,9 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                         <span
                           className={`
                             inline-block h-4 w-4 transform rounded-full bg-white transition-transform
-                            ${
-                              showDataSourceConfig
-                                ? "translate-x-6"
-                                : "translate-x-1"
+                            ${showDataSourceConfig
+                              ? "translate-x-6"
+                              : "translate-x-1"
                             }
                           `}
                         />
@@ -308,18 +301,15 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                         onClick={() =>
                           setShowFieldMappingConfig(!showFieldMappingConfig)
                         }
-                        aria-label={`${
-                          showFieldMappingConfig ? "Hide" : "Show"
-                        } field mapping configuration`}
-                        title={`${
-                          showFieldMappingConfig ? "Hide" : "Show"
-                        } field mapping configuration`}
+                        aria-label={`${showFieldMappingConfig ? "Hide" : "Show"
+                          } field mapping configuration`}
+                        title={`${showFieldMappingConfig ? "Hide" : "Show"
+                          } field mapping configuration`}
                         className={`
                           relative inline-flex h-6 w-11 items-center rounded-full transition-colors
-                          ${
-                            showFieldMappingConfig
-                              ? "bg-primary"
-                              : "bg-gray-200"
+                          ${showFieldMappingConfig
+                            ? "bg-primary"
+                            : "bg-gray-200"
                           }
                           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
                         `}
@@ -327,10 +317,9 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
                         <span
                           className={`
                             inline-block h-4 w-4 transform rounded-full bg-white transition-transform
-                            ${
-                              showFieldMappingConfig
-                                ? "translate-x-6"
-                                : "translate-x-1"
+                            ${showFieldMappingConfig
+                              ? "translate-x-6"
+                              : "translate-x-1"
                             }
                           `}
                         />
@@ -381,7 +370,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
           </Button>
         </div>
       </DialogContent>
-    </Dialog>
+    </Dialog >
   );
 }
 
