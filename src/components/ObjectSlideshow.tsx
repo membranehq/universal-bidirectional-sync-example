@@ -45,14 +45,14 @@ export function ObjectSlideshow({ className = "" }: ObjectSlideshowProps) {
     <div className={`flex items-center gap-3 ${className}`}>
       <div className="relative overflow-hidden h-7 w-72">
         {/* Current object sliding up and out */}
-        <div className={`absolute inset-0 flex items-center gap-2 text-lg text-muted-foreground font-medium transition-transform duration-400 ease-out ${isAnimating ? 'transform -translate-y-full' : 'transform translate-y-0'
+        <div className={`absolute inset-0 flex items-center gap-2 text-lg font-medium transition-transform duration-400 ease-out ${isAnimating ? 'transform -translate-y-full' : 'transform translate-y-0'
           }`}>
           <CurrentIconComponent className="h-5 w-5" />
           <span className="whitespace-nowrap">{pluralize(currentObject.label)}</span>
         </div>
 
         {/* Next object sliding up from below */}
-        <div className={`absolute inset-0 flex items-center gap-2 text-lg text-muted-foreground font-medium transition-transform duration-400 ease-out ${isAnimating ? 'transform -translate-y-full' : 'transform translate-y-full'
+        <div className={`absolute inset-0 flex items-center gap-2 text-lg font-medium transition-transform duration-400 ease-out ${isAnimating ? 'transform -translate-y-full' : 'transform translate-y-full'
           }`}>
           <NextIconComponent className="h-5" />
           <span className="whitespace-nowrap">{pluralize(nextObject.label)}</span>
