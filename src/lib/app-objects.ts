@@ -28,15 +28,11 @@ import {
   UserCheck,
   DollarSign,
   BookOpen,
-  Shield,
-  Archive,
-  AlertCircle,
-  Zap,
-  Database,
+  Shield, Database,
   BarChart3,
   List,
   Award,
-  Percent,
+  Percent
 } from "lucide-react";
 import {
   UserRecord,
