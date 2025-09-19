@@ -209,8 +209,8 @@ export function SelectionGroup({
 
   const sortedCategories = categorizedItems
     ? Object.keys(categorizedItems).sort((a, b) => {
-      if (a === "Other") return 1;
-      if (b === "Other") return -1;
+      if (a === "Others") return 1;
+      if (b === "Others") return -1;
       return a.localeCompare(b);
     })
     : [];

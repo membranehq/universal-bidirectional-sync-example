@@ -377,7 +377,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
             onClick={startSync}
           >
             {syncing && <Loader className="w-4 h-4 animate-spin mr-2" />}
-            Sync <Download className="w-4 h-4" />
+            Start syncing <Download className="w-4 h-4" />
           </Button>
         </div>
       </DialogContent>
