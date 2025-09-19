@@ -13,9 +13,7 @@ type CustomerData = z.infer<typeof customersSchema>;
 export function CustomerRecord({ record }: CustomerRecordProps) {
   const customerData = record.data as Partial<CustomerData>;
 
-  const customerName = typeof customerData?.name === 'string' ? customerData.name :
-    typeof customerData?.companyName === 'string' ? customerData.companyName :
-      typeof customerData?.fullName === 'string' ? customerData.fullName : null;
+  const customerName = customerData.firstName + " " + customerData.lastName;  
 
   return (
     <AppObjectComponentWrapper>

@@ -1,7 +1,7 @@
 import { Mail } from "lucide-react";
 import type { IRecord } from "@/models/types";
 import { AppObjectComponentWrapper } from "./app-object-wrapper";
-import { emailSchema } from "@/lib/app-objects-schemas";
+import { emailsSchema } from "@/lib/app-objects-schemas";
 import { z } from "zod";
 
 interface EmailRecordProps {
@@ -9,7 +9,7 @@ interface EmailRecordProps {
 }
 
 
-type EmailData = z.infer<typeof emailSchema>;
+type EmailData = z.infer<typeof emailsSchema>;
 
 export function EmailRecord({ record }: EmailRecordProps) {
   const emailData = record.data as Partial<EmailData>;

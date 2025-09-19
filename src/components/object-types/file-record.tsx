@@ -1,7 +1,7 @@
 import { File } from "lucide-react";
 import type { IRecord } from "@/models/types";
 import { AppObjectComponentWrapper } from "./app-object-wrapper";
-import { fileSchema } from "@/lib/app-objects-schemas";
+import { filesSchema } from "@/lib/app-objects-schemas";
 import { z } from "zod";
 
 interface FileRecordProps {
@@ -9,14 +9,14 @@ interface FileRecordProps {
 }
 
 
-type FileData = z.infer<typeof fileSchema>;
+type FileData = z.infer<typeof filesSchema>;
 
 export function FileRecord({ record }: FileRecordProps) {
   const fileData = record.data as Partial<FileData>;
 
   const fileName = typeof fileData?.name === 'string' ? fileData.name : null;
   const fileSize = typeof fileData?.size === 'number' ? fileData.size : null;
-  const isFolder = typeof fileData?.isFolder === 'boolean' ? fileData.isFolder : false;
+  const isFolder = typeof fileData?.folderId === 'string' ? fileData.folderId : false;
 
   const formatFileSize = (bytes: number) => {
     const sizes = ["B", "KB", "MB", "GB"];
