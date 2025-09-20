@@ -10,9 +10,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
-import recordTypesConfig from "@/lib/app-objects";
+import appObjects from "@/lib/app-objects";
 import { ZodFormRenderer } from "./ZodFormRenderer";
 import { z } from "zod";
+
 
 interface CreateRecordModalProps {
   recordType: string;
@@ -30,8 +31,7 @@ export function CreateRecordModal({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const config = recordTypesConfig[recordType as keyof typeof recordTypesConfig];
-  const IconComponent = config?.icon;
+  const config = appObjects[recordType as keyof typeof appObjects];
 
   if (!config) {
     return null;
@@ -39,7 +39,7 @@ export function CreateRecordModal({
 
   const handleFieldChange = (field: string, value: unknown) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    // Clear error when user starts typing
+
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: "" }));
     }
@@ -48,20 +48,15 @@ export function CreateRecordModal({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log("Form data:", formData);
-
     try {
       setIsSubmitting(true);
       // Validate the form data against the schema
       const validatedData = config.schema.parse(formData);
-      console.log("Validated data:", validatedData);
 
-      // Call the callback if provided
       if (onCreatedRecord) {
         await onCreatedRecord(validatedData);
       }
 
-      // Close modal and reset form
       setIsOpen(false);
       setFormData({});
       setErrors({});
@@ -83,14 +78,14 @@ export function CreateRecordModal({
       <DialogTrigger asChild>
         {trigger || (
           <Button size="sm" className="flex items-center gap-2">
-            Create {recordType}
-            {IconComponent ? <IconComponent className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+            Create {config.label}
+            <Plus className="w-4 h-4" />
           </Button>
         )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[80vh] flex flex-col p-0">
         <DialogHeader className="flex-shrink-0 border-b px-6 py-4">
-          <DialogTitle>Create {recordType}</DialogTitle>
+          <DialogTitle>Create {config.label}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 p-3">
           {errors.form && (
@@ -126,7 +121,7 @@ export function CreateRecordModal({
             </Button>
             <Button
               type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Creating..." : `Create ${recordType}`}
+              {isSubmitting ? "Creating..." : `Create ${config.label}`}
             </Button>
           </div>
         </form>

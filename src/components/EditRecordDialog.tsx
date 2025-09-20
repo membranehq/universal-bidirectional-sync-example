@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Loader2 } from "lucide-react";
-import recordTypesConfig from "@/lib/app-objects";
+import appObjects from "@/lib/app-objects";
 import { ZodFormRenderer } from "./ZodFormRenderer";
 import { IRecord } from "@/models/types";
 
@@ -34,7 +34,7 @@ export function EditRecordDialog({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const config =
-    recordTypesConfig[recordType as keyof typeof recordTypesConfig];
+    appObjects[recordType as keyof typeof appObjects];
 
   const handleFieldChange = (field: string, value: unknown) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -49,7 +49,7 @@ export function EditRecordDialog({
 
     try {
       setIsSubmitting(true);
-      // Validate the form data against the schema
+
       const validatedData = config.schema.parse(formData);
 
       // Call the callback if provided
@@ -76,7 +76,7 @@ export function EditRecordDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px] max-h-[80vh] flex flex-col p-0">
         <DialogHeader className="flex-shrink-0 border-b px-6 py-4">
-          <DialogTitle>Edit {recordType}</DialogTitle>
+          <DialogTitle>Edit {config.label}</DialogTitle>
         </DialogHeader>
         <form
           onSubmit={handleSubmit}
@@ -121,7 +121,7 @@ export function EditRecordDialog({
                   Updating...
                 </>
               ) : (
-                `Update ${recordType}`
+                `Update ${config.label}`
               )}
             </Button>
           </div>

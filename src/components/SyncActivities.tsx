@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useEffect, useRef, useState } from "react";
-import { Plus, Edit, Trash2, RefreshCw, Database, Hash, RotateCcw } from "lucide-react";
+import { Plus, Edit, Trash2, RefreshCw, Database, Hash } from "lucide-react";
 import type { IRecord, ISyncActivity, SyncActivityType, SyncActivityMetadata } from "@/models/types";
 import useSWR from "swr";
 import { fetchWithAuth } from "@/lib/fetch-utils";
@@ -17,7 +17,7 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
   const [newActivityIds, setNewActivityIds] = useState<Set<string>>(new Set());
   const previousActivitiesRef = useRef<ISyncActivity[]>([]);
 
-  const { data: activitiesData, error: activitiesError, isLoading: activitiesLoading, mutate } = useSWR(
+  const { data: activitiesData, error: activitiesError, isLoading: activitiesLoading, isValidating, mutate } = useSWR(
     `/api/sync/${syncId}/activities`,
     async (url) => {
       return fetchWithAuth(url);
@@ -165,14 +165,14 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-medium text-foreground">Activity</h3>
+        <h3 className="text-xs font-medium text-foreground">Activities</h3>
         <button
           onClick={() => mutate()}
-          disabled={activitiesLoading}
+          disabled={isValidating}
           className="p-1.5 rounded-md hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           title="Refresh activities"
         >
-          <RotateCcw className={cn("w-3.5 h-3.5", activitiesLoading && "animate-spin")} />
+          <RefreshCw className={cn("w-3.5 h-3.5", isValidating && "animate-spin")} />
         </button>
       </div>
 
@@ -226,20 +226,18 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
       <style jsx>{`
         @keyframes highlight {
           0% {
-            background-color: rgba(59, 130, 246, 0.2);
-            transform: translateX(-4px);
+            background-color: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.4);
           }
           100% {
             background-color: transparent;
-            transform: translateX(0);
+            border: 1px solid transparent;
           }
         }
         
         .animate-highlight {
           animation: highlight 3s ease-out forwards;
           border-radius: 8px;
-          padding: 8px;
-          margin: -8px;
         }
       `}</style>
     </div>

@@ -230,9 +230,9 @@ const appObjects: Record<AppObjectKey, AppObject> = {
   contacts: {
     label: "Contact",
     schema: contactsSchema,
-    allowDelete: false,
-    allowUpdate: false,
-    allowCreate: false,
+    allowDelete: true,
+    allowUpdate: true,
+    allowCreate: true,
     icon: Users,
     component: ContactRecord,
     category: "CRM",

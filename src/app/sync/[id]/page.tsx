@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Loader } from "@/components/ui/loader";
 import { ArrowLeft, AlertTriangle, Database } from "lucide-react";
 import { SyncHeader } from "@/components/SyncHeader";
-import { RecordContainer } from "@/components/RecordsContainer";
+import { RecordsView } from "@/components/records-view";
 import { useSyncData } from "@/hooks/use-sync-data";
 import { SyncActivities } from "@/components/SyncActivities";
 
@@ -51,7 +51,7 @@ export default function SyncPage() {
       <SyncHeader sync={sync} subscriptions={subscriptions || { "data-record-created": null, "data-record-updated": null, "data-record-deleted": null }} />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          <RecordContainer {...syncRecordsProps} />
+          <RecordsView {...syncRecordsProps} />
         </div>
         <div className="lg:col-span-1">
           <SyncActivities {...syncActivitiesProps} />

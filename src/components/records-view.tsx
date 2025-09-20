@@ -3,7 +3,14 @@
 import { memo, useState, useCallback } from "react";
 import useSWR from "swr";
 import { useParams } from "next/navigation";
-import { Database, CheckCircle, XCircle, Clock, AlertCircle } from "lucide-react";
+import {
+  Database,
+  CheckCircle,
+  XCircle,
+  Clock,
+  AlertCircle,
+  RefreshCw,
+} from "lucide-react";
 import type { IRecord, RecordType, SyncStatus } from "@/models/types";
 import { SyncStatusObject } from "@/models/types";
 import { fetchWithAuth } from "@/lib/fetch-utils";
@@ -19,7 +26,9 @@ import {
 } from "@/components/ui/tooltip";
 
 import { PaginationControls } from "./Records/pagination-controls";
-
+import { CreateRecordModal } from "./CreateRecordModal";
+import appObjects from "@/lib/app-objects";
+import { Button } from "./ui/button";
 
 interface RecordContainerProps {
   recordType: string;
@@ -103,7 +112,7 @@ const EmptyState = memo(function EmptyState({
   );
 });
 
-export const RecordContainer = memo(function RecordContainer({
+export const RecordsView = memo(function RecordContainer({
   recordType,
   syncId,
   syncStatus,
@@ -116,15 +125,13 @@ export const RecordContainer = memo(function RecordContainer({
     data: recordsData,
     mutate: mutateRecords,
     isLoading,
+    isValidating,
   } = useSWR<{
     data: IRecord[];
     pagination: PaginationData;
   }>(
     id
-      ? [
-        `/api/sync/${id}/records?page=${currentPage}&limit=${PAGE_SIZE}`,
-
-      ]
+      ? [`/api/sync/${id}/records?page=${currentPage}&limit=${PAGE_SIZE}`]
       : null,
     async ([url]) => fetchWithAuth(url),
     {
@@ -154,7 +161,6 @@ export const RecordContainer = memo(function RecordContainer({
 
   const handleDeleteRecord = useCallback(
     async (recordId: string) => {
-
       try {
         const response = await fetchWithAuth(
           `/api/sync/${syncId}/records/${recordId}`,
@@ -185,16 +191,13 @@ export const RecordContainer = memo(function RecordContainer({
   const handleCreateRecord = useCallback(
     async (recordData: Record<string, unknown>) => {
       try {
-        const response = await fetchWithAuth(
-          `/api/sync/${syncId}/records`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ data: recordData }),
-          }
-        );
+        const response = await fetchWithAuth(`/api/sync/${syncId}/records`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ data: recordData }),
+        });
 
         if (!response.ok) {
           const errorData = await response.json();
@@ -249,6 +252,10 @@ export const RecordContainer = memo(function RecordContainer({
     [syncId, mutateRecords]
   );
 
+  const handleRefetch = useCallback(() => {
+    mutateRecords();
+  }, [mutateRecords]);
+
   if (records.length === 0 && !isLoading) {
     const isSyncInProgress = syncStatus === SyncStatusObject.IN_PROGRESS;
 
@@ -273,10 +280,15 @@ export const RecordContainer = memo(function RecordContainer({
     records.map((record) => [record._id, createStatusElement(record)])
   );
 
+  const config = appObjects[recordType as keyof typeof appObjects];
+  const IconComponent = config?.icon;
+  const appObjectLabel = config?.label;
+
   // Create pagination component
   const PaginationControlsWrapper = () => {
     const formatRecordCount = () => {
-      return `${pagination?.startRecord || 0}–${pagination?.endRecord || 0} of ${(pagination?.totalRecords || 0).toLocaleString()}`;
+      return `${pagination?.startRecord || 0}–${pagination?.endRecord || 0
+        } of ${(pagination?.totalRecords || 0).toLocaleString()}`;
     };
 
     return (
@@ -293,18 +305,44 @@ export const RecordContainer = memo(function RecordContainer({
   };
 
   return (
-    <Records
-      records={records}
-      recordType={recordType as RecordType}
-      isLoading={isLoading}
-      onDeleteRecord={handleDeleteRecord}
-      onCreateRecord={handleCreateRecord}
-      onUpdateRecord={handleUpdateRecord}
-      renderHeader={PaginationControlsWrapper}
-      renderRight={(record: IRecord) => {
-        const statusElement = statusElementsMap.get(record._id);
-        return statusElement;
-      }}
-    />
+    <div>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0 mb-4">
+        <h2 className="text-xl font-semibold text-gray-700 tracking-tight flex items-center gap-2">
+          <IconComponent className="w-5 h-5 text-gray-500" />
+          {getPluralForm(appObjectLabel)}
+
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleRefetch}
+            disabled={isLoading}
+            className="ml-2 p-1 h-6 w-6"
+          >
+            <RefreshCw
+              className={`w-4 h-4 ${isValidating ? "animate-spin" : ""}`}
+            />
+          </Button>
+        </h2>
+        {appObjects[recordType as keyof typeof appObjects]?.allowCreate && (
+          <CreateRecordModal
+            recordType={recordType}
+            onCreatedRecord={handleCreateRecord}
+          />
+        )}
+      </div>
+
+      <Records
+        records={records}
+        recordType={recordType as RecordType}
+        isLoading={isLoading}
+        onDeleteRecord={handleDeleteRecord}
+        onUpdateRecord={handleUpdateRecord}
+        renderHeader={PaginationControlsWrapper}
+        renderRight={(record: IRecord) => {
+          const statusElement = statusElementsMap.get(record._id);
+          return statusElement;
+        }}
+      />
+    </div>
   );
 });

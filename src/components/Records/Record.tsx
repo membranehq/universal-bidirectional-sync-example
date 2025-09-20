@@ -26,7 +26,7 @@ import {
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { toast } from "sonner";
 import appObjects from "@/lib/app-objects";
-import { getPluralForm } from '@/lib/pluralize-utils';
+import { getPluralForm, getSingularForm } from '@/lib/pluralize-utils';
 
 interface RecordProps {
   record: IRecord;
@@ -174,7 +174,7 @@ export function Record({
                       className="flex items-center"
                     >
                       <Edit className="w-4 h-4 mr-2" />
-                      Edit {recordType}
+                      Edit {getSingularForm(recordType)}
                     </DropdownMenuItem>
                   )}
 
