@@ -15,8 +15,8 @@ import {
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { RecordTypeBadge } from "@/components/ui/record-type-badge";
-import { fetchWithAuth } from "@/lib/fetch-utils";
+import { AppObjectBadge } from "@/components/ui/app-object-badge";
+import axios from "axios";
 import { SyncConfigModal } from "@/components/sync-config-modal/sync-config-modal";
 import { Button } from "@/components/ui/button";
 
@@ -29,7 +29,7 @@ interface SyncItemProps {
 function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
   return (
     <Link
-      key={sync.integrationKey + sync.recordType + sync._id}
+      key={sync.integrationKey + sync.appObjectKey + sync._id}
       href={`/sync/${sync._id}`}
       className="block group"
     >
@@ -57,7 +57,7 @@ function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
           </div>
           <div className="flex flex-row items-center gap-2 mt-1">
             {/* Data Source Key Badge */}
-            <RecordTypeBadge recordType={sync.recordType} />
+            <AppObjectBadge appObjectKey={sync.appObjectKey} />
             {/* Record Count Badge */}
             <span className="flex items-center gap-1 bg-gray-100 text-gray-700 rounded-full px-2 py-0.5 text-xs font-medium">
               <HashIcon
@@ -115,7 +115,8 @@ export function Syncs({ onEmptyStateChange }: SyncsProps = {}) {
   }>(
     ["/api/sync", "token"],
     async ([url]) => {
-      return fetchWithAuth(url);
+      const response = await axios.get(url);
+      return response.data;
     },
     {
       refreshInterval: 5000,
@@ -161,7 +162,7 @@ export function Syncs({ onEmptyStateChange }: SyncsProps = {}) {
       {data.data.map((sync) => {
         return (
           <SyncItem
-            key={sync.integrationKey + sync.recordType + sync._id}
+            key={sync.integrationKey + sync.appObjectKey + sync._id}
             sync={sync}
             logoUri={sync.integrationLogoUri}
             integrationName={sync.integrationName}

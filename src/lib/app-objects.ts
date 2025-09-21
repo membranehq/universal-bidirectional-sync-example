@@ -77,7 +77,7 @@ import {
   JobOfferRecord,
   TaxRateRecord,
   LedgerAccountRecord,
-} from "@/components/object-types";
+} from "@/components/object";
 import { IRecord } from "../models/types";
 import {
   ordersSchema,
@@ -124,8 +124,8 @@ import {
   taxratesSchema,
   ledgeraccountsSchema,
 } from "./app-objects-schemas";
-import { EmailRecord } from "@/components/object-types/email-record";
-import { FileRecord } from "@/components/object-types/file-record";
+import { EmailRecord } from "@/components/object/email-record";
+import { FileRecord } from "@/components/object/file-record";
 
 interface AppObject {
   /**

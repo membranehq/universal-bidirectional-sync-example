@@ -11,7 +11,6 @@ import {
   RefreshCw,
   Loader2,
   AlertTriangle,
-  RotateCcw,
   ExternalLink,
 } from "lucide-react";
 import { useState } from "react";
@@ -19,17 +18,22 @@ import { toast } from "sonner";
 import { PullCountdown } from "./PullCountdown";
 import { ExternalEventSubscription } from "@membranehq/sdk";
 import { useMembraneToken } from "@/hooks/use-integration-token";
+import axios from "axios";
+import { mutate } from "swr";
+import { AppObjectKey } from "@/lib/app-objects-schemas";
 
 interface SubscriptionProps {
   subscription: ExternalEventSubscription | null;
   eventType: string;
   label: string;
-  recordType: string;
+  appObjectKey: AppObjectKey;
+  syncId: string;
 }
 
 export function Subscription({
   subscription,
   label,
+  syncId,
 }: SubscriptionProps) {
   const [pulling, setPulling] = useState(false);
   const isActive = subscription?.status === "subscribed";
@@ -45,55 +49,47 @@ export function Subscription({
     setPulling(true);
 
     try {
-      const response = await fetch(
+      await axios.post(
         `https://api.integration.app/external-event-subscriptions/${subscription.id}/pull-events`,
+        {},
         {
-          method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
           },
         }
       );
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(
-          errorData.message || `Failed to trigger pull events: ${response.status}`
-        );
-      }
-
       toast.success("Pull events triggered successfully!");
+
+      mutate(`/api/sync/${syncId}`);
     } catch (error) {
-      console.error("Failed to trigger pull events:", error);
-      toast.error(
-        error instanceof Error ? error.message : "Failed to trigger pull events"
-      );
+      toast.error("Failed to trigger pull events");
+      console.error("Failed to trigger pull events", error);
     } finally {
       setPulling(false);
     }
   };
 
-  const getDetectionMethod = () => {
+  const getEventDetectionMethod = () => {
     if (isRealTime) {
       return {
         method: "Webhooks",
         url: "https://docs.integration.app/docs/data-collection-events-webhook",
       };
-    } else if (requiresPull && subscription?.pullUpdatesIntervalSeconds) {
-      return {
-        method: "Pull",
-        url: "https://docs.integration.app/docs/data-collection-events-custom-pull",
-      };
-    } else {
+    } else if (requiresFullSync && subscription?.fullSyncIntervalSeconds) {
       return {
         method: "Full Scan",
         url: "https://docs.integration.app/docs/data-collection-events-full-scan",
       };
+    } else {
+      return {
+        method: "Pull",
+        url: "https://docs.integration.app/docs/data-collection-events-custom-pull",
+      };
     }
   };
 
-  const detectionMethod = getDetectionMethod();
+  const eventDetectionMethod = getEventDetectionMethod();
 
   return (
     <TooltipProvider>
@@ -129,7 +125,6 @@ export function Subscription({
             </div>
           </div>
 
-          {/* Pull Button - Top Right Corner */}
           {(requiresPull || requiresFullSync) && subscription?.id && (
             <Button
               size="sm"
@@ -156,13 +151,13 @@ export function Subscription({
                 <Hash className="w-4 h-4 text-gray-500" />
                 <span className="text-gray-600">Detection:</span>
                 <a
-                  href={detectionMethod.url}
+                  href={eventDetectionMethod.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:underline"
                 >
                   <div className="text-xs cursor-pointer flex items-center gap-1">
-                    {detectionMethod.method}
+                    {eventDetectionMethod.method}
                     <ExternalLink className="w-3 h-3" />
                   </div>
                 </a>
@@ -184,20 +179,9 @@ export function Subscription({
                   </div>
                 )}
             </div>
-
-            {/* Full Sync Interval */}
-            {requiresFullSync && subscription.fullSyncIntervalSeconds && (
-              <div className="flex items-center gap-2 text-sm">
-                <RotateCcw className="w-4 h-4 text-gray-500" />
-                <span className="text-gray-600">Full Sync Interval:</span>
-                <span className="font-medium">
-                  {subscription.fullSyncIntervalSeconds} seconds
-                </span>
-              </div>
-            )}
           </div>
         )}
       </div>
     </TooltipProvider>
   );
-} 
+}

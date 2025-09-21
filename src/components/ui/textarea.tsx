@@ -1,5 +1,5 @@
 import * as React from "react"
-import { cn } from "@/lib/fetch-utils"
+import { cn } from "@/lib/cn"
 
 type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>
 

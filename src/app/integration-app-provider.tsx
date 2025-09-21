@@ -1,6 +1,7 @@
 "use client"
 
 import { IntegrationAppProvider as Provider } from "@membranehq/react";
+import axios from "axios";
 
 export function IntegrationAppProvider({
   children,
@@ -9,13 +10,16 @@ export function IntegrationAppProvider({
 }) {
 
   const fetchToken = async () => {
-    
-    const response = await fetch("/api/integration-token");
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.error || "Failed to fetch integration token");
+    try {
+      const response = await axios.get("/api/integration-token");
+      return response.data.token;
+    } catch (error) {
+      const errorMessage =
+        axios.isAxiosError(error) && error.response?.data?.error
+          ? error.response.data.error
+          : "Failed to fetch integration token";
+      throw new Error(errorMessage);
     }
-    return data.token;
   };
 
   return (

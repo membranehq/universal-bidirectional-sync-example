@@ -1,4 +1,5 @@
 import { ExternalEventSubscription } from "@membranehq/sdk";
+import { AppObjectKey } from "@/lib/app-objects-schemas";
 
 export const SyncStatusObject = {
   PENDING: "pending",
@@ -24,15 +25,13 @@ export interface IRecord {
   updatedAt: Date;
 }
 
-export type RecordType = "email" | "file" | "user";
-
 export interface ISync {
   _id: string;
   integrationKey: string;
   instanceKey: string;
   status: SyncStatus;
   userId: string;
-  recordType: RecordType;
+  appObjectKey: AppObjectKey;
   createdAt: Date;
   updatedAt: Date;
   pullError?: string;
@@ -50,11 +49,9 @@ export interface IUser {
 }
 
 export type SyncActivityType =
-  | "sync_created"
   | "sync_syncing"
   | "sync_completed"
   | "sync_resync_triggered"
-  | "sync_pulling"
   | "sync_pull_completed"
   | "sync_pull_failed"
   | "event_record_created"

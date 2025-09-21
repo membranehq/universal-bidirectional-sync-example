@@ -5,7 +5,6 @@ import { ISync, SyncStatusObject } from "./types";
 
 const SyncSchema: Schema = new Schema(
   {
-    integrationKey: { type: String, required: true },
     instanceKey: { type: String, required: true },
     status: {
       type: String,
@@ -18,9 +17,10 @@ const SyncSchema: Schema = new Schema(
       required: true,
     },
     userId: { type: String, required: true },
-    recordType: { type: String, required: true },
+    appObjectKey: { type: String, required: true },
     pullError: { type: String, required: false },
     pullCount: { type: Number, required: false, default: 0 },
+    integrationKey: { type: String, required: true },
     integrationName: { type: String, required: false },
     integrationLogoUri: { type: String, required: false },
   },

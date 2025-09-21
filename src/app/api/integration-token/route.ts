@@ -8,7 +8,6 @@ export async function GET(request: NextRequest) {
 
     const result = await ensureUser(request);
 
-    // Check if ensureUser returned an error response
     if (result instanceof NextResponse) {
       return result;
     }

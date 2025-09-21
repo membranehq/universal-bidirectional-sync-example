@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import { z } from "zod";
 import { Sync } from "@/models/sync";
-import { createSyncActivity } from "@/lib/sync-activity-utils";
+import { SyncActivity } from "@/models/sync-activity";
 
 const webhookSchema = z.object({
   externalRecordId: z.string(),
@@ -93,17 +93,22 @@ export async function POST(request: NextRequest) {
     }
 
     // Track the record update activity
-    await createSyncActivity({
-      syncId: sync._id.toString(),
-      userId,
-      type: "event_record_updated",
-      recordId: existingRecord._id.toString(),
-      metadata: {
-        recordId: externalRecordId,
-        fieldsCount: Object.keys(data.fields).length,
-        differences,
-      },
-    });
+    try {
+      await SyncActivity.create({
+        syncId: sync._id.toString(),
+        userId,
+        type: "event_record_updated",
+        recordId: existingRecord._id.toString(),
+        metadata: {
+          recordId: externalRecordId,
+          fieldsCount: Object.keys(data.fields).length,
+          differences,
+        },
+      });
+    } catch (error) {
+      console.error("Failed to create sync activity:", error);
+      // Don't throw error to avoid breaking the main flow
+    }
 
     return NextResponse.json({ message: "ok" });
   } catch (error) {

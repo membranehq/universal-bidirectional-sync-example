@@ -4,7 +4,6 @@ import { ensureUser } from "@/lib/ensureUser";
 import { Record } from "@/models/record";
 import { Sync } from "@/models/sync";
 import { triggerPullRecords } from "@/inngest/trigger-pull-records";
-import { createSyncActivity } from "@/lib/sync-activity-utils";
 import { getElementKey } from "@/lib/element-key";
 import { SyncStatusObject } from "@/models/types";
 
@@ -17,7 +16,6 @@ export async function POST(
 
     const result = await ensureUser(request);
 
-    // Check if ensureUser returned an error response
     if (result instanceof NextResponse) {
       return result;
     }
@@ -47,22 +45,13 @@ export async function POST(
       { $set: { status: SyncStatusObject.IN_PROGRESS } }
     );
 
-    await createSyncActivity({
-      syncId: id.toString(),
-      userId: dbUserId,
-      type: "sync_pulling",
-      metadata: {
-        previousPullCount: sync.pullCount || 0,
-      },
-    });
-
     await Record.deleteMany({ syncId: id, userId: dbUserId });
 
     await triggerPullRecords({
       userId: dbUserId,
       token: membraneAccessToken!,
       integrationKey: sync.integrationKey,
-      actionKey: getElementKey(sync.recordType, "list-action"),
+      actionKey: getElementKey(sync.appObjectKey, "list-action"),
       syncId: id,
     });
 

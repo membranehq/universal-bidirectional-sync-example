@@ -14,7 +14,7 @@ import { Database, Download, Loader, Settings, Zap } from "lucide-react";
 import "@membranehq/react/styles.css";
 import Image from "next/image";
 import { Integration } from "@membranehq/sdk";
-import { fetchWithAuth } from "@/lib/fetch-utils";
+import axios from "axios";
 import { useIntegrationConnection } from "@/components/sync-config-modal/use-integration-connection";
 import { CustomDataSourceConfiguration } from "./custom-data-source-configuration";
 import { CustomFieldMappingConfiguration } from "./custom-field-mapping-configuration";
@@ -22,6 +22,7 @@ import appObjects, { categoryIcons } from "@/lib/app-objects";
 import { SelectionGroup } from "./selection-group";
 import { useDataSourceAppliedIntegrations } from "@/hooks/use-applied-integrations";
 import { SelectionGroupWrapper } from "./selection-group-wrapper";
+import { mutate } from "swr";
 
 function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
   const [selectedIntegration, setSelectedIntegration] =
@@ -53,17 +54,18 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
         setSyncing(false);
         return;
       }
-      await fetchWithAuth("/api/sync", {
-        method: "POST",
+      await axios.post("/api/sync", {
+        integrationKey: selectedIntegration?.key,
+        appObjectKey: selectedAppObjectKey,
+        instanceKey: instanceKey.current,
+      }, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          integrationKey: selectedIntegration?.key,
-          recordType: selectedAppObjectKey,
-          instanceKey: instanceKey.current,
-        }),
       });
+
+      mutate("/api/sync");
+
       setOpen(false);
     } catch (error) {
       console.error("Failed to start sync:", error);
@@ -137,7 +139,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
               description="Select the integration you want to sync with"
               icon={Zap}
               showEmptyMessage={!selectedAppObjectKey}
-              emptyMessage="All available integrations will appear here after object selection"
+              emptyMessage="All applicable integrations will appear here after object selection"
               className="pb-3"
               size="sm"
             >

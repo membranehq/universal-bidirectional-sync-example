@@ -10,10 +10,11 @@ import {
   Clock,
   AlertCircle,
   RefreshCw,
+  Plus,
 } from "lucide-react";
-import type { IRecord, RecordType, SyncStatus } from "@/models/types";
+import type { IRecord, SyncStatus } from "@/models/types";
 import { SyncStatusObject } from "@/models/types";
-import { fetchWithAuth } from "@/lib/fetch-utils";
+import axios from "axios";
 import { capitalize } from "@/lib/string-utils";
 import { getPluralForm } from "@/lib/pluralize-utils";
 import { Records } from "./Records/Records";
@@ -29,9 +30,10 @@ import { PaginationControls } from "./Records/pagination-controls";
 import { CreateRecordModal } from "./CreateRecordModal";
 import appObjects from "@/lib/app-objects";
 import { Button } from "./ui/button";
+import { AppObjectKey } from "@/lib/app-objects-schemas";
 
 interface RecordContainerProps {
-  recordType: string;
+  appObjectKey: AppObjectKey;
   syncId: string;
   syncStatus?: SyncStatus;
 }
@@ -88,10 +90,10 @@ const createStatusElement = (record: IRecord) => {
 };
 
 const EmptyState = memo(function EmptyState({
-  recordType,
+  appObjectKey,
   isSyncInProgress,
 }: {
-  recordType: string;
+  appObjectKey: AppObjectKey;
   syncId: string;
   isSyncInProgress: boolean;
 }) {
@@ -105,21 +107,22 @@ const EmptyState = memo(function EmptyState({
       </h3>
       <p className="text-gray-600 mb-6 max-w-md">
         {isSyncInProgress
-          ? `This sync hasn't pulled any ${recordType} records yet. Records will appear here once the sync completes successfully.`
-          : `This sync hasn't pulled any ${recordType} records yet.`}
+          ? `This sync hasn't pulled any ${appObjectKey} records yet. Records will appear here once the sync completes successfully.`
+          : `This sync hasn't pulled any ${appObjectKey} records yet.`}
       </p>
     </div>
   );
 });
 
 export const RecordsView = memo(function RecordContainer({
-  recordType,
+  appObjectKey,
   syncId,
   syncStatus,
 }: RecordContainerProps) {
   const { id } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [isNavigating, setIsNavigating] = useState(false);
+  const [isCreateRecordModalOpen, setIsCreateRecordModalOpen] = useState(false);
 
   const {
     data: recordsData,
@@ -133,7 +136,10 @@ export const RecordsView = memo(function RecordContainer({
     id
       ? [`/api/sync/${id}/records?page=${currentPage}&limit=${PAGE_SIZE}`]
       : null,
-    async ([url]) => fetchWithAuth(url),
+    async ([url]) => {
+      const response = await axios.get(url);
+      return response.data;
+    },
     {
       refreshInterval: REFRESH_INTERVAL,
       revalidateOnFocus: false,
@@ -162,19 +168,7 @@ export const RecordsView = memo(function RecordContainer({
   const handleDeleteRecord = useCallback(
     async (recordId: string) => {
       try {
-        const response = await fetchWithAuth(
-          `/api/sync/${syncId}/records/${recordId}`,
-          {
-            method: "DELETE",
-          }
-        );
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(
-            errorData.message || errorData.error || "Failed to delete record"
-          );
-        }
+        await axios.delete(`/api/sync/${syncId}/records/${recordId}`);
 
         toast.success("Record deleted successfully");
         mutateRecords();
@@ -191,20 +185,15 @@ export const RecordsView = memo(function RecordContainer({
   const handleCreateRecord = useCallback(
     async (recordData: Record<string, unknown>) => {
       try {
-        const response = await fetchWithAuth(`/api/sync/${syncId}/records`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ data: recordData }),
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(
-            errorData.message || errorData.error || "Failed to create record"
-          );
-        }
+        await axios.post(
+          `/api/sync/${syncId}/records`,
+          { data: recordData },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         toast.success("Record created successfully");
         mutateRecords();
@@ -221,24 +210,11 @@ export const RecordsView = memo(function RecordContainer({
   const handleUpdateRecord = useCallback(
     async (recordId: string, recordData: Record<string, unknown>) => {
       try {
-        const response = await fetchWithAuth(
-          `/api/sync/${syncId}/records/${recordId}`,
-
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(recordData),
-          }
-        );
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(
-            errorData.message || errorData.error || "Failed to update record"
-          );
-        }
+        await axios.put(`/api/sync/${syncId}/records/${recordId}`, recordData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
         toast.success("Record updated successfully");
         mutateRecords();
@@ -263,11 +239,11 @@ export const RecordsView = memo(function RecordContainer({
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold text-gray-900">
-            {capitalize(getPluralForm(recordType))}
+            {capitalize(getPluralForm(appObjectKey))}
           </h2>
         </div>
         <EmptyState
-          recordType={recordType}
+          appObjectKey={appObjectKey as AppObjectKey}
           syncId={syncId}
           isSyncInProgress={isSyncInProgress}
         />
@@ -280,15 +256,15 @@ export const RecordsView = memo(function RecordContainer({
     records.map((record) => [record._id, createStatusElement(record)])
   );
 
-  const config = appObjects[recordType as keyof typeof appObjects];
+  const config = appObjects[appObjectKey];
   const IconComponent = config?.icon;
   const appObjectLabel = config?.label;
 
-  // Create pagination component
   const PaginationControlsWrapper = () => {
     const formatRecordCount = () => {
-      return `${pagination?.startRecord || 0}–${pagination?.endRecord || 0
-        } of ${(pagination?.totalRecords || 0).toLocaleString()}`;
+      return `${pagination?.startRecord || 0}–${
+        pagination?.endRecord || 0
+      } of ${(pagination?.totalRecords || 0).toLocaleString()}`;
     };
 
     return (
@@ -310,7 +286,6 @@ export const RecordsView = memo(function RecordContainer({
         <h2 className="text-xl font-semibold text-gray-700 tracking-tight flex items-center gap-2">
           <IconComponent className="w-5 h-5 text-gray-500" />
           {getPluralForm(appObjectLabel)}
-
           <Button
             variant="ghost"
             size="sm"
@@ -323,17 +298,20 @@ export const RecordsView = memo(function RecordContainer({
             />
           </Button>
         </h2>
-        {appObjects[recordType as keyof typeof appObjects]?.allowCreate && (
-          <CreateRecordModal
-            recordType={recordType}
-            onCreatedRecord={handleCreateRecord}
-          />
+        {appObjects[appObjectKey as keyof typeof appObjects]?.allowCreate && (
+          <Button
+            size="sm"
+            className="flex items-center gap-2"
+            onClick={() => setIsCreateRecordModalOpen(true)}
+          >
+            Create {appObjectLabel}
+            <Plus className="w-4 h-4" />
+          </Button>
         )}
       </div>
-
       <Records
         records={records}
-        recordType={recordType as RecordType}
+        appObjectKey={appObjectKey}
         isLoading={isLoading}
         onDeleteRecord={handleDeleteRecord}
         onUpdateRecord={handleUpdateRecord}
@@ -343,6 +321,14 @@ export const RecordsView = memo(function RecordContainer({
           return statusElement;
         }}
       />
+      {isCreateRecordModalOpen && (
+        <CreateRecordModal
+          appObjectKey={appObjectKey}
+          onCreatedRecord={handleCreateRecord}
+          onOpenChange={setIsCreateRecordModalOpen}
+          open={isCreateRecordModalOpen}
+        />
+      )}
     </div>
   );
 });

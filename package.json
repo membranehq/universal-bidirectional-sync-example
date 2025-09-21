@@ -32,6 +32,7 @@
     "@vercel/analytics": "^1.5.0",
     "add": "^2.0.6",
     "autoprefixer": "^10.4.20",
+    "axios": "^1.12.2",
     "card": "^2.5.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

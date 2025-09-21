@@ -6,16 +6,14 @@ import { z } from "zod";
 import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
 import { IntegrationAppClient } from "@membranehq/sdk";
-import { createSyncActivity } from "@/lib/sync-activity-utils";
 import appObjects from "@/lib/app-objects";
 import { getElementKey } from "@/lib/element-key";
 import { triggerPullRecords } from "@/inngest/trigger-pull-records";
-import { RecordType } from "@/models/types";
 import { AppObjectKey } from "@/lib/app-objects-schemas";
 
 const schema = z.object({
   integrationKey: z.string(),
-  recordType: z.string(),
+  appObjectKey: z.string(),
   instanceKey: z.string(),
 });
 
@@ -36,18 +34,18 @@ const schema = z.object({
 async function createSyncDependencies(
   membrane: IntegrationAppClient,
   integrationKey: string,
-  recordType: RecordType,
+  appObjectKey: AppObjectKey,
   instanceKey: string
 ) {
   /**
    * Data source & Field mapping instances are created on the client when the customer
    * tries to configure them. But this creates them even if they don't exist.
-   */
+   */ 
 
   // Data source
-  await membrane
+  const dataSource = await membrane
     .connection(integrationKey)
-    .dataSource(getElementKey(recordType, "data-source"), {
+    .dataSource(getElementKey(appObjectKey, "data-source"), {
       instanceKey: instanceKey,
     })
     .get({
@@ -57,7 +55,7 @@ async function createSyncDependencies(
   // Field Mapping
   await membrane
     .connection(integrationKey)
-    .fieldMapping(getElementKey(recordType, "field-mapping"), {
+    .fieldMapping(getElementKey(appObjectKey, "field-mapping"), {
       instanceKey: instanceKey,
     })
     .get({
@@ -67,7 +65,7 @@ async function createSyncDependencies(
   // Flow Instance
   await membrane
     .connection(integrationKey)
-    .flow(getElementKey(recordType, "flow"), {
+    .flow(getElementKey(appObjectKey, "flow"), {
       instanceKey: instanceKey,
     })
     .get({
@@ -76,11 +74,11 @@ async function createSyncDependencies(
 
   // Action Instances
   const { allowCreate, allowUpdate, allowDelete } =
-    appObjects[recordType as AppObjectKey];
+    appObjects[appObjectKey as AppObjectKey];
 
   await membrane
     .connection(integrationKey)
-    .action(getElementKey(recordType, "list-action"), {
+    .action(getElementKey(appObjectKey, "list-action"), {
       instanceKey: instanceKey,
     })
     .create();
@@ -88,7 +86,7 @@ async function createSyncDependencies(
   if (allowCreate) {
     await membrane
       .connection(integrationKey)
-      .action(getElementKey(recordType, "create-action"), {
+      .action(getElementKey(appObjectKey, "create-action"), {
         instanceKey: instanceKey,
       })
       .create();
@@ -97,7 +95,7 @@ async function createSyncDependencies(
   if (allowUpdate) {
     await membrane
       .connection(integrationKey)
-      .action(getElementKey(recordType, "update-action"), {
+      .action(getElementKey(appObjectKey, "update-action"), {
         instanceKey: instanceKey,
       })
       .create();
@@ -106,11 +104,16 @@ async function createSyncDependencies(
   if (allowDelete) {
     await membrane
       .connection(integrationKey)
-      .action(getElementKey(recordType, "delete-action"), {
+      .action(getElementKey(appObjectKey, "delete-action"), {
         instanceKey: instanceKey,
       })
       .create();
   }
+
+  return {
+    integrationName: dataSource.integration?.name,
+    integrationLogoUri: dataSource.integration?.logoUri,
+  };
 }
 
 export async function POST(request: NextRequest) {
@@ -119,7 +122,6 @@ export async function POST(request: NextRequest) {
 
     const result = await ensureUser(request);
 
-    // Check if ensureUser returned an error response
     if (result instanceof NextResponse) {
       return result;
     }
@@ -139,51 +141,34 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { integrationKey, recordType, instanceKey } = requestBody.data;
+    const { integrationKey, appObjectKey, instanceKey } = requestBody.data;
 
     const membrane = new IntegrationAppClient({
       token: membraneAccessToken!,
     });
 
-    await createSyncDependencies(
-      membrane,
-      integrationKey,
-      recordType as RecordType,
-      instanceKey
-    );
-
-    const datasource = await membrane
-      .connection(integrationKey)
-      .dataSource(getElementKey(recordType, "data-source"), {
-        instanceKey: instanceKey,
-      })
-      .get();
+    const { integrationName, integrationLogoUri } =
+      await createSyncDependencies(
+        membrane,
+        integrationKey,
+        appObjectKey as AppObjectKey,
+        instanceKey
+      );
 
     const sync = await Sync.create({
       integrationKey,
-      recordType,
+      appObjectKey,
       instanceKey,
       userId: dbUserId,
-      integrationName: datasource.integration?.name,
-      integrationLogoUri: datasource.integration?.logoUri,
-    });
-
-    await createSyncActivity({
-      syncId: sync._id.toString(),
-      userId: dbUserId,
-      type: "sync_created",
-      metadata: {
-        integrationName: datasource.integration?.name,
-        recordType,
-        instanceKey,
-      },
+      integrationName: integrationName,
+      integrationLogoUri: integrationLogoUri,
     });
 
     await triggerPullRecords({
       userId: dbUserId,
       token: membraneAccessToken!,
       integrationKey: sync.integrationKey,
-      actionKey: getElementKey(sync.recordType, "list-action"),
+      actionKey: getElementKey(sync.appObjectKey, "list-action"),
       syncId: sync._id.toString(),
     });
 
@@ -203,7 +188,6 @@ export async function GET(request: NextRequest) {
 
     const result = await ensureUser(request);
 
-    // Check if ensureUser returned an error response
     if (result instanceof NextResponse) {
       return result;
     }

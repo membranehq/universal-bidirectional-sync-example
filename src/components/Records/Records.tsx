@@ -2,9 +2,10 @@
 
 import { memo, useState, useCallback } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { IRecord, RecordType } from "@/models/types";
+import type { IRecord } from "@/models/types";
 import { Record } from "./Record";
 import { EditRecordDialog } from "../EditRecordDialog";
+import { AppObjectKey } from "@/lib/app-objects-schemas";
 
 /**
  * Props interface for the Records component
@@ -18,7 +19,7 @@ interface RecordsProps {
   records: IRecord[];
 
   /** The type of records being displayed (e.g., 'user', 'email', 'file') */
-  recordType: RecordType;
+  appObjectKey: AppObjectKey;
 
   /** Flag indicating if the records are currently being loaded */
   isLoading: boolean;
@@ -51,7 +52,7 @@ interface RecordsProps {
 
 export const Records = memo(function Records({
   records,
-  recordType,
+  appObjectKey,
   isLoading,
   onDeleteRecord,
   onUpdateRecord,
@@ -101,16 +102,16 @@ export const Records = memo(function Records({
                 index={idx}
                 onRecordDeleted={onDeleteRecord}
                 onEditRecord={handleEditRecord}
-                recordType={recordType}
+                appObjectKey={appObjectKey}
                 renderRight={renderRight ? renderRight(record) : null}
               />
             ))}
         </div>
       </div>
 
-      {editingRecord && (
+      {editDialogOpen && editingRecord && (
         <EditRecordDialog
-          recordType={recordType}
+          appObjectKey={appObjectKey}
           record={editingRecord}
           onUpdateRecord={onUpdateRecord}
           open={editDialogOpen}

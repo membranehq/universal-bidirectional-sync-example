@@ -1,3 +1,4 @@
+import { AppObjectKey } from "./app-objects-schemas";
 import { getPluralForm, getSingularForm } from "./pluralize-utils";
 
 /**
@@ -6,7 +7,7 @@ import { getPluralForm, getSingularForm } from "./pluralize-utils";
  * All elements on membrane should follow this naming convention.
  */
 export const getElementKey = (
-  recordType: string,
+  appObjectKey: AppObjectKey,
   elementType:
     | "list-action"
     | "create-action"
@@ -16,23 +17,23 @@ export const getElementKey = (
     | "data-source"
     | "flow"
 ) => {
-  const pluralizedRecordType = getPluralForm(recordType);
-  const singularizedRecordType = getSingularForm(recordType);
+  const pluralizedAppObjectKey = getPluralForm(appObjectKey);
+  const singularizedAppObjectKey = getSingularForm(appObjectKey);
 
   switch (elementType) {
     case "list-action":
-      return `list-${pluralizedRecordType}`;
+      return `list-${pluralizedAppObjectKey}`;
     case "create-action":
-      return `create-${singularizedRecordType}`;
+      return `create-${singularizedAppObjectKey}`;
     case "update-action":
-      return `update-${singularizedRecordType}`;
+      return `update-${singularizedAppObjectKey}`;
     case "delete-action":
-      return `delete-${singularizedRecordType}`;
+      return `delete-${singularizedAppObjectKey}`;
     case "field-mapping":
-      return `${pluralizedRecordType}`;
+      return `${pluralizedAppObjectKey}`;
     case "data-source":
-      return `${pluralizedRecordType}`;
+      return `${pluralizedAppObjectKey}`;
     case "flow":
-      return `receive-${singularizedRecordType}-events`;
+      return `receive-${singularizedAppObjectKey}-events`;
   }
 };

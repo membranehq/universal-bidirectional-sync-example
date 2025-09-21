@@ -4,9 +4,9 @@ import { memo, useEffect, useRef, useState } from "react";
 import { Plus, Edit, Trash2, RefreshCw, Database, Hash } from "lucide-react";
 import type { IRecord, ISyncActivity, SyncActivityType, SyncActivityMetadata } from "@/models/types";
 import useSWR from "swr";
-import { fetchWithAuth } from "@/lib/fetch-utils";
+import axios from "axios";
 import { Loader } from "@/components/ui/loader";
-import { cn } from "@/lib/fetch-utils";
+import { cn } from "@/lib/cn";
 
 interface SyncActivitiesProps {
   records?: (IRecord & { _id: string })[];
@@ -20,7 +20,8 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
   const { data: activitiesData, error: activitiesError, isLoading: activitiesLoading, isValidating, mutate } = useSWR(
     `/api/sync/${syncId}/activities`,
     async (url) => {
-      return fetchWithAuth(url);
+      const response = await axios.get(url);
+      return response.data;
     },
     {
       refreshInterval: 5000,
@@ -55,8 +56,6 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
 
   const getActivityIcon = (type: SyncActivityType) => {
     switch (type) {
-      case 'sync_created':
-        return <Plus className="w-4 h-4" />;
       case 'sync_syncing':
         return <RefreshCw className="w-4 h-4" />;
       case 'sync_completed':
@@ -76,8 +75,6 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
 
   const getActivityTitle = (type: SyncActivityType) => {
     switch (type) {
-      case 'sync_created':
-        return 'Sync Created';
       case 'sync_syncing':
         return 'Sync in Progress';
       case 'sync_completed':
@@ -177,8 +174,18 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
       </div>
 
       {activities.length === 0 ? (
-        <div className="text-xs text-muted-foreground text-center py-4">
-          No recent activity
+        <div className="text-center py-8">
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center animate-pulse-gentle">
+              <Database className="w-6 h-6 text-muted-foreground animate-bounce-subtle" />
+            </div>
+            <div className="space-y-1 animate-fade-in-up">
+              <p className="text-sm font-medium text-foreground">No activities yet</p>
+              <p className="text-xs text-muted-foreground max-w-xs">
+                Activities will appear here when data changes are detected and synced
+              </p>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="relative">
@@ -235,9 +242,52 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
           }
         }
         
+        @keyframes pulse-gentle {
+          0%, 100% {
+            opacity: 0.6;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 1;
+            transform: scale(1.05);
+          }
+        }
+        
+        @keyframes bounce-subtle {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-2px);
+          }
+        }
+        
+        @keyframes fade-in-up {
+          0% {
+            opacity: 0;
+            transform: translateY(8px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
         .animate-highlight {
           animation: highlight 3s ease-out forwards;
           border-radius: 8px;
+        }
+        
+        .animate-pulse-gentle {
+          animation: pulse-gentle 2s ease-in-out infinite;
+        }
+        
+        .animate-bounce-subtle {
+          animation: bounce-subtle 1.5s ease-in-out infinite;
+        }
+        
+        .animate-fade-in-up {
+          animation: fade-in-up 0.6s ease-out forwards;
         }
       `}</style>
     </div>

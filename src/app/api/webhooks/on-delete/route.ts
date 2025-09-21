@@ -4,7 +4,7 @@ import { Record } from "@/models/record";
 import connectDB from "@/lib/mongodb";
 import { Sync } from "@/models/sync";
 import { verifyIntegrationAppToken } from "@/lib/integration-app-auth";
-import { createSyncActivity } from "@/lib/sync-activity-utils";
+import { SyncActivity } from "@/models/sync-activity";
 
 const webhookSchema = z.object({
   externalRecordId: z.string(),
@@ -60,16 +60,21 @@ export async function POST(request: NextRequest) {
 
     // Track the record deletion activity
     if (recordToDelete) {
-      await createSyncActivity({
-        syncId: sync._id.toString(),
-        userId,
-        type: "event_record_deleted",
-        recordId: recordToDelete._id.toString(),
-        metadata: {
-          recordId: payload.externalRecordId,
-          recordExisted: true,
-        },
-      });
+      try {
+        await SyncActivity.create({
+          syncId: sync._id.toString(),
+          userId,
+          type: "event_record_deleted",
+          recordId: recordToDelete._id.toString(),
+          metadata: {
+            recordId: payload.externalRecordId,
+            recordExisted: true,
+          },
+        });
+      } catch (error) {
+        console.error("Failed to create sync activity:", error);
+        // Don't throw error to avoid breaking the main flow
+      }
     }
 
     return NextResponse.json({ message: "ok" });

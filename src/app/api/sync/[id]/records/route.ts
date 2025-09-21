@@ -3,7 +3,7 @@ import connectDB from "@/lib/mongodb";
 import { ensureUser } from "@/lib/ensureUser";
 import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
-import { createSyncActivity } from "@/lib/sync-activity-utils";
+import { SyncActivity } from "@/models/sync-activity";
 import { IntegrationAppClient as Membrane } from "@membranehq/sdk";
 import { getElementKey } from "@/lib/element-key";
 import { SyncStatusObject } from "@/models/types";
@@ -19,7 +19,6 @@ export async function POST(
     await connectDB();
     const result = await ensureUser(request);
 
-    // Check if ensureUser returned an error response
     if (result instanceof NextResponse) {
       return result;
     }
@@ -82,7 +81,10 @@ export async function POST(
       await record.save();
 
       // Create the record in the integration
-      const actionKey = getElementKey(sync.recordType, "create-action");
+      const actionKey = getElementKey(sync.appObjectKey, "create-action");
+
+      console.log({actionKey, sync })
+
 
       const result = await membrane
         .connection(sync.integrationKey)
@@ -90,6 +92,8 @@ export async function POST(
           instanceKey: sync.instanceKey,
         })
         .run(data);
+
+
 
       // Update the record with the integration data and mark as completed
       record.externalId = result.output.id;
@@ -106,19 +110,24 @@ export async function POST(
       await record.save();
     }
 
-    await createSyncActivity({
-      syncId,
-      userId: dbUserId,
-      type: "event_record_created",
-      recordId: record._id.toString(),
-      metadata: {
-        recordId: record.externalId,
-        integrationKey: sync.integrationKey,
-        recordType: sync.recordType,
-        syncStatus: record.syncStatus,
-        syncError: record.syncError,
-      },
-    });
+    try {
+      await SyncActivity.create({
+        syncId,
+        userId: dbUserId,
+        type: "event_record_created",
+        recordId: record._id.toString(),
+        metadata: {
+          recordId: record.externalId,
+          integrationKey: sync.integrationKey,
+          appObjectKey: sync.appObjectKey,
+          syncStatus: record.syncStatus,
+          syncError: record.syncError,
+        },
+      });
+    } catch (error) {
+      console.error("Failed to create sync activity:", error);
+      // Don't throw error to avoid breaking the main flow
+    }
 
     return response;
   } catch (error) {
@@ -146,7 +155,6 @@ export async function GET(
     await connectDB();
     const result = await ensureUser(request);
 
-    // Check if ensureUser returned an error response
     if (result instanceof NextResponse) {
       return result;
     }

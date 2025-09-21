@@ -3,64 +3,9 @@ import connectDB from "@/lib/mongodb";
 import { ensureUser } from "@/lib/ensureUser";
 import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
-import {
-  ExternalEventSubscription,
-  IntegrationAppClient,
-} from "@membranehq/sdk";
+import { IntegrationAppClient } from "@membranehq/sdk";
 import { ISync } from "@/models/types";
 import { getElementKey } from "@/lib/element-key";
-
-async function getSubscriptionsForSync(
-  sync: ISync,
-  membraneAccessToken: string
-) {
-  try {
-    const membrane = new IntegrationAppClient({
-      token: membraneAccessToken!,
-    });
-
-    const flowInstance = await membrane
-      .connection(sync.integrationKey)
-      .flow(getElementKey(sync.recordType, "flow"), {
-        instanceKey: sync.instanceKey,
-      })
-      .get();
-
-    const externalEventDependencies = flowInstance?.dependencies?.filter(
-      (dependency) => dependency?.type === "external-event"
-    );
-
-    const subscriptions: {
-      "data-record-created": ExternalEventSubscription | null;
-      "data-record-updated": ExternalEventSubscription | null;
-      "data-record-deleted": ExternalEventSubscription | null;
-    } = {
-      "data-record-created": null,
-      "data-record-updated": null,
-      "data-record-deleted": null,
-    };
-
-    if (externalEventDependencies) {
-      for (const externalEventDependency of externalEventDependencies) {
-        const externalEventSubscription = await membrane
-          .externalEventSubscription(externalEventDependency.instanceId!)
-          .get();
-
-        const subscriptionType = externalEventSubscription.config?.type;
-
-        if (subscriptionType) {
-          subscriptions[subscriptionType as keyof typeof subscriptions] =
-            externalEventSubscription;
-        }
-      }
-    }
-
-    return subscriptions;
-  } catch (error) {
-    console.error("Failed to fetch subscriptions for sync:", error);
-    return [];
-  }
-}
 
 async function archiveSyncDependencies(
   sync: ISync,
@@ -78,7 +23,7 @@ async function archiveSyncDependencies(
    * - Data Source Instance
    */
 
-  const { integrationKey, instanceKey, recordType } = sync;
+  const { integrationKey, instanceKey, appObjectKey } = sync;
 
   const archiveOperations = [
     {
@@ -86,7 +31,7 @@ async function archiveSyncDependencies(
       operation: () =>
         membrane
           .connection(integrationKey)
-          .flow(getElementKey(recordType, "flow"), {
+          .flow(getElementKey(appObjectKey, "flow"), {
             instanceKey: instanceKey,
           })
           .archive(),
@@ -96,7 +41,7 @@ async function archiveSyncDependencies(
       operation: () =>
         membrane
           .connection(integrationKey)
-          .fieldMapping(getElementKey(recordType, "field-mapping"), {
+          .fieldMapping(getElementKey(appObjectKey, "field-mapping"), {
             instanceKey: instanceKey,
           })
           .archive(),
@@ -106,7 +51,7 @@ async function archiveSyncDependencies(
       operation: () =>
         membrane
           .connection(integrationKey)
-          .dataSource(getElementKey(recordType, "data-source"))
+          .dataSource(getElementKey(appObjectKey, "data-source"))
           .archive(),
     },
     {
@@ -114,7 +59,7 @@ async function archiveSyncDependencies(
       operation: () =>
         membrane
           .connection(integrationKey)
-          .action(getElementKey(recordType, "list-action"), {
+          .action(getElementKey(appObjectKey, "list-action"), {
             instanceKey: instanceKey,
           })
           .archive(),
@@ -124,7 +69,7 @@ async function archiveSyncDependencies(
       operation: () =>
         membrane
           .connection(integrationKey)
-          .fieldMapping(getElementKey(recordType, "field-mapping"), {
+          .fieldMapping(getElementKey(appObjectKey, "field-mapping"), {
             instanceKey: instanceKey,
           })
           .archive(),
@@ -149,12 +94,11 @@ export async function GET(
     await connectDB();
     const result = await ensureUser(request);
 
-    // Check if ensureUser returned an error response
     if (result instanceof NextResponse) {
       return result;
     }
 
-    const { id: dbUserId, membraneAccessToken } = result;
+    const { id: dbUserId } = result;
     if (!dbUserId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -180,11 +124,6 @@ export async function GET(
       );
     }
 
-    const subscriptions = await getSubscriptionsForSync(
-      sync,
-      membraneAccessToken!
-    );
-
     // Calculate record count for this sync
     const recordCount = await Record.countDocuments({
       syncId: id,
@@ -195,7 +134,6 @@ export async function GET(
       success: true,
       data: {
         sync: { ...sync, recordCount },
-        subscriptions,
       },
     });
   } catch (error) {
@@ -216,7 +154,6 @@ export async function DELETE(
 
     const result = await ensureUser(request);
 
-    // Check if ensureUser returned an error response
     if (result instanceof NextResponse) {
       return result;
     }

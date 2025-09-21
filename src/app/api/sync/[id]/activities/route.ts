@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/lib/mongodb";
 import { ensureUser } from "@/lib/ensureUser";
 import { Sync } from "@/models/sync";
-import { getSyncActivities } from "@/lib/sync-activity-utils";
+import { SyncActivity } from "@/models/sync-activity";
 
 export async function GET(
   request: NextRequest,
@@ -12,7 +12,6 @@ export async function GET(
     await connectDB();
     const result = await ensureUser(request);
 
-    // Check if ensureUser returned an error response
     if (result instanceof NextResponse) {
       return result;
     }
@@ -40,7 +39,10 @@ export async function GET(
     const { searchParams } = new URL(request.url);
     const limit = parseInt(searchParams.get("limit") || "50");
 
-    const activities = await getSyncActivities(id.toString(), limit);
+    const activities = await await SyncActivity.find({ syncId: id })
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .lean();
 
     return NextResponse.json({
       success: true,

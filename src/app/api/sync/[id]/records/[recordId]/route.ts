@@ -3,7 +3,7 @@ import connectDB from "@/lib/mongodb";
 import { ensureUser } from "@/lib/ensureUser";
 import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
-import { createSyncActivity } from "@/lib/sync-activity-utils";
+import { SyncActivity } from "@/models/sync-activity";
 import {
   ActionRunError,
   IntegrationAppClient as Membrane,
@@ -19,7 +19,6 @@ export async function PUT(
     await connectDB();
     const result = await ensureUser(request);
 
-    // Check if ensureUser returned an error response
     if (result instanceof NextResponse) {
       return result;
     }
@@ -76,7 +75,6 @@ export async function PUT(
       );
     }
 
-    // Return early response after successful database update
     const response = NextResponse.json({
       success: true,
       message: "Record updated successfully",
@@ -94,10 +92,12 @@ export async function PUT(
       record.syncError = undefined;
       await record.save();
 
+      const updateActionKey = getElementKey(sync.appObjectKey, "update-action")
+
       // Update the record in the integration
-      await membrane
+      const result = await membrane
         .connection(sync.integrationKey)
-        .action(getElementKey(sync.recordType, "update-action"), {
+        .action(updateActionKey, {
           instanceKey: sync.instanceKey,
         })
         .run({
@@ -105,22 +105,29 @@ export async function PUT(
           ...body,
         });
 
+        console.log({result})
+
       // Mark as completed after successful integration update
       record.syncStatus = SyncStatusObject.COMPLETED;
       await record.save();
 
-      await createSyncActivity({
-        syncId,
-        userId: dbUserId,
-        type: "event_record_updated",
-        recordId: record._id.toString(),
-        metadata: {
-          recordId: record.externalId,
-          integrationKey: sync.integrationKey,
-          recordType: sync.recordType,
-          syncStatus: record.syncStatus,
-        },
-      });
+      try {
+        await SyncActivity.create({
+          syncId,
+          userId: dbUserId,
+          type: "event_record_updated",
+          recordId: record._id.toString(),
+          metadata: {
+            recordId: record.externalId,
+            integrationKey: sync.integrationKey,
+            appObjectKey: sync.appObjectKey,
+            syncStatus: record.syncStatus,
+          },
+        });
+      } catch (error) {
+        console.error("Failed to create sync activity:", error);
+        // Don't throw error to avoid breaking the main flow
+      }
     } catch (membraneError) {
       console.error("Failed to update record in Membrane:", membraneError);
 
@@ -163,7 +170,6 @@ export async function DELETE(
     await connectDB();
     const result = await ensureUser(request);
 
-    // Check if ensureUser returned an error response
     if (result instanceof NextResponse) {
       return result;
     }
@@ -212,17 +218,22 @@ export async function DELETE(
     try {
       await record.deleteOne();
 
-      await createSyncActivity({
-        syncId,
-        userId: dbUserId,
-        type: "event_record_deleted",
-        recordId: record._id.toString(),
-        metadata: {
-          recordId: record.externalId,
-          integrationKey: sync.integrationKey,
-          recordType: sync.recordType,
-        },
-      });
+      try {
+        await SyncActivity.create({
+          syncId,
+          userId: dbUserId,
+          type: "event_record_deleted",
+          recordId: record._id.toString(),
+          metadata: {
+            recordId: record.externalId,
+            integrationKey: sync.integrationKey,
+            appObjectKey: sync.appObjectKey,
+          },
+        });
+      } catch (error) {
+        console.error("Failed to create sync activity:", error);
+        // Don't throw error to avoid breaking the main flow
+      }
     } catch (dbError) {
       console.error("Failed to delete record from database:", dbError);
       return NextResponse.json(
@@ -250,7 +261,7 @@ export async function DELETE(
 
       await membrane
         .connection(sync.integrationKey)
-        .action(`delete-${sync.recordType}`, {
+        .action(getElementKey(sync.appObjectKey, "delete-action"), {
           instanceKey: sync.instanceKey,
         })
         .run({

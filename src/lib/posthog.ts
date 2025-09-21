@@ -2,6 +2,7 @@
 
 import { usePostHog } from "posthog-js/react";
 import posthog from "posthog-js";
+import { AppObjectKey } from "./app-objects-schemas";
 
 // Hook to use PostHog in components
 export function usePostHogAnalytics() {
@@ -232,7 +233,7 @@ export function useUserTracking() {
     // Track record operations
     trackRecordOperation: (
       operation: "create" | "update" | "delete",
-      appObjectKey: string,
+      appObjectKey: AppObjectKey,
       email: string,
       properties?: Record<string, unknown>
     ) => {

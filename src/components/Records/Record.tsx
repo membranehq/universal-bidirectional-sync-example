@@ -26,14 +26,15 @@ import {
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { toast } from "sonner";
 import appObjects from "@/lib/app-objects";
-import { getPluralForm, getSingularForm } from '@/lib/pluralize-utils';
+import { getSingularForm } from '@/lib/pluralize-utils';
+import { AppObjectKey } from "@/lib/app-objects-schemas";
 
 interface RecordProps {
   record: IRecord;
   index: number;
   onRecordDeleted?: (recordId: string) => Promise<void>;
   onEditRecord?: (record: IRecord) => void;
-  recordType: string;
+  appObjectKey: AppObjectKey;
   renderRight?: React.ReactNode;
 }
 
@@ -41,7 +42,7 @@ export function Record({
   record,
   onRecordDeleted,
   onEditRecord,
-  recordType,
+  appObjectKey,
   renderRight,
 }: RecordProps) {
   const [expanded, setExpanded] = useState(false);
@@ -67,12 +68,12 @@ export function Record({
     setIsDeleting(true);
     try {
       await onRecordDeleted?.(record._id);
-      toast.success(`${recordType} deleted successfully`);
+      toast.success(`${appObjects[appObjectKey]?.label} deleted successfully`);
       setDeleteDialogOpen(false);
     } catch (error) {
       console.error('Failed to delete record:', error);
       toast.error(
-        error instanceof Error ? error.message : `Failed to delete ${recordType}`
+        error instanceof Error ? error.message : `Failed to delete ${appObjects[appObjectKey]?.label}`
       );
     } finally {
       setIsDeleting(false);
@@ -85,7 +86,7 @@ export function Record({
 
   const renderAppObject = () => {
     const appObject =
-      appObjects[getPluralForm(recordType) as keyof typeof appObjects];
+      appObjects[appObjectKey];
     const RecordComponent = appObject?.component;
 
     if (RecordComponent) {
@@ -167,14 +168,14 @@ export function Record({
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                {appObjects[recordType as keyof typeof appObjects]
+                {appObjects[appObjectKey]
                   ?.allowUpdate && (
                     <DropdownMenuItem
                       onClick={handleEdit}
                       className="flex items-center"
                     >
                       <Edit className="w-4 h-4 mr-2" />
-                      Edit {getSingularForm(recordType)}
+                      Edit {getSingularForm(appObjects[appObjectKey]?.label)}
                     </DropdownMenuItem>
                   )}
 
@@ -183,7 +184,7 @@ export function Record({
                   className="text-red-600 focus:text-red-600"
                 >
                   <Trash2 className="w-4 h-4 mr-2" />
-                  Delete {recordType}
+                  Delete {appObjects[appObjectKey]?.label}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -222,8 +223,8 @@ export function Record({
       <ConfirmDialog
         open={deleteDialogOpen}
         onOpenChange={setDeleteDialogOpen}
-        title={`Delete ${recordType}`}
-        description={`Are you sure you want to delete this ${recordType}? This action cannot be undone.`}
+        title={`Delete ${appObjects[appObjectKey]?.label}`}
+        description={`Are you sure you want to delete this ${appObjects[appObjectKey]?.label}? This action cannot be undone.`}
         confirmText="Delete"
         cancelText="Cancel"
         variant="destructive"

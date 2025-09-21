@@ -8,15 +8,16 @@ import { SyncHeader } from "@/components/SyncHeader";
 import { RecordsView } from "@/components/records-view";
 import { useSyncData } from "@/hooks/use-sync-data";
 import { SyncActivities } from "@/components/SyncActivities";
+import { AppObjectKey } from "@/lib/app-objects-schemas";
 
 export default function SyncPage() {
-  const { sync, subscriptions, error, isLoading } = useSyncData();
+  const { sync, error, isLoading } = useSyncData();
 
   const syncRecordsProps = useMemo(() => ({
-    recordType: sync?.recordType || "",
-    syncId: sync?._id || "",
+    appObjectKey: sync?.appObjectKey as AppObjectKey,
+    syncId: sync?._id.toString() || "",
     syncStatus: sync?.status,
-  }), [sync?.recordType, sync?._id, sync?.status]);
+  }), [sync?.appObjectKey, sync?._id, sync?.status]);
 
   const syncActivitiesProps = useMemo(() => ({
     syncId: sync?._id || "",
@@ -48,7 +49,7 @@ export default function SyncPage() {
       >
         <ArrowLeft className="w-4 h-4" /> Syncs
       </Link>
-      <SyncHeader sync={sync} subscriptions={subscriptions || { "data-record-created": null, "data-record-updated": null, "data-record-deleted": null }} />
+      <SyncHeader sync={sync} />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <RecordsView {...syncRecordsProps} />

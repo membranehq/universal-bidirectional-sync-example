@@ -2,7 +2,7 @@ import { inngest } from "@/inngest/inngest";
 import { IntegrationAppClient } from "@membranehq/sdk";
 import { Record } from "@/models/record";
 import { Sync } from "@/models/sync";
-import { createSyncActivity } from "@/lib/sync-activity-utils";
+import { SyncActivity } from "@/models/sync-activity";
 import { withTimeout } from "@/lib/timeout";
 import connectDB from "@/lib/mongodb";
 import { SyncStatusObject } from "@/models/types";
@@ -20,22 +20,25 @@ const handlePullFailure = async ({
   const syncId = eventData.syncId as string;
   const userId = eventData.userId as string;
 
-  // Update sync status to failed
   await Sync.findByIdAndUpdate(syncId, {
     status: SyncStatusObject.FAILED,
     error: errorMessage,
   });
 
-  // Track sync failed activity
-  await createSyncActivity({
-    syncId,
-    userId,
-    type: "sync_pull_failed",
-    metadata: {
-      error: errorMessage,
-      failed: true,
-    },
-  });
+  try {
+    await SyncActivity.create({
+      syncId,
+      userId,
+      type: "sync_pull_failed",
+      metadata: {
+        error: errorMessage,
+        failed: true,
+      },
+    });
+  } catch (error) {
+    console.error("Failed to create sync activity:", error);
+    // Don't throw error to avoid breaking the main flow
+  }
 };
 
 export const syncRecordsFunction = inngest.createFunction(
@@ -58,20 +61,6 @@ export const syncRecordsFunction = inngest.createFunction(
     const FETCH_PAGE_TIMEOUT = 60000;
 
     await connectDB();
-
-    // Track sync syncing activity
-    await step.run("track-pull-start", async () => {
-      await Sync.updateOne({ _id: syncId }, { $set: { error: "" } });
-
-      await createSyncActivity({
-        syncId,
-        userId,
-        type: "sync_pulling",
-        metadata: {
-          maxDocuments: MAX_RECORDS_COUNT,
-        },
-      });
-    });
 
     const integrationApp = new IntegrationAppClient({ token });
     let cursor: string | undefined;
@@ -149,7 +138,6 @@ export const syncRecordsFunction = inngest.createFunction(
       if (!cursor) break;
     }
 
-    // Update final sync status
     await step.run("complete-sync", async () => {
       await Sync.findByIdAndUpdate(
         syncId,
@@ -161,19 +149,6 @@ export const syncRecordsFunction = inngest.createFunction(
         },
         { new: true }
       );
-    });
-
-    // Track sync completed activity
-    await step.run("track-sync-completed", async () => {
-      await createSyncActivity({
-        syncId,
-        userId,
-        type: "sync_pull_completed",
-        metadata: {
-          totalDocumentsSynced,
-          maxDocuments: MAX_RECORDS_COUNT,
-        },
-      });
     });
 
     return { success: true, totalDocumentsSynced };

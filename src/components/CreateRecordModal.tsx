@@ -7,31 +7,31 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Plus } from "lucide-react";
 import appObjects from "@/lib/app-objects";
 import { ZodFormRenderer } from "./ZodFormRenderer";
 import { z } from "zod";
-
-
+import { AppObjectKey } from "@/lib/app-objects-schemas";
 interface CreateRecordModalProps {
-  recordType: string;
-  trigger?: React.ReactNode;
+  appObjectKey: AppObjectKey;
   onCreatedRecord?: (recordData: Record<string, unknown>) => Promise<void>;
+  onOpenChange?: (open: boolean) => void;
+  open?: boolean;
 }
 
 export function CreateRecordModal({
-  recordType,
-  trigger,
+  appObjectKey,
   onCreatedRecord,
+  onOpenChange,
+  open,
 }: CreateRecordModalProps) {
-  const [isOpen, setIsOpen] = useState(false);
+
   const [formData, setFormData] = useState<Record<string, unknown>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const config = appObjects[recordType as keyof typeof appObjects];
+  const config = appObjects[appObjectKey];
+  const createSchema = (config.schema as z.ZodObject<Record<string, z.ZodTypeAny>>).omit({ id: true });
 
   if (!config) {
     return null;
@@ -50,14 +50,12 @@ export function CreateRecordModal({
 
     try {
       setIsSubmitting(true);
-      // Validate the form data against the schema
-      const validatedData = config.schema.parse(formData);
 
       if (onCreatedRecord) {
-        await onCreatedRecord(validatedData);
+        await onCreatedRecord(formData);
       }
 
-      setIsOpen(false);
+      onOpenChange?.(false);
       setFormData({});
       setErrors({});
     } catch (error) {
@@ -68,21 +66,13 @@ export function CreateRecordModal({
   };
 
   const handleCancel = () => {
-    setIsOpen(false);
+    onOpenChange?.(false);
     setFormData({});
     setErrors({});
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        {trigger || (
-          <Button size="sm" className="flex items-center gap-2">
-            Create {config.label}
-            <Plus className="w-4 h-4" />
-          </Button>
-        )}
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px] max-h-[80vh] flex flex-col p-0">
         <DialogHeader className="flex-shrink-0 border-b px-6 py-4">
           <DialogTitle>Create {config.label}</DialogTitle>
@@ -104,7 +94,7 @@ export function CreateRecordModal({
           )}
           <div className="flex-1 overflow-y-auto px-6 py-4">
             <ZodFormRenderer
-              schema={config.schema as z.ZodObject<Record<string, z.ZodTypeAny>>}
+              schema={createSchema}
               formData={formData}
               errors={errors}
               onFieldChange={handleFieldChange}

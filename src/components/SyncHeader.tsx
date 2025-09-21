@@ -1,100 +1,38 @@
 import { Badge } from "@/components/ui/badge";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { RecordTypeBadge } from "@/components/ui/record-type-badge";
+import { AppObjectBadge } from "@/components/ui/app-object-badge";
 import { Button } from "@/components/ui/button";
 import {
   Hash,
   RefreshCw,
   Loader2,
   Trash,
-  ChevronDown,
-  ChevronUp,
 } from "lucide-react";
 import Image from "next/image";
 import useSWRMutation from "swr/mutation";
-import { fetchWithAuth } from "@/lib/fetch-utils";
+import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { capitalize } from "@/lib/string-utils";
-import { ISync, Subscriptions } from "@/models/types";
+import { ISync } from "@/models/types";
 import { MAX_RECORDS_COUNT } from "@/lib/sync-constants";
-import { Subscription } from "./Subscription";
+import { SyncSubscriptions } from "./subscription-details/SyncSubscriptions";
 
-function SyncSubscriptions({
-  subscriptions,
-  recordType,
-}: {
-  recordType: string;
-  subscriptions: Subscriptions;
-}) {
-  const [isMinimized, setIsMinimized] = useState(false);
-
-  const eventTypes = [
-    { key: "data-record-created", label: `${recordType} Created` },
-    { key: "data-record-updated", label: `${recordType} Updated` },
-    { key: "data-record-deleted", label: `${recordType} Deleted` },
-  ] as const;
-
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-gray-900">Event Subscriptions</h3>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setIsMinimized(!isMinimized)}
-          className="flex items-center gap-2"
-        >
-          {isMinimized ? (
-            <>
-              <ChevronDown className="w-4 h-4" />
-              Expand
-            </>
-          ) : (
-            <>
-              <ChevronUp className="w-4 h-4" />
-              Minimize
-            </>
-          )}
-        </Button>
-      </div>
-      <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${isMinimized ? "max-h-0 opacity-0" : "max-h-[1000px] opacity-100"
-          }`}
-      >
-        <div className="grid grid-cols-3 gap-4">
-          {eventTypes.map(({ key, label }) => (
-            <Subscription
-              key={key}
-              subscription={subscriptions[key]}
-              eventType={key}
-              label={label}
-              recordType={recordType}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export function SyncHeader({
   sync,
-  subscriptions,
 }: {
   sync: ISync;
-  subscriptions: Subscriptions;
 }) {
   const router = useRouter();
 
   const { trigger: triggerResync, isMutating: resyncing } = useSWRMutation(
     `/api/sync/${sync._id}/resync`,
-    async (url: string) =>
-      fetchWithAuth(url, {
-        method: "POST",
+    async (url: string) => {
+      const response = await axios.post(url, {}, {
         headers: { "Content-Type": "application/json" },
-      })
+      });
+      return response.data;
+    }
   );
 
   const handleResync = async () => {
@@ -116,9 +54,7 @@ export function SyncHeader({
     }
 
     try {
-      await fetchWithAuth(`/api/sync/${sync._id}`, {
-        method: "DELETE",
-      });
+      await axios.delete(`/api/sync/${sync._id}`);
 
       toast.success("Sync deleted");
       router.push("/");
@@ -156,7 +92,7 @@ export function SyncHeader({
               <Badge variant="secondary" className="text-xs">
                 {sync.integrationKey}
               </Badge>
-              <RecordTypeBadge recordType={sync.recordType} variant="outline" className="text-xs" />
+              <AppObjectBadge appObjectKey={sync.appObjectKey} variant="outline" className="text-xs" />
               <StatusBadge
                 status={sync.status}
                 text={sync.status === "in_progress" ? `* Syncing first ${MAX_RECORDS_COUNT} records` : undefined}
@@ -202,14 +138,12 @@ export function SyncHeader({
       </div>
 
       {/* Subscription Details */}
-      {subscriptions && (
-        <div className="mt-8 mb-8">
-          <SyncSubscriptions
-            recordType={capitalize(sync.recordType)}
-            subscriptions={subscriptions}
-          />
-        </div>
-      )}
+      <div className="mt-8 mb-8">
+        <SyncSubscriptions
+          appObjectKey={sync.appObjectKey}
+          syncId={sync._id}
+        />
+      </div>
     </>
   );
 }

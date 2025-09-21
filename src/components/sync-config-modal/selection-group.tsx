@@ -68,7 +68,7 @@ const ItemIcon = ({
   return item.icon ? <item.icon className={className} /> : null;
 };
 
-// Title removed; parent is responsible for rendering headings/labels
+
 
 const SelectionButton = ({
   item,
@@ -178,12 +178,14 @@ const CategoryPicker = ({
   onCategorySelect,
   categorizedItems,
   categoryIcons,
+  allItems,
 }: {
   categories: string[];
   selectedCategory: string;
   onCategorySelect: (category: string) => void;
   categorizedItems: Record<string, SelectionItem[]>;
   categoryIcons?: Record<string, CategoryIcon>;
+  allItems: SelectionItem[];
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -195,7 +197,7 @@ const CategoryPicker = ({
 
   const getCategoryCount = (category: string) => {
     if (category === "All") {
-      return Object.values(categorizedItems).reduce((total, items) => total + items.length, 0);
+      return allItems.length;
     }
     return categorizedItems[category]?.length || 0;
   };
@@ -315,6 +317,7 @@ const CompactCategoryLayout = ({
         }}
         categorizedItems={categorizedItems}
         categoryIcons={categoryIcons}
+        allItems={items}
       />
       <div className="h-6 w-px bg-gray-300 flex-shrink-0"></div>
       <div className="flex items-center gap-2 sm:gap-3 flex-wrap">

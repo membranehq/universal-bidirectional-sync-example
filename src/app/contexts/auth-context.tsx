@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { analytics } from "@/lib/posthog";
+import axios from "axios";
 
 interface User {
   id: string;
@@ -31,26 +32,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch("/api/auth/me", {
-        credentials: "include",
+      const response = await axios.get("/api/auth/me", {
+        withCredentials: true,
       });
 
-      if (response.ok) {
-        const userData = await response.json();
-        const user = userData.user;
-        setUser(user);
+      const user = response.data.user;
+      setUser(user);
 
-        // Identify user in PostHog when auth check succeeds
-        if (user?.email) {
-          analytics.identify(user.id, user.email, {
-            user_id: user.id,
-            login_method: "session",
-          });
-        }
-      } else {
-        setUser(null);
-        // Reset PostHog when user is not authenticated
-        analytics.reset();
+      // Identify user in PostHog when auth check succeeds
+      if (user?.email) {
+        analytics.identify(user.id, user.email, {
+          user_id: user.id,
+          login_method: "session",
+        });
       }
     } catch (error) {
       console.error("Auth check failed:", error);
@@ -64,38 +58,35 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (email: string) => {
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ email }),
+      const response = await axios.post(
+        "/api/auth/login",
+        { email },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      const user = response.data.user;
+      setUser(user);
+
+      // Track login event and identify user in PostHog
+      analytics.trackSignIn("email", {
+        email: user.email,
+        user_id: user.id,
       });
 
-      if (response.ok) {
-        const userData = await response.json();
-        const user = userData.user;
-        setUser(user);
-
-        // Track login event and identify user in PostHog
-        analytics.trackSignIn("email", {
-          email: user.email,
-          user_id: user.id,
-        });
-
-        // Identify user in PostHog
-        analytics.identify(user.id, user.email, {
-          user_id: user.id,
-          login_method: "email",
-          last_login: new Date().toISOString(),
-        });
-      } else {
-        throw new Error("Login failed");
-      }
+      // Identify user in PostHog
+      analytics.identify(user.id, user.email, {
+        user_id: user.id,
+        login_method: "email",
+        last_login: new Date().toISOString(),
+      });
     } catch (error) {
       console.error("Login failed:", error);
-      throw error;
+      throw new Error("Login failed");
     }
   };
 

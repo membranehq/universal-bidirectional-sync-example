@@ -1,12 +1,11 @@
 import useSWR from "swr";
 import { useParams } from "next/navigation";
-import { fetchWithAuth } from "@/lib/fetch-utils";
-import { ISync, Subscriptions } from "@/models/types";
+import axios from "axios";
+import { ISync } from "@/models/types";
 
 type SyncData = {
   data: {
     sync: ISync;
-    subscriptions: Subscriptions;
   };
 };
 
@@ -15,7 +14,10 @@ export function useSyncData() {
 
   const { data, error, isLoading, mutate } = useSWR<SyncData>(
     id ? [`/api/sync/${id}`, "token"] : null,
-    async ([url]) => fetchWithAuth(url),
+    async ([url]) => {
+      const response = await axios.get(url);
+      return response.data;
+    },
     {
       refreshInterval: 3000,
       revalidateOnFocus: false,
@@ -24,7 +26,6 @@ export function useSyncData() {
 
   return {
     sync: data?.data?.sync,
-    subscriptions: data?.data?.subscriptions,
     error,
     isLoading,
     mutate,
