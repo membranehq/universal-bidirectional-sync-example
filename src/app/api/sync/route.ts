@@ -40,7 +40,7 @@ async function createSyncDependencies(
   /**
    * Data source & Field mapping instances are created on the client when the customer
    * tries to configure them. But this creates them even if they don't exist.
-   */ 
+   */
 
   // Data source
   const dataSource = await membrane
@@ -81,7 +81,9 @@ async function createSyncDependencies(
     .action(getElementKey(appObjectKey, "list-action"), {
       instanceKey: instanceKey,
     })
-    .create();
+    .get({
+      autoCreate: true,
+    });
 
   if (allowCreate) {
     await membrane
@@ -89,7 +91,9 @@ async function createSyncDependencies(
       .action(getElementKey(appObjectKey, "create-action"), {
         instanceKey: instanceKey,
       })
-      .create();
+      .get({
+        autoCreate: true,
+      });
   }
 
   if (allowUpdate) {
@@ -98,7 +102,9 @@ async function createSyncDependencies(
       .action(getElementKey(appObjectKey, "update-action"), {
         instanceKey: instanceKey,
       })
-      .create();
+      .get({
+        autoCreate: true,
+      });
   }
 
   if (allowDelete) {
@@ -107,7 +113,9 @@ async function createSyncDependencies(
       .action(getElementKey(appObjectKey, "delete-action"), {
         instanceKey: instanceKey,
       })
-      .create();
+      .get({
+        autoCreate: true,
+      });
   }
 
   return {
@@ -170,6 +178,7 @@ export async function POST(request: NextRequest) {
       integrationKey: sync.integrationKey,
       actionKey: getElementKey(sync.appObjectKey, "list-action"),
       syncId: sync._id.toString(),
+      instanceKey: sync.instanceKey,
     });
 
     return NextResponse.json({ success: true, data: sync });

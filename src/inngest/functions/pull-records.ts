@@ -55,7 +55,8 @@ export const syncRecordsFunction = inngest.createFunction(
   },
   { event: pullRecordsEvent },
   async ({ event, step, logger }) => {
-    const { userId, token, integrationKey, actionKey, syncId } = event.data;
+    const { userId, token, integrationKey, actionKey, syncId, instanceKey } =
+      event.data;
     let totalDocumentsSynced = 0;
 
     const FETCH_PAGE_TIMEOUT = 60000;
@@ -75,7 +76,7 @@ export const syncRecordsFunction = inngest.createFunction(
         async () => {
           const fetchPromise = integrationApp
             .connection(integrationKey)
-            .action(actionKey)
+            .action(actionKey, { instanceKey })
             .run({ cursor });
 
           const result = await withTimeout(

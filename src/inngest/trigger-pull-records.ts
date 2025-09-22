@@ -7,6 +7,7 @@ export async function triggerPullRecords(props: {
   integrationKey: string;
   actionKey: string;
   syncId: string;
+  instanceKey: string;
 }) {
   return await inngest.send({
     name: pullRecordsEvent,

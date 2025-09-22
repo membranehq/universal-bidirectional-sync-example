@@ -26,8 +26,6 @@ export { BillRecord } from "./bill-record";
 export { CreditNoteRecord } from "./credit-note-record";
 export { DriveRecord } from "./drive-record";
 export { DriveItemRecord } from "./drive-item-record";
-export { TimeoffBalanceRecord } from "./timeoff-balance-record";
-export { TimeoffRequestRecord } from "./timeoff-request-record";
 export { DealStageRecord } from "./deal-stage-record";
 export { CampaignMemberRecord } from "./campaign-member-record";
 export { DealProductRecord } from "./deal-product-record";

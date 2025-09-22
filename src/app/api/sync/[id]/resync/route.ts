@@ -53,6 +53,7 @@ export async function POST(
       integrationKey: sync.integrationKey,
       actionKey: getElementKey(sync.appObjectKey, "list-action"),
       syncId: id,
+      instanceKey: sync.instanceKey,
     });
 
     return NextResponse.json({ success: true });

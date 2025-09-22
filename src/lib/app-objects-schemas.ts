@@ -1,33 +1,5 @@
 import { z } from "zod";
 
-export const timeoffbalancesSchema = z.object({
-  id: z.string(),
-  employeeId: z.string(),
-  balanceHours: z.number(),
-  usedHours: z.number(),
-  policyType: z.string(),
-  createdTime: z.string().datetime(),
-  createdBy: z.string(),
-  updatedTime: z.string().datetime(),
-  updatedBy: z.string(),
-});
-
-export const timeoffrequestsSchema = z.object({
-  id: z.string(),
-  employeeId: z.string(),
-  approverId: z.string(),
-  status: z.string(),
-  employeeNote: z.string(),
-  units: z.string(),
-  amount: z.number(),
-  requestType: z.string(),
-  startTime: z.string().datetime(),
-  endTime: z.string().datetime(),
-  createdTime: z.string().datetime(),
-  createdBy: z.string(),
-  updatedTime: z.string().datetime(),
-  updatedBy: z.string(),
-});
 
 export const dealstagesSchema = z.object({
   id: z.string(),
@@ -1150,8 +1122,6 @@ export const ledgeraccountsSchema = z.object({
 });
 
 export type AppObjectKey =
-  | "timeoff-balances"
-  | "timeoff-requests"
   | "deal-stages"
   | "contacts"
   | "campaign-members"
