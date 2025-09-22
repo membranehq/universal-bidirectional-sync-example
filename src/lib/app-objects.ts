@@ -24,7 +24,6 @@ import {
   MessageSquare,
   FileMinus,
   HardDrive,
-  Clock,
   UserCheck,
   DollarSign,
   BookOpen,
