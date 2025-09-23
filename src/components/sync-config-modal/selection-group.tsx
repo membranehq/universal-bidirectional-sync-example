@@ -202,18 +202,21 @@ const CategoryPicker = ({
     return categorizedItems[category]?.length || 0;
   };
 
+  const displayCategory = (category: string) =>
+    category === "All" ? "All categories" : category;
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
           size="sm"
-          className="h-8 sm:h-9 px-2 sm:px-3 min-w-[120px] sm:min-w-[160px] bg-white text-gray-700 border-gray-300 hover:bg-gray-50 text-xs sm:text-sm font-bold"
+          className="h-8 sm:h-9 px-2 sm:px-3 min-w-[120px] sm:min-w-[160px] text-xs sm:text-sm font-bold bg-blue-50 text-blue-700 border-blue-500 hover:bg-blue-100 ring-2 ring-blue-200 shadow-sm"
         >
           {getCategoryIcon(selectedCategory) && React.createElement(getCategoryIcon(selectedCategory)!, {
             className: "w-3 h-3 sm:w-4 sm:h-4 mr-1",
           })}
-          {selectedCategory}
+          {displayCategory(selectedCategory)}
           <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 ml-1 opacity-70" />
         </Button>
       </PopoverTrigger>
@@ -237,7 +240,7 @@ const CategoryPicker = ({
                       {getCategoryIcon(category) && React.createElement(getCategoryIcon(category)!, {
                         className: "w-4 h-4",
                       })}
-                      {category}
+                      {displayCategory(category)}
                     </div>
                     <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
                       {getCategoryCount(category)}

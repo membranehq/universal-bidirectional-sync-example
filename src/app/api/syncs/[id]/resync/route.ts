@@ -42,7 +42,7 @@ export async function POST(
 
     await Sync.updateOne(
       { _id: id },
-      { $set: { status: SyncStatusObject.IN_PROGRESS } }
+      { $set: { status: SyncStatusObject.IN_PROGRESS, pullError: null } }
     );
 
     await Record.deleteMany({ syncId: id, userId: dbUserId });

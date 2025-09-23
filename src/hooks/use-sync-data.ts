@@ -13,7 +13,7 @@ export function useSyncData() {
   const { id } = useParams();
 
   const { data, error, isLoading, mutate } = useSWR<SyncData>(
-    id ? [`/api/sync/${id}`, "token"] : null,
+    id ? [`/api/syncs/${id}`, "token"] : null,
     async ([url]) => {
       const response = await axios.get(url);
       return response.data;

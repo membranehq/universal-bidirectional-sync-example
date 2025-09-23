@@ -9,6 +9,11 @@ export function PullCountdown({ nextPullTime, pullInterval }: PullCountdownProps
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [nextPull, setNextPull] = useState<number>(nextPullTime);
 
+  // Reset countdown when props change
+  useEffect(() => {
+    setNextPull(nextPullTime);
+  }, [nextPullTime, pullInterval]);
+
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = Date.now();

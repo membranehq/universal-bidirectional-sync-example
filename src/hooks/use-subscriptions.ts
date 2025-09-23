@@ -11,7 +11,7 @@ export function useSubscriptions() {
   const { id } = useParams();
 
   const { data, error, isLoading, mutate } = useSWR<SubscriptionsData>(
-    id ? [`/api/sync/${id}/subscriptions`, "token"] : null,
+    id ? [`/api/syncs/${id}/subscriptions`, "token"] : null,
     async ([url]) => {
       const response = await axios.get(url);
       return response.data;

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { Subscription } from "./Subscription";
 import { useSubscriptions } from "@/hooks/use-subscriptions";
 import appObjects from "@/lib/app-objects";
@@ -9,21 +9,35 @@ import { AppObjectKey } from "@/lib/app-objects-schemas";
 
 interface SyncSubscriptionsProps {
   appObjectKey: AppObjectKey;
-  syncId: string;
 }
 
-export function SyncSubscriptions({
-  appObjectKey,
-  syncId,
-}: SyncSubscriptionsProps) {
-  const { subscriptions, isLoading, error } = useSubscriptions();
+function SyncSubscriptionsComponent({ appObjectKey }: SyncSubscriptionsProps) {
+  const {
+    subscriptions,
+    isLoading,
+    error,
+    mutate: refreshSubscriptions,
+  } = useSubscriptions();
   const [isMinimized, setIsMinimized] = useState(false);
 
-  const eventTypes = [
-    { key: "data-record-created", label: `${appObjects[appObjectKey]?.label} Created` },
-    { key: "data-record-updated", label: `${appObjects[appObjectKey]?.label} Updated` },
-    { key: "data-record-deleted", label: `${appObjects[appObjectKey]?.label} Deleted` },
-  ] as const;
+  const eventTypes = useMemo(
+    () =>
+      [
+        {
+          key: "data-record-created",
+          label: `${appObjects[appObjectKey]?.label} Created`,
+        },
+        {
+          key: "data-record-updated",
+          label: `${appObjects[appObjectKey]?.label} Updated`,
+        },
+        {
+          key: "data-record-deleted",
+          label: `${appObjects[appObjectKey]?.label} Deleted`,
+        },
+      ] as const,
+    [appObjectKey]
+  );
 
   if (error) {
     return (
@@ -62,8 +76,9 @@ export function SyncSubscriptions({
         </Button>
       </div>
       <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${isMinimized ? "max-h-0 opacity-0" : "max-h-[1000px] opacity-100"
-          }`}
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          isMinimized ? "max-h-0 opacity-0" : "max-h-[1000px] opacity-100"
+        }`}
       >
         {isLoading ? (
           <div className="grid grid-cols-3 gap-4">
@@ -95,7 +110,7 @@ export function SyncSubscriptions({
                 eventType={key}
                 label={label}
                 appObjectKey={appObjectKey}
-                syncId={syncId}
+                refreshSubscriptions={refreshSubscriptions}
               />
             ))}
           </div>
@@ -104,3 +119,8 @@ export function SyncSubscriptions({
     </div>
   );
 }
+
+export const SyncSubscriptions = memo(
+  SyncSubscriptionsComponent,
+  (prev, next) => prev.appObjectKey === next.appObjectKey
+);

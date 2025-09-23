@@ -10,6 +10,7 @@ const SyncActivitySchema: Schema = new Schema(
     type: {
       type: String,
       enum: [
+        "sync_pull_failed",
         "sync_syncing",
         "sync_completed",
         "sync_resync_triggered",

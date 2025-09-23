@@ -3,7 +3,7 @@ import connectDB from "@/lib/mongodb";
 import { ensureUser } from "@/lib/ensureUser";
 import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
-import { SyncActivity } from "@/models/sync-activity";
+
 import {
   ActionRunError,
   IntegrationAppClient as Membrane,
@@ -111,23 +111,6 @@ export async function PUT(
       record.syncStatus = SyncStatusObject.COMPLETED;
       await record.save();
 
-      try {
-        await SyncActivity.create({
-          syncId,
-          userId: dbUserId,
-          type: "event_record_updated",
-          recordId: record._id.toString(),
-          metadata: {
-            recordId: record.externalId,
-            integrationKey: sync.integrationKey,
-            appObjectKey: sync.appObjectKey,
-            syncStatus: record.syncStatus,
-          },
-        });
-      } catch (error) {
-        console.error("Failed to create sync activity:", error);
-        // Don't throw error to avoid breaking the main flow
-      }
     } catch (membraneError) {
       console.error("Failed to update record in Membrane:", membraneError);
 
@@ -217,23 +200,6 @@ export async function DELETE(
     // Delete the record from our database first
     try {
       await record.deleteOne();
-
-      try {
-        await SyncActivity.create({
-          syncId,
-          userId: dbUserId,
-          type: "event_record_deleted",
-          recordId: record._id.toString(),
-          metadata: {
-            recordId: record.externalId,
-            integrationKey: sync.integrationKey,
-            appObjectKey: sync.appObjectKey,
-          },
-        });
-      } catch (error) {
-        console.error("Failed to create sync activity:", error);
-        // Don't throw error to avoid breaking the main flow
-      }
     } catch (dbError) {
       console.error("Failed to delete record from database:", dbError);
       return NextResponse.json(

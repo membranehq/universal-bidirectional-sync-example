@@ -12,6 +12,7 @@ import {
   Loader2,
   AlertTriangle,
   ExternalLink,
+  Eye,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -19,23 +20,24 @@ import { PullCountdown } from "./PullCountdown";
 import { ExternalEventSubscription } from "@membranehq/sdk";
 import { useMembraneToken } from "@/hooks/use-integration-token";
 import axios from "axios";
-import { mutate } from "swr";
 import { AppObjectKey } from "@/lib/app-objects-schemas";
+import { JsonModal } from "@/components/ui/json-modal";
 
 interface SubscriptionProps {
   subscription: ExternalEventSubscription | null;
   eventType: string;
   label: string;
   appObjectKey: AppObjectKey;
-  syncId: string;
+  refreshSubscriptions: () => void;
 }
 
 export function Subscription({
   subscription,
   label,
-  syncId,
+  refreshSubscriptions,
 }: SubscriptionProps) {
   const [pulling, setPulling] = useState(false);
+  const [showObjectModal, setShowObjectModal] = useState(false);
   const isActive = subscription?.status === "subscribed";
   const hasError = subscription?.status === "error";
   const isRealTime = subscription?.isRealTime || false;
@@ -61,7 +63,7 @@ export function Subscription({
 
       toast.success("Pull events triggered successfully!");
 
-      mutate(`/api/sync/${syncId}`);
+      refreshSubscriptions();
     } catch (error) {
       toast.error("Failed to trigger pull events");
       console.error("Failed to trigger pull events", error);
@@ -105,10 +107,10 @@ export function Subscription({
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs">
                     <div className="flex items-center gap-2">
-                      <AlertTriangle className="w-4 h-4 text-red-500" />
+                      <AlertTriangle className="w-4 h-4 text-red-500 flex-shrink-0" />
                       <span className="font-medium">Error:</span>
                     </div>
-                    <p className="mt-1 text-sm">
+                    <p className="mt-1 text-sm break-words overflow-hidden">
                       {typeof subscription.error === "object" &&
                         subscription.error.message
                         ? subscription.error.message
@@ -125,22 +127,36 @@ export function Subscription({
             </div>
           </div>
 
-          {(requiresPull || requiresFullSync) && subscription?.id && (
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={handlePull}
-              disabled={pulling}
-              className="flex items-center gap-2"
-            >
-              {pulling ? (
-                <Loader2 className="w-3 h-3 animate-spin" />
-              ) : (
-                <RefreshCw className="w-3 h-3" />
-              )}
-              {pulling ? "Pulling..." : "Pull"}
-            </Button>
-          )}
+          <div className="flex items-center gap-2">
+            {hasError && subscription?.error && (
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setShowObjectModal(true)}
+                className="flex items-center gap-2"
+              >
+                <Eye className="w-3 h-3" />
+                See Error Logs
+              </Button>
+            )}
+
+            {(requiresPull || requiresFullSync) && subscription?.id && (
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={handlePull}
+                disabled={pulling}
+                className="flex items-center gap-2"
+              >
+                {pulling ? (
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                ) : (
+                  <RefreshCw className="w-3 h-3" />
+                )}
+                {pulling ? "Pulling..." : "Pull"}
+              </Button>
+            )}
+          </div>
         </div>
 
         {subscription && (
@@ -179,9 +195,19 @@ export function Subscription({
                   </div>
                 )}
             </div>
+
           </div>
         )}
       </div>
+
+      {subscription?.error && (
+        <JsonModal
+          open={showObjectModal}
+          onOpenChange={setShowObjectModal}
+          data={subscription.error}
+          title={`${label} Event Subscription - Error Log`}
+        />
+      )}
     </TooltipProvider>
   );
 }

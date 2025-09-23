@@ -18,7 +18,7 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
   const previousActivitiesRef = useRef<ISyncActivity[]>([]);
 
   const { data: activitiesData, error: activitiesError, isLoading: activitiesLoading, isValidating, mutate } = useSWR(
-    `/api/sync/${syncId}/activities`,
+    `/api/syncs/${syncId}/activities`,
     async (url) => {
       const response = await axios.get(url);
       return response.data;
@@ -77,6 +77,8 @@ export const SyncActivities = memo(function SyncActivities({ syncId }: SyncActiv
     switch (type) {
       case 'sync_syncing':
         return 'Sync in Progress';
+      case 'sync_pull_failed':
+        return 'Sync Failed';
       case 'sync_completed':
         return 'Sync Completed';
       case 'sync_resync_triggered':

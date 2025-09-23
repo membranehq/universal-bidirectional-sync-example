@@ -70,7 +70,7 @@ export const Records = memo(function Records({
   return (
     <>
       <div className="border rounded-lg overflow-hidden">
-        {renderHeader && (
+        {renderHeader && !isLoading && (
           <div className="bg-gray-50 p-3 text-sm text-gray-700 pl-6 border-b">
             {renderHeader()}
           </div>

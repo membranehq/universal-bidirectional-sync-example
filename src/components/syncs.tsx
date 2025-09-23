@@ -30,7 +30,7 @@ function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
   return (
     <Link
       key={sync.integrationKey + sync.appObjectKey + sync._id}
-      href={`/sync/${sync._id}`}
+      href={`/syncs/${sync._id}`}
       className="block group"
     >
       <div className="flex items-center flex-row gap-2 border-b border-gray-200 hover:bg-muted/70 cursor-pointer transition-colors py-4 px-2">
@@ -80,20 +80,21 @@ function SyncItem({ sync, logoUri, integrationName }: SyncItemProps) {
                 })
                 : "N/A"}
             </span>
-            {sync.pullError && (
-              <span
-                className="flex items-center gap-1 bg-red-100 text-red-700 rounded-full px-2 py-0.5 text-xs font-medium max-w-xs truncate cursor-pointer relative group"
-                title={sync.pullError}
-              >
-                <AlertCircle className="w-4 h-4 text-red-500" />
-                <span className="font-medium">Error:</span>
-                <span className="truncate max-w-[120px] inline-block align-bottom">
-                  {sync.pullError}
-                </span>
-              </span>
-            )}
+
           </div>
         </div>
+        {sync.pullError && (
+          <span
+            className="flex items-center gap-1 bg-red-100 text-red-700 rounded-full px-2 py-0.5 text-xs font-medium max-w-xs truncate cursor-pointer relative group"
+            title={sync.pullError}
+          >
+            <AlertCircle className="w-4 h-4 text-red-500" />
+            <span className="font-medium">Error:</span>
+            <span className="truncate max-w-[120px] inline-block align-bottom">
+              {sync.pullError}
+            </span>
+          </span>
+        )}
         <div className="flex-shrink-0 flex items-center gap-2">
           <StatusBadge status={sync.status} />
           <div className="opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:translate-x-1">
@@ -113,7 +114,7 @@ export function Syncs({ onEmptyStateChange }: SyncsProps = {}) {
   const { data, error, isLoading } = useSWR<{
     data: (ISync & { _id: string; recordCount: number })[];
   }>(
-    ["/api/sync", "token"],
+    ["/api/syncs", "token"],
     async ([url]) => {
       const response = await axios.get(url);
       return response.data;

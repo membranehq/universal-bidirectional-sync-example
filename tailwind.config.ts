@@ -9,6 +9,21 @@ export default {
   ],
   theme: {
   	extend: {
+  		fontFamily: {
+  			mono: [
+  				'SF Mono',
+  				'Monaco',
+  				'Inconsolata',
+  				'Roboto Mono',
+  				'Oxygen Mono',
+  				'Ubuntu Monospace',
+  				'Source Code Pro',
+  				'Fira Mono',
+  				'Droid Sans Mono',
+  				'Courier New',
+  				'monospace',
+  			],
+  		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

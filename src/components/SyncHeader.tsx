@@ -9,7 +9,7 @@ import {
   Trash,
 } from "lucide-react";
 import Image from "next/image";
-import useSWRMutation from "swr/mutation";
+import { useResync } from "@/hooks/use-resync";
 import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -25,25 +25,10 @@ export function SyncHeader({
 }) {
   const router = useRouter();
 
-  const { trigger: triggerResync, isMutating: resyncing } = useSWRMutation(
-    `/api/sync/${sync._id}/resync`,
-    async (url: string) => {
-      const response = await axios.post(url, {}, {
-        headers: { "Content-Type": "application/json" },
-      });
-      return response.data;
-    }
-  );
+  const { resync, isResyncing: resyncing } = useResync(sync._id);
 
   const handleResync = async () => {
-    try {
-      await triggerResync();
-      toast.success("Resync triggered!");
-    } catch (err: unknown) {
-      let message = "Failed to resync";
-      if (err instanceof Error) message = err.message;
-      toast.error(message);
-    }
+    await resync();
   };
 
   const handleDelete = async () => {
@@ -54,7 +39,7 @@ export function SyncHeader({
     }
 
     try {
-      await axios.delete(`/api/sync/${sync._id}`);
+      await axios.delete(`/api/syncs/${sync._id}`);
 
       toast.success("Sync deleted");
       router.push("/");
@@ -141,7 +126,6 @@ export function SyncHeader({
       <div className="mt-8 mb-8">
         <SyncSubscriptions
           appObjectKey={sync.appObjectKey}
-          syncId={sync._id}
         />
       </div>
     </>

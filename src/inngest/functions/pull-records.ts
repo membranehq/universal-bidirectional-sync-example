@@ -17,12 +17,14 @@ const handlePullFailure = async ({
   eventData: Record<string, unknown>;
   errorMessage: string;
 }) => {
-  const syncId = eventData.syncId as string;
-  const userId = eventData.userId as string;
+  const syncId = eventData.syncId;
+  const userId = eventData.userId;
+
+  console.error({ errorMessage });
 
   await Sync.findByIdAndUpdate(syncId, {
     status: SyncStatusObject.FAILED,
-    error: errorMessage,
+    pullError: errorMessage,
   });
 
   try {
@@ -44,7 +46,7 @@ const handlePullFailure = async ({
 export const syncRecordsFunction = inngest.createFunction(
   {
     id: "sync-records",
-    retries: 3,
+    retries: 1,
     onFailure: async (props) => {
       const event = props.event.data;
       const errorMessage = event.error.message;

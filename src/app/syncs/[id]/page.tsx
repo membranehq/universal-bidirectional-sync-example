@@ -17,7 +17,8 @@ export default function SyncPage() {
     appObjectKey: sync?.appObjectKey as AppObjectKey,
     syncId: sync?._id.toString() || "",
     syncStatus: sync?.status,
-  }), [sync?.appObjectKey, sync?._id, sync?.status]);
+    syncError: sync?.pullError,
+  }), [sync?.appObjectKey, sync?._id, sync?.status, sync?.pullError]);
 
   const syncActivitiesProps = useMemo(() => ({
     syncId: sync?._id || "",
@@ -61,3 +62,4 @@ export default function SyncPage() {
     </div>
   );
 }
+  

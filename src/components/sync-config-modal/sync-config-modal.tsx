@@ -54,7 +54,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
         setSyncing(false);
         return;
       }
-      await axios.post("/api/sync", {
+      await axios.post("/api/syncs", {
         integrationKey: selectedIntegration?.key,
         appObjectKey: selectedAppObjectKey,
         instanceKey: instanceKey.current,
@@ -64,7 +64,7 @@ function SyncConfigModal({ trigger }: { trigger: React.ReactNode }) {
         },
       });
 
-      mutate("/api/sync");
+      mutate("/api/syncs");
 
       setOpen(false);
     } catch (error) {
