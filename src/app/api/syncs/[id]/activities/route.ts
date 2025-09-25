@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/lib/mongodb";
-import { ensureUser } from "@/lib/ensureUser";
+import { ensureAuth, getUserData } from "@/lib/ensureAuth";
 import { Sync } from "@/models/sync";
 import { SyncActivity } from "@/models/sync-activity";
 
@@ -10,23 +10,13 @@ export async function GET(
 ) {
   try {
     await connectDB();
-    const result = await ensureUser(request);
+    ensureAuth(request);
 
-    if (result instanceof NextResponse) {
-      return result;
-    }
-
-    const { id: dbUserId } = result;
-
-    if (!dbUserId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-
-    const { id } = await params;
+    const { user } = getUserData(request);
 
     const sync = await Sync.findOne({
-      _id: id,
-      userId: dbUserId,
+      _id: user.id,
+      userId: user.id,
     }).lean();
 
     if (!sync) {
@@ -36,10 +26,14 @@ export async function GET(
       );
     }
 
+    const { id: syncId } = await params;
+
     const { searchParams } = new URL(request.url);
     const limit = parseInt(searchParams.get("limit") || "50");
 
-    const activities = await await SyncActivity.find({ syncId: id })
+    const activities = await await SyncActivity.find({
+      syncId,
+    })
       .sort({ createdAt: -1 })
       .limit(limit)
       .lean();

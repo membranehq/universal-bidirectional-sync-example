@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/lib/mongodb";
-import { ensureUser } from "@/lib/ensureUser";
+import { ensureAuth, getUserData } from "@/lib/ensureAuth";
 import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
 
@@ -17,24 +17,16 @@ export async function PUT(
 ) {
   try {
     await connectDB();
-    const result = await ensureUser(request);
+    ensureAuth(request);
 
-    if (result instanceof NextResponse) {
-      return result;
-    }
-
-    const { id: dbUserId, membraneAccessToken } = result;
-
-    if (!dbUserId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const { membraneAccessToken, user } = getUserData(request);
 
     const { id: syncId, recordId } = await params;
     const body = await request.json();
 
     const sync = await Sync.findOne({
       _id: syncId,
-      userId: dbUserId,
+      userId: user.id,
     }).lean();
 
     if (!sync) {
@@ -47,7 +39,7 @@ export async function PUT(
     const record = await Record.findOne({
       _id: recordId,
       syncId: syncId,
-      userId: dbUserId,
+      userId: user.id,
     });
 
     if (!record) {
@@ -92,7 +84,7 @@ export async function PUT(
       record.syncError = undefined;
       await record.save();
 
-      const updateActionKey = getElementKey(sync.appObjectKey, "update-action")
+      const updateActionKey = getElementKey(sync.appObjectKey, "update-action");
 
       // Update the record in the integration
       const result = await membrane
@@ -105,12 +97,9 @@ export async function PUT(
           ...body,
         });
 
-        console.log({result})
-
       // Mark as completed after successful integration update
       record.syncStatus = SyncStatusObject.COMPLETED;
       await record.save();
-
     } catch (membraneError) {
       console.error("Failed to update record in Membrane:", membraneError);
 
@@ -151,17 +140,9 @@ export async function DELETE(
 ) {
   try {
     await connectDB();
-    const result = await ensureUser(request);
+    ensureAuth(request);
 
-    if (result instanceof NextResponse) {
-      return result;
-    }
-
-    const { id: dbUserId, membraneAccessToken } = result;
-
-    if (!dbUserId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const { membraneAccessToken, user } = getUserData(request);
 
     const { id: syncId, recordId } = await params;
 
@@ -174,7 +155,7 @@ export async function DELETE(
 
     const sync = await Sync.findOne({
       _id: syncId,
-      userId: dbUserId,
+      userId: user.id,
     }).lean();
 
     if (!sync) {
@@ -187,7 +168,7 @@ export async function DELETE(
     const record = await Record.findOne({
       _id: recordId,
       syncId: syncId,
-      userId: dbUserId,
+      userId: user.id,
     });
 
     if (!record) {

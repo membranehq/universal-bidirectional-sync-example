@@ -1,25 +1,34 @@
 import { generateCustomerAccessToken } from "./integration-token";
-import { getAuthUser } from "./auth-utils";
+import { getAuthUserFromReqCookies } from "./auth-utils";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function ensureUser(request: NextRequest) {
-  const user = await getAuthUser(request);
+export function ensureAuth(request: NextRequest) {
+  const user = getAuthUserFromReqCookies(request);
 
   if (!user) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
+}
+
+export function getUserData(request: NextRequest) {
+  const user = getAuthUserFromReqCookies(request);
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
   /**
    * Generate a membrane access token for the user.
    * This is needed for the user to access the membrane API.
    */
-  const token = await generateCustomerAccessToken({
+
+  const token = generateCustomerAccessToken({
     id: user.id,
     name: `${user.email}-${user.id}`,
   });
 
   return {
-    id: user.id,
-    email: user.email,
+    user,
     membraneAccessToken: token,
   };
 }

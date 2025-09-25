@@ -17,9 +17,7 @@ export class IntegrationTokenError extends Error {
   }
 }
 
-export async function generateAccessToken(
-  tokenData: TokenData
-): Promise<string> {
+export function generateAccessToken(tokenData: TokenData) {
   if (!WORKSPACE_KEY || !WORKSPACE_SECRET) {
     throw new IntegrationTokenError(
       "Integration.app credentials not configured"
@@ -40,17 +38,9 @@ export async function generateAccessToken(
   }
 }
 
-export async function generateCustomerAccessToken(tokenData: {
+export function generateCustomerAccessToken(tokenData: {
   id: string;
   name: string;
-}): Promise<string> {
-  return generateAccessToken(tokenData);
-}
-
-export async function generateAdminAccessToken(): Promise<string> {
-  const tokenData: TokenData = {
-    isAdmin: true,
-  };
-
+}) {
   return generateAccessToken(tokenData);
 }

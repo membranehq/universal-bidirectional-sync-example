@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/lib/mongodb";
-import { ensureUser } from "@/lib/ensureUser";
+import { ensureAuth, getUserData } from "@/lib/ensureAuth";
 import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
 import { SyncActivity } from "@/models/sync-activity";
@@ -17,17 +17,9 @@ export async function POST(
 ) {
   try {
     await connectDB();
-    const result = await ensureUser(request);
+    ensureAuth(request);
 
-    if (result instanceof NextResponse) {
-      return result;
-    }
-
-    const { id: dbUserId, membraneAccessToken } = result;
-
-    if (!dbUserId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const { membraneAccessToken, user } = getUserData(request);
 
     const { id: syncId } = await params;
     const body = await request.json();
@@ -43,7 +35,7 @@ export async function POST(
     // Verify the sync exists and belongs to the user
     const sync = await Sync.findOne({
       _id: syncId,
-      userId: dbUserId,
+      userId: user.id,
     }).lean();
 
     if (!sync) {
@@ -54,7 +46,7 @@ export async function POST(
     }
 
     const record = new Record({
-      userId: dbUserId,
+      userId: user.id,
       syncId: syncId,
       data: data,
       syncStatus: SyncStatusObject.PENDING,
@@ -83,8 +75,7 @@ export async function POST(
       // Create the record in the integration
       const actionKey = getElementKey(sync.appObjectKey, "create-action");
 
-      console.log({actionKey, sync })
-
+      console.log({ actionKey, sync });
 
       const result = await membrane
         .connection(sync.integrationKey)
@@ -92,8 +83,6 @@ export async function POST(
           instanceKey: sync.instanceKey,
         })
         .run(data);
-
-
 
       // Update the record with the integration data and mark as completed
       record.externalId = result.output.id;
@@ -113,7 +102,7 @@ export async function POST(
     try {
       await SyncActivity.create({
         syncId,
-        userId: dbUserId,
+        userId: user.id,
         type: "event_record_created",
         recordId: record._id.toString(),
         metadata: {
@@ -153,17 +142,9 @@ export async function GET(
 ) {
   try {
     await connectDB();
-    const result = await ensureUser(request);
+    ensureAuth(request);
 
-    if (result instanceof NextResponse) {
-      return result;
-    }
-
-    const { id: dbUserId } = result;
-
-    if (!dbUserId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const { membraneAccessToken, user } = getUserData(request);
 
     const { id: syncId } = await params;
     const { searchParams } = new URL(request.url);
@@ -183,7 +164,7 @@ export async function GET(
     // Verify the sync exists and belongs to the user
     const sync = await Sync.findOne({
       _id: syncId,
-      userId: dbUserId,
+      userId: user.id,
     }).lean();
 
     if (!sync) {
@@ -199,13 +180,13 @@ export async function GET(
     // Get total count of records for this sync
     const totalRecords = await Record.countDocuments({
       syncId: syncId,
-      userId: dbUserId,
+      userId: user.id,
     });
 
     // Get paginated records for this sync, sorted by creation date (newest first)
     const records = await Record.find({
       syncId: syncId,
-      userId: dbUserId,
+      userId: user.id,
     })
       .sort({ createdAt: -1 })
       .skip(skip)

@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/lib/mongodb";
 
-import { ensureUser } from "@/lib/ensureUser";
+import { ensureAuth, getUserData } from "@/lib/ensureAuth";
 import { z } from "zod";
 import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
@@ -125,20 +125,12 @@ async function createSyncDependencies(
 }
 
 export async function POST(request: NextRequest) {
+  ensureAuth(request);
+
   try {
     await connectDB();
 
-    const result = await ensureUser(request);
-
-    if (result instanceof NextResponse) {
-      return result;
-    }
-
-    const { id: dbUserId, membraneAccessToken } = result;
-
-    if (!dbUserId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const { membraneAccessToken, user } = getUserData(request);
 
     const requestBody = schema.safeParse(await request.json());
 
@@ -152,7 +144,7 @@ export async function POST(request: NextRequest) {
     const { integrationKey, appObjectKey, instanceKey } = requestBody.data;
 
     const membrane = new IntegrationAppClient({
-      token: membraneAccessToken!,
+      token: membraneAccessToken,
     });
 
     const { integrationName, integrationLogoUri } =
@@ -167,13 +159,13 @@ export async function POST(request: NextRequest) {
       integrationKey,
       appObjectKey,
       instanceKey,
-      userId: dbUserId,
+      userId: user.id,
       integrationName: integrationName,
       integrationLogoUri: integrationLogoUri,
     });
 
     await triggerPullRecords({
-      userId: dbUserId,
+      userId: user.id,
       token: membraneAccessToken!,
       integrationKey: sync.integrationKey,
       actionKey: getElementKey(sync.appObjectKey, "list-action"),
@@ -195,26 +187,18 @@ export async function GET(request: NextRequest) {
   try {
     await connectDB();
 
-    const result = await ensureUser(request);
+    ensureAuth(request);
 
-    if (result instanceof NextResponse) {
-      return result;
-    }
+    const { user } = getUserData(request);
 
-    const { id: dbUserId } = result;
-
-    if (!dbUserId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-
-    const syncs = await Sync.find({ userId: dbUserId })
+    const syncs = await Sync.find({ userId: user.id })
       .sort({ createdAt: -1 })
       .lean();
 
     // Efficiently get record counts for all syncs in one query
     const syncIds = syncs.map((sync) => sync._id.toString());
     const recordCounts = await Record.aggregate([
-      { $match: { syncId: { $in: syncIds }, userId: dbUserId } },
+      { $match: { syncId: { $in: syncIds }, userId: user.id } },
       { $group: { _id: "$syncId", count: { $sum: 1 } } },
     ]);
     const recordCountMap = Object.fromEntries(

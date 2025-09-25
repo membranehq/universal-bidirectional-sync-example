@@ -1,18 +1,14 @@
 import { NextResponse, NextRequest } from "next/server";
-import { ensureUser } from "@/lib/ensureUser";
+import { ensureAuth, getUserData } from "@/lib/ensureAuth";
 import connectDB from "@/lib/mongodb";
 
 export async function GET(request: NextRequest) {
+  ensureAuth(request);
+
   try {
     await connectDB();
 
-    const result = await ensureUser(request);
-
-    if (result instanceof NextResponse) {
-      return result;
-    }
-
-    const { membraneAccessToken } = result;
+    const { membraneAccessToken } = getUserData(request);
 
     return NextResponse.json({ token: membraneAccessToken });
   } catch (error) {

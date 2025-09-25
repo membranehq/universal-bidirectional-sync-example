@@ -5,9 +5,7 @@ export interface AuthUser {
   email: string;
 }
 
-export async function getAuthUser(
-  request: NextRequest
-): Promise<AuthUser | null> {
+export function getAuthUserFromReqCookies(request: NextRequest) {
   try {
     const userDataCookie = request.cookies.get("app-auth");
 
@@ -26,11 +24,4 @@ export async function getAuthUser(
     console.error("Auth verification error:", error);
     return null;
   }
-}
-
-export function requireAuth(user: AuthUser | null): AuthUser {
-  if (!user) {
-    throw new Error("Authentication required");
-  }
-  return user;
 }

@@ -1,16 +1,14 @@
-import { ensureUser } from "@/lib/ensureUser";
+import { ensureAuth, getUserData } from "@/lib/ensureAuth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  try {
-    const result = await ensureUser(request);
+  ensureAuth(request);
 
-    if (result instanceof NextResponse) {
-      return result;
-    }
+  try {
+    const { user } = getUserData(request);
 
     return NextResponse.json({
-      user: { id: result.id, email: result.email },
+      user: { id: user.id, email: user.email },
       message: "Authentication valid",
     });
   } catch (error) {

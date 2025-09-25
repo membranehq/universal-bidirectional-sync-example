@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/lib/mongodb";
-import { ensureUser } from "@/lib/ensureUser";
+import { ensureAuth, getUserData } from "@/lib/ensureAuth";
 import { Sync } from "@/models/sync";
 import {
   ExternalEventSubscription,
@@ -71,22 +71,15 @@ export async function GET(
 ) {
   try {
     await connectDB();
-    const result = await ensureUser(request);
+    ensureAuth(request);
 
-    if (result instanceof NextResponse) {
-      return result;
-    }
-
-    const { id: dbUserId, membraneAccessToken } = result;
-    if (!dbUserId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const { membraneAccessToken, user } = getUserData(request);
 
     const { id } = await params;
 
     const sync = await Sync.findOne({
       _id: id,
-      userId: dbUserId,
+      userId: user.id,
     }).lean();
 
     if (!sync) {

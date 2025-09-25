@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/lib/mongodb";
-import { ensureUser } from "@/lib/ensureUser";
+import { ensureAuth, getUserData } from "@/lib/ensureAuth";
 import { Sync } from "@/models/sync";
 import { Record } from "@/models/record";
 import { IntegrationAppClient } from "@membranehq/sdk";
@@ -92,22 +92,15 @@ export async function GET(
 ) {
   try {
     await connectDB();
-    const result = await ensureUser(request);
+    ensureAuth(request);
 
-    if (result instanceof NextResponse) {
-      return result;
-    }
-
-    const { id: dbUserId } = result;
-    if (!dbUserId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const { membraneAccessToken, user } = getUserData(request);
 
     const { id } = await params;
 
     const sync = await Sync.findOne({
       _id: id,
-      userId: dbUserId,
+      userId: user.id,
     }).lean();
 
     if (!sync) {
@@ -127,7 +120,7 @@ export async function GET(
     // Calculate record count for this sync
     const recordCount = await Record.countDocuments({
       syncId: id,
-      userId: dbUserId,
+      userId: user.id,
     });
 
     return NextResponse.json({
@@ -152,19 +145,12 @@ export async function DELETE(
   try {
     await connectDB();
 
-    const result = await ensureUser(request);
+    ensureAuth(request);
 
-    if (result instanceof NextResponse) {
-      return result;
-    }
+    const { membraneAccessToken, user } = getUserData(request);
 
-    const { id: dbUserId, membraneAccessToken } = result;
-
-    if (!dbUserId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
     const { id } = await params;
-    const sync = await Sync.findOne({ _id: id, userId: dbUserId });
+    const sync = await Sync.findOne({ _id: id, userId: user.id });
     if (!sync) {
       return NextResponse.json(
         { success: false, message: "Sync not found" },
