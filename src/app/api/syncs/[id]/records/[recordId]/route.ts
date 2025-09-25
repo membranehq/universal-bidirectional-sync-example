@@ -87,7 +87,7 @@ export async function PUT(
       const updateActionKey = getElementKey(sync.appObjectKey, "update-action");
 
       // Update the record in the integration
-      const result = await membrane
+      await membrane
         .connection(sync.integrationKey)
         .action(updateActionKey, {
           instanceKey: sync.instanceKey,

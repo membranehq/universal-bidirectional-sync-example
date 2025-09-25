@@ -94,7 +94,7 @@ export async function GET(
     await connectDB();
     ensureAuth(request);
 
-    const { membraneAccessToken, user } = getUserData(request);
+    const { user } = getUserData(request);
 
     const { id } = await params;
 
