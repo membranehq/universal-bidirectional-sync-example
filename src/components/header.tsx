@@ -18,7 +18,7 @@ export function Header() {
           <div className="flex justify-between h-14 sm:h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
-                <Image src="/logo.svg" alt="Logo" width={28} height={28} className="sm:w-8 sm:h-8" />
+                <Image src="/logo.png" alt="Membrane Logo" width={28} height={28} className="sm:w-8 sm:h-8" />
               </div>
             </div>
             <div className="flex items-center space-x-2 sm:space-x-4">

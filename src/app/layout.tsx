@@ -19,6 +19,19 @@ export const metadata: Metadata = {
     default: "Bidirectional Sync Example",
     template: "%s | Bidirectional Sync Example",
   },
+  icons: {
+    icon: [
+      {
+        url: '/icon.png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/icon-dark.png',
+        media: '(prefers-color-scheme: dark)',
+      },
+    ],
+    apple: '/apple-icon.png',
+  },
 };
 
 export default function RootLayout({
