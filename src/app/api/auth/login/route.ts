@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
 
-    // Set HTTP-only cookie with user data (never expire)
+    // Set HTTP-only cookie with user data (lasts 10 years)
     const userData = JSON.stringify({ id: userId, email });
 
     response.cookies.set("app-auth", userData, {
@@ -32,6 +32,7 @@ export async function POST(request: NextRequest) {
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
+      maxAge: 60 * 60 * 24 * 365 * 10, // 10 years in seconds
     });
 
     return response;
